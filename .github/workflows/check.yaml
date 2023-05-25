@@ -42,4 +42,4 @@ jobs:
         continue-on-error: true
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --tests
+          args: --tests --target=wasm32-wasi
