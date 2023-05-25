@@ -16,9 +16,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ✨ Setup Wasmer
-        uses: wasmerio/setup-wasmer@v2
-
       - name: ⚡️ Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
@@ -33,7 +30,6 @@ jobs:
           profile: minimal
           toolchain: stable
           components: clippy
-          target: wasm32-wasi
 
       - name: 🧪 Test
         uses: actions-rs/cargo@v1

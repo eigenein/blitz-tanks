@@ -4,3 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0.71"
+axum = { version = "0.6.18", default-features = false, features = ["tokio", "http1", "http2", "tracing"] }
+sentry = { version = "0.31.3", default-features = false, features = ["anyhow", "backtrace", "contexts", "panic", "tracing", "reqwest", "rustls"] }
+sled = "0.34.7"
+tokio = { version = "1.28.1", default-features = false, features = ["macros", "rt-multi-thread"] }
+tracing = "0.1.37"
