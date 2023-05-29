@@ -8,6 +8,9 @@ use clap::{Args, Parser, Subcommand};
 pub struct Cli {
     #[command(subcommand)]
     pub command: Command,
+
+    #[clap(long, env = "BLITZ_TANKS_SENTRY_DSN")]
+    pub sentry_dsn: Option<String>,
 }
 
 #[derive(Subcommand)]
