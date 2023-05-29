@@ -43,6 +43,7 @@ jobs:
 
       - name: 💬 Clippy
         uses: actions-rs/clippy-check@v1
+        if: github.event_name == 'pull_request'
         continue-on-error: true
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
