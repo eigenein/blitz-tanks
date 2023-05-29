@@ -17,11 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⚡️ Rust Cache
-        uses: Swatinem/rust-cache@v2
-        with:
-          cache-on-failure: true
-
       - name: 📥 Checkout
         uses: actions/checkout@v3
 
@@ -31,6 +26,11 @@ jobs:
           profile: minimal
           toolchain: stable
           components: clippy
+
+      - name: ⚡️ Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
 
       - name: 🧪 Test
         uses: actions-rs/cargo@v1
