@@ -1,4 +1,4 @@
-name: Check
+name: 🧪 Check
 
 on:
   push:
@@ -36,6 +36,7 @@ jobs:
         with:
           command: test
           use-cross: true
+          args: --target=aarch64-unknown-linux-gnu
 
       - name: 💬 Clippy
         uses: actions-rs/clippy-check@v1
@@ -43,4 +44,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           use-cross: true
-          args: --tests
+          args: --tests --target=aarch64-unknown-linux-gnu
