@@ -5,6 +5,7 @@ use std::path::PathBuf;
 use crate::db::sessions::Sessions;
 use crate::prelude::*;
 
+/// Wrapper around the database.
 #[derive(Clone)]
 pub struct Db(sled::Db);
 

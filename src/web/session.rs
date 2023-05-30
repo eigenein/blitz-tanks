@@ -8,12 +8,18 @@ use uuid::Uuid;
 use crate::db::Db;
 use crate::web::prelude::*;
 
+/// Client-side session.
 pub enum Session {
     Authenticated {
+        /// Session ID.
         id: Uuid,
+
+        /// Authenticated user.
         user: crate::db::sessions::User,
     },
-    Unauthenticated,
+
+    /// Unidentified user: the session cookie is either missing or invalid.
+    Anonymous,
 }
 
 impl Session {
@@ -38,7 +44,7 @@ where
                 let sessions = Db::from_ref(state).sessions()?;
                 unimplemented!()
             }
-            None => Ok(Session::Unauthenticated),
+            None => Ok(Session::Anonymous),
         }
     }
 }

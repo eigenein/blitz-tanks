@@ -1,3 +1,6 @@
+/// [Wargaming.net OpenID][1] sign-in URL.
+///
+/// [1]: https://developers.wargaming.net/reference/all/wot/auth/login/
 #[derive(Clone)]
 pub struct SignInUrl(pub String);
 

@@ -16,6 +16,7 @@ use crate::cli::WebArgs;
 use crate::prelude::*;
 use crate::web::state::SignInUrl;
 
+/// Run the web application.
 #[instrument(skip_all)]
 pub async fn run(args: WebArgs) -> Result {
     info!(endpoint = ?args.bind_endpoint, "🚀 running…");

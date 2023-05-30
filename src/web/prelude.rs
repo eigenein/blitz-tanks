@@ -5,6 +5,7 @@ pub use maud::DOCTYPE;
 
 pub use crate::web::error::{WebError, WebResult};
 
+/// Some frequently used headers.
 pub struct Headers {}
 
 impl Headers {
