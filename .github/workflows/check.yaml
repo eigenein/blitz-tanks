@@ -30,7 +30,7 @@ jobs:
       - name: ⚡️ Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
-          shared-key: "rust"
+          key: "rust"
           cache-on-failure: true
 
       - name: 🧪 Test
