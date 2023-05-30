@@ -27,4 +27,20 @@ pub struct WebArgs {
         default_value = "127.0.0.1:8080"
     )]
     pub bind_endpoint: SocketAddr,
+
+    #[clap(flatten)]
+    pub wargaming: WargamingArgs,
+
+    #[clap(
+        long,
+        env = "BLITZ_TANKS_DOMAIN_NAME",
+        default_value = "localhost:8080"
+    )]
+    pub domain_name: String,
+}
+
+#[derive(Args)]
+pub struct WargamingArgs {
+    #[clap(short = 'a', long, env = "BLITZ_TANKS_APPLICATION_ID")]
+    pub application_id: String,
 }

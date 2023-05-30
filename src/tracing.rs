@@ -2,7 +2,6 @@ use std::borrow::Cow;
 
 use sentry::integrations::tracing::EventFilter;
 use sentry::{ClientInitGuard, ClientOptions};
-use tracing::Level;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::{EnvFilter, Layer};
