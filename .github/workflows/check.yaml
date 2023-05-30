@@ -26,16 +26,19 @@ jobs:
           profile: minimal
           toolchain: stable
           components: clippy
+          target: aarch64-unknown-linux-gnu
 
       - name: ⚡️ Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
+          shared-key: "rust"
           cache-on-failure: true
 
       - name: 🧪 Test
         uses: actions-rs/cargo@v1
         with:
-          command: test
+          use-cross: true
+          command: test --target=aarch64-unknown-linux-gnu
 
       - name: 💬 Clippy
         uses: actions-rs/clippy-check@v1
@@ -44,4 +47,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           use-cross: true
-          args: --tests
+          args: --tests --target=aarch64-unknown-linux-gnu
