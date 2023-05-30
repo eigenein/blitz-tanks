@@ -26,7 +26,6 @@ jobs:
           profile: minimal
           toolchain: stable
           components: clippy
-          target: aarch64-unknown-linux-gnu
 
       - name: ⚡️ Rust Cache
         uses: Swatinem/rust-cache@v2
