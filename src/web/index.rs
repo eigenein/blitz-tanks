@@ -36,7 +36,9 @@ pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {
                                             }
                                         }
                                         p.help {
-                                            "with your " a href="https://wargaming.net/personal/" { "Wargaming.net ID" }
+                                            "with your "
+                                            a href="https://wargaming.net/personal/" { "Wargaming.net ID" }
+                                            " (only Europe)"
                                         }
                                     }
                                 }

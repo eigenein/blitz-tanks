@@ -10,6 +10,7 @@
 )]
 
 mod cli;
+mod db;
 mod prelude;
 mod tracing;
 mod web;

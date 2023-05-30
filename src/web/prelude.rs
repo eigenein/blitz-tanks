@@ -3,6 +3,8 @@ pub use ::maud::{html, Markup, PreEscaped};
 use axum::http::{header, HeaderName};
 pub use maud::DOCTYPE;
 
+pub use crate::web::error::{WebError, WebResult};
+
 pub struct Headers {}
 
 impl Headers {

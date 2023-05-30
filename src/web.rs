@@ -1,6 +1,8 @@
+mod error;
 mod index;
 mod partials;
 mod prelude;
+mod session;
 mod state;
 mod r#static;
 mod tracing_;
@@ -30,9 +32,10 @@ pub async fn run(args: WebArgs) -> Result {
         .route("/icon-192.png", get(r#static::get_icon_192))
         .route("/icon-512.png", get(r#static::get_icon_512))
         .layer(layer)
-        .with_state(SignInUrl::new(&args.wargaming.application_id, &args.domain_name));
+        .with_state(SignInUrl::new(&args.wargaming.application_id, &args.domain_name))
+        .with_state(args.db.open()?);
     axum::Server::bind(&args.bind_endpoint)
         .serve(app.into_make_service())
         .await
-        .context("the server has failed")
+        .context("the web application has failed")
 }
