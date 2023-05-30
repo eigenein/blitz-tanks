@@ -53,7 +53,7 @@ async fn get_index() -> Markup {
     html! {
         (head())
         body {
-            section.hero.is-link {
+            section.hero.is-fullheight {
                 div.hero-head {
                     (navbar())
                 }
@@ -62,8 +62,9 @@ async fn get_index() -> Markup {
                     div.container {
                         div.columns {
                             div.column."is-6"."is-offset-3" {
+                                p.title { "Vehicle recommender system" }
                                 p.subtitle {
-                                    "Vehicle recommender system for World of Tanks Blitz"
+                                    "It's like for movies, yet for World of Tanks Blitz!"
                                 }
                             }
                         }

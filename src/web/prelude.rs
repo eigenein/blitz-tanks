@@ -8,7 +8,7 @@ pub fn head() -> Markup {
             meta name="viewport" content="width=device-width, initial-scale=1";
             meta charset="utf-8";
             title { "Recommender for World of Tanks Blitz" }
-            link rel="icon" href="favicon.ico" sizes="any";
+            link rel="shortcut icon" href="favicon.ico" sizes="16x16";
             link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180" type="image/png";
             link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer";
             link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma-prefers-dark/0.1.0-beta.1/bulma-prefers-dark.min.css" integrity="sha512-8L9NjgWBr9opkijcN9ZZCzzl7T3hVqji0baeKdTvfq1VN119XV4RNCGGI6vAF8ygQkSK0Qew84toTqqpzmbxUw==" crossorigin="anonymous" referrerpolicy="no-referrer";
@@ -25,7 +25,7 @@ pub fn navbar() -> Markup {
                 div.navbar-menu.is-active {
                     div.navbar-end {
                         div.navbar-item {
-                            a.button.is-link.is-rounded {
+                            a.button.is-warning.is-rounded {
                                 span.icon { i.fa-solid.fa-right-to-bracket {} }
                                 strong { "Sign in" }
                             }
