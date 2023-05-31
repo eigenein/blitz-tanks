@@ -1,8 +1,8 @@
-use axum::http::StatusCode;
-use axum::response::Response;
+use axum::{http::StatusCode, response::Response};
 
 use crate::web::prelude::*;
 
+/// Wrapper around [`anyhow::Error`], which can be used in the web handlers.
 pub struct WebError(anyhow::Error);
 
 impl<E: Into<anyhow::Error>> From<E> for WebError {
@@ -17,4 +17,5 @@ impl IntoResponse for WebError {
     }
 }
 
+/// Convenience alias for web handler's result types.
 pub type WebResult<T = ()> = Result<T, WebError>;

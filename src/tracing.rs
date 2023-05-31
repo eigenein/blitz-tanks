@@ -1,10 +1,7 @@
 use std::borrow::Cow;
 
-use sentry::integrations::tracing::EventFilter;
-use sentry::{ClientInitGuard, ClientOptions};
-use tracing_subscriber::layer::SubscriberExt;
-use tracing_subscriber::util::SubscriberInitExt;
-use tracing_subscriber::{EnvFilter, Layer};
+use sentry::{integrations::tracing::EventFilter, ClientInitGuard, ClientOptions};
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
 use crate::prelude::*;
 

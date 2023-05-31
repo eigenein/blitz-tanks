@@ -1,10 +1,8 @@
-use std::net::SocketAddr;
-use std::path::PathBuf;
+use std::{net::SocketAddr, path::PathBuf};
 
 use clap::{Args, Parser, Subcommand};
 
-use crate::db::Db;
-use crate::prelude::*;
+use crate::{db::Db, prelude::*};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]

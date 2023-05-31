@@ -1,12 +1,13 @@
-use axum::extract::{FromRef, FromRequestParts};
-use axum::headers::Cookie;
-use axum::http::request::Parts;
-use axum::http::StatusCode;
-use axum::{async_trait, RequestPartsExt, TypedHeader};
+use axum::{
+    async_trait,
+    extract::{FromRef, FromRequestParts},
+    headers::Cookie,
+    http::{request::Parts, StatusCode},
+    RequestPartsExt, TypedHeader,
+};
 use uuid::Uuid;
 
-use crate::db::Db;
-use crate::web::prelude::*;
+use crate::{db::Db, web::prelude::*};
 
 /// Client-side session.
 pub enum Session {
@@ -15,7 +16,7 @@ pub enum Session {
         id: Uuid,
 
         /// Authenticated user.
-        user: crate::db::sessions::User,
+        user: crate::db::session::User,
     },
 
     /// Unidentified user: the session cookie is either missing or invalid.
@@ -36,12 +37,10 @@ where
 
     async fn from_request_parts(parts: &mut Parts, state: &S) -> WebResult<Self> {
         let cookie: Option<TypedHeader<Cookie>> = parts.extract().await?;
-        let session_id = cookie
-            .as_ref()
-            .and_then(|cookie| cookie.get(Self::SESSION_COOKIE_NAME));
-        match session_id {
+        let Some(cookie) = cookie else { return Ok(Session::Anonymous) };
+        match cookie.get(Self::SESSION_COOKIE_NAME) {
             Some(session_id) => {
-                let sessions = Db::from_ref(state).sessions()?;
+                let manager = Db::from_ref(state).session_manager()?;
                 unimplemented!()
             }
             None => Ok(Session::Anonymous),

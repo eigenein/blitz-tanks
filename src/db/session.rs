@@ -1,11 +1,12 @@
 use prost::Message;
+use sled::Tree;
 
 /// Wrapper around the tree to manage client-side sessions.
 #[derive(Clone)]
-pub struct Sessions(sled::Tree);
+pub struct SessionManager(Tree);
 
-impl From<sled::Tree> for Sessions {
-    fn from(tree: sled::Tree) -> Self {
+impl From<Tree> for SessionManager {
+    fn from(tree: Tree) -> Self {
         Self(tree)
     }
 }

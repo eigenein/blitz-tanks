@@ -1,7 +1,9 @@
 use std::time::Duration;
 
-use axum::body::Body;
-use axum::http::{Request, Response};
+use axum::{
+    body::Body,
+    http::{Request, Response},
+};
 use tower_http::classify::ServerErrorsFailureClass;
 
 use crate::prelude::*;

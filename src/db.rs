@@ -1,11 +1,10 @@
-pub mod sessions;
+pub mod session;
 
 use std::path::PathBuf;
 
-use crate::db::sessions::Sessions;
-use crate::prelude::*;
+use crate::{db::session::SessionManager, prelude::*};
 
-/// Wrapper around the database.
+/// Convenience wrapper around the database.
 #[derive(Clone)]
 pub struct Db(sled::Db);
 
@@ -23,7 +22,7 @@ impl Db {
             .map(Into::into)
     }
 
-    pub fn sessions(&self) -> Result<Sessions> {
+    pub fn session_manager(&self) -> Result<SessionManager> {
         self.open_tree("sessions").map(Into::into)
     }
 

@@ -7,14 +7,11 @@ mod state;
 mod r#static;
 mod tracing_;
 
-use axum::routing::get;
-use axum::Router;
+use axum::{routing::get, Router};
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 
-use crate::cli::WebArgs;
-use crate::prelude::*;
-use crate::web::state::SignInUrl;
+use crate::{cli::WebArgs, prelude::*, web::state::SignInUrl};
 
 /// Run the web application.
 #[instrument(skip_all)]

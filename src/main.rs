@@ -17,8 +17,10 @@ mod web;
 
 use clap::Parser;
 
-use crate::cli::{Cli, Command};
-use crate::prelude::*;
+use crate::{
+    cli::{Cli, Command},
+    prelude::*,
+};
 
 #[tokio::main]
 async fn main() -> Result {

@@ -1,8 +1,6 @@
 use axum::extract::State;
 
-use crate::web::partials::*;
-use crate::web::prelude::*;
-use crate::web::state::*;
+use crate::web::{partials::*, prelude::*, state::*};
 
 /// Handle the GET index request.
 pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {
