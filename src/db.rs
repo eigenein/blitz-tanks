@@ -2,6 +2,8 @@ pub mod session;
 
 use std::path::PathBuf;
 
+use sled::Config;
+
 use crate::{db::session::SessionManager, prelude::*};
 
 /// Convenience wrapper around the database.
@@ -19,6 +21,16 @@ impl Db {
     pub fn open(path: &PathBuf) -> Result<Self> {
         sled::open(path)
             .with_context(|| format!("failed to open the database from `{path:?}`"))
+            .map(Into::into)
+    }
+
+    /// Open a temporary database for unit testing.
+    #[cfg(test)]
+    pub fn open_temporary() -> Result<Self> {
+        Config::default()
+            .temporary(true)
+            .open()
+            .context("failed to open a temporary database")
             .map(Into::into)
     }
 

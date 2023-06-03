@@ -10,4 +10,10 @@ impl SignInUrl {
             "https://api.worldoftanks.eu/wot/auth/login/?application_id={application_id}&redirect_uri=//{domain_name}/authenticate"
         ))
     }
+
+    /// Create a new sign-in URL for unit testing.
+    #[cfg(test)]
+    pub fn new_test() -> Self {
+        Self::new("fake-id", "localhost")
+    }
 }
