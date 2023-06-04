@@ -11,7 +11,7 @@ use crate::{
     db::Db,
     models::User,
     prelude::*,
-    web::{prelude::*, session::Session, state::AppState},
+    web::{prelude::*, session::Session},
 };
 
 #[derive(Deserialize)]
