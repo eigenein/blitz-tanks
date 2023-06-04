@@ -1,3 +1,5 @@
+use maud::DOCTYPE;
+
 use crate::web::prelude::*;
 
 pub fn head() -> Markup {

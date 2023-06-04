@@ -7,8 +7,7 @@ use axum::{
     http::{Request, Response},
 };
 use tower_http::classify::ServerErrorsFailureClass;
-
-use crate::prelude::*;
+use tracing::{error, info, warn, Span};
 
 pub fn on_request(request: &Request<Body>, span: &Span) {
     info!(parent: span, method = ?request.method(), path = request.uri().path(), "🛫 started");

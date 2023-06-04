@@ -8,18 +8,18 @@ use crate::prelude::*;
 #[derive(Deserialize, Message)]
 pub struct User {
     #[prost(string, tag = "1")]
-    access_token: String,
+    pub access_token: String,
 
     #[serde_as(as = "serde_with::DisplayFromStr")]
     #[prost(int64, tag = "2")]
-    expires_at: i64,
+    pub expires_at: i64,
 
     #[serde_as(as = "serde_with::DisplayFromStr")]
     #[prost(uint32, tag = "3")]
-    account_id: u32,
+    pub account_id: u32,
 
     #[prost(string, tag = "4")]
-    nickname: String,
+    pub nickname: String,
 }
 
 impl User {

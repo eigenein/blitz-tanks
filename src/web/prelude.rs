@@ -1,9 +1,6 @@
 pub use ::axum::response::IntoResponse;
 pub use ::maud::{html, Markup, PreEscaped};
 use axum::http::{header, HeaderName};
-pub use maud::DOCTYPE;
-
-pub use crate::web::error::{WebError, WebResult};
 
 /// Some frequently used headers.
 pub struct Headers {}

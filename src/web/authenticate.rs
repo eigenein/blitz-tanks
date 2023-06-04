@@ -5,13 +5,14 @@ use axum::{
     http::header::SET_COOKIE,
 };
 use serde::Deserialize;
+use tracing::{info, instrument};
 use uuid::Uuid;
 
 use crate::{
     db::Db,
     models::User,
     prelude::*,
-    web::{prelude::*, session::Session},
+    web::{error::WebResult, prelude::*, session::Session},
 };
 
 #[derive(Deserialize)]
@@ -45,12 +46,14 @@ impl From<AuthenticationResult> for Result<User> {
 }
 
 /// Handle Wargaming.net authentication redirect and start a new session.
+#[instrument(skip_all)]
 pub async fn get(
     Query(result): Query<AuthenticationResult>,
     State(db): State<Db>,
 ) -> WebResult<impl IntoResponse> {
     let user = Result::from(result)?; // TODO: handle errors.
     let session_id = Uuid::now_v7();
+    info!(user.nickname, %session_id, "welcome");
     db.session_manager()?.insert(session_id, &user)?;
 
     // TODO: content.

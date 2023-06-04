@@ -11,6 +11,7 @@ mod tracing_;
 use axum::{routing::get, Router};
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
+use tracing::{info, instrument};
 
 use crate::{cli::WebArgs, prelude::*, web::state::AppState};
 

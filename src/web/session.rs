@@ -4,12 +4,16 @@ use axum::{
     async_trait,
     extract::{FromRef, FromRequestParts},
     headers::Cookie,
-    http::{request::Parts, StatusCode},
+    http::request::Parts,
     RequestPartsExt, TypedHeader,
 };
 use uuid::Uuid;
 
-use crate::{db::Db, models::User, web::prelude::*};
+use crate::{
+    db::Db,
+    models::User,
+    web::error::{WebError, WebResult},
+};
 
 /// Client-side session.
 pub enum Session {

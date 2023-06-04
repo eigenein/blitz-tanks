@@ -2,7 +2,9 @@ pub mod session;
 
 use std::path::PathBuf;
 
+#[cfg(test)]
 use sled::Config;
+use tracing::instrument;
 
 use crate::{db::session::SessionManager, prelude::*};
 

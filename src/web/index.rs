@@ -2,10 +2,7 @@
 
 use axum::extract::State;
 
-use crate::{
-    prelude::*,
-    web::{partials::*, prelude::*, state::*},
-};
+use crate::web::{partials::*, prelude::*, state::*};
 
 /// Handle the GET index request.
 pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {
@@ -66,7 +63,7 @@ mod tests {
     use tower::ServiceExt;
 
     use super::*;
-    use crate::web::create_app;
+    use crate::{prelude::Result, web::create_app};
 
     #[tokio::test]
     async fn index_ok() -> Result {
