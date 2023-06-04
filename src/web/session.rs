@@ -1,3 +1,5 @@
+//! Session cookie management. Do not confuse with the database's session manager.
+
 use axum::{
     async_trait,
     extract::{FromRef, FromRequestParts},
@@ -7,7 +9,7 @@ use axum::{
 };
 use uuid::Uuid;
 
-use crate::{db::Db, web::prelude::*};
+use crate::{db::Db, models::User, web::prelude::*};
 
 /// Client-side session.
 pub enum Session {
@@ -16,7 +18,7 @@ pub enum Session {
         id: Uuid,
 
         /// Authenticated user.
-        user: crate::db::session::User,
+        user: User,
     },
 
     /// Unidentified user: the session cookie is either missing or invalid.

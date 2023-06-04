@@ -1,2 +1,5 @@
+[build]
+rustflags = ["--cfg=uuid_unstable"]
+
 [target.wasm32-wasi]
 runner = "wasmer run"

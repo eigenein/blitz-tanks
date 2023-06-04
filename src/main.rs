@@ -11,6 +11,7 @@
 
 mod cli;
 mod db;
+mod models;
 mod prelude;
 mod tracing;
 mod web;

@@ -1,3 +1,5 @@
+//! Tracing handlers for the Axum web application.
+
 use std::time::Duration;
 
 use axum::{

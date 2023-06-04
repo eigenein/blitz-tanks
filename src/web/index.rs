@@ -1,6 +1,11 @@
+//! Index view.
+
 use axum::extract::State;
 
-use crate::web::{partials::*, prelude::*, state::*};
+use crate::{
+    prelude::*,
+    web::{partials::*, prelude::*, state::*},
+};
 
 /// Handle the GET index request.
 pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {
@@ -49,5 +54,26 @@ pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {
 
             ((footer()))
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use axum::{
+        body::Body,
+        http::{Request, StatusCode},
+    };
+    use tower::ServiceExt;
+
+    use super::*;
+    use crate::web::create_app;
+
+    #[tokio::test]
+    async fn index_ok() -> Result {
+        let app = create_app(AppState::new_test()?);
+        let request = Request::builder().uri("/").body(Body::empty())?;
+        let response = app.oneshot(request).await?;
+        assert_eq!(response.status(), StatusCode::OK);
+        Ok(())
     }
 }
