@@ -3,7 +3,6 @@ mod error;
 mod index;
 mod partials;
 mod prelude;
-mod session;
 mod state;
 mod r#static;
 mod tracing_;
