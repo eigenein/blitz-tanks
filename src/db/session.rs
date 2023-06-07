@@ -2,6 +2,7 @@
 
 use prost::Message;
 use sled::Tree;
+use tracing::instrument;
 use uuid::Uuid;
 
 use crate::{models::User, prelude::*};
@@ -18,6 +19,7 @@ impl From<Tree> for SessionManager {
 
 impl SessionManager {
     /// Insert the user to the session tree.
+    #[instrument(skip_all, fields(session_id = %session_id))]
     pub fn insert(&self, session_id: Uuid, user: &User) -> Result {
         self.0
             .insert(session_id.as_bytes(), user.encode_to_vec())
@@ -26,6 +28,7 @@ impl SessionManager {
     }
 
     /// Retrieve a user from the session tree.
+    #[instrument(skip_all, fields(session_id = %session_id))]
     pub fn get(&self, session_id: Uuid) -> Result<Option<User>> {
         let serialized_user = self
             .0

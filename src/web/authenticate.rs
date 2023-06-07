@@ -108,14 +108,11 @@ where
     async fn from_request_parts(parts: &mut Parts, state: &S) -> WebResult<Self> {
         let cookie: Option<TypedHeader<Cookie>> = parts.extract().await?;
         let Some(cookie) = cookie else { return Ok(Session::Anonymous) };
-        match cookie.get(Self::SESSION_COOKIE_NAME) {
-            Some(session_id) => match {
-                let session_id = Uuid::parse_str(session_id).context("invalid session ID")?;
-                Db::from_ref(state).session_manager()?.get(session_id)?
-            } {
-                Some(user) => Ok(Session::Authenticated(user)),
-                None => Ok(Session::Anonymous),
-            },
+        let Some(session_id) = cookie.get(Self::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
+        let session_id = Uuid::parse_str(session_id).context("invalid session ID")?;
+
+        match Db::from_ref(state).session_manager()?.get(session_id)? {
+            Some(user) => Ok(Session::Authenticated(user)),
             None => Ok(Session::Anonymous),
         }
     }
