@@ -19,12 +19,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: ⚡️ Rust Cache
-        uses: Swatinem/rust-cache@v2
-        with:
-          key: "rust"
-          cache-on-failure: true
-
       - name: 🖊 Set crate version
         run: |
           echo 'version = "${{ github.ref_name }}"'
