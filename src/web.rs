@@ -10,6 +10,7 @@ mod r#static;
 mod tracing_;
 
 use axum::{routing::get, Router};
+use clap::crate_version;
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::{info, instrument};
@@ -19,7 +20,7 @@ use crate::{cli::WebArgs, prelude::*, web::state::AppState};
 /// Run the web application.
 #[instrument(skip_all)]
 pub async fn run(args: WebArgs) -> Result {
-    info!(endpoint = ?args.bind_endpoint, "🚀 running…");
+    info!(version = crate_version!(), endpoint = ?args.bind_endpoint, "🚀 running…");
     let app = create_app(AppState::new(
         args.db.open()?,
         &args.wargaming.frontend_application_id,
