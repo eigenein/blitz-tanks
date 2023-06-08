@@ -19,7 +19,7 @@ use tracing::{info, instrument};
 use crate::{cli::WebArgs, prelude::*, web::state::AppState};
 
 /// Run the web application.
-#[instrument(skip_all)]
+#[instrument(skip_all, err)]
 pub async fn run(args: WebArgs) -> Result {
     info!(version = crate_version!(), endpoint = ?args.bind_endpoint, "🚀 running…");
     let app = create_app(AppState::new(

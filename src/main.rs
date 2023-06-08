@@ -18,6 +18,7 @@ mod web;
 mod weegee;
 
 use clap::Parser;
+use sentry::integrations::anyhow::capture_anyhow;
 
 use crate::{
     cli::{Cli, Command},
@@ -29,7 +30,12 @@ async fn main() -> Result {
     let args = Cli::parse();
     let _sentry_guard = tracing::init(args.sentry_dsn, 1.0)?;
 
-    match args.command {
+    let result = match args.command {
         Command::Web(args) => web::run(args).await,
+    };
+
+    if let Err(error) = &result {
+        capture_anyhow(error);
     }
+    result
 }
