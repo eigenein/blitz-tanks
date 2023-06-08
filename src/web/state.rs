@@ -16,7 +16,8 @@ pub struct AppState {
     pub sign_in_url: Arc<String>,
 
     pub db: Db,
-    weegee: WeeGee,
+
+    wee_gee: WeeGee,
 
     /// Account's vehicle's cache,
     /// used to check whether a certain user is allowed to rate a certain vehicle.
@@ -32,7 +33,7 @@ impl AppState {
     ) -> Result<Self> {
         Ok(Self {
             db,
-            weegee: WeeGee::new(backend_application_id)?,
+            wee_gee: WeeGee::new(backend_application_id)?,
             sign_in_url: Arc::new(format!(
                 "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{domain_name}/authenticate"
             )),

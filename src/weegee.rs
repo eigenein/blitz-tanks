@@ -3,6 +3,7 @@ use std::{collections::HashMap, sync::Arc, time::Duration};
 use anyhow::Context;
 use reqwest::{Client, ClientBuilder, Url};
 use serde::Deserialize;
+use tracing::instrument;
 
 use crate::prelude::*;
 
@@ -58,6 +59,7 @@ impl WeeGee {
     /// Get the accounts' vehicles' basic [statistics][1].
     ///
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
+    #[instrument(skip_all, fields(account_id = account_id))]
     pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<VehiclesStats> {
         self.client
             .get(Url::parse_with_params(

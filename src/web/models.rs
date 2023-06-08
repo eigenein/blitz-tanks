@@ -6,6 +6,7 @@ use axum::{
     http::request::Parts,
 };
 use serde::Deserialize;
+use tracing::instrument;
 
 use crate::{
     models::User,
@@ -26,6 +27,7 @@ where
 {
     type Rejection = WebError;
 
+    #[instrument(level = "debug", skip_all)]
     async fn from_request_parts(parts: &mut Parts, state: &S) -> Result<Self, Self::Rejection> {
         let Path(AccountId(account_id)) =
             Path::<AccountId>::from_request_parts(parts, state).await?;
