@@ -74,3 +74,18 @@ jobs:
           version: tags/${{ github.ref_name }}
           file: blitz-tanks.aarch64-unknown-linux-gnu
           target: blitz-tanks.aarch64-unknown-linux-gnu
+
+      - name: 🕸 Set up Tailscale
+        uses: tailscale/github-action@v1
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - name: ♻️ Rsync
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avz
+          path: blitz-tanks.aarch64-unknown-linux-gnu
+          remote_path: /home/pi/bin
+          remote_host: mars
+          remote_user: pi
+          remote_key: ${{ secrets.SSH_KEY }}
