@@ -1,3 +1,5 @@
+//! Shared models which are used in both the database and the web app.
+
 use cookie::{time::OffsetDateTime, Expiration};
 use prost::Message;
 use serde::Deserialize;

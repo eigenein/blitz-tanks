@@ -1,9 +1,10 @@
 use axum::{
+    extract::rejection::PathRejection,
     http::StatusCode,
     response::{IntoResponse, Response},
 };
 use sentry::integrations::anyhow::capture_anyhow;
-use tracing::error;
+use tracing::{error, warn};
 
 /// Custom error enumeration, which can be used in the web handlers.
 ///
@@ -21,6 +22,9 @@ pub enum WebError {
     /// Infallible variant, it only exists to convert from Axum's «infallible errors».
     #[error("infallible")]
     Infallible(#[from] std::convert::Infallible),
+
+    #[error("invalid path: `{0}`")]
+    PathRejection(#[from] PathRejection),
 }
 
 impl IntoResponse for WebError {
@@ -30,8 +34,13 @@ impl IntoResponse for WebError {
 
             Self::Forbidden => StatusCode::FORBIDDEN,
 
+            Self::PathRejection(reason) => {
+                warn!("❌ path rejected: {reason}");
+                StatusCode::BAD_REQUEST
+            }
+
             Self::InternalServerError(error) => {
-                error!("internal server error: {error:#}");
+                error!("💥 internal server error: {error:#}");
                 capture_anyhow(&error);
                 StatusCode::INTERNAL_SERVER_ERROR
             }

@@ -5,7 +5,7 @@ use maud::{html, Markup};
 
 use crate::web::{partials::*, state::*};
 
-/// Handle the GET index request.
+/// Index route handler.
 pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {
     html! {
         (head())

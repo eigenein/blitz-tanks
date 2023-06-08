@@ -51,7 +51,7 @@ pub async fn get(
     Query(result): Query<AuthenticationResult>,
     State(db): State<Db>,
 ) -> Result<impl IntoResponse, WebError> {
-    let user = Result::from(result)?; // TODO: handle errors.
+    let user = Result::from(result)?;
     let session_id = Session::new_id();
     info!(user.nickname, %session_id, "welcome");
     db.session_manager()?.insert(session_id, &user)?;
@@ -75,10 +75,10 @@ pub enum Session {
 }
 
 impl Session {
-    const SESSION_COOKIE_NAME: &'static str = "blitzTanksSessionId";
+    pub const SESSION_COOKIE_NAME: &'static str = "blitzTanksSessionId";
 
     #[instrument(level = "debug", ret)]
-    fn new_id() -> Uuid {
+    pub fn new_id() -> Uuid {
         // UUID v7 is timestamp-based, so makes it easier to purge old sessions from the database.
         Uuid::now_v7()
     }
