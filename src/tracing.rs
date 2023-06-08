@@ -2,7 +2,7 @@ use std::borrow::Cow;
 
 use clap::crate_version;
 use sentry::{integrations::tracing::EventFilter, ClientInitGuard, ClientOptions, Scope};
-use tracing::Level;
+use tracing::{info, Level};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
 use crate::{models::User, prelude::*};
@@ -40,6 +40,7 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
         .with(format_layer)
         .init();
 
+    info!(is_sentry_enabled = guard.is_enabled(), "🥅");
     Ok(guard)
 }
 
