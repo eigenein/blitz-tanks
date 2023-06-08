@@ -1,4 +1,4 @@
-use std::{collections::HashMap, time::Duration};
+use std::{collections::HashMap, sync::Arc, time::Duration};
 
 use anyhow::Context;
 use reqwest::{Client, ClientBuilder, Url};
@@ -10,7 +10,7 @@ use crate::prelude::*;
 #[derive(Clone)]
 pub struct WeeGee {
     client: Client,
-    application_id: String,
+    application_id: Arc<String>,
 }
 
 #[derive(Deserialize)]
@@ -51,7 +51,7 @@ impl WeeGee {
             .context("failed to build the Wargaming.net API client")?;
         Ok(Self {
             client,
-            application_id: application_id.to_string(),
+            application_id: Arc::new(application_id.to_string()),
         })
     }
 

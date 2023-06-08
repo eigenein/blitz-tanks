@@ -6,7 +6,7 @@ use maud::{html, Markup};
 use crate::web::{partials::*, state::*};
 
 /// Index route handler.
-pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {
+pub async fn get(State(state): State<AppState>) -> Markup {
     html! {
         (head())
         body {
@@ -32,7 +32,7 @@ pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {
                                 form {
                                     div.field {
                                         div.control {
-                                            a.button.is-warning.is-large.is-responsive."px-6" href=(sign_in_url) {
+                                            a.button.is-warning.is-large.is-responsive."px-6" href=(state.sign_in_url) {
                                                 span.icon { i.fa-solid.fa-right-to-bracket {} }
                                                 strong { "Sign in" }
                                             }

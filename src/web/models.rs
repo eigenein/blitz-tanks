@@ -7,7 +7,10 @@ use axum::{
 };
 use serde::Deserialize;
 
-use crate::{db::Db, models::User, web::error::WebError};
+use crate::{
+    models::User,
+    web::{error::WebError, state::AppState},
+};
 
 #[derive(Deserialize)]
 pub struct AccountId(#[serde(rename = "account_id")] pub u32);
@@ -19,7 +22,7 @@ pub struct ValidatedAccountId(pub u32);
 impl<S> FromRequestParts<S> for ValidatedAccountId
 where
     S: Sync + Send,
-    Db: FromRef<S>,
+    AppState: FromRef<S>,
 {
     type Rejection = WebError;
 

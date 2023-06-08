@@ -10,7 +10,12 @@ use serde::Deserialize;
 use tracing::{info, instrument};
 use uuid::Uuid;
 
-use crate::{db::Db, models::User, prelude::*, tracing::configure_user, web::error::WebError};
+use crate::{
+    models::User,
+    prelude::*,
+    tracing::configure_user,
+    web::{error::WebError, state::AppState},
+};
 
 /// Wargaming.net redirect query parameters.
 #[derive(Deserialize)]
@@ -49,12 +54,12 @@ impl From<AuthenticationResult> for Result<User> {
 #[instrument(skip_all)]
 pub async fn get(
     Query(result): Query<AuthenticationResult>,
-    State(db): State<Db>,
+    State(state): State<AppState>,
 ) -> Result<impl IntoResponse, WebError> {
     let user = Result::from(result)?;
     let session_id = Session::new_id();
     info!(user.nickname, %session_id, "welcome");
-    db.session_manager()?.insert(session_id, &user)?;
+    state.db.session_manager()?.insert(session_id, &user)?;
     let cookie = cookie::Cookie::build(Session::SESSION_COOKIE_NAME, session_id.to_string())
         .http_only(true)
         .expires(user.expires_at()?)
@@ -88,7 +93,7 @@ impl Session {
 #[async_trait]
 impl<S> FromRequestParts<S> for Session
 where
-    Db: FromRef<S>,
+    AppState: FromRef<S>,
     S: Sync,
 {
     type Rejection = WebError;
@@ -102,7 +107,11 @@ where
 
         sentry::configure_scope(|scope| scope.set_tag("user.session_id", session_id));
 
-        match Db::from_ref(state).session_manager()?.get(session_id)? {
+        match AppState::from_ref(state)
+            .db
+            .session_manager()?
+            .get(session_id)?
+        {
             Some(user) => {
                 sentry::configure_scope(|scope| configure_user(scope, Some(&user)));
                 Ok(Session::Authenticated(user))
@@ -119,7 +128,7 @@ where
 #[async_trait]
 impl<S> FromRequestParts<S> for User
 where
-    Db: FromRef<S>,
+    AppState: FromRef<S>,
     S: Sync,
 {
     type Rejection = WebError;
