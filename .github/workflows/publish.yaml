@@ -100,6 +100,4 @@ jobs:
           rsync --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu mars:/home/pi/bin/blitz-tanks
 
       - name: ⏳ Restart
-        run: |
-          ssh yastatist "sudo systemctl restart blitz-tanks
-          systemctl status --lines=0 blitz-tanks"
+        run: ssh mars "sudo systemctl restart blitz-tanks; systemctl status --lines=0 blitz-tanks"
