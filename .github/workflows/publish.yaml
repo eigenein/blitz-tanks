@@ -97,6 +97,7 @@ jobs:
           SENTRY_PROJECT: blitz-tanks
         with:
           environment: production
+          version: ${{ github.ref_name }}
 
       - name: ♻️ Restart
         run: |
