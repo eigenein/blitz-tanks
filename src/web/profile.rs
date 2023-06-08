@@ -19,9 +19,9 @@ mod tests {
         body::Body,
         http::{Request, StatusCode},
     };
-    use chrono::Utc;
     use tower::ServiceExt;
 
+    use super::*;
     use crate::{
         models::User,
         prelude::Result,
