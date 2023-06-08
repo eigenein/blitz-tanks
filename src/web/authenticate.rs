@@ -150,11 +150,12 @@ mod tests {
         let request = Request::builder()
             .uri("/authenticate?status=ok&access_token=fake&expires_at=1686693094&nickname=test&account_id=1")
             .body(Body::empty())?;
-        let mut response = app.oneshot(request).await?;
-        assert_eq!(response.status(), StatusCode::OK, "{:?}", response.data().await);
+        let response = app.oneshot(request).await?;
+        assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
+        let headers = response.headers();
+        assert_eq!(headers.get("Location").unwrap(), "/profile/1");
         assert!(
-            response
-                .headers()
+            headers
                 .get("Set-Cookie")
                 .unwrap()
                 .to_str()?
