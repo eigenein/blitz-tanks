@@ -44,3 +44,7 @@ pub async fn get_icon_192() -> impl IntoResponse {
 pub async fn get_icon_512() -> impl IntoResponse {
     ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/icon-512.png"))
 }
+
+pub async fn get_home_icon() -> impl IntoResponse {
+    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/home.png"))
+}

@@ -47,6 +47,7 @@ pub fn create_app(state: AppState) -> Router {
         .route("/apple-touch-icon.png", get(r#static::get_apple_touch_icon))
         .route("/icon-192.png", get(r#static::get_icon_192))
         .route("/icon-512.png", get(r#static::get_icon_512))
+        .route("/home.png", get(r#static::get_home_icon))
         .layer(tracing_layer)
         .with_state(state)
 }

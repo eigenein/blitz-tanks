@@ -26,7 +26,7 @@ pub fn navbar() -> Markup {
             div.container {
                 div.navbar-brand {
                     a.navbar-item href="/" {
-                        img src="icon-192.png" width="28" height="28" alt="Main page";
+                        img src="home.png" width="28" height="28" alt="Main page";
                     }
                     a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar" {
                         span aria-hidden="true" {}
