@@ -19,6 +19,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 🖊 Set release version
+        run: |
+          echo 'version = "${{ github.ref_name }}"'
+          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.toml
+          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.lock
+
+      - name: ⚡️ Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: "rust"
+          cache-on-failure: true
+
       - name: 📝 Build Changelog
         id: changelog
         uses: Bullrich/generate-release-changelog@master
@@ -33,18 +45,13 @@ jobs:
           release_name: ${{ github.ref_name }}
           body: ${{ steps.changelog.outputs.changelog }}
 
-      - name: 👷 Build
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: --release --target=aarch64-unknown-linux-gnu
-
-      - name: 🖊 Set release version
+      - name: ✨ Install Cross
         run: |
-          echo 'version = "${{ github.ref_name }}"'
-          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.toml
-          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.lock
+          wget --quiet https://github.com/rust-embedded/cross/releases/download/v0.2.5/cross-v0.2.5-x86_64-unknown-linux-gnu.tar.gz
+          tar -xvzf cross-v0.2.5-x86_64-unknown-linux-gnu.tar.gz
+
+      - name: 👷 Build
+        run: ./cross build --target=aarch64-unknown-linux-gnu --release
 
       - name: 📤 Upload release asset
         uses: actions/upload-release-asset@v1

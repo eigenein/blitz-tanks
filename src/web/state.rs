@@ -2,10 +2,9 @@ use std::{collections::hash_map::RandomState, sync::Arc, time::Duration};
 
 use moka::future::Cache;
 
-#[cfg(test)]
-use crate::prelude::Result;
 use crate::{
     db::Db,
+    prelude::*,
     weegee::{VehiclesStats, WeeGee},
 };
 
