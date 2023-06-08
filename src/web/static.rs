@@ -21,35 +21,26 @@
 
 use axum::response::IntoResponse;
 
-use crate::web::prelude::Headers;
+use crate::web::headers::*;
 
 pub async fn get_favicon() -> impl IntoResponse {
     (
-        [
-            Headers::CONTENT_TYPE_MICROSOFT_ICON,
-            Headers::CACHE_PUBLIC_WEEK,
-        ],
+        [CONTENT_TYPE_MICROSOFT_ICON, CACHE_PUBLIC_WEEK],
         include_bytes!("static/favicon.ico"),
     )
 }
 
 pub async fn get_apple_touch_icon() -> impl IntoResponse {
     (
-        [Headers::CONTENT_TYPE_PNG, Headers::CACHE_PUBLIC_WEEK],
+        [CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK],
         include_bytes!("static/apple-touch-icon.png"),
     )
 }
 
 pub async fn get_icon_192() -> impl IntoResponse {
-    (
-        [Headers::CONTENT_TYPE_PNG, Headers::CACHE_PUBLIC_WEEK],
-        include_bytes!("static/icon-192.png"),
-    )
+    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/icon-192.png"))
 }
 
 pub async fn get_icon_512() -> impl IntoResponse {
-    (
-        [Headers::CONTENT_TYPE_PNG, Headers::CACHE_PUBLIC_WEEK],
-        include_bytes!("static/icon-512.png"),
-    )
+    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/icon-512.png"))
 }
