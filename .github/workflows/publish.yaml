@@ -47,8 +47,8 @@ jobs:
 
       - name: ✨ Install Cross
         run: |
-          wget --quiet https://github.com/rust-embedded/cross/releases/download/v0.2.5/cross-v0.2.5-x86_64-unknown-linux-gnu.tar.gz
-          tar -xvzf cross-v0.2.5-x86_64-unknown-linux-gnu.tar.gz
+          wget --quiet https://github.com/cross-rs/cross/releases/download/v0.2.5/cross-x86_64-unknown-linux-gnu.tar.gz
+          tar -xvzf cross-x86_64-unknown-linux-gnu.tar.gz
 
       - name: 👷 Build
         run: ./cross build --target=aarch64-unknown-linux-gnu --release
