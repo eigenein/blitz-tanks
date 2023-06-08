@@ -13,10 +13,7 @@ use crate::{
     db::Db,
     models::User,
     prelude::*,
-    web::{
-        error::{WebError, WebResult},
-        prelude::*,
-    },
+    web::{error::InternalServerError, prelude::*},
 };
 
 /// Wargaming.net redirect query parameters.
@@ -57,7 +54,7 @@ impl From<AuthenticationResult> for Result<User> {
 pub async fn get(
     Query(result): Query<AuthenticationResult>,
     State(db): State<Db>,
-) -> WebResult<impl IntoResponse> {
+) -> Result<impl IntoResponse, InternalServerError> {
     let user = Result::from(result)?; // TODO: handle errors.
     let session_id = Session::new_id();
     info!(user.nickname, %session_id, "welcome");
@@ -102,10 +99,10 @@ where
     Db: FromRef<S>,
     S: Sync,
 {
-    type Rejection = WebError;
+    type Rejection = InternalServerError;
 
     #[instrument(level = "debug", skip_all)]
-    async fn from_request_parts(parts: &mut Parts, state: &S) -> WebResult<Self> {
+    async fn from_request_parts(parts: &mut Parts, state: &S) -> Result<Self, Self::Rejection> {
         let cookie: Option<TypedHeader<Cookie>> = parts.extract().await?;
         let Some(cookie) = cookie else { return Ok(Session::Anonymous) };
         let Some(session_id) = cookie.get(Self::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
