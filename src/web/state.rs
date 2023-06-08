@@ -1,26 +1,33 @@
 use axum::extract::FromRef;
 
-use crate::db::Db;
 #[cfg(test)]
 use crate::prelude::Result;
+use crate::{db::Db, weegee::WeeGee};
 
 #[derive(Clone)]
 pub struct AppState {
     pub sign_in_url: SignInUrl,
     pub db: Db,
+    pub wg: WeeGee,
 }
 
 impl AppState {
-    pub fn new(db: Db, application_id: &str, domain_name: &str) -> Self {
-        Self {
+    pub fn new(
+        db: Db,
+        frontend_application_id: &str,
+        backend_application_id: &str,
+        domain_name: &str,
+    ) -> Result<Self> {
+        Ok(Self {
             db,
-            sign_in_url: SignInUrl::new(application_id, domain_name),
-        }
+            wg: WeeGee::new(backend_application_id)?,
+            sign_in_url: SignInUrl::new(frontend_application_id, domain_name),
+        })
     }
 
     #[cfg(test)]
     pub fn new_test() -> Result<Self> {
-        Ok(Self::new(Db::open_temporary()?, "test", "localhost:8080"))
+        Self::new(Db::open_temporary()?, "test", "test", "localhost:8080")
     }
 }
 

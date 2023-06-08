@@ -22,9 +22,10 @@ pub async fn run(args: WebArgs) -> Result {
     info!(endpoint = ?args.bind_endpoint, "🚀 running…");
     let app = create_app(AppState::new(
         args.db.open()?,
-        &args.wargaming.application_id,
+        &args.wargaming.frontend_application_id,
+        &args.wargaming.backend_application_id,
         &args.domain_name,
-    ));
+    )?);
     axum::Server::bind(&args.bind_endpoint)
         .serve(app.into_make_service())
         .await

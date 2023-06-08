@@ -15,6 +15,7 @@ mod models;
 mod prelude;
 mod tracing;
 mod web;
+mod weegee;
 
 use clap::Parser;
 

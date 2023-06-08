@@ -46,8 +46,11 @@ pub struct WebArgs {
 
 #[derive(Args)]
 pub struct WargamingArgs {
-    #[clap(short = 'a', long, env = "BLITZ_TANKS_APPLICATION_ID")]
-    pub application_id: String,
+    #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_FRONTEND_APPLICATION_ID")]
+    pub frontend_application_id: String,
+
+    #[clap(long = "backend-app-id", env = "BLITZ_TANKS_BACKEND_APPLICATION_ID")]
+    pub backend_application_id: String,
 }
 
 #[derive(Args)]
