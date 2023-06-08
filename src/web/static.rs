@@ -19,7 +19,9 @@
 //!     ...
 //! ```
 
-use crate::web::prelude::*;
+use axum::response::IntoResponse;
+
+use crate::web::prelude::Headers;
 
 pub async fn get_favicon() -> impl IntoResponse {
     (

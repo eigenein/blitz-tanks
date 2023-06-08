@@ -1,6 +1,4 @@
-use maud::DOCTYPE;
-
-use crate::web::prelude::*;
+use maud::{html, Markup, PreEscaped, DOCTYPE};
 
 pub fn head() -> Markup {
     html! {

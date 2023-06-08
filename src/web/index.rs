@@ -1,8 +1,9 @@
 //! Index view.
 
 use axum::extract::State;
+use maud::{html, Markup};
 
-use crate::web::{partials::*, prelude::*, state::*};
+use crate::web::{partials::*, state::*};
 
 /// Handle the GET index request.
 pub async fn get(State(SignInUrl(sign_in_url)): State<SignInUrl>) -> Markup {

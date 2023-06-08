@@ -3,18 +3,14 @@ use axum::{
     extract::{FromRef, FromRequestParts, Query, State},
     headers::Cookie,
     http::{header::SET_COOKIE, request::Parts},
+    response::IntoResponse,
     RequestPartsExt, TypedHeader,
 };
 use serde::Deserialize;
 use tracing::{info, instrument};
 use uuid::Uuid;
 
-use crate::{
-    db::Db,
-    models::User,
-    prelude::*,
-    web::{error::InternalServerError, prelude::*},
-};
+use crate::{db::Db, models::User, prelude::*, web::error::WebError};
 
 /// Wargaming.net redirect query parameters.
 #[derive(Deserialize)]
@@ -54,7 +50,7 @@ impl From<AuthenticationResult> for Result<User> {
 pub async fn get(
     Query(result): Query<AuthenticationResult>,
     State(db): State<Db>,
-) -> Result<impl IntoResponse, InternalServerError> {
+) -> Result<impl IntoResponse, WebError> {
     let user = Result::from(result)?; // TODO: handle errors.
     let session_id = Session::new_id();
     info!(user.nickname, %session_id, "welcome");
@@ -92,14 +88,14 @@ impl Session {
     }
 }
 
-/// Session support for web handlers.
+/// Extract a session from the request.
 #[async_trait]
 impl<S> FromRequestParts<S> for Session
 where
     Db: FromRef<S>,
     S: Sync,
 {
-    type Rejection = InternalServerError;
+    type Rejection = WebError;
 
     #[instrument(level = "debug", skip_all)]
     async fn from_request_parts(parts: &mut Parts, state: &S) -> Result<Self, Self::Rejection> {
@@ -108,9 +104,38 @@ where
         let Some(session_id) = cookie.get(Self::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
         let session_id = Uuid::parse_str(session_id).context("invalid session ID")?;
 
+        sentry::configure_scope(|scope| scope.set_tag("user.session_id", session_id));
+
         match Db::from_ref(state).session_manager()?.get(session_id)? {
-            Some(user) => Ok(Session::Authenticated(user)),
-            None => Ok(Session::Anonymous),
+            Some(user) => {
+                sentry::configure_scope(|scope| {
+                    scope.set_tag("user.account_id", user.account_id);
+                    scope.set_tag("user.is_anonymous", false);
+                });
+                Ok(Session::Authenticated(user))
+            }
+            None => {
+                sentry::configure_scope(|scope| scope.set_tag("user.is_anonymous", true));
+                Ok(Session::Anonymous)
+            }
+        }
+    }
+}
+
+/// Extract a user from the request or reject if there's no any session.
+#[async_trait]
+impl<S> FromRequestParts<S> for User
+where
+    Db: FromRef<S>,
+    S: Sync,
+{
+    type Rejection = WebError;
+
+    #[instrument(level = "debug", skip_all)]
+    async fn from_request_parts(parts: &mut Parts, state: &S) -> Result<Self, Self::Rejection> {
+        match Session::from_request_parts(parts, state).await? {
+            Session::Authenticated(user) => Ok(user),
+            Session::Anonymous => Err(WebError::Forbidden),
         }
     }
 }
