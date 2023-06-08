@@ -11,6 +11,7 @@ mod tracing_;
 
 use axum::{routing::get, Router};
 use clap::crate_version;
+use sentry::integrations::tower::{NewSentryLayer, SentryHttpLayer};
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::{info, instrument};
@@ -34,12 +35,15 @@ pub async fn run(args: WebArgs) -> Result {
 }
 
 pub fn create_app(state: AppState) -> Router {
-    let tracing_layer = ServiceBuilder::new().layer(
-        TraceLayer::new_for_http()
-            .on_request(tracing_::on_request)
-            .on_response(tracing_::on_response)
-            .on_failure(tracing_::on_failure),
-    );
+    let tracing_layer = ServiceBuilder::new()
+        .layer(
+            TraceLayer::new_for_http()
+                .on_request(tracing_::on_request)
+                .on_response(tracing_::on_response)
+                .on_failure(tracing_::on_failure),
+        )
+        .layer(SentryHttpLayer::with_transaction())
+        .layer(NewSentryLayer::new_from_top());
     Router::new()
         .route("/", get(index::get))
         .route("/authenticate", get(authenticate::get))

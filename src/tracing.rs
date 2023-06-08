@@ -8,19 +8,17 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilte
 use crate::{models::User, prelude::*};
 
 pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<ClientInitGuard> {
-    let guard = sentry::init((
-        sentry_dsn,
-        ClientOptions {
-            release: Some(Cow::Borrowed(crate_version!())),
-            traces_sample_rate,
-            enable_profiling: true,
-            profiles_sample_rate: traces_sample_rate,
-            attach_stacktrace: true,
-            send_default_pii: true,
-            in_app_include: vec!["blitz_tanks"],
-            ..Default::default()
-        },
-    ));
+    let sentry_options = ClientOptions {
+        release: Some(Cow::Borrowed(crate_version!())),
+        traces_sample_rate,
+        enable_profiling: true,
+        profiles_sample_rate: traces_sample_rate,
+        attach_stacktrace: true,
+        send_default_pii: true,
+        in_app_include: vec!["blitz_tanks"],
+        ..Default::default()
+    };
+    let guard = sentry::init((sentry_dsn, sentry_options));
 
     let sentry_layer = sentry::integrations::tracing::layer()
         .event_filter(|metadata| match metadata.level() {
