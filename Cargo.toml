@@ -1,6 +1,6 @@
 [package]
 name = "blitz-tanks"
-version = "0.1.0"
+version = "0.0.0"
 edition = "2021"
 description = "Recommender system for World of Tanks Blitz"
 authors = ["Pavel Perestoronin <eigenein@gmail.com>"]
