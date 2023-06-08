@@ -84,5 +84,5 @@ jobs:
               User pi
               StrictHostKeyChecking no
 
-      - name: ♻️ Rsyncπ
+      - name: ♻️ Rsync
         run: rsync --compress --executability --times --verbose blitz-tanks.aarch64-unknown-linux-gnu mars:/home/pi/bin/blitz-tanks
