@@ -19,17 +19,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 🖊 Set crate version
-        run: |
-          echo 'version = "${{ github.ref_name }}"'
-          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.toml
-          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.lock
-
       - name: ⚡️ Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
           key: "rust"
           cache-on-failure: true
+
+      - name: 🖊 Set crate version
+        run: |
+          echo 'version = "${{ github.ref_name }}"'
+          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.toml
+          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.lock
 
       - name: 📝 Build Changelog
         id: changelog
@@ -80,12 +80,15 @@ jobs:
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
-      - name: ♻️ Rsync
-        uses: burnett01/rsync-deployments@6.0.0
+      - name: 🔑 Install SSH key
+        uses: shimataro/ssh-key-action@v2
         with:
-          switches: -avz
-          path: blitz-tanks.aarch64-unknown-linux-gnu
-          remote_path: /home/pi/bin
-          remote_host: mars.fluffy-shark.ts.net
-          remote_user: pi
-          remote_key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: unnecessary
+          config: |
+            Host mars
+              User pi
+              StrictHostKeyChecking no
+
+      - name: ♻️ Rsync
+        run: rsync -avz blitz-tanks.aarch64-unknown-linux-gnu mars:/home/pi/bin/blitz-tanks
