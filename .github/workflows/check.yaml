@@ -22,13 +22,6 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v3
 
-      - name: ✨ Set up the toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          components: clippy
-
       - name: ⚡️ Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
