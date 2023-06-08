@@ -86,6 +86,6 @@ jobs:
           switches: -avz
           path: blitz-tanks.aarch64-unknown-linux-gnu
           remote_path: /home/pi/bin
-          remote_host: mars
+          remote_host: mars.fluffy-shark.ts.net
           remote_user: pi
           remote_key: ${{ secrets.SSH_KEY }}
