@@ -2,10 +2,12 @@
 
 use axum::extract::State;
 use maud::{html, Markup};
+use tracing::instrument;
 
 use crate::web::{partials::*, state::*};
 
 /// Index route handler.
+#[instrument(skip_all)]
 pub async fn get(State(state): State<AppState>) -> Markup {
     html! {
         (head())
