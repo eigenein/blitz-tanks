@@ -24,7 +24,7 @@ pub async fn run(args: WebArgs) -> Result {
         args.db.open()?,
         &args.wargaming.frontend_application_id,
         &args.wargaming.backend_application_id,
-        &args.domain_name,
+        &args.public_address,
     )?);
     axum::Server::bind(&args.bind_endpoint)
         .serve(app.into_make_service())

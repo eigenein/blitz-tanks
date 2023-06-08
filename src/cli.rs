@@ -35,10 +35,10 @@ pub struct WebArgs {
 
     #[clap(
         long,
-        env = "BLITZ_TANKS_DOMAIN_NAME",
+        env = "BLITZ_TANKS_PUBLIC_ADDRESS",
         default_value = "localhost:8080"
     )]
-    pub domain_name: String,
+    pub public_address: String,
 
     #[clap(flatten)]
     pub db: DbArgs,
@@ -58,8 +58,8 @@ pub struct DbArgs {
     #[clap(
         short = 'd',
         long = "db-path",
-        env = "BLITZ_TANKS_DB_PATH",
-        default_value = "blitz-tanks.sled"
+        env = "BLITZ_TANKS_DATABASE_PATH",
+        default_value = "db.sled"
     )]
     pub path: PathBuf,
 }
