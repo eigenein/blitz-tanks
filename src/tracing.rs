@@ -1,5 +1,6 @@
 use std::borrow::Cow;
 
+use clap::crate_version;
 use sentry::{integrations::tracing::EventFilter, ClientInitGuard, ClientOptions, Scope};
 use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
@@ -10,7 +11,7 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
     let guard = sentry::init((
         sentry_dsn,
         ClientOptions {
-            release: Some(Cow::Borrowed(env!("CARGO_PKG_VERSION"))),
+            release: Some(Cow::Borrowed(crate_version!())),
             traces_sample_rate,
             enable_profiling: true,
             profiles_sample_rate: traces_sample_rate,
