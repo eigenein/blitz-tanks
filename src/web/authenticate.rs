@@ -1,9 +1,9 @@
 use axum::{
     async_trait,
     extract::{FromRef, FromRequestParts, Query, State},
-    headers::Cookie,
+    headers,
     http::{header::SET_COOKIE, request::Parts},
-    response::IntoResponse,
+    response::{IntoResponse, Redirect},
     RequestPartsExt, TypedHeader,
 };
 use serde::Deserialize;
@@ -55,18 +55,14 @@ pub async fn get(
     let session_id = Session::new_id();
     info!(user.nickname, %session_id, "welcome");
     db.session_manager()?.insert(session_id, &user)?;
+    let cookie = cookie::Cookie::build(Session::SESSION_COOKIE_NAME, session_id.to_string())
+        .http_only(true)
+        .expires(user.expires_at()?)
+        .finish();
 
-    // TODO: content.
     Ok((
-        [(
-            SET_COOKIE,
-            format!(
-                "{}={session_id}; HttpOnly; Expires={}",
-                Session::SESSION_COOKIE_NAME,
-                user.expires_at()?.to_rfc2822()
-            ),
-        )],
-        "OK",
+        [(SET_COOKIE, cookie.to_string())],
+        Redirect::temporary(&format!("/profile/{}", user.account_id)),
     ))
 }
 
@@ -99,7 +95,7 @@ where
 
     #[instrument(level = "debug", skip_all)]
     async fn from_request_parts(parts: &mut Parts, state: &S) -> Result<Self, Self::Rejection> {
-        let cookie: Option<TypedHeader<Cookie>> = parts.extract().await?;
+        let cookie: Option<TypedHeader<headers::Cookie>> = parts.extract().await?;
         let Some(cookie) = cookie else { return Ok(Session::Anonymous) };
         let Some(session_id) = cookie.get(Self::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
         let session_id = Uuid::parse_str(session_id).context("invalid session ID")?;

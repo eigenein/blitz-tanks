@@ -1,4 +1,4 @@
-use chrono::TimeZone;
+use cookie::{time::OffsetDateTime, Expiration};
 use prost::Message;
 use serde::Deserialize;
 
@@ -27,10 +27,7 @@ pub struct User {
 }
 
 impl User {
-    /// Convert the expiry timestamp to Chrono.
-    pub fn expires_at(&self) -> Result<DateTime> {
-        Utc.timestamp_opt(self.expires_at, 0)
-            .single()
-            .with_context(|| format!("ambiguous timestamp: {}", self.expires_at))
+    pub fn expires_at(&self) -> Result<Expiration> {
+        Ok(Expiration::DateTime(OffsetDateTime::from_unix_timestamp(self.expires_at)?))
     }
 }

@@ -25,5 +25,5 @@ pub fn on_response<B>(response: &Response<B>, latency: Duration, span: &Span) {
 
 #[allow(clippy::needless_pass_by_value)]
 pub fn on_failure(_error: ServerErrorsFailureClass, latency: Duration, span: &Span) {
-    error!(parent: span, ?latency, "❌ something went wrong");
+    error!(parent: span, ?latency, "💥 something went wrong");
 }
