@@ -1,10 +1,10 @@
 use std::borrow::Cow;
 
-use sentry::{integrations::tracing::EventFilter, ClientInitGuard, ClientOptions};
+use sentry::{integrations::tracing::EventFilter, ClientInitGuard, ClientOptions, Scope};
 use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
-use crate::prelude::*;
+use crate::{models::User, prelude::*};
 
 pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<ClientInitGuard> {
     let guard = sentry::init((
@@ -42,4 +42,21 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
         .init();
 
     Ok(guard)
+}
+
+pub fn configure_user(scope: &mut Scope, user: Option<&User>) {
+    match user {
+        Some(user) => {
+            scope.set_tag("user.is_anonymous", false);
+            scope.set_user(Some(sentry::User {
+                id: Some(user.account_id.to_string()),
+                username: Some(user.nickname.clone()),
+                ..Default::default()
+            }));
+        }
+        None => {
+            scope.set_tag("user.is_anonymous", true);
+            scope.set_user(None);
+        }
+    }
 }

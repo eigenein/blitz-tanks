@@ -10,7 +10,7 @@ use serde::Deserialize;
 use tracing::{info, instrument};
 use uuid::Uuid;
 
-use crate::{db::Db, models::User, prelude::*, web::error::WebError};
+use crate::{db::Db, models::User, prelude::*, tracing::configure_user, web::error::WebError};
 
 /// Wargaming.net redirect query parameters.
 #[derive(Deserialize)]
@@ -108,14 +108,11 @@ where
 
         match Db::from_ref(state).session_manager()?.get(session_id)? {
             Some(user) => {
-                sentry::configure_scope(|scope| {
-                    scope.set_tag("user.account_id", user.account_id);
-                    scope.set_tag("user.is_anonymous", false);
-                });
+                sentry::configure_scope(|scope| configure_user(scope, Some(&user)));
                 Ok(Session::Authenticated(user))
             }
             None => {
-                sentry::configure_scope(|scope| scope.set_tag("user.is_anonymous", true));
+                sentry::configure_scope(|scope| configure_user(scope, None));
                 Ok(Session::Anonymous)
             }
         }
