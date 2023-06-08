@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 🖊 Set release version
+      - name: 🖊 Set crate version
         run: |
           echo 'version = "${{ github.ref_name }}"'
           sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.toml

@@ -22,6 +22,12 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v3
 
+      - name: 🖊 Set crate version
+        run: |
+          echo 'version = "${{ github.ref_name }}"'
+          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.toml
+          sed -i -e 's/version = "0.0.0"/version = "${{ github.ref_name }}"/g' Cargo.lock
+
       - name: ⚡️ Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
