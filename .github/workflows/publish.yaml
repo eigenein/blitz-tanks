@@ -57,6 +57,16 @@ jobs:
           asset_name: blitz-tanks.aarch64-unknown-linux-gnu
           asset_content_type: application/octet-stream
 
+      - name: 🐛 Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: eigenein
+          SENTRY_PROJECT: blitz-tanks
+        with:
+          environment: production
+          version: ${{ github.ref_name }}
+
   publish:
     name: ✨ Publish
     runs-on: ubuntu-latest
@@ -89,17 +99,7 @@ jobs:
           chmod +x blitz-tanks.aarch64-unknown-linux-gnu
           rsync --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu mars:/home/pi/bin/blitz-tanks
 
-      - name: 🐛 Create Sentry release
-        uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: eigenein
-          SENTRY_PROJECT: blitz-tanks
-        with:
-          environment: production
-          version: ${{ github.ref_name }}
-
-      - name: ♻️ Restart
+      - name: ⏳ Restart
         run: |
           ssh yastatist "sudo systemctl restart blitz-tanks
           systemctl status --lines=0 blitz-tanks"
