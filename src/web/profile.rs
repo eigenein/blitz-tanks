@@ -13,6 +13,40 @@ pub async fn get(
     html! {
         (head())
         body {
+            section.hero.is-info.is-small {
+                div.hero-head {
+                    (navbar())
+                }
+
+                div.hero-body {
+                    div.container {
+                        p.title.has-text-weight-medium { (user.nickname) }
+                        p.subtitle.has-text-weight-light {
+                            "Here you can "
+                            span.has-text-weight-medium { "rate" }
+                            " vehicles you played and "
+                            span.has-text-weight-medium { "discover" }
+                            " new ones"
+                        }
+                    }
+                }
+
+                div.hero-foot {
+                    nav.tabs.is-medium.is-boxed {
+                        div.container {
+                            ul {
+                                li {
+                                    a {
+                                        span.icon { i.fa-solid.fa-star-half-stroke aria-hidden="true" {} }
+                                        span { "Your vehicles" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             (footer())
         }
     }
