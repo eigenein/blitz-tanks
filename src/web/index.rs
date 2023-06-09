@@ -1,10 +1,9 @@
 //! Index view.
 
 use axum::extract::State;
-use maud::{html, Markup};
 use tracing::instrument;
 
-use crate::web::{authenticate::Session, partials::*, state::*};
+use crate::web::{authenticate::Session, partials::*, prelude::*, state::*};
 
 /// Index route handler.
 #[instrument(skip_all)]

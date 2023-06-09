@@ -17,7 +17,7 @@ pub fn on_response<B>(response: &Response<B>, latency: Duration, span: &Span) {
     if response.status().is_server_error() {
         error!(parent: span, status = ?response.status(), ?latency, "💥 failed");
     } else if response.status().is_client_error() {
-        warn!(parent: span, status = ?response.status(), ?latency, "🛬 finished");
+        warn!(parent: span, status = ?response.status(), ?latency, "⚠️ finished");
     } else {
         info!(parent: span, status = ?response.status(), ?latency, "🛬 finished");
     }

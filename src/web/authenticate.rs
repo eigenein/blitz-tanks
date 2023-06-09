@@ -16,7 +16,7 @@ use crate::{
     models::{new_session_id, User},
     prelude::*,
     tracing::configure_user,
-    web::{error::WebError, state::AppState},
+    web::{prelude::*, state::AppState},
 };
 
 /// Wargaming.net redirect query parameters.

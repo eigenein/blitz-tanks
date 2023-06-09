@@ -38,7 +38,7 @@ impl From<Infallible> for WebError {
 
 impl From<PathRejection> for WebError {
     fn from(error: PathRejection) -> Self {
-        Self::BadRequest(anyhow!("path rejected: {:#}", Error::from(error)))
+        Self::BadRequest(anyhow!("path rejected: {:#}", error))
     }
 }
 

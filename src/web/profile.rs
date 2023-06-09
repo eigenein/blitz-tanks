@@ -1,16 +1,22 @@
-use axum::response::IntoResponse;
 use tracing::instrument;
 
 use crate::{
+    models::User,
     prelude::*,
-    web::{error::WebError, models::ValidatedAccountId},
+    web::{models::ValidatedAccountId, partials::*, prelude::*},
 };
 
 #[instrument(skip_all, fields(account_id = account_id))]
 pub async fn get(
     ValidatedAccountId(account_id): ValidatedAccountId,
-) -> Result<impl IntoResponse, WebError> {
-    Ok(())
+    user: User,
+) -> impl IntoResponse {
+    html! {
+        (head())
+        body {
+            (footer())
+        }
+    }
 }
 
 #[cfg(test)]
