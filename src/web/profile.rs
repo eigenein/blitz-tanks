@@ -2,7 +2,6 @@ use tracing::instrument;
 
 use crate::{
     models::User,
-    prelude::*,
     web::{models::ValidatedAccountId, partials::*, prelude::*},
 };
 
@@ -27,9 +26,7 @@ mod tests {
     };
     use tower::ServiceExt;
 
-    use super::*;
     use crate::{
-        models::{new_session_id, User},
         prelude::Result,
         web::{authenticate::Session, create_app, state::AppState},
     };
@@ -37,18 +34,7 @@ mod tests {
     #[tokio::test]
     async fn own_profile_ok() -> Result {
         let state = AppState::new_test()?;
-
-        let session_id = new_session_id();
-        state.db.session_manager()?.insert(
-            session_id,
-            &User {
-                access_token: "test".to_string(),
-                expires_at: Utc::now().timestamp() + 10,
-                account_id: 1,
-                nickname: "test".to_string(),
-            },
-        )?;
-
+        let session_id = state.db.session_manager()?.insert_test_session()?;
         let request = Request::builder()
             .uri("/profile/1")
             .header("Cookie", format!("{}={session_id}", Session::SESSION_COOKIE_NAME))

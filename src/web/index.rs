@@ -1,14 +1,22 @@
 //! Index view.
 
-use axum::extract::State;
-use tracing::instrument;
+use axum::{extract::State, response::Redirect};
+use tracing::{info, instrument};
 
-use crate::web::{authenticate::Session, partials::*, prelude::*, state::*};
+use crate::{
+    models::User,
+    web::{authenticate::Session, models::OptionalRedirect, partials::*, prelude::*, state::*},
+};
 
 /// Index route handler.
 #[instrument(skip_all)]
-pub async fn get(State(state): State<AppState>, session: Session) -> Markup {
-    html! {
+pub async fn get(State(state): State<AppState>, session: Session) -> OptionalRedirect {
+    if let Session::Authenticated(User { account_id, .. }) = session {
+        info!(account_id, "👋 welcome");
+        return OptionalRedirect::Redirect(Redirect::temporary(&format!("/profile/{account_id}")));
+    }
+
+    let markup = html! {
         (head())
         body {
             section.hero.is-fullheight {
@@ -62,7 +70,8 @@ pub async fn get(State(state): State<AppState>, session: Session) -> Markup {
 
             ((footer()))
         }
-    }
+    };
+    OptionalRedirect::Markup(markup)
 }
 
 #[cfg(test)]
@@ -82,6 +91,21 @@ mod tests {
         let request = Request::builder().uri("/").body(Body::empty())?;
         let response = app.oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::OK);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn redirect_ok() -> Result {
+        let state = AppState::new_test()?;
+        let session_id = state.db.session_manager()?.insert_test_session()?;
+        let request = Request::builder()
+            .uri("/")
+            .header("Cookie", format!("{}={session_id}", Session::SESSION_COOKIE_NAME))
+            .body(Body::empty())?;
+        let response = create_app(state).oneshot(request).await?;
+        assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
+        let headers = response.headers();
+        assert_eq!(headers.get("Location").unwrap(), "/profile/1");
         Ok(())
     }
 }

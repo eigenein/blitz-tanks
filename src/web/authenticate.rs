@@ -102,7 +102,7 @@ where
         let Some(session_id) = cookie.get(Self::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
         debug!(session_id, "🔑 authenticating…");
         let session_id = Scru128Id::from_str(session_id)
-            .context("invalid session ID")
+            .context("malformed session ID")
             .map_err(WebError::BadRequest)?;
 
         sentry::configure_scope(|scope| scope.set_tag("user.session_id", session_id));

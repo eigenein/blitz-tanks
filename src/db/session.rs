@@ -5,7 +5,10 @@ use scru128::Scru128Id;
 use sled::Tree;
 use tracing::instrument;
 
-use crate::{models::User, prelude::*};
+use crate::{
+    models::{new_session_id, User},
+    prelude::*,
+};
 
 /// Wrapper around the tree to manage client-side sessions.
 #[derive(Clone)]
@@ -25,6 +28,21 @@ impl SessionManager {
             .insert(session_id.to_bytes(), user.encode_to_vec())
             .with_context(|| format!("failed to insert the session {session_id:?}"))?;
         Ok(())
+    }
+
+    #[cfg(test)]
+    pub fn insert_test_session(&self) -> Result<Scru128Id> {
+        let session_id = new_session_id();
+        self.insert(
+            session_id,
+            &User {
+                access_token: "test".to_string(),
+                expires_at: Utc::now().timestamp() + 10,
+                account_id: 1,
+                nickname: "test".to_string(),
+            },
+        )?;
+        Ok(session_id)
     }
 
     /// Retrieve a user from the session tree.
