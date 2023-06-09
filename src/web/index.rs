@@ -42,8 +42,17 @@ pub async fn get(State(state): State<AppState>) -> Markup {
                                         p.help {
                                             "with your "
                                             a href="https://wargaming.net/personal/" { "Wargaming.net ID" }
-                                            " (only Europe)"
                                         }
+                                    }
+                                }
+
+                                article.message.is-warning."mt-6" {
+                                    div.message-header {
+                                        "Work in progress"
+                                    }
+                                    div.message-body {
+                                        "Some functionality may be unimplemented or broken."
+                                        " Only European region is currently supported"
                                     }
                                 }
                             }
