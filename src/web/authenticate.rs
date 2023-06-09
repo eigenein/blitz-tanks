@@ -10,7 +10,7 @@ use axum::{
 };
 use scru128::Scru128Id;
 use serde::Deserialize;
-use tracing::{info, instrument};
+use tracing::{debug, info, instrument};
 
 use crate::{
     models::{new_session_id, User},
@@ -60,7 +60,7 @@ pub async fn get(
 ) -> Result<impl IntoResponse, WebError> {
     let user = Result::from(result)?;
     let session_id = new_session_id();
-    info!(user.nickname, %session_id, "welcome");
+    info!(user.nickname, %session_id, "👋 welcome");
     state.db.session_manager()?.insert(session_id, &user)?;
     let cookie = cookie::Cookie::build(Session::SESSION_COOKIE_NAME, session_id.to_string())
         .http_only(true)
@@ -99,6 +99,7 @@ where
         let cookie: Option<TypedHeader<headers::Cookie>> = parts.extract().await?;
         let Some(cookie) = cookie else { return Ok(Session::Anonymous) };
         let Some(session_id) = cookie.get(Self::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
+        debug!(session_id, "🔑 authenticating…");
         let session_id = Scru128Id::from_str(session_id).context("invalid session ID")?;
 
         sentry::configure_scope(|scope| scope.set_tag("user.session_id", session_id));
