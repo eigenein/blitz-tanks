@@ -8,6 +8,7 @@ use tracing::instrument;
 
 use crate::prelude::*;
 
+#[inline]
 #[instrument(level = "debug", ret)]
 pub fn new_session_id() -> Scru128Id {
     // SCRU128 is timestamp-based, so makes it easier to purge old sessions from the database.

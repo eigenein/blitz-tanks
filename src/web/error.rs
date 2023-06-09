@@ -1,3 +1,5 @@
+use std::convert::Infallible;
+
 use axum::{
     extract::rejection::PathRejection,
     http::StatusCode,
@@ -5,38 +7,46 @@ use axum::{
 };
 use tracing::{error, warn};
 
+use crate::prelude::*;
+
 /// Custom error enumeration, which can be used in the web handlers.
 ///
 /// Axum makes it **really** difficult to implement proper error handling
 /// for the request handlers with custom tracing and Sentry integration, hence this workaround.
 #[derive(thiserror::Error, Debug)]
 pub enum WebError {
-    /// Any uncaught Anyhow error is an internal server error.
+    /// Any uncaught Anyhow error is by default an internal server error.
     #[error("internal server error")]
-    InternalServerError(#[from] anyhow::Error),
+    InternalServerError(#[from] Error),
+
+    #[error("bad request")]
+    BadRequest(#[source] Error),
 
     #[error("forbidden")]
     Forbidden,
+}
 
-    /// Infallible variant, it only exists to convert from Axum's «infallible errors».
-    #[error("infallible")]
-    Infallible(#[from] std::convert::Infallible),
+impl From<Infallible> for WebError {
+    fn from(_: Infallible) -> Self {
+        unreachable!("infallible error")
+    }
+}
 
-    #[error("invalid path: `{0}`")]
-    PathRejection(#[from] PathRejection),
+impl From<PathRejection> for WebError {
+    fn from(error: PathRejection) -> Self {
+        Self::BadRequest(anyhow!("path rejected: {:#}", Error::from(error)))
+    }
 }
 
 impl IntoResponse for WebError {
     fn into_response(self) -> Response {
         let status_code = match self {
-            Self::Infallible(_) => unreachable!("infallible error"),
-
-            Self::Forbidden => StatusCode::FORBIDDEN,
-
-            Self::PathRejection(reason) => {
-                warn!("❌ path rejected: {reason}");
+            Self::BadRequest(error) => {
+                warn!("❌ bad request: {error:#}");
                 StatusCode::BAD_REQUEST
             }
+
+            Self::Forbidden => StatusCode::FORBIDDEN,
 
             Self::InternalServerError(error) => {
                 error!("💥 internal server error: {error:#}");
