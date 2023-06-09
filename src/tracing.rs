@@ -1,8 +1,11 @@
 use std::borrow::Cow;
 
 use clap::crate_version;
-use sentry::{integrations::tracing::EventFilter, ClientInitGuard, ClientOptions, Scope};
-use tracing::{info, Level};
+use sentry::{
+    integrations::{anyhow::capture_anyhow, tracing::EventFilter},
+    ClientInitGuard, ClientOptions, Scope,
+};
+use tracing::{error, info, Level};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
 use crate::{models::User, prelude::*};
@@ -21,13 +24,8 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
     let guard = sentry::init((sentry_dsn, sentry_options));
 
     let sentry_layer = sentry::integrations::tracing::layer()
-        .event_filter(|metadata| match metadata.level() {
-            &Level::ERROR | &Level::WARN => EventFilter::Event,
-            &Level::INFO | &Level::DEBUG | &Level::TRACE => EventFilter::Breadcrumb,
-        })
-        .span_filter(|metadata| {
-            matches!(metadata.level(), &Level::ERROR | &Level::WARN | &Level::INFO | &Level::DEBUG)
-        });
+        .event_filter(|_metadata| EventFilter::Breadcrumb)
+        .span_filter(|metadata| metadata.level() >= &Level::DEBUG);
 
     let format_filter = EnvFilter::try_from_env("BLITZ_TANKS_LOG")
         .or_else(|_| EnvFilter::try_new("warn,blitz_tanks=info"))?;
@@ -59,4 +57,14 @@ pub fn configure_user(scope: &mut Scope, user: Option<&User>) {
             scope.set_user(None);
         }
     }
+}
+
+/// Proxy the result, and report a possible error.
+#[inline]
+pub fn trace<T>(result: Result<T>) -> Result<T> {
+    if let Err(error) = &result {
+        let event_id = capture_anyhow(error);
+        error!(?event_id, "💥 failed");
+    }
+    result
 }

@@ -15,7 +15,7 @@ pub fn on_request(request: &Request<Body>, span: &Span) {
 
 pub fn on_response<B>(response: &Response<B>, latency: Duration, span: &Span) {
     if response.status().is_server_error() {
-        error!(parent: span, status = ?response.status(), ?latency, "🛬 failed");
+        error!(parent: span, status = ?response.status(), ?latency, "💥 failed");
     } else if response.status().is_client_error() {
         warn!(parent: span, status = ?response.status(), ?latency, "🛬 finished");
     } else {
@@ -24,6 +24,6 @@ pub fn on_response<B>(response: &Response<B>, latency: Duration, span: &Span) {
 }
 
 #[allow(clippy::needless_pass_by_value)]
-pub fn on_failure(_error: ServerErrorsFailureClass, latency: Duration, span: &Span) {
-    error!(parent: span, ?latency, "💥 something went wrong");
+pub fn on_failure(error: ServerErrorsFailureClass, latency: Duration, span: &Span) {
+    error!(parent: span, ?error, ?latency, "💥 failed");
 }

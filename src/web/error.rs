@@ -3,7 +3,6 @@ use axum::{
     http::StatusCode,
     response::{IntoResponse, Response},
 };
-use sentry::integrations::anyhow::capture_anyhow;
 use tracing::{error, warn};
 
 /// Custom error enumeration, which can be used in the web handlers.
@@ -41,7 +40,6 @@ impl IntoResponse for WebError {
 
             Self::InternalServerError(error) => {
                 error!("💥 internal server error: {error:#}");
-                capture_anyhow(&error);
                 StatusCode::INTERNAL_SERVER_ERROR
             }
         };
