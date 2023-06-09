@@ -182,7 +182,7 @@ mod tests {
         let mut response = app.oneshot(request).await?;
         assert_eq!(
             response.status(),
-            StatusCode::INTERNAL_SERVER_ERROR,
+            StatusCode::SERVICE_UNAVAILABLE,
             "{:?}",
             response.data().await
         );
