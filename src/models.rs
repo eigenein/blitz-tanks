@@ -2,9 +2,18 @@
 
 use cookie::{time::OffsetDateTime, Expiration};
 use prost::Message;
+use scru128::Scru128Id;
 use serde::Deserialize;
+use tracing::instrument;
 
 use crate::prelude::*;
+
+#[instrument(level = "debug", ret)]
+pub fn new_session_id() -> Scru128Id {
+    // SCRU128 is timestamp-based, so makes it easier to purge old sessions from the database.
+    // It's also unpredictable, hence suitable for session IDs.
+    scru128::new()
+}
 
 /// Authenticated [Wargaming.net user][1].
 ///

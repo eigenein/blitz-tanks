@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 use axum::{
     async_trait,
     extract::{FromRef, FromRequestParts, Query, State},
@@ -6,12 +8,12 @@ use axum::{
     response::{IntoResponse, Redirect},
     RequestPartsExt, TypedHeader,
 };
+use scru128::Scru128Id;
 use serde::Deserialize;
 use tracing::{info, instrument};
-use uuid::Uuid;
 
 use crate::{
-    models::User,
+    models::{new_session_id, User},
     prelude::*,
     tracing::configure_user,
     web::{error::WebError, state::AppState},
@@ -57,7 +59,7 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> Result<impl IntoResponse, WebError> {
     let user = Result::from(result)?;
-    let session_id = Session::new_id();
+    let session_id = new_session_id();
     info!(user.nickname, %session_id, "welcome");
     state.db.session_manager()?.insert(session_id, &user)?;
     let cookie = cookie::Cookie::build(Session::SESSION_COOKIE_NAME, session_id.to_string())
@@ -81,12 +83,6 @@ pub enum Session {
 
 impl Session {
     pub const SESSION_COOKIE_NAME: &'static str = "blitzTanksSessionId";
-
-    #[instrument(level = "debug", ret)]
-    pub fn new_id() -> Uuid {
-        // UUID v7 is timestamp-based, so makes it easier to purge old sessions from the database.
-        Uuid::now_v7()
-    }
 }
 
 /// Extract a session from the request.
@@ -103,7 +99,7 @@ where
         let cookie: Option<TypedHeader<headers::Cookie>> = parts.extract().await?;
         let Some(cookie) = cookie else { return Ok(Session::Anonymous) };
         let Some(session_id) = cookie.get(Self::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
-        let session_id = Uuid::parse_str(session_id).context("invalid session ID")?;
+        let session_id = Scru128Id::from_str(session_id).context("invalid session ID")?;
 
         sentry::configure_scope(|scope| scope.set_tag("user.session_id", session_id));
 
@@ -157,7 +153,7 @@ mod tests {
     async fn success_ok() -> Result {
         let app = create_app(AppState::new_test()?);
         let request = Request::builder()
-            .uri("/authenticate?status=ok&access_token=fake&expires_at=1686693094&nickname=test&account_id=1")
+            .uri("/welcome?status=ok&access_token=fake&expires_at=1686693094&nickname=test&account_id=1")
             .body(Body::empty())?;
         let response = app.oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
@@ -177,7 +173,7 @@ mod tests {
     async fn error_ok() -> Result {
         let app = create_app(AppState::new_test()?);
         let request = Request::builder()
-            .uri("/authenticate?status=error&code=500&message=ricochet")
+            .uri("/welcome?status=error&code=500&message=ricochet")
             .body(Body::empty())?;
         let mut response = app.oneshot(request).await?;
         assert_eq!(

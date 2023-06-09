@@ -46,7 +46,7 @@ pub fn create_app(state: AppState) -> Router {
         .layer(NewSentryLayer::new_from_top());
     Router::new()
         .route("/", get(index::get))
-        .route("/authenticate", get(authenticate::get))
+        .route("/welcome", get(authenticate::get))
         .route("/profile/:account_id", get(profile::get))
         .route("/favicon.ico", get(r#static::get_favicon))
         .route("/apple-touch-icon.png", get(r#static::get_apple_touch_icon))

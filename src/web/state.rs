@@ -35,7 +35,7 @@ impl AppState {
             db,
             wee_gee: WeeGee::new(backend_application_id)?,
             sign_in_url: Arc::new(format!(
-                "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{domain_name}/authenticate"
+                "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{domain_name}/welcome"
             )),
             vehicles_stats_cache: Cache::builder()
                 .time_to_idle(Duration::from_secs(600))

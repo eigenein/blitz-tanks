@@ -23,7 +23,7 @@ mod tests {
 
     use super::*;
     use crate::{
-        models::User,
+        models::{new_session_id, User},
         prelude::Result,
         web::{authenticate::Session, create_app, state::AppState},
     };
@@ -32,7 +32,7 @@ mod tests {
     async fn own_profile_ok() -> Result {
         let state = AppState::new_test()?;
 
-        let session_id = Session::new_id();
+        let session_id = new_session_id();
         state.db.session_manager()?.insert(
             session_id,
             &User {
