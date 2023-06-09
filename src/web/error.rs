@@ -5,6 +5,7 @@ use axum::{
     http::StatusCode,
     response::{IntoResponse, Response},
 };
+use sentry::capture_error;
 use tracing::{error, warn};
 
 use crate::prelude::*;
@@ -24,6 +25,9 @@ pub enum WebError {
 
     #[error("forbidden")]
     Forbidden,
+
+    #[error("service unavailable: #{code} {message}")]
+    ServiceUnavailable { code: u16, message: String },
 }
 
 impl From<Infallible> for WebError {
@@ -40,7 +44,7 @@ impl From<PathRejection> for WebError {
 
 impl IntoResponse for WebError {
     fn into_response(self) -> Response {
-        let status_code = match self {
+        let status_code = match &self {
             Self::BadRequest(error) => {
                 warn!("❌ bad request: {error:#}");
                 StatusCode::BAD_REQUEST
@@ -51,6 +55,12 @@ impl IntoResponse for WebError {
             Self::InternalServerError(error) => {
                 error!("💥 internal server error: {error:#}");
                 StatusCode::INTERNAL_SERVER_ERROR
+            }
+
+            Self::ServiceUnavailable { code, message } => {
+                error!("📴 service unavailable: #{code} {message}");
+                capture_error(&self);
+                StatusCode::SERVICE_UNAVAILABLE
             }
         };
         status_code.into_response()

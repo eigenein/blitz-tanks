@@ -39,13 +39,14 @@ pub struct AuthenticationError {
     message: String,
 }
 
-impl From<AuthenticationResult> for Result<User> {
+impl From<AuthenticationResult> for Result<User, WebError> {
     fn from(value: AuthenticationResult) -> Self {
         match value {
             AuthenticationResult::Ok(user) => Ok(user),
-            AuthenticationResult::Err(error) => {
-                Err(anyhow!("authentication error #{}: {}", error.code, error.message))
-            }
+            AuthenticationResult::Err(error) => Err(WebError::ServiceUnavailable {
+                code: error.code,
+                message: error.message,
+            }),
         }
     }
 }
@@ -58,7 +59,7 @@ pub async fn get(
     Query(result): Query<AuthenticationResult>,
     State(state): State<AppState>,
 ) -> Result<impl IntoResponse, WebError> {
-    let user = Result::from(result)?;
+    let user = Result::<User, WebError>::from(result)?;
     let session_id = new_session_id();
     info!(user.nickname, %session_id, "👋 welcome");
     state.db.session_manager()?.insert(session_id, &user)?;
