@@ -89,6 +89,7 @@ impl WeeGee {
     /// Retrieve the [tankopedia][1].
     ///
     /// [1]: https://developers.wargaming.net/reference/all/wotb/encyclopedia/vehicles/
+    #[instrument(skip_all)]
     pub async fn get_tankopedia(&self) -> Result<Vec<VehicleDescription>> {
         info!("☎️ Retrieving the tankopedia…");
         let result = self
