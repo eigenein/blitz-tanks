@@ -74,6 +74,16 @@ pub async fn get(State(state): State<AppState>, session: Session) -> OptionalRed
     OptionalRedirect::Markup(markup)
 }
 
+/// Landing's navigation bar.
+fn navbar() -> Markup {
+    html! {
+        nav.navbar role="navigation" aria-label="main navigation" {
+            div.container { (navbar_brand()) }
+            #navbar.navbar-menu { div.navbar-end {} }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use axum::{

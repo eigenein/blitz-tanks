@@ -21,26 +21,27 @@ pub fn head() -> Markup {
     }
 }
 
-pub fn navbar() -> Markup {
+pub fn navbar_burger() -> Markup {
     html! {
-        nav.navbar role="navigation" aria-label="main navigation" {
-            div.container {
-                div.navbar-brand {
-                    a.navbar-item href="/" {
-                        img src="/home.png" width="28" height="28" alt="Main page";
-                    }
-                    a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar" {
-                        span aria-hidden="true" {}
-                        span aria-hidden="true" {}
-                        span aria-hidden="true" {}
-                    }
-                }
-
-                #navbar.navbar-menu {
-                    div.navbar-end {}
-                }
-            }
+        a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar" {
+            span aria-hidden="true" {}
+            span aria-hidden="true" {}
+            span aria-hidden="true" {}
         }
+    }
+}
+
+pub fn home_navbar_item() -> Markup {
+    html! {
+        a.navbar-item href="/" {
+            img src="/home.png" width="28" height="28" alt="Main page";
+        }
+    }
+}
+
+pub fn navbar_brand() -> Markup {
+    html! {
+        div.navbar-brand { (home_navbar_item()) (navbar_burger()) }
     }
 }
 

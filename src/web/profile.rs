@@ -5,40 +5,55 @@ use crate::{
     web::{extract::ValidatedAccountId, partials::*, prelude::*},
 };
 
-#[instrument(skip_all, fields(account_id = account_id))]
-pub async fn get(
-    ValidatedAccountId(account_id): ValidatedAccountId,
-    user: User,
-) -> impl IntoResponse {
+#[instrument(skip_all, fields(account_id = user.account_id))]
+pub async fn get(_: ValidatedAccountId, user: User) -> impl IntoResponse {
     html! {
         (head())
         body {
-            section.hero.is-info.is-small {
-                div.hero-head {
-                    (navbar())
-                }
+            (navbar(&user))
 
-                div.hero-body {
-                    div.container {
-                        p.title.has-text-weight-medium { (user.nickname) }
-                        p.subtitle.has-text-weight-light {
-                            "Here you can "
-                            span.has-text-weight-medium { "rate" }
-                            " vehicles you played and "
-                            span.has-text-weight-medium { "discover" }
-                            " new ones"
+            section.section {
+                div.container {
+                    div.columns {}
+                }
+            }
+
+            (footer())
+        }
+    }
+}
+
+/// Profile navigation bar.
+fn navbar(user: &User) -> Markup {
+    html! {
+        nav.navbar.is-warning role="navigation" aria-label="main navigation" {
+            div.container {
+                (navbar_brand())
+
+                #navbar.navbar-menu {
+                    div.navbar-start {
+                        div.navbar-item {
+                            span.icon { i.fa-regular.fa-user {} }
+                            span { (user.nickname) }
+                        }
+
+                        a.navbar-item href=(format!("/profile/{}", user.account_id)) {
+                            span.icon { i.fa-solid.fa-star-half-stroke aria-hidden="true" {} }
+                            span { "Rate" }
+                        }
+
+                        a.navbar-item href=(format!("/profile/{}/discover", user.account_id)) {
+                            span.icon { i.fa-solid.fa-wand-magic-sparkles aria-hidden="true" {} }
+                            span { "Discover" }
                         }
                     }
-                }
-
-                div.hero-foot {
-                    nav.tabs.is-medium.is-boxed {
-                        div.container {
-                            ul {
-                                li {
-                                    a {
-                                        span.icon { i.fa-solid.fa-star-half-stroke aria-hidden="true" {} }
-                                        span { "Your vehicles" }
+                    div.navbar-end {
+                        div.navbar-item {
+                            div.field {
+                                p.control {
+                                    a.button.is-rounded.is-danger {
+                                        span.icon { i.fa-solid.fa-right-from-bracket {} }
+                                        span { "Sign out" }
                                     }
                                 }
                             }
@@ -46,8 +61,6 @@ pub async fn get(
                     }
                 }
             }
-
-            (footer())
         }
     }
 }
