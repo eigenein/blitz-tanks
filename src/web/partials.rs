@@ -47,7 +47,7 @@ pub fn navbar_brand() -> Markup {
 
 pub fn footer() -> Markup {
     html! {
-        footer.footer."pb-6" {
+        footer.footer {
             div.container {
                 div.columns {
                     div.column."is-4"."is-12-tablet" {
