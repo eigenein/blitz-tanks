@@ -24,7 +24,7 @@ pub async fn get(_: ValidatedAccountId, user: User) -> impl IntoResponse {
 }
 
 /// Profile navigation bar.
-fn navbar(user: &User) -> Markup {
+fn navbar(User { account_id, nickname, .. }: &User) -> Markup {
     html! {
         nav.navbar.is-warning role="navigation" aria-label="main navigation" {
             div.container {
@@ -34,15 +34,15 @@ fn navbar(user: &User) -> Markup {
                     div.navbar-start {
                         div.navbar-item {
                             span.icon { i.fa-regular.fa-user {} }
-                            span { (user.nickname) }
+                            span { (nickname) }
                         }
 
-                        a.navbar-item href=(format!("/profile/{}", user.account_id)) {
+                        a.navbar-item href=(format!("/profile/{account_id}")) {
                             span.icon { i.fa-solid.fa-star-half-stroke aria-hidden="true" {} }
                             span { "Rate" }
                         }
 
-                        a.navbar-item href=(format!("/profile/{}/discover", user.account_id)) {
+                        a.navbar-item href=(format!("/profile/{account_id}/discover")) {
                             span.icon { i.fa-solid.fa-wand-magic-sparkles aria-hidden="true" {} }
                             span { "Discover" }
                         }
