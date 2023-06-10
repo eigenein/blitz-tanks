@@ -2,7 +2,7 @@ use tracing::instrument;
 
 use crate::{
     models::User,
-    web::{models::ValidatedAccountId, partials::*, prelude::*},
+    web::{extract::ValidatedAccountId, partials::*, prelude::*},
 };
 
 #[instrument(skip_all, fields(account_id = account_id))]

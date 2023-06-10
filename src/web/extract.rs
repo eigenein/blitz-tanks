@@ -1,10 +1,7 @@
-//! Web-specific models.
-
 use axum::{
     async_trait,
     extract::{FromRef, FromRequestParts, Path},
     http::request::Parts,
-    response::{Redirect, Response},
 };
 use serde::Deserialize;
 use tracing::{debug, instrument, warn};
@@ -41,20 +38,6 @@ where
         } else {
             warn!(account_id, "❌ forbidden");
             Err(WebError::Forbidden)
-        }
-    }
-}
-
-pub enum OptionalRedirect {
-    Markup(Markup),
-    Redirect(Redirect),
-}
-
-impl IntoResponse for OptionalRedirect {
-    fn into_response(self) -> Response {
-        match self {
-            Self::Markup(markup) => markup.into_response(),
-            Self::Redirect(redirect) => redirect.into_response(),
         }
     }
 }
