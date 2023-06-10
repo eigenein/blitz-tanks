@@ -14,7 +14,7 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
     let sentry_options = ClientOptions {
         release: Some(Cow::Borrowed(crate_version!())),
         traces_sample_rate,
-        enable_profiling: true,
+        enable_profiling: false, // FIXME: causes the bug in `tracing`.
         profiles_sample_rate: traces_sample_rate,
         attach_stacktrace: true,
         send_default_pii: true,
@@ -29,14 +29,12 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
 
     let format_filter = EnvFilter::try_from_env("BLITZ_TANKS_LOG")
         .or_else(|_| EnvFilter::try_new("warn,blitz_tanks=info"))?;
-    let format_layer = tracing_subscriber::fmt::layer()
-        .without_time()
-        .with_filter(format_filter);
+    let format_layer = tracing_subscriber::fmt::layer().without_time().with_filter(format_filter);
 
     tracing_subscriber::Registry::default()
         .with(sentry_layer)
         .with(format_layer)
-        .init();
+        .try_init()?;
 
     info!(is_sentry_enabled = guard.is_enabled(), "🥅");
     Ok(guard)
