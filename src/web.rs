@@ -55,6 +55,7 @@ pub fn create_app(state: AppState) -> Router {
     Router::new()
         .route("/", get(views::index::get))
         .route("/welcome", get(views::authenticate::get))
+        .route("/sign-out", get(views::sign_out::get))
         .route("/profile/:account_id", get(views::profile::get))
         .route("/favicon.ico", get(r#static::get_favicon))
         .route("/apple-touch-icon.png", get(r#static::get_apple_touch_icon))

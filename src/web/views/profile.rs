@@ -93,7 +93,7 @@ fn navbar(User { account_id, nickname, .. }: &User) -> Markup {
                         div.navbar-item {
                             div.field {
                                 p.control {
-                                    a.button.is-rounded.is-danger {
+                                    a.button.is-rounded.is-danger href="/sign-out" {
                                         span.icon { i.fa-solid.fa-right-from-bracket {} }
                                         span { "Sign out" }
                                     }

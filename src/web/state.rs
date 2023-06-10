@@ -11,16 +11,11 @@ use crate::{
 
 #[derive(Clone)]
 pub struct AppState {
-    /// [Wargaming.net OpenID][1] sign-in URL.
-    ///
-    /// [1]: https://developers.wargaming.net/reference/all/wot/auth/login/
     pub sign_in_url: Arc<String>,
-
     pub tankopedia: Arc<HashMap<u16, VehicleDescription>>,
-
     pub session_manager: SessionManager,
-
     pub vehicle_stats_getter: VehicleStatsGetter,
+    pub wee_gee: WeeGee,
 }
 
 impl AppState {
@@ -41,7 +36,8 @@ impl AppState {
             sign_in_url: Arc::new(format!(
                 "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{public_address}/welcome"
             )),
-            vehicle_stats_getter: VehicleStatsGetter::from(wee_gee),
+            vehicle_stats_getter: VehicleStatsGetter::from(wee_gee.clone()),
+            wee_gee,
         })
     }
 

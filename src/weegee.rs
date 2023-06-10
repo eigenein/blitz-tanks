@@ -114,6 +114,30 @@ impl WeeGee {
             WeeGeeResult::Err { error } => Err(error.into()),
         }
     }
+
+    /// [Log out][1].
+    ///
+    /// [1]: https://developers.wargaming.net/reference/all/wot/auth/logout/
+    #[instrument(skip_all)]
+    pub async fn log_out(&self, access_token: &str) -> Result {
+        let result = self
+            .client
+            .post("https://api.worldoftanks.eu/wot/auth/logout/")
+            .form(&[
+                ("application_id", self.application_id.as_str()),
+                ("access_token", access_token),
+            ])
+            .send()
+            .await
+            .context("failed to log out")?
+            .json::<WeeGeeResult<()>>()
+            .await
+            .context("failed to parse the log-out response")?;
+        match result {
+            WeeGeeResult::Ok { .. } => Ok(()),
+            WeeGeeResult::Err { error } => Err(error.into()),
+        }
+    }
 }
 
 /// User's vehicle statistics.
