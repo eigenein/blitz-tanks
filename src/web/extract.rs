@@ -15,13 +15,12 @@ use crate::{
 #[derive(Deserialize)]
 pub struct AccountId(#[serde(rename = "account_id")] pub u32);
 
-/// Account ID extractor, which validates the current session.
-/// In order to pass, the account ID **must** be the same as that of the logged in user.
-/// TODO: rework into `Owner`.
-pub struct ValidatedAccountId(pub u32);
+/// User extractor, which validates the account ID path segment.
+/// In order to pass, the path's account ID **must** be the same as that of the logged in user.
+pub struct Owner(pub User);
 
 #[async_trait]
-impl<S> FromRequestParts<S> for ValidatedAccountId
+impl<S> FromRequestParts<S> for Owner
 where
     S: Sync + Send,
     AppState: FromRef<S>,
@@ -35,7 +34,7 @@ where
         let user = User::from_request_parts(parts, state).await?;
         if user.account_id == account_id {
             debug!(account_id, "✅ verified");
-            Ok(Self(account_id))
+            Ok(Self(user))
         } else {
             warn!(account_id, "❌ forbidden");
             Err(WebError::Forbidden)

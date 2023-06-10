@@ -3,13 +3,12 @@ use tracing::instrument;
 
 use crate::{
     models::User,
-    web::{extract::ValidatedAccountId, partials::*, prelude::*, state::AppState},
+    web::{extract::Owner, partials::*, prelude::*, state::AppState},
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]
 pub async fn get(
-    _: ValidatedAccountId,
-    user: User,
+    Owner(user): Owner,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
