@@ -23,14 +23,9 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+          profile: minimal
           target: aarch64-unknown-linux-gnu
           override: true
-          profile: minimal
-
-      - name: 📦 Install the tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc-arm-linux-gnueabihf
 
       - name: 📥 Checkout
         uses: actions/checkout@v3
@@ -44,6 +39,7 @@ jobs:
       - name: 🧪 Test
         uses: actions-rs/cargo@v1
         with:
+          use-cross: true
           command: test
           args: --target=aarch64-unknown-linux-gnu
 
@@ -52,5 +48,6 @@ jobs:
         if: github.event_name == 'pull_request'
         continue-on-error: true
         with:
+          use-cross: true
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --tests --target=aarch64-unknown-linux-gnu
