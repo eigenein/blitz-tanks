@@ -76,7 +76,7 @@ impl SessionManager {
             &User {
                 access_token: "test".to_string(),
                 expires_at: Utc::now().timestamp() + 10,
-                account_id: 1,
+                account_id: 0,
                 nickname: "test".to_string(),
             },
         )?;

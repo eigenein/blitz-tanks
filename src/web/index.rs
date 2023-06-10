@@ -115,7 +115,7 @@ mod tests {
         let response = create_app(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
         let headers = response.headers();
-        assert_eq!(headers.get("Location").unwrap(), "/profile/1");
+        assert_eq!(headers.get("Location").unwrap(), "/profile/0");
         Ok(())
     }
 }

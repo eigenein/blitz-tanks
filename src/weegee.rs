@@ -68,6 +68,10 @@ impl WeeGee {
         &self,
         account_id: u32,
     ) -> Result<HashMap<String, Vec<VehicleStats>>> {
+        if account_id == 0 {
+            // Fake account ID for testing.
+            return Ok(HashMap::default());
+        }
         self.client
             .get(Url::parse_with_params(
                 "https://api.wotblitz.eu/wotb/tanks/stats/",
@@ -139,6 +143,10 @@ impl VehicleStatsGetter {
             .with_context(|| format!("failed to retrieve account {account_id}'s vehicles stats"))
     }
 }
+
+/// Vehicle description from the tankopedia.
+#[derive(Deserialize)]
+pub struct VehicleDescription {}
 
 #[cfg(test)]
 mod tests {

@@ -116,7 +116,7 @@ mod tests {
         let state = AppState::new_test()?;
         let session_id = state.db.session_manager()?.insert_test_session()?;
         let request = Request::builder()
-            .uri("/profile/1")
+            .uri("/profile/0")
             .header("Cookie", format!("{}={session_id}", Session::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
         let response = create_app(state).oneshot(request).await?;
@@ -127,7 +127,7 @@ mod tests {
     #[tokio::test]
     async fn reject_anonymous_profile_ok() -> Result {
         let app = create_app(AppState::new_test()?);
-        let request = Request::builder().uri("/profile/1").body(Body::empty())?;
+        let request = Request::builder().uri("/profile/0").body(Body::empty())?;
         let response = app.oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::FORBIDDEN);
         Ok(())
