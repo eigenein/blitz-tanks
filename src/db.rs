@@ -5,10 +5,7 @@ use scru128::Scru128Id;
 use sled::Tree;
 use tracing::instrument;
 
-use crate::{
-    models::{new_session_id, User},
-    prelude::*,
-};
+use crate::{models::User, prelude::*};
 
 /// Convenience wrapper around the database.
 #[derive(Clone)]
@@ -71,6 +68,8 @@ impl SessionManager {
 
     #[cfg(test)]
     pub fn insert_test_session(&self) -> Result<Scru128Id> {
+        use crate::models::new_session_id;
+
         let session_id = new_session_id();
         self.insert(
             session_id,
