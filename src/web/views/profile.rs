@@ -117,7 +117,7 @@ mod tests {
 
     use crate::{
         prelude::Result,
-        web::{create_app, state::AppState, views::authenticate::Session},
+        web::{create_app, session::Session, state::AppState},
     };
 
     #[tokio::test]

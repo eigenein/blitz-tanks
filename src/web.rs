@@ -4,6 +4,7 @@ mod headers;
 mod partials;
 mod prelude;
 mod response;
+mod session;
 mod state;
 mod r#static;
 mod tracing_;

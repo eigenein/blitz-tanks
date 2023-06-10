@@ -3,7 +3,7 @@ use cookie::time::Duration;
 use sentry::integrations::anyhow::capture_anyhow;
 use tracing::{error, info, instrument};
 
-use crate::web::{prelude::*, state::AppState, views::authenticate::Session};
+use crate::web::{prelude::*, session::Session, state::AppState};
 
 #[instrument(skip_all)]
 pub async fn get(session: Session, State(state): State<AppState>) -> WebResult<impl IntoResponse> {
