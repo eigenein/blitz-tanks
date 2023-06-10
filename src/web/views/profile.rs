@@ -3,7 +3,7 @@ use tracing::instrument;
 
 use crate::{
     models::User,
-    web::{extract::Owner, partials::*, prelude::*, state::AppState},
+    web::{extract::Owner, prelude::*, state::AppState, views::partials::*},
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]

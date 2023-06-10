@@ -1,6 +1,5 @@
 mod error;
 mod extract;
-mod partials;
 mod prelude;
 mod response;
 mod session;
