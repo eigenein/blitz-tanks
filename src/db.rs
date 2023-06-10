@@ -138,6 +138,17 @@ impl TankopediaManager {
         self.insert(&VehicleDescription::new(609, "R. Otsu"))?;
         self.insert(&VehicleDescription::new(545, "T1 Cunningham").premium())?;
         self.insert(&VehicleDescription::new(64081, "Mk I* Heavy Tank").premium())?;
+        self.insert(&VehicleDescription::new(12673, "Bofors Tornvagn").premium())?;
+        self.insert(&VehicleDescription::new(27425, "TL-7-120").premium())?;
+        self.insert(&VehicleDescription::new(13441, "Aeonix").premium())?;
+        self.insert(&VehicleDescription::new(25857, "Object 777 Version Ⅱ").premium())?;
+        self.insert(&VehicleDescription::new(10609, "Magnate").premium())?;
+        self.insert(&VehicleDescription::new(19777, "AltProto AMX 30").premium())?;
+        self.insert(&VehicleDescription::new(26129, "Epsilon").premium())?;
+        self.insert(&VehicleDescription::new(23297, "Object 244").premium())?;
+        self.insert(&VehicleDescription::new(22353, "Churchill W").premium())?;
+        self.insert(&VehicleDescription::new(20289, "Pirate").premium())?;
+        self.insert(&VehicleDescription::new(10801, "Panlong").premium())?;
         Ok(self)
     }
 
