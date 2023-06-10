@@ -1,26 +1,59 @@
+use axum::extract::State;
 use tracing::instrument;
 
 use crate::{
     models::User,
-    web::{extract::ValidatedAccountId, partials::*, prelude::*},
+    web::{extract::ValidatedAccountId, partials::*, prelude::*, state::AppState},
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]
-pub async fn get(_: ValidatedAccountId, user: User) -> impl IntoResponse {
-    html! {
+pub async fn get(
+    _: ValidatedAccountId,
+    user: User,
+    State(state): State<AppState>,
+) -> WebResult<impl IntoResponse> {
+    let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
+
+    let markup = html! {
         (head())
         body {
             (navbar(&user))
 
             section.section {
                 div.container {
-                    div.columns {}
+                    div.columns.is-multiline {
+                        @for vehicle_stats in vehicles_stats.values() {
+                            div.column {
+                                div.card {
+                                    header.card-header {
+                                        p.card-header-title { (vehicle_stats.tank_id) }
+                                    }
+
+                                    div.card-image {
+                                        figure.image {
+                                            img src="https://dummyimage.com/1060x774" loading="lazy";
+                                        }
+                                    }
+
+                                    footer.card-footer {
+                                        a.card-footer-item title="Hate it!" { span.icon.has-text-danger { i.fa-solid.fa-heart-crack {} } }
+                                        a.card-footer-item title="Dislike it" { span.icon.has-text-warning { i.fa-solid.fa-thumbs-down {} } }
+                                        a.card-footer-item title="Tentative" { span.icon.has-text-info { i.fa-regular.fa-face-meh {} } }
+                                        a.card-footer-item title="Like it" { span.icon.has-text-primary { i.fa-solid.fa-thumbs-up {} } }
+                                        a.card-footer-item title="Love it!" { span.icon.has-text-success { i.fa-solid.fa-heart {} } }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
             (footer())
         }
-    }
+    };
+
+    Ok(markup)
 }
 
 /// Profile navigation bar.

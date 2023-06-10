@@ -1,6 +1,8 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
 use anyhow::Context;
+use indexmap::IndexMap;
+use itertools::Itertools;
 use moka::future::Cache;
 use reqwest::{Client, ClientBuilder, Url};
 use serde::Deserialize;
@@ -62,7 +64,10 @@ impl WeeGee {
     ///
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<VehiclesStats> {
+    pub async fn get_vehicles_stats(
+        &self,
+        account_id: u32,
+    ) -> Result<HashMap<String, Vec<VehicleStats>>> {
         self.client
             .get(Url::parse_with_params(
                 "https://api.wotblitz.eu/wotb/tanks/stats/",
@@ -73,9 +78,11 @@ impl WeeGee {
                 ],
             )?)
             .send()
-            .await?
-            .json::<WeeGeeResult<VehiclesStats>>()
-            .await?
+            .await
+            .with_context(|| format!("failed to retrieve player {account_id}'s vehicles stats"))?
+            .json::<WeeGeeResult<_>>()
+            .await
+            .with_context(|| format!("failed to parse player {account_id}'s vehicles stats"))?
             .into()
     }
 }
@@ -89,14 +96,11 @@ pub struct VehicleStats {
     pub last_battle_time: i64,
 }
 
-/// Convenience alias for the map returned by the API.
-pub type VehiclesStats = HashMap<String, Vec<VehicleStats>>;
-
 /// Proxy for user's vehicles' statistics.
 #[derive(Clone)]
 pub struct VehicleStatsGetter {
     wee_gee: WeeGee,
-    cache: Cache<u32, Arc<VehiclesStats>>,
+    cache: Cache<u32, Arc<IndexMap<u16, VehicleStats>>>,
 }
 
 impl From<WeeGee> for VehicleStatsGetter {
@@ -111,13 +115,38 @@ impl From<WeeGee> for VehicleStatsGetter {
     }
 }
 
+impl VehicleStatsGetter {
+    /// Retrieve the account's vehicle's statistics and cache it.
+    #[instrument(skip_all, fields(account_id = account_id))]
+    pub async fn get(&self, account_id: u32) -> Result<Arc<IndexMap<u16, VehicleStats>>> {
+        self.cache
+            .try_get_with(account_id, async {
+                let map = self
+                    .wee_gee
+                    .get_vehicles_stats(account_id)
+                    .await?
+                    .into_values()
+                    .next()
+                    .unwrap_or_default()
+                    .into_iter()
+                    .sorted_unstable_by_key(|stats| -stats.last_battle_time)
+                    .map(|stats| (stats.tank_id, stats))
+                    .collect();
+                Ok(Arc::new(map))
+            })
+            .await
+            .map_err(|error: Arc<Error>| anyhow!(error))
+            .with_context(|| format!("failed to retrieve account {account_id}'s vehicles stats"))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn vehicles_stats_ok() -> Result {
-        serde_json::from_str::<WeeGeeResult<VehiclesStats>>(
+        serde_json::from_str::<WeeGeeResult<HashMap<String, Vec<VehicleStats>>>>(
             // language=json
             r#"{"status":"ok","meta":{"count":1},"data":{"594778041":[{"last_battle_time":1681146251,"tank_id":18769}]}}"#,
         )?;

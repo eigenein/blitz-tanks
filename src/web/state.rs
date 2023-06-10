@@ -15,7 +15,7 @@ pub struct AppState {
 
     pub db: Db,
 
-    vehicle_stats_getter: VehicleStatsGetter,
+    pub vehicle_stats_getter: VehicleStatsGetter,
 }
 
 impl AppState {

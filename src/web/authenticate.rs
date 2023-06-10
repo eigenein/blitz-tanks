@@ -58,7 +58,7 @@ impl From<AuthenticationResult> for Result<User, WebError> {
 pub async fn get(
     Query(result): Query<AuthenticationResult>,
     State(state): State<AppState>,
-) -> Result<impl IntoResponse, WebError> {
+) -> WebResult<impl IntoResponse> {
     let user = Result::<User, WebError>::from(result)?;
     let session_id = new_session_id();
     info!(user.nickname, %session_id, "👋 welcome");
