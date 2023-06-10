@@ -19,9 +19,15 @@
 //!     ...
 //! ```
 
-use axum::response::IntoResponse;
+use axum::{
+    headers::HeaderName,
+    http::header::{CACHE_CONTROL, CONTENT_TYPE},
+    response::IntoResponse,
+};
 
-use crate::web::headers::*;
+const CACHE_PUBLIC_WEEK: (HeaderName, &str) = (CACHE_CONTROL, "max-age=604800, public");
+const CONTENT_TYPE_MICROSOFT_ICON: (HeaderName, &str) = (CONTENT_TYPE, "image/vnd.microsoft.icon");
+const CONTENT_TYPE_PNG: (HeaderName, &str) = (CONTENT_TYPE, "image/png");
 
 pub async fn get_favicon() -> impl IntoResponse {
     (
