@@ -5,7 +5,9 @@ use tracing::{info, instrument};
 
 use crate::{
     models::User,
-    web::{authenticate::Session, partials::*, prelude::*, response::OptionalRedirect, state::*},
+    web::{
+        partials::*, prelude::*, response::OptionalRedirect, state::*, views::authenticate::Session,
+    },
 };
 
 /// Index route handler.

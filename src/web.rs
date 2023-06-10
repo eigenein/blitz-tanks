@@ -1,15 +1,13 @@
-mod authenticate;
 mod error;
 mod extract;
 mod headers;
-mod index;
 mod partials;
 mod prelude;
-mod profile;
 mod response;
 mod state;
 mod r#static;
 mod tracing_;
+mod views;
 
 use axum::{routing::get, Router};
 use clap::crate_version;
@@ -55,9 +53,9 @@ pub fn create_app(state: AppState) -> Router {
         .layer(SentryHttpLayer::with_transaction())
         .layer(NewSentryLayer::new_from_top());
     Router::new()
-        .route("/", get(index::get))
-        .route("/welcome", get(authenticate::get))
-        .route("/profile/:account_id", get(profile::get))
+        .route("/", get(views::index::get))
+        .route("/welcome", get(views::authenticate::get))
+        .route("/profile/:account_id", get(views::profile::get))
         .route("/favicon.ico", get(r#static::get_favicon))
         .route("/apple-touch-icon.png", get(r#static::get_apple_touch_icon))
         .route("/icon-192.png", get(r#static::get_icon_192))
