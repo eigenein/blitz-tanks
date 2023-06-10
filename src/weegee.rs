@@ -1,6 +1,7 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
 use anyhow::Context;
+use moka::future::Cache;
 use reqwest::{Client, ClientBuilder, Url};
 use serde::Deserialize;
 use tracing::instrument;
@@ -14,6 +15,7 @@ pub struct WeeGee {
     application_id: Arc<String>,
 }
 
+/// Wargaming.net API result.
 #[derive(Deserialize)]
 #[serde(tag = "status")]
 enum WeeGeeResult<D> {
@@ -78,13 +80,36 @@ impl WeeGee {
     }
 }
 
+/// User's vehicle statistics.
+///
+/// We only need tank ID and last battle time for the app's purposes.
 #[derive(Deserialize)]
 pub struct VehicleStats {
     pub tank_id: u16,
     pub last_battle_time: i64,
 }
 
+/// Convenience alias for the map returned by the API.
 pub type VehiclesStats = HashMap<String, Vec<VehicleStats>>;
+
+/// Proxy for user's vehicles' statistics.
+#[derive(Clone)]
+pub struct VehicleStatsGetter {
+    wee_gee: WeeGee,
+    cache: Cache<u32, Arc<VehiclesStats>>,
+}
+
+impl From<WeeGee> for VehicleStatsGetter {
+    fn from(wee_gee: WeeGee) -> Self {
+        Self {
+            wee_gee,
+            cache: Cache::builder()
+                .max_capacity(1000)
+                .time_to_idle(Duration::from_secs(300))
+                .build(),
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {

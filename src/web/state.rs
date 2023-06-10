@@ -1,11 +1,9 @@
-use std::{collections::hash_map::RandomState, sync::Arc, time::Duration};
-
-use moka::future::Cache;
+use std::sync::Arc;
 
 use crate::{
     db::Db,
     prelude::*,
-    weegee::{VehiclesStats, WeeGee},
+    weegee::{VehicleStatsGetter, WeeGee},
 };
 
 #[derive(Clone)]
@@ -17,11 +15,7 @@ pub struct AppState {
 
     pub db: Db,
 
-    wee_gee: WeeGee,
-
-    /// Account's vehicle's cache,
-    /// used to check whether a certain user is allowed to rate a certain vehicle.
-    vehicles_stats_cache: Cache<u32, Arc<VehiclesStats>, RandomState>,
+    vehicle_stats_getter: VehicleStatsGetter,
 }
 
 impl AppState {
@@ -31,15 +25,13 @@ impl AppState {
         backend_application_id: &str,
         domain_name: &str,
     ) -> Result<Self> {
+        let wee_gee = WeeGee::new(backend_application_id)?;
         Ok(Self {
             db,
-            wee_gee: WeeGee::new(backend_application_id)?,
             sign_in_url: Arc::new(format!(
                 "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{domain_name}/welcome"
             )),
-            vehicles_stats_cache: Cache::builder()
-                .time_to_idle(Duration::from_secs(600))
-                .build(),
+            vehicle_stats_getter: VehicleStatsGetter::from(wee_gee),
         })
     }
 
