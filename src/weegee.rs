@@ -6,9 +6,9 @@ use itertools::Itertools;
 use moka::future::Cache;
 use reqwest::{Client, ClientBuilder, Url};
 use serde::Deserialize;
-use tracing::instrument;
+use tracing::{info, instrument};
 
-use crate::prelude::*;
+use crate::{models::VehicleDescription, prelude::*};
 
 /// Wargaming.net API client.
 #[derive(Clone)]
@@ -34,14 +34,9 @@ struct WeeGeeError {
     pub message: String,
 }
 
-impl<D> From<WeeGeeResult<D>> for Result<D> {
-    fn from(value: WeeGeeResult<D>) -> Self {
-        match value {
-            WeeGeeResult::Ok { data } => Ok(data),
-            WeeGeeResult::Err { error } => {
-                Err(anyhow!("Wargaming.net API error #{}: {}", error.code, error.message))
-            }
-        }
+impl From<WeeGeeError> for Error {
+    fn from(error: WeeGeeError) -> Self {
+        anyhow!("Wargaming.net API error #{} ({})", error.code, error.message)
     }
 }
 
@@ -64,15 +59,13 @@ impl WeeGee {
     ///
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get_vehicles_stats(
-        &self,
-        account_id: u32,
-    ) -> Result<HashMap<String, Vec<VehicleStats>>> {
+    pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>> {
         if account_id == 0 {
             // Fake account ID for testing.
-            return Ok(HashMap::default());
+            return Ok(Vec::default());
         }
-        self.client
+        let result = self
+            .client
             .get(Url::parse_with_params(
                 "https://api.wotblitz.eu/wotb/tanks/stats/",
                 &[
@@ -84,10 +77,40 @@ impl WeeGee {
             .send()
             .await
             .with_context(|| format!("failed to retrieve player {account_id}'s vehicles stats"))?
-            .json::<WeeGeeResult<_>>()
+            .json::<WeeGeeResult<HashMap<String, Vec<VehicleStats>>>>()
             .await
-            .with_context(|| format!("failed to parse player {account_id}'s vehicles stats"))?
-            .into()
+            .with_context(|| format!("failed to parse player {account_id}'s vehicles stats"))?;
+        match result {
+            WeeGeeResult::Ok { data } => Ok(data.into_values().next().unwrap_or_default()),
+            WeeGeeResult::Err { error } => Err(error.into()),
+        }
+    }
+
+    /// Retrieve the [tankopedia][1].
+    ///
+    /// [1]: https://developers.wargaming.net/reference/all/wotb/encyclopedia/vehicles/
+    pub async fn get_tankopedia(&self) -> Result<Vec<VehicleDescription>> {
+        info!("☎️ Retrieving the tankopedia…");
+        let result = self
+            .client
+            .get(Url::parse_with_params(
+                "https://api.wotblitz.eu/wotb/encyclopedia/vehicles/",
+                &[
+                    ("application_id", self.application_id.as_str()),
+                    ("language", "en"),
+                    ("fields", "tank_id,name,images.normal,is_premium"),
+                ],
+            )?)
+            .send()
+            .await
+            .context("failed to retrieve the tankopedia")?
+            .json::<WeeGeeResult<HashMap<String, VehicleDescription>>>()
+            .await
+            .context("failed to parse the tankopedia")?;
+        match result {
+            WeeGeeResult::Ok { data } => Ok(data.into_values().collect()),
+            WeeGeeResult::Err { error } => Err(error.into()),
+        }
     }
 }
 
@@ -129,9 +152,6 @@ impl VehicleStatsGetter {
                     .wee_gee
                     .get_vehicles_stats(account_id)
                     .await?
-                    .into_values()
-                    .next()
-                    .unwrap_or_default()
                     .into_iter()
                     .sorted_unstable_by_key(|stats| -stats.last_battle_time)
                     .map(|stats| (stats.tank_id, stats))
@@ -143,10 +163,6 @@ impl VehicleStatsGetter {
             .with_context(|| format!("failed to retrieve account {account_id}'s vehicles stats"))
     }
 }
-
-/// Vehicle description from the tankopedia.
-#[derive(Deserialize)]
-pub struct VehicleDescription {}
 
 #[cfg(test)]
 mod tests {

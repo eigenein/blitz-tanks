@@ -17,6 +17,7 @@ pub struct AccountId(#[serde(rename = "account_id")] pub u32);
 
 /// Account ID extractor, which validates the current session.
 /// In order to pass, the account ID **must** be the same as that of the logged in user.
+/// TODO: rework into `Owner`.
 pub struct ValidatedAccountId(pub u32);
 
 #[async_trait]

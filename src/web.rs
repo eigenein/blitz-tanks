@@ -18,18 +18,27 @@ use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::{info, instrument};
 
-use crate::{cli::WebArgs, prelude::*, web::state::AppState};
+use crate::{cli::WebArgs, prelude::*, web::state::AppState, weegee::WeeGee};
 
 /// Run the web application.
 #[instrument(skip_all, err)]
 pub async fn run(args: WebArgs) -> Result {
-    info!(version = crate_version!(), endpoint = ?args.bind_endpoint, "🚀 running…");
+    let db = args.db.open()?;
+    let wee_gee = WeeGee::new(&args.wargaming.backend_application_id)?;
+
+    if args.update_tankopedia {
+        db.tankopedia_manager()?
+            .prepopulate()?
+            .update(wee_gee.get_tankopedia().await?)?;
+    }
+
     let app = create_app(AppState::new(
-        args.db.open()?,
+        &db,
         &args.wargaming.frontend_application_id,
-        &args.wargaming.backend_application_id,
+        wee_gee,
         &args.public_address,
     )?);
+    info!(version = crate_version!(), endpoint = ?args.bind_endpoint, "🚀 running…");
     axum::Server::bind(&args.bind_endpoint)
         .serve(app.into_make_service())
         .await

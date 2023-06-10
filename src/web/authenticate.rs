@@ -62,7 +62,7 @@ pub async fn get(
     let user = Result::<User, WebError>::from(result)?;
     let session_id = new_session_id();
     info!(user.nickname, %session_id, "👋 welcome");
-    state.db.session_manager()?.insert(session_id, &user)?;
+    state.session_manager.insert(session_id, &user)?;
     let cookie = cookie::Cookie::build(Session::SESSION_COOKIE_NAME, session_id.to_string())
         .http_only(true)
         .expires(user.expires_at()?)
@@ -107,11 +107,7 @@ where
 
         sentry::configure_scope(|scope| scope.set_tag("user.session_id", session_id));
 
-        match AppState::from_ref(state)
-            .db
-            .session_manager()?
-            .get(session_id)?
-        {
+        match AppState::from_ref(state).session_manager.get(session_id)? {
             Some(user) => {
                 sentry::configure_scope(|scope| configure_user(scope, Some(&user)));
                 Ok(Session::Authenticated(user))

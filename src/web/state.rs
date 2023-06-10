@@ -1,7 +1,10 @@
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
+
+use tracing::warn;
 
 use crate::{
-    db::Db,
+    db::{Db, SessionManager},
+    models::VehicleDescription,
     prelude::*,
     weegee::{VehicleStatsGetter, WeeGee},
 };
@@ -13,23 +16,30 @@ pub struct AppState {
     /// [1]: https://developers.wargaming.net/reference/all/wot/auth/login/
     pub sign_in_url: Arc<String>,
 
-    pub db: Db,
+    pub tankopedia: Arc<HashMap<u16, VehicleDescription>>,
+
+    pub session_manager: SessionManager,
 
     pub vehicle_stats_getter: VehicleStatsGetter,
 }
 
 impl AppState {
     pub fn new(
-        db: Db,
+        db: &Db,
         frontend_application_id: &str,
-        backend_application_id: &str,
-        domain_name: &str,
+        wee_gee: WeeGee,
+        public_address: &str,
     ) -> Result<Self> {
-        let wee_gee = WeeGee::new(backend_application_id)?;
+        let tankopedia = Arc::new(db.tankopedia_manager()?.load()?);
+        if tankopedia.is_empty() {
+            warn!("⚠️ tankopedia database is empty, please re-run with `--update-tankopedia`");
+        }
+
         Ok(Self {
-            db,
+            tankopedia,
+            session_manager: db.session_manager()?,
             sign_in_url: Arc::new(format!(
-                "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{domain_name}/welcome"
+                "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{public_address}/welcome"
             )),
             vehicle_stats_getter: VehicleStatsGetter::from(wee_gee),
         })
@@ -37,6 +47,6 @@ impl AppState {
 
     #[cfg(test)]
     pub fn new_test() -> Result<Self> {
-        Self::new(Db::open_temporary()?, "test", "test", "localhost:8080")
+        Self::new(&Db::open_temporary()?, "test", WeeGee::new("test")?, "localhost:8080")
     }
 }

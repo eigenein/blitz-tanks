@@ -1,11 +1,14 @@
-use std::path::PathBuf;
+use std::{collections::HashMap, path::PathBuf};
 
 use prost::Message;
 use scru128::Scru128Id;
 use sled::Tree;
-use tracing::instrument;
+use tracing::{info, instrument};
 
-use crate::{models::User, prelude::*};
+use crate::{
+    models::{User, VehicleDescription},
+    prelude::*,
+};
 
 /// Convenience wrapper around the database.
 #[derive(Clone)]
@@ -36,13 +39,15 @@ impl Db {
     }
 
     pub fn session_manager(&self) -> Result<SessionManager> {
-        self.open_tree("sessions").map(Into::into)
+        Ok(SessionManager::from(self.open_tree("sessions")?))
+    }
+
+    pub fn tankopedia_manager(&self) -> Result<TankopediaManager> {
+        Ok(TankopediaManager::from(self.open_tree("tankopedia")?))
     }
 
     fn open_tree(&self, name: &str) -> Result<Tree> {
-        self.0
-            .open_tree(name)
-            .with_context(|| format!("failed to open tree `{name}`"))
+        self.0.open_tree(name).with_context(|| format!("failed to open tree `{name}`"))
     }
 }
 
@@ -51,6 +56,7 @@ impl Db {
 pub struct SessionManager(Tree);
 
 impl From<Tree> for SessionManager {
+    #[inline]
     fn from(tree: Tree) -> Self {
         Self(tree)
     }
@@ -97,6 +103,69 @@ impl SessionManager {
     }
 }
 
+pub struct TankopediaManager(Tree);
+
+impl From<Tree> for TankopediaManager {
+    #[inline]
+    fn from(tree: Tree) -> Self {
+        Self(tree)
+    }
+}
+
+impl TankopediaManager {
+    /// Update the tankopedia database: insert new vehicles and update existing ones.
+    pub fn update(&self, vehicles: Vec<VehicleDescription>) -> Result<&Self> {
+        info!(n_vehicles = vehicles.len(), "📥 Updating the tankopedia…");
+        for vehicle in vehicles {
+            self.insert(&vehicle)?;
+        }
+        Ok(self)
+    }
+
+    /// Insert the vehicles, which Wargaming.net is too lazy to add to the tankopedia.
+    pub fn prepopulate(&self) -> Result<&Self> {
+        info!("🤬 Pre-populating the tankopedia…");
+        self.insert(&VehicleDescription::new(9777, "WZ-114").premium())?;
+        self.insert(&VehicleDescription::new(18241, "B-C Bourrasque").premium())?;
+        self.insert(&VehicleDescription::new(12417, "Bisonte C45").premium())?;
+        self.insert(&VehicleDescription::new(10545, "Wind").premium())?;
+        self.insert(&VehicleDescription::new(24849, "Kryos").premium())?;
+        self.insert(&VehicleDescription::new(20817, "Explorer").premium())?;
+        self.insert(&VehicleDescription::new(1329, "Renault NC-31"))?;
+        self.insert(&VehicleDescription::new(81, "Vickers Medium Mk. I").premium())?;
+        self.insert(&VehicleDescription::new(3089, "Leichttraktor"))?;
+        self.insert(&VehicleDescription::new(577, "Renault FT").premium())?;
+        self.insert(&VehicleDescription::new(609, "R. Otsu"))?;
+        self.insert(&VehicleDescription::new(545, "T1 Cunningham").premium())?;
+        self.insert(&VehicleDescription::new(64081, "Mk I* Heavy Tank").premium())?;
+        Ok(self)
+    }
+
+    /// Load the tankopedia into a hashmap.
+    pub fn load(&self) -> Result<HashMap<u16, VehicleDescription>> {
+        info!("📤 Loading the tankopedia…");
+        let tankopedia = self
+            .0
+            .iter()
+            .map(|result| {
+                let (key, value) = result?;
+                Ok((
+                    u16::from_be_bytes(key.as_ref().try_into()?),
+                    VehicleDescription::decode(value.as_ref())?,
+                ))
+            })
+            .collect::<Result<HashMap<u16, VehicleDescription>>>()
+            .context("failed to load the tankopedia")?;
+        info!(n_vehicles = tankopedia.len(), "✅ Loaded the tankopedia");
+        Ok(tankopedia)
+    }
+
+    fn insert(&self, vehicle: &VehicleDescription) -> Result {
+        self.0.insert((vehicle.tank_id as u16).to_be_bytes(), vehicle.encode_to_vec())?;
+        Ok(())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -104,9 +173,7 @@ mod tests {
 
     #[test]
     fn unknown_session_ok() -> Result {
-        let session = Db::open_temporary()?
-            .session_manager()?
-            .get(new_session_id())?;
+        let session = Db::open_temporary()?.session_manager()?.get(new_session_id())?;
         assert!(session.is_none());
         Ok(())
     }

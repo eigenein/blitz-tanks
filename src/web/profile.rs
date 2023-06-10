@@ -21,17 +21,27 @@ pub async fn get(
 
             section.section {
                 div.container {
-                    div.columns.is-multiline {
-                        @for vehicle_stats in vehicles_stats.values() {
-                            div.column {
+                    div.columns.is-multiline.is-tablet {
+                        @for stats in vehicles_stats.values() {
+                            @let description = state.tankopedia.get(&stats.tank_id);
+
+                            div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
                                 div.card {
                                     header.card-header {
-                                        p.card-header-title { (vehicle_stats.tank_id) }
+                                        p.card-header-title {
+                                            @match description {
+                                                Some(description) => { (description.name) },
+                                                None => { "#" (stats.tank_id) },
+                                            }
+                                        }
                                     }
 
                                     div.card-image {
                                         figure.image {
-                                            img src="https://dummyimage.com/1060x774" loading="lazy";
+                                            @let url = description
+                                                .and_then(|d| d.images.normal_url.as_ref())
+                                                .map_or("https://dummyimage.com/1060x774", |url| url.as_str());
+                                            img src=(url) loading="lazy";
                                         }
                                     }
 
@@ -114,7 +124,7 @@ mod tests {
     #[tokio::test]
     async fn own_profile_ok() -> Result {
         let state = AppState::new_test()?;
-        let session_id = state.db.session_manager()?.insert_test_session()?;
+        let session_id = state.session_manager.insert_test_session()?;
         let request = Request::builder()
             .uri("/profile/0")
             .header("Cookie", format!("{}={session_id}", Session::SESSION_COOKIE_NAME))

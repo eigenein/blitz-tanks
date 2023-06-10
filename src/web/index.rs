@@ -107,7 +107,7 @@ mod tests {
     #[tokio::test]
     async fn redirect_ok() -> Result {
         let state = AppState::new_test()?;
-        let session_id = state.db.session_manager()?.insert_test_session()?;
+        let session_id = state.session_manager.insert_test_session()?;
         let request = Request::builder()
             .uri("/")
             .header("Cookie", format!("{}={session_id}", Session::SESSION_COOKIE_NAME))

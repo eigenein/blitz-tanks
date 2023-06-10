@@ -42,6 +42,10 @@ pub struct WebArgs {
 
     #[clap(flatten)]
     pub db: DbArgs,
+
+    /// Update the tankopedia database on startup.
+    #[clap(long, env = "BLITZ_TANKS_UPDATE_TANKOPEDIA")]
+    pub update_tankopedia: bool,
 }
 
 #[derive(Args)]
