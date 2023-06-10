@@ -3,6 +3,7 @@ use tracing::instrument;
 
 use crate::{
     models::User,
+    prelude::*,
     web::{extract::Owner, prelude::*, state::AppState, views::partials::*},
 };
 
@@ -22,36 +23,8 @@ pub async fn get(
                 div.container {
                     div.columns.is-multiline.is-tablet {
                         @for stats in vehicles_stats.values() {
-                            @let description = state.tankopedia.get(&stats.tank_id);
-
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
-                                div.card {
-                                    header.card-header {
-                                        p.card-header-title {
-                                            @match description {
-                                                Some(description) => { (description.name) },
-                                                None => { "#" (stats.tank_id) },
-                                            }
-                                        }
-                                    }
-
-                                    div.card-image {
-                                        figure.image {
-                                            @let url = description
-                                                .and_then(|d| d.images.normal_url.as_ref())
-                                                .map_or("https://dummyimage.com/1060x774", |url| url.as_str());
-                                            img src=(url) loading="lazy";
-                                        }
-                                    }
-
-                                    footer.card-footer {
-                                        a.card-footer-item title="Hate it!" { span.icon.has-text-danger { i.fa-solid.fa-heart-crack {} } }
-                                        a.card-footer-item title="Dislike it" { span.icon.has-text-warning { i.fa-solid.fa-thumbs-down {} } }
-                                        a.card-footer-item title="Tentative" { span.icon.has-text-info { i.fa-regular.fa-face-meh {} } }
-                                        a.card-footer-item title="Like it" { span.icon.has-text-primary { i.fa-solid.fa-thumbs-up {} } }
-                                        a.card-footer-item title="Love it!" { span.icon.has-text-success { i.fa-solid.fa-heart {} } }
-                                    }
-                                }
+                                (vehicle_card(&state, stats.tank_id)?)
                             }
                         }
                     }
@@ -62,6 +35,40 @@ pub async fn get(
         }
     };
 
+    Ok(markup)
+}
+
+fn vehicle_card(state: &AppState, tank_id: u16) -> Result<Markup> {
+    let description = state.tankopedia.get(&tank_id);
+    let markup = html! {
+        div.card {
+            header.card-header {
+                p.card-header-title {
+                    @match description {
+                        Some(description) => { (description.name) },
+                        None => { "#" (tank_id) },
+                    }
+                }
+            }
+
+            div.card-image {
+                figure.image {
+                    @let url = description
+                        .and_then(|d| d.images.normal_url.as_ref())
+                        .map_or("https://dummyimage.com/1060x774", |url| url.as_str());
+                    img src=(url) loading="lazy";
+                }
+            }
+
+            footer.card-footer {
+                a.card-footer-item title="Hate it!" { span.icon.has-text-danger { i.fa-solid.fa-heart-crack {} } }
+                a.card-footer-item title="Dislike it" { span.icon.has-text-warning { i.fa-solid.fa-thumbs-down {} } }
+                a.card-footer-item title="Tentative" { span.icon.has-text-info { i.fa-regular.fa-face-meh {} } }
+                a.card-footer-item title="Like it" { span.icon.has-text-primary { i.fa-solid.fa-thumbs-up {} } }
+                a.card-footer-item title="Love it!" { span.icon.has-text-success { i.fa-solid.fa-heart {} } }
+            }
+        }
+    };
     Ok(markup)
 }
 
