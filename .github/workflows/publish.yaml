@@ -39,13 +39,12 @@ jobs:
           release_name: ${{ github.ref_name }}
           body: ${{ steps.changelog.outputs.changelog }}
 
-      - name: ✨ Install Cross
-        run: |
-          wget --quiet https://github.com/cross-rs/cross/releases/download/v0.2.5/cross-x86_64-unknown-linux-gnu.tar.gz
-          tar -xvzf cross-x86_64-unknown-linux-gnu.tar.gz
-
       - name: 👷 Build
-        run: ./cross build --target=aarch64-unknown-linux-gnu --release
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release --target=aarch64-unknown-linux-gnu
 
       - name: 📤 Upload release asset
         uses: actions/upload-release-asset@v1

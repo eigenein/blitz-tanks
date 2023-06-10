@@ -47,6 +47,7 @@ impl WeeGee {
             .tcp_nodelay(true)
             .connect_timeout(Duration::from_secs(10))
             .timeout(Duration::from_secs(10))
+            .use_rustls_tls()
             .build()
             .context("failed to build the Wargaming.net API client")?;
         Ok(Self {

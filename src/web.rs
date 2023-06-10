@@ -16,12 +16,11 @@ use clap::crate_version;
 use sentry::integrations::tower::{NewSentryLayer, SentryHttpLayer};
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
-use tracing::{info, instrument};
+use tracing::info;
 
 use crate::{cli::WebArgs, prelude::*, web::state::AppState, weegee::WeeGee};
 
 /// Run the web application.
-#[instrument(skip_all, err)]
 pub async fn run(args: WebArgs) -> Result {
     let db = args.db.open()?;
     let wee_gee = WeeGee::new(&args.wargaming.backend_application_id)?;
