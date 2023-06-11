@@ -76,7 +76,30 @@ pub struct VehicleImages {
     pub normal_url: Option<String>,
 }
 
+/// User's rate action for a vehicle.
+#[derive(Debug, prost::Enumeration)]
+#[repr(i32)]
 pub enum RateAction {
+    Unknown = 0,
     Dislike = 1,
     Like = 2,
+}
+
+/// User's rating for a vehicle.
+#[derive(Message)]
+pub struct Rating {
+    #[prost(int64, tag = "1", required)]
+    pub timestamp_secs: i64,
+
+    #[prost(enumeration = "RateAction", tag = "2", required)]
+    pub action: i32,
+}
+
+impl Rating {
+    pub fn new_now(action: RateAction) -> Self {
+        Self {
+            timestamp_secs: Utc::now().timestamp(),
+            action: action as i32,
+        }
+    }
 }

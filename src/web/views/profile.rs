@@ -1,5 +1,5 @@
 use axum::extract::State;
-use tracing::instrument;
+use tracing::{info, instrument};
 
 use crate::{
     models::{RateAction, User},
@@ -57,6 +57,7 @@ async fn post(
     ProfileOwnedTank { user, tank_id }: ProfileOwnedTank,
     action: RateAction,
 ) -> WebResult<impl IntoResponse> {
+    info!(user.account_id, tank_id, ?action);
     Ok(vehicle_card_footer(user.account_id, tank_id)) // TODO
 }
 

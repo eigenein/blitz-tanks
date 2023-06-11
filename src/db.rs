@@ -6,7 +6,7 @@ use sled::Tree;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{User, VehicleDescription},
+    models::{RateAction, Rating, User, VehicleDescription},
     prelude::*,
 };
 
@@ -169,6 +169,38 @@ impl TankopediaManager {
 
 #[derive(derive_more::From)]
 pub struct RatingManager(Tree);
+
+impl RatingManager {
+    pub fn insert(&self, account_id: u32, tank_id: u16, rating: &Rating) -> Result {
+        self.0
+            .insert(Self::encode_key(account_id, tank_id), rating.encode_to_vec())
+            .with_context(|| {
+                format!("failed to insert the #{account_id}'s rating for #{tank_id}")
+            })?;
+        Ok(())
+    }
+
+    /// Retrieve a single rating.
+    pub fn get(&self, account_id: u32, tank_id: u16) -> Result<Option<Rating>> {
+        self.0
+            .get(Self::encode_key(account_id, tank_id))?
+            .map(|value| Rating::decode(value.as_ref()))
+            .transpose()
+            .with_context(|| format!("failed to retrieve a #{account_id}'s rating for #{tank_id}"))
+    }
+
+    /// Encode the key corresponding to the user's vehicle.
+    ///
+    /// # Considerations
+    ///
+    /// 1. Key must be sortable, hence the big-endian encoding.
+    /// 2. I should be able to retrieve all user's ratings in one go, hence keys start with account ID.
+    /// 3. I should be able to retrieve individual ratings, hence the key contains tank ID as well.
+    #[inline]
+    fn encode_key(account_id: u32, tank_id: u16) -> Vec<u8> {
+        [&account_id.to_be_bytes()[..], &tank_id.to_be_bytes()[..]].concat()
+    }
+}
 
 #[cfg(test)]
 mod tests {
