@@ -4,6 +4,7 @@ use prost::Message;
 use scru128::Scru128Id;
 use sled::Tree;
 use tracing::{info, instrument};
+use url::Url;
 
 use crate::{
     models::{RatingEvent, User, VehicleDescription},
@@ -108,7 +109,8 @@ impl TankopediaManager {
     /// Update the tankopedia database: insert new vehicles and update existing ones.
     pub fn update(&self, vehicles: Vec<VehicleDescription>) -> Result<&Self> {
         info!(n_vehicles = vehicles.len(), "📥 Updating the tankopedia…");
-        for vehicle in vehicles {
+        for mut vehicle in vehicles {
+            Self::fix_scheme(&mut vehicle)?;
             self.insert_vehicle(&vehicle)?;
         }
         Ok(self)
@@ -175,6 +177,17 @@ impl TankopediaManager {
             images: Default::default(),
             is_premium,
         })
+    }
+
+    /// Wargaming is too lazy to use HTTPS either.
+    fn fix_scheme(vehicle: &mut VehicleDescription) -> Result {
+        if let Some(url) = &vehicle.images.normal_url {
+            let mut url = Url::parse(url)?;
+            url.set_scheme("https")
+                .map_err(|_| anyhow!("failed to update scheme for #{}", vehicle.tank_id))?;
+            vehicle.images.normal_url = Some(url.to_string());
+        }
+        Ok(())
     }
 }
 
