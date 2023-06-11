@@ -206,10 +206,10 @@ fn navbar(User { account_id, nickname, .. }: &User) -> Markup {
                             span { "Rate" }
                         }
 
-                        a.navbar-item href=(format!("/profile/{account_id}/discover")) {
-                            span.icon { i.fa-solid.fa-wand-magic-sparkles aria-hidden="true" {} }
-                            span { "Discover" }
-                        }
+                        // a.navbar-item href=(format!("/profile/{account_id}/discover")) {
+                        //     span.icon { i.fa-solid.fa-wand-magic-sparkles aria-hidden="true" {} }
+                        //     span { "Discover" }
+                        // }
                     }
                     div.navbar-end {
                         div.navbar-item {
