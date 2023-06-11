@@ -87,7 +87,7 @@ pub enum Rating {
     Like = 2,
 }
 
-/// User's rating for a vehicle.
+/// User's vote for a vehicle.
 #[derive(Message, Eq, PartialEq, Serialize)]
 pub struct Vote {
     #[prost(int64, tag = "1", required)]

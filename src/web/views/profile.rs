@@ -23,11 +23,11 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
-    let ratings: HashMap<u16, Rating> = state
+    let votes: HashMap<u16, Rating> = state
         .vote_manager
         .get_all_by_account_id(user.account_id)?
         .into_iter()
-        .map(|(tank_id, event)| (tank_id, event.rating()))
+        .map(|(tank_id, vote)| (tank_id, vote.rating()))
         .collect();
 
     let markup = html! {
@@ -41,7 +41,7 @@ pub async fn get(
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
                                 @let account_id = user.account_id;
-                                (vehicle_card(&state, account_id, stats, ratings.get(&stats.tank_id).copied())?)
+                                (vehicle_card(&state, account_id, stats, votes.get(&stats.tank_id).copied())?)
                             }
                         }
                     }
@@ -151,7 +151,7 @@ fn vehicle_card(
 ///
 /// # Notes
 ///
-/// It's extracted for HTMX to be able to refresh the rating buttons.
+/// It's extracted for HTMX to be able to refresh the voting buttons.
 fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) -> Markup {
     html! {
         a.card-footer-item.has-background-success-light[rating == Some(Rating::Like)]

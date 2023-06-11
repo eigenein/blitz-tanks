@@ -196,12 +196,10 @@ pub struct VoteManager(Tree);
 
 impl VoteManager {
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub fn insert(&self, account_id: u32, tank_id: u16, event: &Vote) -> Result {
+    pub fn insert(&self, account_id: u32, tank_id: u16, vote: &Vote) -> Result {
         self.0
-            .insert(Self::encode_key(account_id, tank_id), event.encode_to_vec())
-            .with_context(|| {
-                format!("failed to insert the #{account_id}'s rating for #{tank_id}")
-            })?;
+            .insert(Self::encode_key(account_id, tank_id), vote.encode_to_vec())
+            .with_context(|| format!("failed to insert the #{account_id}'s vote for #{tank_id}"))?;
         Ok(())
     }
 
@@ -212,7 +210,7 @@ impl VoteManager {
             .get(Self::encode_key(account_id, tank_id))?
             .map(|value| Vote::decode(value.as_ref()))
             .transpose()
-            .with_context(|| format!("failed to retrieve a #{account_id}'s rating for #{tank_id}"))
+            .with_context(|| format!("failed to retrieve a #{account_id}'s vote for #{tank_id}"))
     }
 
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
@@ -249,8 +247,8 @@ impl VoteManager {
     /// # Considerations
     ///
     /// 1. Key must be sortable, hence the big-endian encoding.
-    /// 2. I should be able to retrieve all user's ratings in one go, hence keys start with account ID.
-    /// 3. I should be able to retrieve individual ratings, hence the key contains tank ID as well.
+    /// 2. I should be able to retrieve all user's votes in one go, hence keys start with account ID.
+    /// 3. I should be able to retrieve individual votes, hence the key contains tank ID as well.
     #[inline]
     fn encode_key(account_id: u32, tank_id: u16) -> Vec<u8> {
         [&account_id.to_be_bytes()[..], &tank_id.to_be_bytes()[..]].concat()
@@ -333,7 +331,7 @@ mod tests {
     }
 
     #[test]
-    fn delete_rating_ok() -> Result {
+    fn delete_vote_ok() -> Result {
         let manager = Db::open_temporary()?.vote_manager()?;
         manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         manager.delete(1, 42)?;
