@@ -108,6 +108,8 @@ fn vehicle_card(
     let description = state.tankopedia.get(&stats.tank_id);
     let markup = html! {
         div.card {
+            @let is_premium = description.is_some_and(|d| d.is_premium);
+
             div.card-image {
                 figure.image {
                     @let url = description
@@ -122,7 +124,7 @@ fn vehicle_card(
                     div.media-content {
                         p.title."is-5" {
                             @match description {
-                                Some(description) => { (description.name) },
+                                Some(description) => { span.has-text-warning-dark[is_premium] { (description.name) } },
                                 None => { "#" (stats.tank_id) },
                             }
                         }
@@ -130,7 +132,7 @@ fn vehicle_card(
                             p.subtitle."is-6" {
                                 span.has-text-grey { "Last played" }
                                 " "
-                                span title=(timestamp) { (HumanTime::from(timestamp)) }
+                                span.has-text-weight-medium title=(timestamp) { (HumanTime::from(timestamp)) }
                             }
                         }
                     }
@@ -138,7 +140,7 @@ fn vehicle_card(
             }
 
             footer.card-footer {
-                (vehicle_card_footer(account_id, stats.tank_id, rating)) // TODO: actual rating.
+                (vehicle_card_footer(account_id, stats.tank_id, rating))
             }
         }
     };
@@ -152,7 +154,7 @@ fn vehicle_card(
 /// It's extracted for HTMX to be able to refresh the rating buttons.
 fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) -> Markup {
     html! {
-        a.card-footer-item
+        a.card-footer-item.has-background-success-light[rating == Some(Rating::Like)]
             data-hx-post=(
                 if rating != Some(Rating::Like) {
                     format!("/profile/{account_id}/vehicle/{tank_id}/like")
@@ -167,7 +169,7 @@ fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) ->
                 span { "Like" }
             }
         }
-        a.card-footer-item
+        a.card-footer-item.has-background-danger-light[rating == Some(Rating::Dislike)]
             data-hx-post=(
                 if rating != Some(Rating::Dislike) {
                     format!("/profile/{account_id}/vehicle/{tank_id}/dislike")
