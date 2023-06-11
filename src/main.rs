@@ -18,10 +18,9 @@ mod web;
 mod weegee;
 
 use clap::Parser;
-use serde_json::json;
 
 use crate::{
-    cli::{Cli, Command, ListVotesArgs},
+    cli::{Cli, Command},
     prelude::*,
     tracing::trace,
 };
@@ -33,15 +32,6 @@ async fn main() -> Result {
 
     match args.command {
         Command::Web(args) => trace(web::run(args).await),
-        Command::ListVotes(args) => trace(list_votes(args).await),
+        Command::ExportVotes(args) => trace(cli::export::export_votes(args).await),
     }
-}
-
-async fn list_votes(args: ListVotesArgs) -> Result {
-    let manager = args.db.open()?.vote_manager()?;
-    for result in manager.iter_all() {
-        let (account_id, tank_id, vote) = result?;
-        println!("{}", json!({ "account_id": account_id, "tank_id": tank_id, "vote": vote }));
-    }
-    Ok(())
 }

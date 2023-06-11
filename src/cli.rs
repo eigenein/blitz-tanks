@@ -1,3 +1,5 @@
+pub mod export;
+
 use std::{net::SocketAddr, path::PathBuf};
 
 use clap::{Args, Parser, Subcommand};
@@ -20,8 +22,8 @@ pub enum Command {
     /// Run the web application.
     Web(WebArgs),
 
-    /// List all the votes in JSONL format.
-    ListVotes(ListVotesArgs),
+    /// Export all the votes in JSONL format.
+    ExportVotes(ExportVotes),
 }
 
 #[derive(Args)]
@@ -78,7 +80,7 @@ impl DbArgs {
 }
 
 #[derive(Args)]
-pub struct ListVotesArgs {
+pub struct ExportVotes {
     #[clap(flatten)]
     pub db: DbArgs,
 }
