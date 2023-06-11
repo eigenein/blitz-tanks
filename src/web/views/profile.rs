@@ -4,12 +4,17 @@ use tracing::instrument;
 use crate::{
     models::User,
     prelude::*,
-    web::{extract::Owner, prelude::*, state::AppState, views::partials::*},
+    web::{
+        extract::{ProfileOwnedTank, ProfileOwner},
+        prelude::*,
+        state::AppState,
+        views::partials::*,
+    },
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]
 pub async fn get(
-    Owner(user): Owner,
+    ProfileOwner(user): ProfileOwner,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
@@ -24,7 +29,7 @@ pub async fn get(
                     div.columns.is-multiline.is-tablet {
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
-                                (vehicle_card(&state, stats.tank_id)?)
+                                (vehicle_card(&state, user.account_id, stats.tank_id)?)
                             }
                         }
                     }
@@ -38,7 +43,16 @@ pub async fn get(
     Ok(markup)
 }
 
-fn vehicle_card(state: &AppState, tank_id: u16) -> Result<Markup> {
+/// Patch the account's tank (update the rating).
+#[instrument(skip_all, fields(account_id = user.account_id, tank_id = tank_id))]
+pub async fn patch(
+    ProfileOwnedTank { user, tank_id }: ProfileOwnedTank,
+) -> WebResult<impl IntoResponse> {
+    Ok(vehicle_card_footer(user.account_id, tank_id)) // TODO
+}
+
+/// Render the vehicle card.
+fn vehicle_card(state: &AppState, account_id: u32, tank_id: u16) -> Result<Markup> {
     let description = state.tankopedia.get(&tank_id);
     let markup = html! {
         div.card {
@@ -61,15 +75,58 @@ fn vehicle_card(state: &AppState, tank_id: u16) -> Result<Markup> {
             }
 
             footer.card-footer {
-                a.card-footer-item title="Hate it!" { span.icon.has-text-danger { i.fa-solid.fa-heart-crack {} } }
-                a.card-footer-item title="Dislike it" { span.icon.has-text-warning { i.fa-solid.fa-thumbs-down {} } }
-                a.card-footer-item title="Tentative" { span.icon.has-text-info { i.fa-regular.fa-face-meh {} } }
-                a.card-footer-item title="Like it" { span.icon.has-text-primary { i.fa-solid.fa-thumbs-up {} } }
-                a.card-footer-item title="Love it!" { span.icon.has-text-success { i.fa-solid.fa-heart {} } }
+                (vehicle_card_footer(account_id, tank_id))
             }
         }
     };
     Ok(markup)
+}
+
+/// Render the vehicle card's footer inner HTML.
+fn vehicle_card_footer(account_id: u32, tank_id: u16) -> Markup {
+    html! {
+        @let patch_url = format!("/profile/{account_id}/vehicle/{tank_id}");
+        a.card-footer-item
+            title="Hate it!"
+            data-hx-patch=(patch_url)
+            data-hx-target="closest .card-footer"
+            data-hx-vals=r#"{"rating": "HATE"}"#
+        {
+            span.icon.has-text-danger { i.fa-solid.fa-heart-crack {} }
+        }
+        a.card-footer-item
+            title="Dislike it"
+            data-hx-patch=(patch_url)
+            data-hx-target="closest .card-footer"
+            data-hx-vals=r#"{"rating": "DISLIKE"}"#
+        {
+            span.icon.has-text-warning { i.fa-solid.fa-thumbs-down {} }
+        }
+        a.card-footer-item
+            title="Tentative"
+            data-hx-patch=(patch_url)
+            data-hx-target="closest .card-footer"
+            data-hx-vals=r#"{"rating": "TENTATIVE"}"#
+        {
+            span.icon.has-text-info { i.fa-regular.fa-face-meh {} }
+        }
+        a.card-footer-item
+            title="Like it"
+            data-hx-patch=(patch_url)
+            data-hx-target="closest .card-footer"
+            data-hx-vals=r#"{"rating": "LIKE"}"#
+        {
+            span.icon.has-text-primary { i.fa-solid.fa-thumbs-up {} }
+        }
+        a.card-footer-item
+            title="Love it!"
+            data-hx-patch=(patch_url)
+            data-hx-target="closest .card-footer"
+            data-hx-vals=r#"{"rating": "LOVE"}"#
+        {
+            span.icon.has-text-success { i.fa-solid.fa-heart {} }
+        }
+    }
 }
 
 /// Profile navigation bar.

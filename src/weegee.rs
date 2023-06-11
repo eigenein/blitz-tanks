@@ -188,6 +188,11 @@ impl VehicleStatsGetter {
             .map_err(|error: Arc<Error>| anyhow!(error))
             .with_context(|| format!("failed to retrieve account {account_id}'s vehicles stats"))
     }
+
+    #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
+    pub async fn owns_vehicle(&self, account_id: u32, tank_id: u16) -> Result<bool> {
+        Ok(self.get(account_id).await?.contains_key(&tank_id))
+    }
 }
 
 #[cfg(test)]

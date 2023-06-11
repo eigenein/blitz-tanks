@@ -8,7 +8,10 @@ mod r#static;
 mod tracing_;
 mod views;
 
-use axum::{routing::get, Router};
+use axum::{
+    routing::{get, patch},
+    Router,
+};
 use clap::crate_version;
 use sentry::integrations::tower::{NewSentryLayer, SentryHttpLayer};
 use tower::ServiceBuilder;
@@ -56,6 +59,7 @@ pub fn create_app(state: AppState) -> Router {
         .route("/welcome", get(views::authenticate::get))
         .route("/sign-out", get(views::sign_out::get))
         .route("/profile/:account_id", get(views::profile::get))
+        .route("/profile/:account_id/vehicle/:tank_id", patch(views::profile::patch))
         .route("/favicon.ico", get(r#static::get_favicon))
         .route("/apple-touch-icon.png", get(r#static::get_apple_touch_icon))
         .route("/icon-192.png", get(r#static::get_icon_192))
