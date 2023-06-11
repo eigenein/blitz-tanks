@@ -303,4 +303,13 @@ mod tests {
         assert_eq!(manager.get_all(2)?, []);
         Ok(())
     }
+
+    #[test]
+    fn delete_rating_ok() -> Result {
+        let manager = Db::open_temporary()?.rating_manager()?;
+        manager.insert(1, 42, &RatingEvent::new_now(Rating::Like))?;
+        manager.delete(1, 42)?;
+        assert_eq!(manager.get(1, 42)?, None);
+        Ok(())
+    }
 }

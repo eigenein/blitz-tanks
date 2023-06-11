@@ -60,7 +60,7 @@ pub async fn like_vehicle(
     state: State<AppState>,
     owned_tank: UserOwnedTank,
 ) -> WebResult<impl IntoResponse> {
-    post(state, owned_tank, Rating::Like).await
+    post(state, owned_tank, Some(Rating::Like)).await
 }
 
 #[inline]
@@ -68,7 +68,15 @@ pub async fn dislike_vehicle(
     state: State<AppState>,
     owned_tank: UserOwnedTank,
 ) -> WebResult<impl IntoResponse> {
-    post(state, owned_tank, Rating::Dislike).await
+    post(state, owned_tank, Some(Rating::Dislike)).await
+}
+
+#[inline]
+pub async fn unrate_vehicle(
+    state: State<AppState>,
+    owned_tank: UserOwnedTank,
+) -> WebResult<impl IntoResponse> {
+    post(state, owned_tank, None).await
 }
 
 /// Rate the vehicle.
@@ -76,13 +84,18 @@ pub async fn dislike_vehicle(
 async fn post(
     State(state): State<AppState>,
     UserOwnedTank { user, tank_id }: UserOwnedTank,
-    rating: Rating,
+    rating: Option<Rating>,
 ) -> WebResult<impl IntoResponse> {
     info!(?rating);
-    state
-        .rating_manager
-        .insert(user.account_id, tank_id, &RatingEvent::new_now(rating))?;
-    Ok(vehicle_card_footer(user.account_id, tank_id, Some(rating)))
+
+    let manager = state.rating_manager;
+    if let Some(rating) = rating {
+        manager.insert(user.account_id, tank_id, &RatingEvent::new_now(rating))?;
+    } else {
+        manager.delete(user.account_id, tank_id)?;
+    }
+
+    Ok(vehicle_card_footer(user.account_id, tank_id, rating))
 }
 
 /// Render the vehicle card.
@@ -140,8 +153,13 @@ fn vehicle_card(
 fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) -> Markup {
     html! {
         a.card-footer-item
-            title="Hate it!"
-            data-hx-post=(format!("/profile/{account_id}/vehicle/{tank_id}/like"))
+            data-hx-post=(
+                if rating != Some(Rating::Like) {
+                    format!("/profile/{account_id}/vehicle/{tank_id}/like")
+                } else {
+                    format!("/profile/{account_id}/vehicle/{tank_id}/unrate")
+                }
+            )
             data-hx-target="closest .card-footer"
         {
             span.icon-text.has-text-success[rating == Some(Rating::Like)] {
@@ -150,8 +168,13 @@ fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) ->
             }
         }
         a.card-footer-item
-            title="Dislike it"
-            data-hx-post=(format!("/profile/{account_id}/vehicle/{tank_id}/dislike"))
+            data-hx-post=(
+                if rating != Some(Rating::Dislike) {
+                    format!("/profile/{account_id}/vehicle/{tank_id}/dislike")
+                } else {
+                    format!("/profile/{account_id}/vehicle/{tank_id}/unrate")
+                }
+            )
             data-hx-target="closest .card-footer"
         {
             span.icon-text.has-text-danger[rating == Some(Rating::Dislike)] {

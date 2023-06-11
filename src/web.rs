@@ -64,6 +64,10 @@ pub fn create_app(state: AppState) -> Router {
             "/profile/:account_id/vehicle/:tank_id/dislike",
             post(views::profile::dislike_vehicle),
         )
+        .route(
+            "/profile/:account_id/vehicle/:tank_id/unrate",
+            post(views::profile::unrate_vehicle),
+        )
         .route("/favicon.ico", get(r#static::get_favicon))
         .route("/apple-touch-icon.png", get(r#static::get_apple_touch_icon))
         .route("/icon-192.png", get(r#static::get_icon_192))
