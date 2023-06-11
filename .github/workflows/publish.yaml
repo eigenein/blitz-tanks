@@ -110,7 +110,7 @@ jobs:
         run: ssh mars "sudo systemctl stop blitz-tanks"
 
       - name: 📦 Archive the database
-        run: ssh mars "ZST_CLEVEL=10 tar -Izstd -cvf .blitz-tanks/backups/${{ github.event.repository.updated_at }}.tar.zstd .blitz-tanks/db.sled"
+        run: ssh mars "ZST_CLEVEL=10 tar -Izstd -cvf .blitz-tanks/backups/${{ github.event.repository.pushed_at }}.tar.zstd .blitz-tanks/db.sled"
 
       - name: 🏁 Start
         run: ssh mars "sudo systemctl start blitz-tanks; systemctl status --lines=0 blitz-tanks"
