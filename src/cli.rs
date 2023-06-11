@@ -1,4 +1,5 @@
 pub mod export;
+pub mod giveaway;
 
 use std::{net::SocketAddr, path::PathBuf};
 
@@ -23,7 +24,10 @@ pub enum Command {
     Web(WebArgs),
 
     /// Export all the votes in JSONL format.
-    ExportVotes(ExportVotes),
+    ExportVotes(ExportVotesArgs),
+
+    /// Pick an account for a giveaway.
+    Giveaway(GiveawayArgs),
 }
 
 #[derive(Args)]
@@ -80,7 +84,21 @@ impl DbArgs {
 }
 
 #[derive(Args)]
-pub struct ExportVotes {
+pub struct ExportVotesArgs {
     #[clap(flatten)]
     pub db: DbArgs,
+}
+
+#[derive(Args)]
+pub struct GiveawayArgs {
+    #[clap(flatten)]
+    pub db: DbArgs,
+
+    /// Account IDs to exclude, comma-separated.
+    #[clap(long, value_parser, num_args = 0.., value_delimiter = ',')]
+    pub exclude_ids: Vec<u32>,
+
+    /// Trace all candidate IDs.
+    #[clap(long)]
+    pub trace_candidates: bool,
 }

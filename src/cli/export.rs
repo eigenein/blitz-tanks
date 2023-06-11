@@ -1,8 +1,8 @@
 use serde_json::json;
 
-use crate::{cli::ExportVotes, prelude::*};
+use crate::{cli::ExportVotesArgs, prelude::*};
 
-pub async fn export_votes(args: ExportVotes) -> Result {
+pub fn export_votes(args: &ExportVotesArgs) -> Result {
     let manager = args.db.open()?.vote_manager()?;
     for result in manager.iter_all() {
         let (account_id, tank_id, vote) = result?;
