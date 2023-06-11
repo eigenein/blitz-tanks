@@ -11,14 +11,8 @@ use crate::{
 };
 
 /// Convenience wrapper around the database.
-#[derive(Clone)]
+#[derive(Clone, derive_more::From)]
 pub struct Db(sled::Db);
-
-impl From<sled::Db> for Db {
-    fn from(db: sled::Db) -> Self {
-        Self(db)
-    }
-}
 
 impl Db {
     #[instrument(skip_all, fields(?path))]
@@ -52,15 +46,8 @@ impl Db {
 }
 
 /// Wrapper around the tree to manage client-side sessions.
-#[derive(Clone)]
+#[derive(Clone, derive_more::From)]
 pub struct SessionManager(Tree);
-
-impl From<Tree> for SessionManager {
-    #[inline]
-    fn from(tree: Tree) -> Self {
-        Self(tree)
-    }
-}
 
 impl SessionManager {
     /// Insert the user to the session tree.
@@ -103,14 +90,8 @@ impl SessionManager {
     }
 }
 
+#[derive(derive_more::From)]
 pub struct TankopediaManager(Tree);
-
-impl From<Tree> for TankopediaManager {
-    #[inline]
-    fn from(tree: Tree) -> Self {
-        Self(tree)
-    }
-}
 
 impl TankopediaManager {
     /// Update the tankopedia database: insert new vehicles and update existing ones.
@@ -185,6 +166,9 @@ impl TankopediaManager {
         })
     }
 }
+
+#[derive(derive_more::From)]
+pub struct RatingManager(Tree);
 
 #[cfg(test)]
 mod tests {
