@@ -1,15 +1,20 @@
+use std::collections::HashMap;
+
 use axum::extract::State;
+use chrono::LocalResult;
+use chrono_humanize::HumanTime;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{RateAction, User},
+    models::{Rating, RatingEvent, User},
     prelude::*,
     web::{
-        extract::{ProfileOwnedTank, ProfileOwner},
+        extract::{ProfileOwner, UserOwnedTank},
         prelude::*,
         state::AppState,
         views::partials::*,
     },
+    weegee::VehicleStats,
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]
@@ -18,6 +23,12 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
+    let ratings: HashMap<u16, Rating> = state
+        .rating_manager
+        .get_all(user.account_id)?
+        .into_iter()
+        .map(|(tank_id, event)| (tank_id, event.rating()))
+        .collect();
 
     let markup = html! {
         (head())
@@ -29,7 +40,8 @@ pub async fn get(
                     div.columns.is-multiline.is-tablet {
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
-                                (vehicle_card(&state, user.account_id, stats.tank_id)?)
+                                @let account_id = user.account_id;
+                                (vehicle_card(&state, account_id, stats, ratings.get(&stats.tank_id).copied())?)
                             }
                         }
                     }
@@ -43,27 +55,44 @@ pub async fn get(
     Ok(markup)
 }
 
-pub async fn like_vehicle(owned_tank: ProfileOwnedTank) -> WebResult<impl IntoResponse> {
-    post(owned_tank, RateAction::Like).await
+#[inline]
+pub async fn like_vehicle(
+    state: State<AppState>,
+    owned_tank: UserOwnedTank,
+) -> WebResult<impl IntoResponse> {
+    post(state, owned_tank, Rating::Like).await
 }
 
-pub async fn dislike_vehicle(owned_tank: ProfileOwnedTank) -> WebResult<impl IntoResponse> {
-    post(owned_tank, RateAction::Dislike).await
+#[inline]
+pub async fn dislike_vehicle(
+    state: State<AppState>,
+    owned_tank: UserOwnedTank,
+) -> WebResult<impl IntoResponse> {
+    post(state, owned_tank, Rating::Dislike).await
 }
 
 /// Rate the vehicle.
 #[instrument(skip_all, fields(account_id = user.account_id, tank_id = tank_id))]
 async fn post(
-    ProfileOwnedTank { user, tank_id }: ProfileOwnedTank,
-    action: RateAction,
+    State(state): State<AppState>,
+    UserOwnedTank { user, tank_id }: UserOwnedTank,
+    rating: Rating,
 ) -> WebResult<impl IntoResponse> {
-    info!(user.account_id, tank_id, ?action);
-    Ok(vehicle_card_footer(user.account_id, tank_id)) // TODO
+    info!(?rating);
+    state
+        .rating_manager
+        .insert(user.account_id, tank_id, &RatingEvent::new_now(rating))?;
+    Ok(vehicle_card_footer(user.account_id, tank_id, Some(rating)))
 }
 
 /// Render the vehicle card.
-fn vehicle_card(state: &AppState, account_id: u32, tank_id: u16) -> Result<Markup> {
-    let description = state.tankopedia.get(&tank_id);
+fn vehicle_card(
+    state: &AppState,
+    account_id: u32,
+    stats: &VehicleStats,
+    rating: Option<Rating>,
+) -> Result<Markup> {
+    let description = state.tankopedia.get(&stats.tank_id);
     let markup = html! {
         div.card {
             div.card-image {
@@ -81,7 +110,14 @@ fn vehicle_card(state: &AppState, account_id: u32, tank_id: u16) -> Result<Marku
                         p.title."is-5" {
                             @match description {
                                 Some(description) => { (description.name) },
-                                None => { "#" (tank_id) },
+                                None => { "#" (stats.tank_id) },
+                            }
+                        }
+                        @if let LocalResult::Single(timestamp) = stats.last_battle_time() {
+                            p.subtitle."is-6" {
+                                span.has-text-grey { "Last played" }
+                                " "
+                                span title=(timestamp) { (HumanTime::from(timestamp)) }
                             }
                         }
                     }
@@ -89,7 +125,7 @@ fn vehicle_card(state: &AppState, account_id: u32, tank_id: u16) -> Result<Marku
             }
 
             footer.card-footer {
-                (vehicle_card_footer(account_id, tank_id))
+                (vehicle_card_footer(account_id, stats.tank_id, rating)) // TODO: actual rating.
             }
         }
     };
@@ -97,14 +133,18 @@ fn vehicle_card(state: &AppState, account_id: u32, tank_id: u16) -> Result<Marku
 }
 
 /// Render the vehicle card's footer inner HTML.
-fn vehicle_card_footer(account_id: u32, tank_id: u16) -> Markup {
+///
+/// # Notes
+///
+/// It's extracted for HTMX to be able to refresh the rating buttons.
+fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) -> Markup {
     html! {
         a.card-footer-item
             title="Hate it!"
             data-hx-post=(format!("/profile/{account_id}/vehicle/{tank_id}/like"))
             data-hx-target="closest .card-footer"
         {
-            span.icon-text {
+            span.icon-text.has-text-success[rating == Some(Rating::Like)] {
                 span.icon { i.fa-solid.fa-thumbs-up {} }
                 span { "Like" }
             }
@@ -114,7 +154,7 @@ fn vehicle_card_footer(account_id: u32, tank_id: u16) -> Markup {
             data-hx-post=(format!("/profile/{account_id}/vehicle/{tank_id}/dislike"))
             data-hx-target="closest .card-footer"
         {
-            span.icon-text {
+            span.icon-text.has-text-danger[rating == Some(Rating::Dislike)] {
                 span.icon { i.fa-solid.fa-thumbs-down {} }
                 span { "Dislike" }
             }

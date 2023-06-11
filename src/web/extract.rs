@@ -43,13 +43,16 @@ where
     }
 }
 
-pub struct ProfileOwnedTank {
+/// Vehicle owned by a certain user.
+///
+/// Validates that the user is the one logged in, and does own the vehicle.
+pub struct UserOwnedTank {
     pub tank_id: u16,
     pub user: User,
 }
 
 #[async_trait]
-impl FromRequestParts<AppState> for ProfileOwnedTank {
+impl FromRequestParts<AppState> for UserOwnedTank {
     type Rejection = WebError;
 
     async fn from_request_parts(

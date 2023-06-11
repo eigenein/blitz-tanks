@@ -4,5 +4,5 @@ pub use ::anyhow::{Context, Error};
 #[allow(dead_code)]
 pub type DateTime<Tz = Utc> = chrono::DateTime<Tz>;
 
-pub use ::chrono::Utc;
+pub use ::chrono::{TimeZone, Utc};
 pub use anyhow::anyhow;

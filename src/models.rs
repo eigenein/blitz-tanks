@@ -76,30 +76,32 @@ pub struct VehicleImages {
     pub normal_url: Option<String>,
 }
 
-/// User's rate action for a vehicle.
-#[derive(Debug, prost::Enumeration)]
+/// User's rating for a vehicle.
+#[derive(Debug, prost::Enumeration, PartialEq, Eq, Copy, Clone)]
 #[repr(i32)]
-pub enum RateAction {
-    Unknown = 0,
+pub enum Rating {
+    /// Unused variant, required for Prost.
+    None = 0,
+
     Dislike = 1,
     Like = 2,
 }
 
 /// User's rating for a vehicle.
-#[derive(Message)]
-pub struct Rating {
+#[derive(Message, Eq, PartialEq)]
+pub struct RatingEvent {
     #[prost(int64, tag = "1", required)]
     pub timestamp_secs: i64,
 
-    #[prost(enumeration = "RateAction", tag = "2", required)]
-    pub action: i32,
+    #[prost(enumeration = "Rating", tag = "2", required)]
+    pub rating: i32,
 }
 
-impl Rating {
-    pub fn new_now(action: RateAction) -> Self {
+impl RatingEvent {
+    pub fn new_now(rating: Rating) -> Self {
         Self {
             timestamp_secs: Utc::now().timestamp(),
-            action: action as i32,
+            rating: rating as i32,
         }
     }
 }

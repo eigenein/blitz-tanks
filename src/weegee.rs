@@ -1,6 +1,7 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
 use anyhow::Context;
+use chrono::LocalResult;
 use indexmap::IndexMap;
 use itertools::Itertools;
 use moka::future::Cache;
@@ -147,6 +148,12 @@ impl WeeGee {
 pub struct VehicleStats {
     pub tank_id: u16,
     pub last_battle_time: i64,
+}
+
+impl VehicleStats {
+    pub fn last_battle_time(&self) -> LocalResult<DateTime> {
+        Utc.timestamp_opt(self.last_battle_time, 0)
+    }
 }
 
 /// Proxy for user's vehicles' statistics.

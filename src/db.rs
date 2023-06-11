@@ -6,7 +6,7 @@ use sled::Tree;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{RateAction, Rating, User, VehicleDescription},
+    models::{RatingEvent, User, VehicleDescription},
     prelude::*,
 };
 
@@ -32,16 +32,27 @@ impl Db {
             .map(Into::into)
     }
 
+    #[inline]
     pub fn session_manager(&self) -> Result<SessionManager> {
-        Ok(SessionManager::from(self.open_tree("sessions")?))
+        self.open_manager("sessions")
     }
 
+    #[inline]
     pub fn tankopedia_manager(&self) -> Result<TankopediaManager> {
-        Ok(TankopediaManager::from(self.open_tree("tankopedia")?))
+        self.open_manager("tankopedia")
     }
 
-    fn open_tree(&self, name: &str) -> Result<Tree> {
-        self.0.open_tree(name).with_context(|| format!("failed to open tree `{name}`"))
+    #[inline]
+    pub fn rating_manager(&self) -> Result<RatingManager> {
+        self.open_manager("ratings")
+    }
+
+    #[inline]
+    pub fn open_manager<T: From<Tree>>(&self, tree_name: &str) -> Result<T> {
+        self.0
+            .open_tree(tree_name)
+            .with_context(|| format!("failed to open tree `{tree_name}`"))
+            .map(T::from)
     }
 }
 
@@ -167,13 +178,14 @@ impl TankopediaManager {
     }
 }
 
-#[derive(derive_more::From)]
+#[derive(derive_more::From, Clone)]
 pub struct RatingManager(Tree);
 
 impl RatingManager {
-    pub fn insert(&self, account_id: u32, tank_id: u16, rating: &Rating) -> Result {
+    #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
+    pub fn insert(&self, account_id: u32, tank_id: u16, event: &RatingEvent) -> Result {
         self.0
-            .insert(Self::encode_key(account_id, tank_id), rating.encode_to_vec())
+            .insert(Self::encode_key(account_id, tank_id), event.encode_to_vec())
             .with_context(|| {
                 format!("failed to insert the #{account_id}'s rating for #{tank_id}")
             })?;
@@ -181,12 +193,33 @@ impl RatingManager {
     }
 
     /// Retrieve a single rating.
-    pub fn get(&self, account_id: u32, tank_id: u16) -> Result<Option<Rating>> {
+    #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
+    pub fn get(&self, account_id: u32, tank_id: u16) -> Result<Option<RatingEvent>> {
         self.0
             .get(Self::encode_key(account_id, tank_id))?
-            .map(|value| Rating::decode(value.as_ref()))
+            .map(|value| RatingEvent::decode(value.as_ref()))
             .transpose()
             .with_context(|| format!("failed to retrieve a #{account_id}'s rating for #{tank_id}"))
+    }
+
+    #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
+    pub fn delete(&self, account_id: u32, tank_id: u16) -> Result {
+        self.0.remove(Self::encode_key(account_id, tank_id))?;
+        Ok(())
+    }
+
+    /// Retrieve all ratings of the user.
+    #[instrument(skip_all, fields(account_id = account_id))]
+    pub fn get_all(&self, account_id: u32) -> Result<Vec<(u16, RatingEvent)>> {
+        self.0
+            .scan_prefix(account_id.to_be_bytes())
+            .map(|result| {
+                let (key, value) = result?;
+                let tank_id = Self::decode_tank_id(key.as_ref())?;
+                let event = RatingEvent::decode(value.as_ref())?;
+                Ok((tank_id, event))
+            })
+            .collect()
     }
 
     /// Encode the key corresponding to the user's vehicle.
@@ -200,12 +233,21 @@ impl RatingManager {
     fn encode_key(account_id: u32, tank_id: u16) -> Vec<u8> {
         [&account_id.to_be_bytes()[..], &tank_id.to_be_bytes()[..]].concat()
     }
+
+    /// Decode tank ID from the Sled key.
+    #[inline]
+    fn decode_tank_id(key: &[u8]) -> Result<u16> {
+        Ok(u16::from_be_bytes((&key[4..6]).try_into()?))
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{db::Db, models::new_session_id};
+    use crate::{
+        db::Db,
+        models::{new_session_id, Rating},
+    };
 
     #[test]
     fn unknown_session_ok() -> Result {
@@ -217,16 +259,7 @@ mod tests {
     #[test]
     fn known_session_ok() -> Result {
         let manager = Db::open_temporary()?.session_manager()?;
-        let session_id = new_session_id();
-        manager.insert(
-            session_id,
-            &User {
-                access_token: "test".to_string(),
-                expires_at: Utc::now().timestamp() + 10,
-                account_id: 0,
-                nickname: "test".to_string(),
-            },
-        )?;
+        let session_id = manager.insert_test_session()?;
         let user = manager.get(session_id)?;
         assert!(user.is_some());
         Ok(())
@@ -247,6 +280,27 @@ mod tests {
         )?;
         let user = manager.get(session_id)?;
         assert!(user.is_none(), "actual user: {user:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn insert_get_rating_ok() -> Result {
+        let manager = Db::open_temporary()?.rating_manager()?;
+        manager.insert(1, 42, &RatingEvent::new_now(Rating::Like))?;
+        assert!(manager.get(1, 42)?.is_some());
+        assert_eq!(manager.get(2, 42)?, None);
+        assert_eq!(manager.get(42, 1)?, None);
+        Ok(())
+    }
+
+    #[test]
+    fn get_all_ok() -> Result {
+        let manager = Db::open_temporary()?.rating_manager()?;
+        let event = RatingEvent::new_now(Rating::Like);
+        manager.insert(1, 42, &event)?;
+        assert_eq!(manager.get_all(0)?, []);
+        assert_eq!(manager.get_all(1)?, [(42, event)]);
+        assert_eq!(manager.get_all(2)?, []);
         Ok(())
     }
 }
