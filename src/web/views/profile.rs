@@ -2,7 +2,7 @@ use axum::extract::State;
 use tracing::instrument;
 
 use crate::{
-    models::User,
+    models::{RateAction, User},
     prelude::*,
     web::{
         extract::{ProfileOwnedTank, ProfileOwner},
@@ -43,10 +43,19 @@ pub async fn get(
     Ok(markup)
 }
 
-/// Patch the account's tank (update the rating).
+pub async fn like_vehicle(owned_tank: ProfileOwnedTank) -> WebResult<impl IntoResponse> {
+    post(owned_tank, RateAction::Like).await
+}
+
+pub async fn dislike_vehicle(owned_tank: ProfileOwnedTank) -> WebResult<impl IntoResponse> {
+    post(owned_tank, RateAction::Dislike).await
+}
+
+/// Rate the vehicle.
 #[instrument(skip_all, fields(account_id = user.account_id, tank_id = tank_id))]
-pub async fn patch(
+async fn post(
     ProfileOwnedTank { user, tank_id }: ProfileOwnedTank,
+    action: RateAction,
 ) -> WebResult<impl IntoResponse> {
     Ok(vehicle_card_footer(user.account_id, tank_id)) // TODO
 }
@@ -56,21 +65,25 @@ fn vehicle_card(state: &AppState, account_id: u32, tank_id: u16) -> Result<Marku
     let description = state.tankopedia.get(&tank_id);
     let markup = html! {
         div.card {
-            header.card-header {
-                p.card-header-title {
-                    @match description {
-                        Some(description) => { (description.name) },
-                        None => { "#" (tank_id) },
-                    }
-                }
-            }
-
             div.card-image {
                 figure.image {
                     @let url = description
                         .and_then(|d| d.images.normal_url.as_ref())
                         .map_or("https://dummyimage.com/1060x774", |url| url.as_str());
                     img src=(url) loading="lazy";
+                }
+            }
+
+            div.card-content {
+                div.media {
+                    div.media-content {
+                        p.title."is-5" {
+                            @match description {
+                                Some(description) => { (description.name) },
+                                None => { "#" (tank_id) },
+                            }
+                        }
+                    }
                 }
             }
 
@@ -85,46 +98,25 @@ fn vehicle_card(state: &AppState, account_id: u32, tank_id: u16) -> Result<Marku
 /// Render the vehicle card's footer inner HTML.
 fn vehicle_card_footer(account_id: u32, tank_id: u16) -> Markup {
     html! {
-        @let patch_url = format!("/profile/{account_id}/vehicle/{tank_id}");
         a.card-footer-item
             title="Hate it!"
-            data-hx-patch=(patch_url)
+            data-hx-post=(format!("/profile/{account_id}/vehicle/{tank_id}/like"))
             data-hx-target="closest .card-footer"
-            data-hx-vals=r#"{"rating": "HATE"}"#
         {
-            span.icon.has-text-danger { i.fa-solid.fa-heart-crack {} }
+            span.icon-text {
+                span.icon { i.fa-solid.fa-thumbs-up {} }
+                span { "Like" }
+            }
         }
         a.card-footer-item
             title="Dislike it"
-            data-hx-patch=(patch_url)
+            data-hx-post=(format!("/profile/{account_id}/vehicle/{tank_id}/dislike"))
             data-hx-target="closest .card-footer"
-            data-hx-vals=r#"{"rating": "DISLIKE"}"#
         {
-            span.icon.has-text-warning { i.fa-solid.fa-thumbs-down {} }
-        }
-        a.card-footer-item
-            title="Tentative"
-            data-hx-patch=(patch_url)
-            data-hx-target="closest .card-footer"
-            data-hx-vals=r#"{"rating": "TENTATIVE"}"#
-        {
-            span.icon.has-text-info { i.fa-regular.fa-face-meh {} }
-        }
-        a.card-footer-item
-            title="Like it"
-            data-hx-patch=(patch_url)
-            data-hx-target="closest .card-footer"
-            data-hx-vals=r#"{"rating": "LIKE"}"#
-        {
-            span.icon.has-text-primary { i.fa-solid.fa-thumbs-up {} }
-        }
-        a.card-footer-item
-            title="Love it!"
-            data-hx-patch=(patch_url)
-            data-hx-target="closest .card-footer"
-            data-hx-vals=r#"{"rating": "LOVE"}"#
-        {
-            span.icon.has-text-success { i.fa-solid.fa-heart {} }
+            span.icon-text {
+                span.icon { i.fa-solid.fa-thumbs-down {} }
+                span { "Dislike" }
+            }
         }
     }
 }

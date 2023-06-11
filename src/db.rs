@@ -117,7 +117,7 @@ impl TankopediaManager {
     pub fn update(&self, vehicles: Vec<VehicleDescription>) -> Result<&Self> {
         info!(n_vehicles = vehicles.len(), "📥 Updating the tankopedia…");
         for vehicle in vehicles {
-            self.insert(&vehicle)?;
+            self.insert_vehicle(&vehicle)?;
         }
         Ok(self)
     }
@@ -125,30 +125,30 @@ impl TankopediaManager {
     /// Insert the vehicles, which Wargaming.net is too lazy to add to the tankopedia.
     pub fn prepopulate(&self) -> Result<&Self> {
         info!("🤬 Pre-populating the tankopedia…");
-        self.insert(&VehicleDescription::new(9777, "WZ-114").premium())?;
-        self.insert(&VehicleDescription::new(18241, "B-C Bourrasque").premium())?;
-        self.insert(&VehicleDescription::new(12417, "Bisonte C45").premium())?;
-        self.insert(&VehicleDescription::new(10545, "Wind").premium())?;
-        self.insert(&VehicleDescription::new(24849, "Kryos").premium())?;
-        self.insert(&VehicleDescription::new(20817, "Explorer").premium())?;
-        self.insert(&VehicleDescription::new(1329, "Renault NC-31"))?;
-        self.insert(&VehicleDescription::new(81, "Vickers Medium Mk. I").premium())?;
-        self.insert(&VehicleDescription::new(3089, "Leichttraktor"))?;
-        self.insert(&VehicleDescription::new(577, "Renault FT").premium())?;
-        self.insert(&VehicleDescription::new(609, "R. Otsu"))?;
-        self.insert(&VehicleDescription::new(545, "T1 Cunningham").premium())?;
-        self.insert(&VehicleDescription::new(64081, "Mk I* Heavy Tank").premium())?;
-        self.insert(&VehicleDescription::new(12673, "Bofors Tornvagn").premium())?;
-        self.insert(&VehicleDescription::new(27425, "TL-7-120").premium())?;
-        self.insert(&VehicleDescription::new(13441, "Aeonix").premium())?;
-        self.insert(&VehicleDescription::new(25857, "Object 777 Version Ⅱ").premium())?;
-        self.insert(&VehicleDescription::new(10609, "Magnate").premium())?;
-        self.insert(&VehicleDescription::new(19777, "AltProto AMX 30").premium())?;
-        self.insert(&VehicleDescription::new(26129, "Epsilon").premium())?;
-        self.insert(&VehicleDescription::new(23297, "Object 244").premium())?;
-        self.insert(&VehicleDescription::new(22353, "Churchill W").premium())?;
-        self.insert(&VehicleDescription::new(20289, "Pirate").premium())?;
-        self.insert(&VehicleDescription::new(10801, "Panlong").premium())?;
+        self.insert_unknown(9777, "WZ-114", true)?;
+        self.insert_unknown(18241, "B-C Bourrasque", true)?;
+        self.insert_unknown(12417, "Bisonte C45", true)?;
+        self.insert_unknown(10545, "Wind", true)?;
+        self.insert_unknown(24849, "Kryos", true)?;
+        self.insert_unknown(20817, "Explorer", true)?;
+        self.insert_unknown(1329, "Renault NC-31", false)?;
+        self.insert_unknown(81, "Vickers Medium Mk. I", true)?;
+        self.insert_unknown(3089, "Leichttraktor", true)?;
+        self.insert_unknown(577, "Renault FT", true)?;
+        self.insert_unknown(609, "R. Otsu", false)?;
+        self.insert_unknown(545, "T1 Cunningham", true)?;
+        self.insert_unknown(64081, "Mk I* Heavy Tank", true)?;
+        self.insert_unknown(12673, "Bofors Tornvagn", true)?;
+        self.insert_unknown(27425, "TL-7-120", true)?;
+        self.insert_unknown(13441, "Aeonix", true)?;
+        self.insert_unknown(25857, "Object 777 Version Ⅱ", true)?;
+        self.insert_unknown(10609, "Magnate", true)?;
+        self.insert_unknown(19777, "AltProto AMX 30", true)?;
+        self.insert_unknown(26129, "Epsilon", true)?;
+        self.insert_unknown(23297, "Object 244", true)?;
+        self.insert_unknown(22353, "Churchill W", true)?;
+        self.insert_unknown(20289, "Pirate", true)?;
+        self.insert_unknown(10801, "Panlong", true)?;
         Ok(self)
     }
 
@@ -171,9 +171,18 @@ impl TankopediaManager {
         Ok(tankopedia)
     }
 
-    fn insert(&self, vehicle: &VehicleDescription) -> Result {
+    fn insert_vehicle(&self, vehicle: &VehicleDescription) -> Result {
         self.0.insert((vehicle.tank_id as u16).to_be_bytes(), vehicle.encode_to_vec())?;
         Ok(())
+    }
+
+    fn insert_unknown(&self, tank_id: u16, name: &str, is_premium: bool) -> Result {
+        self.insert_vehicle(&VehicleDescription {
+            tank_id: tank_id as u32,
+            name: name.to_string(),
+            images: Default::default(),
+            is_premium,
+        })
     }
 }
 

@@ -18,6 +18,8 @@ pub fn new_session_id() -> Scru128Id {
 
 /// Authenticated [Wargaming.net user][1].
 ///
+/// This model is used to parse the redirect parameters and store it in Sled.
+///
 /// [1]: https://developers.wargaming.net/reference/all/wot/auth/login/
 #[serde_with::serde_as]
 #[derive(Deserialize, Message)]
@@ -46,6 +48,8 @@ impl User {
 
 /// Vehicle description from the [tankopedia][1].
 ///
+/// This model is used to parse the API response and to store it in Sled.
+///
 /// [1]: https://developers.wargaming.net/reference/all/wotb/encyclopedia/vehicles/
 #[derive(Deserialize, Message)]
 pub struct VehicleDescription {
@@ -65,26 +69,14 @@ pub struct VehicleDescription {
     pub is_premium: bool,
 }
 
-impl VehicleDescription {
-    pub fn new(tank_id: u16, name: &str) -> Self {
-        Self {
-            tank_id: tank_id as u32,
-            name: name.to_string(),
-            images: VehicleImages::default(),
-            is_premium: false,
-        }
-    }
-
-    /// Mark the vehicle as premium.
-    pub const fn premium(mut self) -> Self {
-        self.is_premium = true;
-        self
-    }
-}
-
 #[derive(Deserialize, Message)]
 pub struct VehicleImages {
     #[prost(string, tag = "1", optional)]
     #[serde(rename = "normal")]
     pub normal_url: Option<String>,
+}
+
+pub enum RateAction {
+    Dislike = 1,
+    Like = 2,
 }

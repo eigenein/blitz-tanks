@@ -9,7 +9,7 @@ mod tracing_;
 mod views;
 
 use axum::{
-    routing::{get, patch},
+    routing::{get, post},
     Router,
 };
 use clap::crate_version;
@@ -59,7 +59,11 @@ pub fn create_app(state: AppState) -> Router {
         .route("/welcome", get(views::authenticate::get))
         .route("/sign-out", get(views::sign_out::get))
         .route("/profile/:account_id", get(views::profile::get))
-        .route("/profile/:account_id/vehicle/:tank_id", patch(views::profile::patch))
+        .route("/profile/:account_id/vehicle/:tank_id/like", post(views::profile::like_vehicle))
+        .route(
+            "/profile/:account_id/vehicle/:tank_id/dislike",
+            post(views::profile::dislike_vehicle),
+        )
         .route("/favicon.ico", get(r#static::get_favicon))
         .route("/apple-touch-icon.png", get(r#static::get_apple_touch_icon))
         .route("/icon-192.png", get(r#static::get_icon_192))
