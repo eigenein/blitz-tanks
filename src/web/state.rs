@@ -3,7 +3,7 @@ use std::{collections::HashMap, sync::Arc};
 use tracing::warn;
 
 use crate::{
-    db::{Db, RatingManager, SessionManager},
+    db::{Db, SessionManager, VoteManager},
     models::VehicleDescription,
     prelude::*,
     weegee::{VehicleStatsGetter, WeeGee},
@@ -18,7 +18,7 @@ pub struct AppState {
     pub vehicle_stats_getter: VehicleStatsGetter,
 
     pub session_manager: SessionManager,
-    pub rating_manager: RatingManager,
+    pub vote_manager: VoteManager,
 }
 
 impl AppState {
@@ -43,7 +43,7 @@ impl AppState {
             vehicle_stats_getter: VehicleStatsGetter::from(wee_gee),
 
             session_manager: db.session_manager()?,
-            rating_manager: db.rating_manager()?,
+            vote_manager: db.vote_manager()?,
         })
     }
 

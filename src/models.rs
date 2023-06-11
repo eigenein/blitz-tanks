@@ -3,7 +3,7 @@
 use cookie::{time::OffsetDateTime, Expiration};
 use prost::Message;
 use scru128::Scru128Id;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use tracing::instrument;
 
 use crate::prelude::*;
@@ -88,8 +88,8 @@ pub enum Rating {
 }
 
 /// User's rating for a vehicle.
-#[derive(Message, Eq, PartialEq)]
-pub struct RatingEvent {
+#[derive(Message, Eq, PartialEq, Serialize)]
+pub struct Vote {
     #[prost(int64, tag = "1", required)]
     pub timestamp_secs: i64,
 
@@ -97,7 +97,7 @@ pub struct RatingEvent {
     pub rating: i32,
 }
 
-impl RatingEvent {
+impl Vote {
     pub fn new_now(rating: Rating) -> Self {
         Self {
             timestamp_secs: Utc::now().timestamp(),

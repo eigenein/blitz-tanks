@@ -19,6 +19,9 @@ pub struct Cli {
 pub enum Command {
     /// Run the web application.
     Web(WebArgs),
+
+    /// List all the votes in JSONL format.
+    ListVotes(ListVotesArgs),
 }
 
 #[derive(Args)]
@@ -72,4 +75,10 @@ impl DbArgs {
     pub fn open(&self) -> Result<Db> {
         Db::open(&self.path)
     }
+}
+
+#[derive(Args)]
+pub struct ListVotesArgs {
+    #[clap(flatten)]
+    pub db: DbArgs,
 }

@@ -7,7 +7,7 @@ use tracing::{info, instrument};
 use url::Url;
 
 use crate::{
-    models::{RatingEvent, User, VehicleDescription},
+    models::{User, VehicleDescription, Vote},
     prelude::*,
 };
 
@@ -44,7 +44,7 @@ impl Db {
     }
 
     #[inline]
-    pub fn rating_manager(&self) -> Result<RatingManager> {
+    pub fn vote_manager(&self) -> Result<VoteManager> {
         self.open_manager("ratings")
     }
 
@@ -192,11 +192,11 @@ impl TankopediaManager {
 }
 
 #[derive(derive_more::From, Clone)]
-pub struct RatingManager(Tree);
+pub struct VoteManager(Tree);
 
-impl RatingManager {
+impl VoteManager {
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub fn insert(&self, account_id: u32, tank_id: u16, event: &RatingEvent) -> Result {
+    pub fn insert(&self, account_id: u32, tank_id: u16, event: &Vote) -> Result {
         self.0
             .insert(Self::encode_key(account_id, tank_id), event.encode_to_vec())
             .with_context(|| {
@@ -205,12 +205,12 @@ impl RatingManager {
         Ok(())
     }
 
-    /// Retrieve a single rating.
+    /// Retrieve a single vote.
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub fn get(&self, account_id: u32, tank_id: u16) -> Result<Option<RatingEvent>> {
+    pub fn get(&self, account_id: u32, tank_id: u16) -> Result<Option<Vote>> {
         self.0
             .get(Self::encode_key(account_id, tank_id))?
-            .map(|value| RatingEvent::decode(value.as_ref()))
+            .map(|value| Vote::decode(value.as_ref()))
             .transpose()
             .with_context(|| format!("failed to retrieve a #{account_id}'s rating for #{tank_id}"))
     }
@@ -221,18 +221,27 @@ impl RatingManager {
         Ok(())
     }
 
-    /// Retrieve all ratings of the user.
+    /// Retrieve all votes of the user.
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub fn get_all(&self, account_id: u32) -> Result<Vec<(u16, RatingEvent)>> {
+    pub fn get_all_by_account_id(&self, account_id: u32) -> Result<Vec<(u16, Vote)>> {
         self.0
             .scan_prefix(account_id.to_be_bytes())
             .map(|result| {
                 let (key, value) = result?;
                 let tank_id = Self::decode_tank_id(key.as_ref())?;
-                let event = RatingEvent::decode(value.as_ref())?;
+                let event = Vote::decode(value.as_ref())?;
                 Ok((tank_id, event))
             })
             .collect()
+    }
+
+    /// Iterate over **all** the votes.
+    pub fn iter_all(&self) -> impl Iterator<Item = Result<(u32, u16, Vote)>> {
+        self.0.iter().map(|result| {
+            let (key, value) = result?;
+            let (account_id, tank_id) = Self::decode_key(key.as_ref())?;
+            Ok((account_id, tank_id, Vote::decode(value.as_ref())?))
+        })
     }
 
     /// Encode the key corresponding to the user's vehicle.
@@ -251,6 +260,12 @@ impl RatingManager {
     #[inline]
     fn decode_tank_id(key: &[u8]) -> Result<u16> {
         Ok(u16::from_be_bytes((&key[4..6]).try_into()?))
+    }
+
+    #[inline]
+    fn decode_key(key: &[u8]) -> Result<(u32, u16)> {
+        let account_id = u32::from_be_bytes((&key[0..4]).try_into()?);
+        Ok((account_id, Self::decode_tank_id(key)?))
     }
 }
 
@@ -297,9 +312,9 @@ mod tests {
     }
 
     #[test]
-    fn insert_get_rating_ok() -> Result {
-        let manager = Db::open_temporary()?.rating_manager()?;
-        manager.insert(1, 42, &RatingEvent::new_now(Rating::Like))?;
+    fn insert_get_vote_ok() -> Result {
+        let manager = Db::open_temporary()?.vote_manager()?;
+        manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         assert!(manager.get(1, 42)?.is_some());
         assert_eq!(manager.get(2, 42)?, None);
         assert_eq!(manager.get(42, 1)?, None);
@@ -307,20 +322,20 @@ mod tests {
     }
 
     #[test]
-    fn get_all_ok() -> Result {
-        let manager = Db::open_temporary()?.rating_manager()?;
-        let event = RatingEvent::new_now(Rating::Like);
-        manager.insert(1, 42, &event)?;
-        assert_eq!(manager.get_all(0)?, []);
-        assert_eq!(manager.get_all(1)?, [(42, event)]);
-        assert_eq!(manager.get_all(2)?, []);
+    fn get_all_by_account_id_ok() -> Result {
+        let manager = Db::open_temporary()?.vote_manager()?;
+        let vote = Vote::new_now(Rating::Like);
+        manager.insert(1, 42, &vote)?;
+        assert_eq!(manager.get_all_by_account_id(0)?, []);
+        assert_eq!(manager.get_all_by_account_id(1)?, [(42, vote)]);
+        assert_eq!(manager.get_all_by_account_id(2)?, []);
         Ok(())
     }
 
     #[test]
     fn delete_rating_ok() -> Result {
-        let manager = Db::open_temporary()?.rating_manager()?;
-        manager.insert(1, 42, &RatingEvent::new_now(Rating::Like))?;
+        let manager = Db::open_temporary()?.vote_manager()?;
+        manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         manager.delete(1, 42)?;
         assert_eq!(manager.get(1, 42)?, None);
         Ok(())

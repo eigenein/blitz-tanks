@@ -6,7 +6,7 @@ use chrono_humanize::HumanTime;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{Rating, RatingEvent, User},
+    models::{Rating, User, Vote},
     prelude::*,
     web::{
         extract::{ProfileOwner, UserOwnedTank},
@@ -24,8 +24,8 @@ pub async fn get(
 ) -> WebResult<impl IntoResponse> {
     let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
     let ratings: HashMap<u16, Rating> = state
-        .rating_manager
-        .get_all(user.account_id)?
+        .vote_manager
+        .get_all_by_account_id(user.account_id)?
         .into_iter()
         .map(|(tank_id, event)| (tank_id, event.rating()))
         .collect();
@@ -88,9 +88,9 @@ async fn post(
 ) -> WebResult<impl IntoResponse> {
     info!(?rating);
 
-    let manager = state.rating_manager;
+    let manager = state.vote_manager;
     if let Some(rating) = rating {
-        manager.insert(user.account_id, tank_id, &RatingEvent::new_now(rating))?;
+        manager.insert(user.account_id, tank_id, &Vote::new_now(rating))?;
     } else {
         manager.delete(user.account_id, tank_id)?;
     }
