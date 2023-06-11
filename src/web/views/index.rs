@@ -57,9 +57,15 @@ pub async fn get(State(state): State<AppState>, session: Session) -> OptionalRed
                                     div.message-header {
                                         "Work in progress"
                                     }
-                                    div.message-body {
-                                        "Some functionality may be unimplemented or broken."
-                                        " Only European region is currently supported"
+                                    div.message-body.content {
+                                        div.content {
+                                            p { "Disclaimer:" }
+                                            ul {
+                                                li { "Only core vital features are implemented" }
+                                                li { "Some functionality may be unimplemented or broken" }
+                                                li { "Only European region is currently supported" }
+                                            }
+                                        }
                                     }
                                 }
                             }
