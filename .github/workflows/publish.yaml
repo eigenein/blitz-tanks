@@ -106,5 +106,11 @@ jobs:
           chmod +x blitz-tanks.aarch64-unknown-linux-gnu
           rsync --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu mars:/home/pi/bin/blitz-tanks
 
-      - name: ⏳ Restart
-        run: ssh mars "sudo systemctl restart blitz-tanks; systemctl status --lines=0 blitz-tanks"
+      - name: 🛑 Stop
+        run: ssh mars "sudo systemctl stop blitz-tanks; systemctl status --lines=0 blitz-tanks"
+
+      - name: 📦 Archive the database
+        run: ssh mars "ZST_CLEVEL=3 tar -Izstd -cvf .blitz-tanks/${{ github.event.repository.updated_at }}.tar.zstd .blitz-tanks/db.sled"
+
+      - name: 🏁 Start
+        run: ssh mars "sudo systemctl start blitz-tanks; systemctl status --lines=0 blitz-tanks"
