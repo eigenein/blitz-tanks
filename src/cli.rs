@@ -32,6 +32,7 @@ pub enum Command {
 
 #[derive(Args)]
 pub struct WebArgs {
+    /// Web application bind endpoint.
     #[clap(
         long,
         env = "BLITZ_TANKS_BIND_ENDPOINT",
@@ -42,6 +43,7 @@ pub struct WebArgs {
     #[clap(flatten)]
     pub wargaming: WargamingArgs,
 
+    /// Public address used in the hyperlinks.
     #[clap(
         long,
         env = "BLITZ_TANKS_PUBLIC_ADDRESS",
@@ -59,15 +61,18 @@ pub struct WebArgs {
 
 #[derive(Args)]
 pub struct WargamingArgs {
+    /// Wargaming.net application ID for the front-end app.
     #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_FRONTEND_APPLICATION_ID")]
     pub frontend_application_id: String,
 
+    /// Wargaming.net application ID for the back-end app.
     #[clap(long = "backend-app-id", env = "BLITZ_TANKS_BACKEND_APPLICATION_ID")]
     pub backend_application_id: String,
 }
 
 #[derive(Args)]
 pub struct DbArgs {
+    /// Legacy Sled database path.
     #[clap(
         short = 'd',
         long = "db-path",
