@@ -112,5 +112,8 @@ jobs:
       - name: 📦 Archive the database
         run: ssh mars "ZST_CLEVEL=10 tar -Izstd -cvf .blitz-tanks/backups/${{ github.event.repository.pushed_at }}.tar.zstd .blitz-tanks/db.sled"
 
+      - name: 📦 Export votes
+        run: ssh mars "blitz-tanks export-votes --db-path .blitz-tanks/db.sled > .blitz-tanks/backups/${{ github.event.repository.pushed_at }}.votes.jsonl"
+
       - name: 🏁 Start
         run: ssh mars "sudo systemctl start blitz-tanks; systemctl status --lines=0 blitz-tanks"
