@@ -28,7 +28,7 @@ use crate::{
 #[tokio::main]
 async fn main() -> Result {
     let args = Cli::parse();
-    let _sentry_guard = tracing::init(args.sentry_dsn, 1.0)?;
+    let _sentry_guard = tracing::init(args.sentry_dsn, 0.1)?;
 
     match args.command {
         Command::Web(args) => trace(web::run(args).await),
