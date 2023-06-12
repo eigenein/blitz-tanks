@@ -14,7 +14,7 @@ use crate::{
         state::AppState,
         views::partials::*,
     },
-    weegee::VehicleStats,
+    weegee::{to_client_tank_id, VehicleStats},
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]
@@ -123,9 +123,23 @@ fn vehicle_card(
                 div.media {
                     div.media-content {
                         p.title."is-5" {
-                            @match description {
-                                Some(description) => { span.has-text-warning-dark[is_premium] { (description.name) } },
-                                None => { "#" (stats.tank_id) },
+                            span.icon-text {
+                                span {
+                                    @match description {
+                                        Some(description) => { span.has-text-warning-dark[is_premium] { (description.name) } },
+                                        None => { "#" (stats.tank_id) },
+                                    }
+                                }
+                                @if let Ok(tank_id) = to_client_tank_id(stats.tank_id) {
+                                    span.icon {
+                                        a
+                                            title="View in Blitz Hangar"
+                                            href=(format!("https://blitzhangar.com/en/tank/{tank_id}"))
+                                        {
+                                            i.fa-solid.fa-arrow-up-right-from-square {}
+                                        }
+                                    }
+                                }
                             }
                         }
                         @if let LocalResult::Single(timestamp) = stats.last_battle_time() {

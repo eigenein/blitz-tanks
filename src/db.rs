@@ -143,6 +143,7 @@ impl TankopediaManager {
         self.insert_unknown(22353, "Churchill W", true)?;
         self.insert_unknown(20289, "Pirate", true)?;
         self.insert_unknown(10801, "Panlong", true)?;
+        self.insert_unknown(10289, "WZ-132-1", false)?;
         Ok(self)
     }
 
