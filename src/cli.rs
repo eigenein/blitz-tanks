@@ -80,7 +80,7 @@ pub struct DbArgs {
     #[clap(
         long = "db-uri",
         env = "BLITZ_TANKS_DATABASE_URI",
-        default_value = "mongodb://mars.local/development"
+        default_value = "mongodb://mars.local/test"
     )]
     pub uri: String,
 }
