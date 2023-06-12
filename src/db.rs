@@ -13,9 +13,9 @@ use crate::{
 
 /// Convenience wrapper around the database.
 #[derive(Clone, derive_more::From)]
-pub struct Db(sled::Db);
+pub struct LegacyDb(sled::Db);
 
-impl Db {
+impl LegacyDb {
     #[instrument(skip_all, fields(?path))]
     pub fn open(path: &PathBuf) -> Result<Self> {
         sled::open(path)
@@ -272,20 +272,20 @@ impl VoteManager {
 mod tests {
     use super::*;
     use crate::{
-        db::Db,
+        db::LegacyDb,
         models::{new_session_id, Rating},
     };
 
     #[test]
     fn unknown_session_ok() -> Result {
-        let session = Db::open_temporary()?.session_manager()?.get(new_session_id())?;
+        let session = LegacyDb::open_temporary()?.session_manager()?.get(new_session_id())?;
         assert!(session.is_none());
         Ok(())
     }
 
     #[test]
     fn known_session_ok() -> Result {
-        let manager = Db::open_temporary()?.session_manager()?;
+        let manager = LegacyDb::open_temporary()?.session_manager()?;
         let session_id = manager.insert_test_session()?;
         let user = manager.get(session_id)?;
         assert!(user.is_some());
@@ -294,7 +294,7 @@ mod tests {
 
     #[test]
     fn expired_session_ok() -> Result {
-        let manager = Db::open_temporary()?.session_manager()?;
+        let manager = LegacyDb::open_temporary()?.session_manager()?;
         let session_id = new_session_id();
         manager.insert(
             session_id,
@@ -312,7 +312,7 @@ mod tests {
 
     #[test]
     fn insert_get_vote_ok() -> Result {
-        let manager = Db::open_temporary()?.vote_manager()?;
+        let manager = LegacyDb::open_temporary()?.vote_manager()?;
         manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         assert!(manager.get(1, 42)?.is_some());
         assert_eq!(manager.get(2, 42)?, None);
@@ -322,7 +322,7 @@ mod tests {
 
     #[test]
     fn get_all_by_account_id_ok() -> Result {
-        let manager = Db::open_temporary()?.vote_manager()?;
+        let manager = LegacyDb::open_temporary()?.vote_manager()?;
         let vote = Vote::new_now(Rating::Like);
         manager.insert(1, 42, &vote)?;
         assert_eq!(manager.get_all_by_account_id(0)?, []);
@@ -333,7 +333,7 @@ mod tests {
 
     #[test]
     fn delete_vote_ok() -> Result {
-        let manager = Db::open_temporary()?.vote_manager()?;
+        let manager = LegacyDb::open_temporary()?.vote_manager()?;
         manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         manager.delete(1, 42)?;
         assert_eq!(manager.get(1, 42)?, None);
