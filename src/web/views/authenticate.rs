@@ -7,7 +7,7 @@ use serde::Deserialize;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{new_session_id, User},
+    models::User,
     prelude::*,
     web::{prelude::*, session::Session, state::AppState},
 };
@@ -53,7 +53,7 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let user = Result::<User, WebError>::from(result)?;
-    let session_id = new_session_id();
+    let session_id = User::new_session_id();
     info!(user.nickname, %session_id, "👋 welcome");
     state.session_manager.insert(session_id, &user)?;
     let cookie = cookie::Cookie::build(Session::SESSION_COOKIE_NAME, session_id.to_string())

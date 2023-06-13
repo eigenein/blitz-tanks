@@ -86,9 +86,7 @@ impl SessionManager {
 
     #[cfg(test)]
     pub fn insert_test_session(&self) -> Result<Scru128Id> {
-        use crate::models::new_session_id;
-
-        let session_id = new_session_id();
+        let session_id = User::new_session_id();
         self.insert(
             session_id,
             &User {
@@ -295,15 +293,12 @@ impl VoteManager {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{
-        db::Db,
-        models::{new_session_id, Rating},
-    };
+    use crate::{db::Db, models::Rating};
 
     #[tokio::test]
     #[ignore]
     async fn unknown_session_ok() -> Result {
-        let session = Db::open_temporary().await?.session_manager()?.get(new_session_id())?;
+        let session = Db::open_temporary().await?.session_manager()?.get(User::new_session_id())?;
         assert!(session.is_none());
         Ok(())
     }
@@ -322,7 +317,7 @@ mod tests {
     #[ignore]
     async fn expired_session_ok() -> Result {
         let manager = Db::open_temporary().await?.session_manager()?;
-        let session_id = new_session_id();
+        let session_id = User::new_session_id();
         manager.insert(
             session_id,
             &User {

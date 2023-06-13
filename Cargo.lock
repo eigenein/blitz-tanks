@@ -278,6 +278,7 @@ dependencies = [
  "clap",
  "cookie",
  "derive_more",
+ "either",
  "fastrand 2.0.0",
  "indexmap",
  "itertools",
