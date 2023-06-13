@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use mongodb::Client;
+use mongodb::{Client, Collection, Database};
 use prost::Message;
 use scru128::Scru128Id;
 use sled::Tree;
@@ -16,12 +16,12 @@ use crate::{
 #[derive(Clone)]
 pub struct Db {
     legacy_db: sled::Db,
-    client: Client,
+    db: Database,
 }
 
 impl Db {
-    pub const fn new(legacy_db: sled::Db, client: Client) -> Self {
-        Self { legacy_db, client }
+    pub const fn new(legacy_db: sled::Db, db: Database) -> Self {
+        Self { legacy_db, db }
     }
 
     /// Open a temporary database for unit testing.
@@ -31,10 +31,11 @@ impl Db {
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        let client = Client::with_uri_str(format!("mongodb://localhost/{}", scru128::new()))
+        let db = Client::with_uri_str("mongodb://localhost")
             .await
-            .context("failed to connect to MongoDB")?;
-        Ok(Self::new(legacy_db, client))
+            .context("failed to connect to MongoDB")?
+            .database(&scru128::new_string());
+        Ok(Self::new(legacy_db, db))
     }
 
     #[inline]
@@ -53,17 +54,25 @@ impl Db {
     }
 
     #[inline]
-    pub fn open_manager<T: From<Tree>>(&self, tree_name: &str) -> Result<T> {
-        self.legacy_db
-            .open_tree(tree_name)
-            .with_context(|| format!("failed to open tree `{tree_name}`"))
-            .map(T::from)
+    pub fn open_manager<D, T: From<(Tree, Collection<D>)>>(&self, name: &str) -> Result<T> {
+        let tree = self
+            .legacy_db
+            .open_tree(name)
+            .with_context(|| format!("failed to open tree `{name}`"))?;
+        let collection = self.db.collection(name);
+        Ok(T::from((tree, collection)))
     }
 }
 
 /// Wrapper around the tree to manage client-side sessions.
-#[derive(Clone, derive_more::From)]
+#[derive(Clone)]
 pub struct SessionManager(Tree);
+
+impl From<(Tree, Collection<User>)> for SessionManager {
+    fn from((tree, _collection): (Tree, Collection<User>)) -> Self {
+        Self(tree)
+    }
+}
 
 impl SessionManager {
     /// Insert the user to the session tree.
@@ -106,8 +115,13 @@ impl SessionManager {
     }
 }
 
-#[derive(derive_more::From)]
 pub struct TankopediaManager(Tree);
+
+impl From<(Tree, Collection<VehicleDescription>)> for TankopediaManager {
+    fn from((tree, _collection): (Tree, Collection<VehicleDescription>)) -> Self {
+        Self(tree)
+    }
+}
 
 impl TankopediaManager {
     /// Update the tankopedia database: insert new vehicles and update existing ones.
@@ -196,8 +210,14 @@ impl TankopediaManager {
     }
 }
 
-#[derive(derive_more::From, Clone)]
+#[derive(Clone)]
 pub struct VoteManager(Tree);
+
+impl From<(Tree, Collection<Vote>)> for VoteManager {
+    fn from((tree, _collection): (Tree, Collection<Vote>)) -> Self {
+        Self(tree)
+    }
+}
 
 impl VoteManager {
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]

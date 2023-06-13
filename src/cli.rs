@@ -94,10 +94,12 @@ impl DbArgs {
     pub async fn open(&self) -> Result<Db> {
         let legacy_db = sled::open(&self.path)
             .with_context(|| format!("failed to open the database from `{:?}`", self.path))?;
-        let client = mongodb::Client::with_uri_str(&self.uri)
+        let db = mongodb::Client::with_uri_str(&self.uri)
             .await
-            .with_context(|| format!("failed to connect to MongoDB at {}", self.uri))?;
-        Ok(Db::new(legacy_db, client))
+            .with_context(|| format!("failed to connect to MongoDB at {}", self.uri))?
+            .default_database()
+            .ok_or_else(|| anyhow!("no default database was specified"))?;
+        Ok(Db::new(legacy_db, db))
     }
 }
 
