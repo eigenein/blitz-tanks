@@ -202,66 +202,6 @@ impl VehicleStatsGetter {
     }
 }
 
-#[derive(Debug, Copy, Clone)]
-pub enum Nation {
-    Ussr,
-    Germany,
-    Usa,
-    China,
-    France,
-    Uk,
-    Japan,
-    Europe,
-    Other,
-}
-
-impl TryFrom<u16> for Nation {
-    type Error = Error;
-
-    fn try_from(tank_id: u16) -> Result<Self> {
-        const COMPONENT_VEHICLE: u16 = 1;
-        debug_assert_eq!(tank_id & COMPONENT_VEHICLE, COMPONENT_VEHICLE);
-
-        const NATIONS: [Nation; 9] = [
-            Nation::Ussr,
-            Nation::Germany,
-            Nation::Usa,
-            Nation::China,
-            Nation::France,
-            Nation::Uk,
-            Nation::Japan,
-            Nation::Other,
-            Nation::Europe,
-        ];
-
-        let index = ((tank_id >> 4) & 0xF) as usize;
-        NATIONS
-            .get(index)
-            .copied()
-            .ok_or_else(|| anyhow!("unexpected nation {index} for tank {tank_id}"))
-    }
-}
-
-impl Nation {
-    pub const fn get_id(self) -> u32 {
-        match self {
-            Nation::Ussr => 20000,
-            Nation::Germany => 30000,
-            Nation::Usa => 10000,
-            Nation::China => 60000,
-            Nation::France => 70000,
-            Nation::Uk => 40000,
-            Nation::Japan => 50000,
-            Nation::Other => 100000,
-            Nation::Europe => 80000,
-        }
-    }
-}
-
-pub fn to_client_tank_id(api_tank_id: u16) -> Result<u32> {
-    Ok(Nation::try_from(api_tank_id)?.get_id() + (api_tank_id as u32 >> 8))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -272,20 +212,6 @@ mod tests {
             // language=json
             r#"{"status":"ok","meta":{"count":1},"data":{"594778041":[{"last_battle_time":1681146251,"tank_id":18769}]}}"#,
         )?;
-        Ok(())
-    }
-
-    #[test]
-    fn to_client_tank_id_ok() -> Result {
-        assert_eq!(to_client_tank_id(2817)?, 20011); // USSR
-        assert_eq!(to_client_tank_id(54289)?, 30212); // Germany
-        assert_eq!(to_client_tank_id(52257)?, 10204); // USA
-        assert_eq!(to_client_tank_id(9009)?, 60035); // China
-        assert_eq!(to_client_tank_id(18257)?, 40071); // UK
-        assert_eq!(to_client_tank_id(5953)?, 70023); // France
-        assert_eq!(to_client_tank_id(4193)?, 50016); // Japan
-        assert_eq!(to_client_tank_id(5489)?, 100021); // Other
-        assert_eq!(to_client_tank_id(1409)?, 80005); // Europe
         Ok(())
     }
 }

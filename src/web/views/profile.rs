@@ -14,7 +14,7 @@ use crate::{
         state::AppState,
         views::partials::*,
     },
-    weegee::{to_client_tank_id, VehicleStats},
+    weegee::VehicleStats,
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]
@@ -130,14 +130,12 @@ fn vehicle_card(
                                         None => { "#" (stats.tank_id) },
                                     }
                                 }
-                                @if let Ok(tank_id) = to_client_tank_id(stats.tank_id) {
-                                    span.icon {
-                                        a
-                                            title="View in Blitz Hangar"
-                                            href=(format!("https://blitzhangar.com/en/tank/{tank_id}"))
-                                        {
-                                            i.fa-solid.fa-arrow-up-right-from-square {}
-                                        }
+                                span.icon {
+                                    a
+                                        title="View in Armor Inspector"
+                                        href=(format!("https://armor.wotinspector.com/en/blitz/{}-/", stats.tank_id))
+                                    {
+                                        i.fa-solid.fa-arrow-up-right-from-square {}
                                     }
                                 }
                             }
