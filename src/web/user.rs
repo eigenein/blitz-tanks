@@ -18,7 +18,7 @@ use crate::{
     web::{prelude::*, state::AppState},
 };
 
-/// Extract a session from the request.
+/// Extract a user from the request.
 #[async_trait]
 impl FromRequestParts<AppState> for Either<User, Anonymous> {
     type Rejection = WebError;

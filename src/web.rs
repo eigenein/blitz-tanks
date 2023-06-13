@@ -2,10 +2,10 @@ mod error;
 mod extract;
 mod prelude;
 mod response;
-mod session;
 mod state;
 mod r#static;
 mod tracing_;
+mod user;
 mod views;
 
 use axum::{
