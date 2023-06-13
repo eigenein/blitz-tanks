@@ -13,33 +13,49 @@ use crate::{
 };
 
 /// Wargaming.net redirect query parameters.
+#[serde_with::serde_as]
 #[derive(Deserialize)]
 #[serde(tag = "status")]
 pub enum AuthenticationResult {
     #[serde(rename = "ok")]
-    Ok(User),
+    Ok {
+        access_token: String,
+
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        expires_at: i64,
+
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        account_id: u32,
+
+        nickname: String,
+    },
 
     #[serde(rename = "error")]
-    Err(AuthenticationError),
-}
+    Err {
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        code: u16,
 
-#[serde_with::serde_as]
-#[derive(Deserialize)]
-pub struct AuthenticationError {
-    #[serde_as(as = "serde_with::DisplayFromStr")]
-    code: u16,
-
-    message: String,
+        message: String,
+    },
 }
 
 impl From<AuthenticationResult> for Result<User, WebError> {
     fn from(value: AuthenticationResult) -> Self {
         match value {
-            AuthenticationResult::Ok(user) => Ok(user),
-            AuthenticationResult::Err(error) => Err(WebError::ServiceUnavailable {
-                code: error.code,
-                message: error.message,
+            AuthenticationResult::Ok {
+                access_token,
+                expires_at,
+                account_id,
+                nickname,
+            } => Ok(User {
+                access_token,
+                expires_at,
+                account_id,
+                nickname,
             }),
+            AuthenticationResult::Err { code, message } => {
+                Err(WebError::ServiceUnavailable { code, message })
+            }
         }
     }
 }

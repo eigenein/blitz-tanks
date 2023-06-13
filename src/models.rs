@@ -16,18 +16,15 @@ pub struct Anonymous;
 /// This model is used to parse the redirect parameters and store it in Sled.
 ///
 /// [1]: https://developers.wargaming.net/reference/all/wot/auth/login/
-#[serde_with::serde_as]
-#[derive(Deserialize, Message)]
+#[derive(Message)]
 pub struct User {
     #[prost(string, tag = "1", required)]
     pub access_token: String,
 
     /// Expiration timestamp in seconds.
-    #[serde_as(as = "serde_with::DisplayFromStr")]
     #[prost(int64, tag = "2", required)]
     pub expires_at: i64,
 
-    #[serde_as(as = "serde_with::DisplayFromStr")]
     #[prost(uint32, tag = "3", required)]
     pub account_id: u32,
 
