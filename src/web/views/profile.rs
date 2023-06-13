@@ -14,7 +14,7 @@ use crate::{
         state::AppState,
         views::partials::*,
     },
-    weegee::VehicleStats,
+    wg::stats::VehicleStats,
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]

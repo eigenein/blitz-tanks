@@ -18,12 +18,12 @@ use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::info;
 
-use crate::{cli::WebArgs, prelude::*, web::state::AppState, weegee::WeeGee};
+use crate::{cli::WebArgs, prelude::*, web::state::AppState, wg::Wg};
 
 /// Run the web application.
 pub async fn run(args: WebArgs) -> Result {
     let db = args.db.open().await?;
-    let wee_gee = WeeGee::new(&args.wargaming.backend_application_id)?;
+    let wee_gee = Wg::new(&args.wargaming.backend_application_id)?;
 
     if args.update_tankopedia {
         db.tankopedia_manager()?

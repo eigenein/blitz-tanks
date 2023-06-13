@@ -6,14 +6,14 @@ use crate::{
     db::{Db, SessionManager, VoteManager},
     models::VehicleDescription,
     prelude::*,
-    weegee::{VehicleStatsGetter, WeeGee},
+    wg::{stats::VehicleStatsGetter, Wg},
 };
 
 #[derive(Clone)]
 pub struct AppState {
     pub sign_in_url: Arc<String>,
 
-    pub wee_gee: WeeGee,
+    pub wg: Wg,
     pub tankopedia: Arc<HashMap<u16, VehicleDescription>>,
     pub vehicle_stats_getter: VehicleStatsGetter,
 
@@ -25,7 +25,7 @@ impl AppState {
     pub fn new(
         db: &Db,
         frontend_application_id: &str,
-        wee_gee: WeeGee,
+        wee_gee: Wg,
         public_address: &str,
     ) -> Result<Self> {
         let tankopedia = Arc::new(db.tankopedia_manager()?.load()?);
@@ -38,7 +38,7 @@ impl AppState {
                 "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{public_address}/welcome"
             )),
 
-            wee_gee: wee_gee.clone(),
+            wg: wee_gee.clone(),
             tankopedia,
             vehicle_stats_getter: VehicleStatsGetter::from(wee_gee),
 
@@ -49,6 +49,6 @@ impl AppState {
 
     #[cfg(test)]
     pub async fn new_test() -> Result<Self> {
-        Self::new(&Db::open_temporary().await?, "test", WeeGee::new("test")?, "localhost:8080")
+        Self::new(&Db::open_temporary().await?, "test", Wg::new("test")?, "localhost:8080")
     }
 }

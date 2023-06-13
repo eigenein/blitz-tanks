@@ -16,7 +16,7 @@ pub async fn get(
 ) -> WebResult<impl IntoResponse> {
     if let Either::Left(user) = user {
         info!(user.account_id, "😿 Bye!");
-        match state.wee_gee.log_out(&user.access_token).await {
+        match state.wg.log_out(&user.access_token).await {
             Ok(_) => {
                 info!(user.account_id, "✅ The access token has been successfully revoked");
             }
