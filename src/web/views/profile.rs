@@ -37,6 +37,23 @@ pub async fn get(
 
             section.section {
                 div.container {
+                    article.message.is-warning {
+                        div.message-body.content {
+                            div.content {
+                                p {
+                                    "Unfortunately, "
+                                    strong { "some pictures and vehicles names are missing" }
+                                    " due to the Wargaming.net API being incomplete."
+                                }
+                                p {
+                                    "Eventually, this will be somehow fixed, but for now "
+                                    strong { "there are links to Armor Inspector" }
+                                    " next to the vehicle titles, which can be used to look up a certain vehicle."
+                                }
+                            }
+                        }
+                    }
+
                     div.columns.is-multiline.is-tablet {
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
