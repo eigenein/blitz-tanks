@@ -80,7 +80,7 @@ mod tests {
 
     #[tokio::test]
     async fn success_ok() -> Result {
-        let app = create_app(AppState::new_test()?);
+        let app = create_app(AppState::new_test().await?);
         let request = Request::builder()
             .uri("/welcome?status=ok&access_token=fake&expires_at=1686693094&nickname=test&account_id=1")
             .body(Body::empty())?;
@@ -100,7 +100,7 @@ mod tests {
 
     #[tokio::test]
     async fn error_ok() -> Result {
-        let app = create_app(AppState::new_test()?);
+        let app = create_app(AppState::new_test().await?);
         let request = Request::builder()
             .uri("/welcome?status=error&code=500&message=ricochet")
             .body(Body::empty())?;

@@ -105,7 +105,7 @@ mod tests {
 
     #[tokio::test]
     async fn index_ok() -> Result {
-        let app = create_app(AppState::new_test()?);
+        let app = create_app(AppState::new_test().await?);
         let request = Request::builder().uri("/").body(Body::empty())?;
         let response = app.oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::OK);
@@ -114,7 +114,7 @@ mod tests {
 
     #[tokio::test]
     async fn redirect_ok() -> Result {
-        let state = AppState::new_test()?;
+        let state = AppState::new_test().await?;
         let session_id = state.session_manager.insert_test_session()?;
         let request = Request::builder()
             .uri("/")

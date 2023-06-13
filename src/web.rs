@@ -22,7 +22,7 @@ use crate::{cli::WebArgs, prelude::*, web::state::AppState, weegee::WeeGee};
 
 /// Run the web application.
 pub async fn run(args: WebArgs) -> Result {
-    let db = args.db.open()?;
+    let db = args.db.open().await?;
     let wee_gee = WeeGee::new(&args.wargaming.backend_application_id)?;
 
     if args.update_tankopedia {

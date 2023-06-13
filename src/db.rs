@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use mongodb::Client;
 use prost::Message;
 use scru128::Scru128Id;
 use sled::Tree;
@@ -13,21 +14,27 @@ use crate::{
 
 /// Convenience wrapper around the database.
 #[derive(Clone)]
-pub struct Db(sled::Db);
+pub struct Db {
+    legacy_db: sled::Db,
+    client: Client,
+}
 
 impl Db {
-    pub const fn new(legacy_db: sled::Db) -> Self {
-        Self(legacy_db)
+    pub const fn new(legacy_db: sled::Db, client: Client) -> Self {
+        Self { legacy_db, client }
     }
 
     /// Open a temporary database for unit testing.
     #[cfg(test)]
-    pub fn open_temporary() -> Result<Self> {
+    pub async fn open_temporary() -> Result<Self> {
         let legacy_db = sled::Config::default()
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        Ok(Self::new(legacy_db))
+        let client = Client::with_uri_str(format!("mongodb://localhost/{}", scru128::new()))
+            .await
+            .context("failed to connect to MongoDB")?;
+        Ok(Self::new(legacy_db, client))
     }
 
     #[inline]
@@ -47,7 +54,7 @@ impl Db {
 
     #[inline]
     pub fn open_manager<T: From<Tree>>(&self, tree_name: &str) -> Result<T> {
-        self.0
+        self.legacy_db
             .open_tree(tree_name)
             .with_context(|| format!("failed to open tree `{tree_name}`"))
             .map(T::from)
@@ -273,28 +280,28 @@ mod tests {
         models::{new_session_id, Rating},
     };
 
-    #[test]
+    #[tokio::test]
     #[ignore]
-    fn unknown_session_ok() -> Result {
-        let session = Db::open_temporary()?.session_manager()?.get(new_session_id())?;
+    async fn unknown_session_ok() -> Result {
+        let session = Db::open_temporary().await?.session_manager()?.get(new_session_id())?;
         assert!(session.is_none());
         Ok(())
     }
 
-    #[test]
+    #[tokio::test]
     #[ignore]
-    fn known_session_ok() -> Result {
-        let manager = Db::open_temporary()?.session_manager()?;
+    async fn known_session_ok() -> Result {
+        let manager = Db::open_temporary().await?.session_manager()?;
         let session_id = manager.insert_test_session()?;
         let user = manager.get(session_id)?;
         assert!(user.is_some());
         Ok(())
     }
 
-    #[test]
+    #[tokio::test]
     #[ignore]
-    fn expired_session_ok() -> Result {
-        let manager = Db::open_temporary()?.session_manager()?;
+    async fn expired_session_ok() -> Result {
+        let manager = Db::open_temporary().await?.session_manager()?;
         let session_id = new_session_id();
         manager.insert(
             session_id,
@@ -310,10 +317,10 @@ mod tests {
         Ok(())
     }
 
-    #[test]
+    #[tokio::test]
     #[ignore]
-    fn insert_get_vote_ok() -> Result {
-        let manager = Db::open_temporary()?.vote_manager()?;
+    async fn insert_get_vote_ok() -> Result {
+        let manager = Db::open_temporary().await?.vote_manager()?;
         manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         assert!(manager.get(1, 42)?.is_some());
         assert_eq!(manager.get(2, 42)?, None);
@@ -321,10 +328,10 @@ mod tests {
         Ok(())
     }
 
-    #[test]
+    #[tokio::test]
     #[ignore]
-    fn get_all_by_account_id_ok() -> Result {
-        let manager = Db::open_temporary()?.vote_manager()?;
+    async fn get_all_by_account_id_ok() -> Result {
+        let manager = Db::open_temporary().await?.vote_manager()?;
         let vote = Vote::new_now(Rating::Like);
         manager.insert(1, 42, &vote)?;
         assert_eq!(manager.get_all_by_account_id(0)?, []);
@@ -333,10 +340,10 @@ mod tests {
         Ok(())
     }
 
-    #[test]
+    #[tokio::test]
     #[ignore]
-    fn delete_vote_ok() -> Result {
-        let manager = Db::open_temporary()?.vote_manager()?;
+    async fn delete_vote_ok() -> Result {
+        let manager = Db::open_temporary().await?.vote_manager()?;
         manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         manager.delete(1, 42)?;
         assert_eq!(manager.get(1, 42)?, None);

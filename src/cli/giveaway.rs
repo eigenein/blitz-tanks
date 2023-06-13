@@ -4,8 +4,8 @@ use tracing::info;
 
 use crate::{cli::GiveawayArgs, prelude::*};
 
-pub fn run(args: GiveawayArgs) -> Result {
-    let manager = args.db.open()?;
+pub async fn run(args: GiveawayArgs) -> Result {
+    let manager = args.db.open().await?;
 
     info!("⏳ Reading votes…");
     let mut account_ids = manager

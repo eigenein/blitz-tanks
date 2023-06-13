@@ -91,10 +91,13 @@ pub struct DbArgs {
 }
 
 impl DbArgs {
-    pub fn open(&self) -> Result<Db> {
-        sled::open(&self.path)
-            .with_context(|| format!("failed to open the database from `{:?}`", self.path))
-            .map(Db::new)
+    pub async fn open(&self) -> Result<Db> {
+        let legacy_db = sled::open(&self.path)
+            .with_context(|| format!("failed to open the database from `{:?}`", self.path))?;
+        let client = mongodb::Client::with_uri_str(&self.uri)
+            .await
+            .with_context(|| format!("failed to connect to MongoDB at {}", self.uri))?;
+        Ok(Db::new(legacy_db, client))
     }
 }
 

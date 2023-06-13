@@ -48,7 +48,7 @@ impl AppState {
     }
 
     #[cfg(test)]
-    pub fn new_test() -> Result<Self> {
-        Self::new(&Db::open_temporary()?, "test", WeeGee::new("test")?, "localhost:8080")
+    pub async fn new_test() -> Result<Self> {
+        Self::new(&Db::open_temporary().await?, "test", WeeGee::new("test")?, "localhost:8080")
     }
 }
