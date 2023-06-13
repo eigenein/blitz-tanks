@@ -5,7 +5,7 @@ use std::{net::SocketAddr, path::PathBuf};
 
 use clap::{Args, Parser, Subcommand};
 
-use crate::{db::LegacyDb, prelude::*};
+use crate::{db::Db, prelude::*};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -85,14 +85,16 @@ pub struct DbArgs {
     #[clap(
         long = "db-uri",
         env = "BLITZ_TANKS_DATABASE_URI",
-        default_value = "mongodb://mars.local/test"
+        default_value = "mongodb://localhost/test"
     )]
     pub uri: String,
 }
 
 impl DbArgs {
-    pub fn open(&self) -> Result<LegacyDb> {
-        LegacyDb::open(&self.path)
+    pub fn open(&self) -> Result<Db> {
+        sled::open(&self.path)
+            .with_context(|| format!("failed to open the database from `{:?}`", self.path))
+            .map(Db::new)
     }
 }
 

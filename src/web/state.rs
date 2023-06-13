@@ -3,7 +3,7 @@ use std::{collections::HashMap, sync::Arc};
 use tracing::warn;
 
 use crate::{
-    db::{LegacyDb, SessionManager, VoteManager},
+    db::{Db, SessionManager, VoteManager},
     models::VehicleDescription,
     prelude::*,
     weegee::{VehicleStatsGetter, WeeGee},
@@ -23,7 +23,7 @@ pub struct AppState {
 
 impl AppState {
     pub fn new(
-        db: &LegacyDb,
+        db: &Db,
         frontend_application_id: &str,
         wee_gee: WeeGee,
         public_address: &str,
@@ -49,6 +49,6 @@ impl AppState {
 
     #[cfg(test)]
     pub fn new_test() -> Result<Self> {
-        Self::new(&LegacyDb::open_temporary()?, "test", WeeGee::new("test")?, "localhost:8080")
+        Self::new(&Db::open_temporary()?, "test", WeeGee::new("test")?, "localhost:8080")
     }
 }

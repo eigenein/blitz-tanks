@@ -36,12 +36,17 @@ jobs:
           key: "rust"
           cache-on-failure: true
 
+      - name: 🗃️ Set up MongoDB
+        uses: supercharge/mongodb-github-action@v1
+        with:
+          mongodb-version: 4.4
+
       - name: 🧪 Test
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: test
-          args: --target=aarch64-unknown-linux-gnu
+          args: --target=aarch64-unknown-linux-gnu -- --include-ignored
 
       - name: 💬 Clippy
         uses: actions-rs/clippy-check@v1
