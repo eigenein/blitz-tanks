@@ -267,8 +267,9 @@ mod tests {
     use tower::ServiceExt;
 
     use crate::{
+        models::User,
         prelude::Result,
-        web::{create_app, session::Session, state::AppState},
+        web::{create_app, state::AppState},
     };
 
     #[tokio::test]
@@ -278,7 +279,7 @@ mod tests {
         let session_id = state.session_manager.insert_test_session()?;
         let request = Request::builder()
             .uri("/profile/0")
-            .header("Cookie", format!("{}={session_id}", Session::SESSION_COOKIE_NAME))
+            .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
         let response = create_app(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::OK);

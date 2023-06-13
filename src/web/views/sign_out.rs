@@ -3,7 +3,10 @@ use cookie::time::Duration;
 use sentry::integrations::anyhow::capture_anyhow;
 use tracing::{error, info, instrument};
 
-use crate::web::{prelude::*, session::Session, state::AppState};
+use crate::{
+    models::User,
+    web::{prelude::*, session::Session, state::AppState},
+};
 
 #[instrument(skip_all)]
 pub async fn get(session: Session, State(state): State<AppState>) -> WebResult<impl IntoResponse> {
@@ -20,7 +23,7 @@ pub async fn get(session: Session, State(state): State<AppState>) -> WebResult<i
         }
     }
 
-    let cookie = cookie::Cookie::build(Session::SESSION_COOKIE_NAME, "")
+    let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, "")
         .http_only(true)
         .max_age(Duration::new(0, 0))
         .finish();

@@ -118,7 +118,7 @@ mod tests {
         let session_id = state.session_manager.insert_test_session()?;
         let request = Request::builder()
             .uri("/")
-            .header("Cookie", format!("{}={session_id}", Session::SESSION_COOKIE_NAME))
+            .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
         let response = create_app(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);

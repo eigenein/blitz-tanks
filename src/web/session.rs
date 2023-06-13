@@ -25,10 +25,6 @@ pub enum Session {
     Anonymous,
 }
 
-impl Session {
-    pub const SESSION_COOKIE_NAME: &'static str = "blitzTanksSessionId";
-}
-
 /// Extract a session from the request.
 #[async_trait]
 impl<S> FromRequestParts<S> for Session
@@ -42,7 +38,7 @@ where
     async fn from_request_parts(parts: &mut Parts, state: &S) -> Result<Self, Self::Rejection> {
         let cookie: Option<TypedHeader<headers::Cookie>> = parts.extract().await?;
         let Some(cookie) = cookie else { return Ok(Session::Anonymous) };
-        let Some(session_id) = cookie.get(Self::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
+        let Some(session_id) = cookie.get(User::SESSION_COOKIE_NAME) else { return Ok(Session::Anonymous) };
         debug!(session_id, "🔑 authenticating…");
         let session_id = Scru128Id::from_str(session_id)
             .context("malformed session ID")

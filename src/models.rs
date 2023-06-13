@@ -36,6 +36,8 @@ pub struct User {
 }
 
 impl User {
+    pub const SESSION_COOKIE_NAME: &'static str = "blitzTanksSessionId";
+
     #[inline]
     #[instrument(level = "debug", ret)]
     pub fn new_session_id() -> Scru128Id {
