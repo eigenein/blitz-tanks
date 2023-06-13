@@ -6,7 +6,7 @@ use chrono_humanize::HumanTime;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{Rating, User, Vote},
+    models::{LegacyUser, Rating, Vote},
     prelude::*,
     web::{
         extract::{ProfileOwner, UserOwnedTank},
@@ -217,7 +217,7 @@ fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) ->
 }
 
 /// Profile navigation bar.
-fn navbar(User { account_id, nickname, .. }: &User) -> Markup {
+fn navbar(LegacyUser { account_id, nickname, .. }: &LegacyUser) -> Markup {
     html! {
         nav.navbar.is-warning role="navigation" aria-label="main navigation" {
             div.container {

@@ -17,11 +17,10 @@ pub struct Anonymous;
 ///
 /// [1]: https://developers.wargaming.net/reference/all/wot/auth/login/
 #[derive(Message)]
-pub struct User {
+pub struct LegacyUser {
     #[prost(string, tag = "1", required)]
     pub access_token: String,
 
-    /// Expiration timestamp in seconds.
     #[prost(int64, tag = "2", required)]
     pub expires_at: i64,
 
@@ -30,6 +29,30 @@ pub struct User {
 
     #[prost(string, tag = "4", required)]
     pub nickname: String,
+}
+
+impl From<&User> for LegacyUser {
+    fn from(user: &User) -> Self {
+        Self {
+            access_token: user.access_token.clone(),
+            expires_at: user.expires_at.timestamp(),
+            account_id: user.account_id,
+            nickname: user.nickname.clone(),
+        }
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Serialize, Deserialize)]
+pub struct User {
+    #[serde_as(as = "serde_with::TryFromInto<u128>")]
+    #[serde(rename = "_id")]
+    pub session_id: Scru128Id,
+
+    pub account_id: u32,
+    pub nickname: String,
+    pub access_token: String,
+    pub expires_at: DateTime,
 }
 
 impl User {
@@ -44,7 +67,9 @@ impl User {
     }
 
     pub fn expires_at(&self) -> Result<Expiration> {
-        Ok(Expiration::DateTime(OffsetDateTime::from_unix_timestamp(self.expires_at)?))
+        Ok(Expiration::DateTime(OffsetDateTime::from_unix_timestamp(
+            self.expires_at.timestamp(),
+        )?))
     }
 }
 

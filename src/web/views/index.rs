@@ -5,7 +5,7 @@ use either::Either;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{Anonymous, User},
+    models::{Anonymous, LegacyUser},
     web::{prelude::*, response::OptionalRedirect, state::*, views::partials::*},
 };
 
@@ -13,9 +13,9 @@ use crate::{
 #[instrument(skip_all)]
 pub async fn get(
     State(state): State<AppState>,
-    session: Either<User, Anonymous>,
+    session: Either<LegacyUser, Anonymous>,
 ) -> OptionalRedirect {
-    if let Either::Left(User { account_id, .. }) = session {
+    if let Either::Left(LegacyUser { account_id, .. }) = session {
         info!(account_id, "👋 welcome");
         return OptionalRedirect::Redirect(Redirect::temporary(&format!("/profile/{account_id}")));
     }
@@ -105,7 +105,7 @@ mod tests {
     use tower::ServiceExt;
 
     use super::*;
-    use crate::{prelude::Result, web::create_app};
+    use crate::{models::User, prelude::Result, web::create_app};
 
     #[tokio::test]
     async fn index_ok() -> Result {

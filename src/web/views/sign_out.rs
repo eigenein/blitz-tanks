@@ -5,13 +5,13 @@ use sentry::integrations::anyhow::capture_anyhow;
 use tracing::{error, info, instrument};
 
 use crate::{
-    models::{Anonymous, User},
+    models::{Anonymous, LegacyUser, User},
     web::{prelude::*, state::AppState},
 };
 
 #[instrument(skip_all)]
 pub async fn get(
-    user: Either<User, Anonymous>,
+    user: Either<LegacyUser, Anonymous>,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     if let Either::Left(user) = user {

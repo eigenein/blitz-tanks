@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use chrono::Duration;
 use mongodb::{Client, Collection, Database};
 use prost::Message;
 use scru128::Scru128Id;
@@ -8,7 +9,7 @@ use tracing::{info, instrument};
 use url::Url;
 
 use crate::{
-    models::{User, VehicleDescription, Vote},
+    models::{LegacyUser, User, VehicleDescription, Vote},
     prelude::*,
 };
 
@@ -76,38 +77,36 @@ impl From<(Tree, Collection<User>)> for SessionManager {
 
 impl SessionManager {
     /// Insert the user to the session tree.
-    #[instrument(skip_all, fields(session_id = %session_id))]
-    pub fn insert(&self, session_id: Scru128Id, user: &User) -> Result {
+    #[instrument(skip_all, fields(session_id = %user.session_id))]
+    pub fn insert(&self, user: &User) -> Result {
         self.0
-            .insert(session_id.to_bytes(), user.encode_to_vec())
-            .with_context(|| format!("failed to insert the session {session_id:?}"))?;
+            .insert(user.session_id.to_bytes(), LegacyUser::from(user).encode_to_vec())
+            .with_context(|| format!("failed to insert the session {:?}", user.session_id))?;
         Ok(())
     }
 
     #[cfg(test)]
     pub fn insert_test_session(&self) -> Result<Scru128Id> {
         let session_id = User::new_session_id();
-        self.insert(
+        self.insert(&User {
             session_id,
-            &User {
-                access_token: "test".to_string(),
-                expires_at: Utc::now().timestamp() + 10,
-                account_id: 0,
-                nickname: "test".to_string(),
-            },
-        )?;
+            access_token: "test".to_string(),
+            expires_at: Utc::now() + Duration::seconds(10),
+            account_id: 0,
+            nickname: "test".to_string(),
+        })?;
         Ok(session_id)
     }
 
     /// Retrieve a user from the session tree.
     #[instrument(skip_all, fields(session_id = %session_id))]
-    pub fn get(&self, session_id: Scru128Id) -> Result<Option<User>> {
+    pub fn get(&self, session_id: Scru128Id) -> Result<Option<LegacyUser>> {
         let serialized_user = self
             .0
             .get(session_id.to_bytes())
             .with_context(|| format!("failed to retrieve session {session_id}"))?;
         let Some(serialized_user) = serialized_user else { return Ok(None) };
-        let session = User::decode(serialized_user.as_ref())
+        let session = LegacyUser::decode(serialized_user.as_ref())
             .with_context(|| format!("failed to deserialize session {session_id}"))?;
         Ok((session.expires_at > Utc::now().timestamp()).then_some(session))
     }
@@ -318,15 +317,13 @@ mod tests {
     async fn expired_session_ok() -> Result {
         let manager = Db::open_temporary().await?.session_manager()?;
         let session_id = User::new_session_id();
-        manager.insert(
+        manager.insert(&User {
             session_id,
-            &User {
-                access_token: "test".to_string(),
-                expires_at: Utc::now().timestamp() - 10,
-                account_id: 0,
-                nickname: "test".to_string(),
-            },
-        )?;
+            access_token: "test".to_string(),
+            expires_at: Utc::now() - Duration::seconds(10),
+            account_id: 0,
+            nickname: "test".to_string(),
+        })?;
         let user = manager.get(session_id)?;
         assert!(user.is_none(), "actual user: {user:?}");
         Ok(())

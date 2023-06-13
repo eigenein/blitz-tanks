@@ -13,14 +13,14 @@ use scru128::Scru128Id;
 use tracing::{debug, instrument};
 
 use crate::{
-    models::{Anonymous, User},
+    models::{Anonymous, LegacyUser, User},
     tracing::configure_user,
     web::{prelude::*, state::AppState},
 };
 
 /// Extract a user from the request.
 #[async_trait]
-impl FromRequestParts<AppState> for Either<User, Anonymous> {
+impl FromRequestParts<AppState> for Either<LegacyUser, Anonymous> {
     type Rejection = WebError;
 
     #[instrument(level = "debug", skip_all)]
@@ -53,7 +53,7 @@ impl FromRequestParts<AppState> for Either<User, Anonymous> {
 
 /// Extract a user from the request or reject if there's no any session.
 #[async_trait]
-impl FromRequestParts<AppState> for User {
+impl FromRequestParts<AppState> for LegacyUser {
     type Rejection = WebError;
 
     #[instrument(level = "debug", skip_all)]
@@ -61,7 +61,7 @@ impl FromRequestParts<AppState> for User {
         parts: &mut Parts,
         state: &AppState,
     ) -> Result<Self, Self::Rejection> {
-        match Either::<User, Anonymous>::from_request_parts(parts, state).await? {
+        match Either::<LegacyUser, Anonymous>::from_request_parts(parts, state).await? {
             Either::Left(user) => Ok(user),
             Either::Right(_) => Err(WebError::Forbidden),
         }

@@ -48,8 +48,12 @@ impl From<AuthenticationResult> for Result<User, WebError> {
                 account_id,
                 nickname,
             } => Ok(User {
+                session_id: User::new_session_id(),
                 access_token,
-                expires_at,
+                expires_at: Utc
+                    .timestamp_opt(expires_at, 0)
+                    .single()
+                    .ok_or_else(|| anyhow!("incorrect expiration timestamp `{expires_at}`"))?,
                 account_id,
                 nickname,
             }),
@@ -69,10 +73,9 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let user = Result::<User, WebError>::from(result)?;
-    let session_id = User::new_session_id();
-    info!(user.nickname, %session_id, "👋 welcome");
-    state.session_manager.insert(session_id, &user)?;
-    let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, session_id.to_string())
+    info!(user.nickname, %user.session_id, "👋 welcome");
+    state.session_manager.insert(&user)?;
+    let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, user.session_id.to_string())
         .http_only(true)
         .expires(user.expires_at()?)
         .finish();
