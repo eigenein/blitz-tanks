@@ -1,6 +1,6 @@
 use axum::{
     async_trait,
-    extract::{FromRef, FromRequestParts, Path},
+    extract::{FromRequestParts, Path},
     http::request::Parts,
 };
 use serde::Deserialize;
@@ -16,15 +16,14 @@ use crate::{
 pub struct ProfileOwner(pub User);
 
 #[async_trait]
-impl<S> FromRequestParts<S> for ProfileOwner
-where
-    S: Sync + Send,
-    AppState: FromRef<S>,
-{
+impl FromRequestParts<AppState> for ProfileOwner {
     type Rejection = WebError;
 
     #[instrument(level = "debug", skip_all)]
-    async fn from_request_parts(parts: &mut Parts, state: &S) -> Result<Self, Self::Rejection> {
+    async fn from_request_parts(
+        parts: &mut Parts,
+        state: &AppState,
+    ) -> Result<Self, Self::Rejection> {
         #[derive(Deserialize)]
         pub struct PathParams {
             pub account_id: u32,

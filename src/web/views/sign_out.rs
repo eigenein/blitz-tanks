@@ -1,16 +1,20 @@
 use axum::{extract::State, http::header::SET_COOKIE, response::Redirect};
 use cookie::time::Duration;
+use either::Either;
 use sentry::integrations::anyhow::capture_anyhow;
 use tracing::{error, info, instrument};
 
 use crate::{
-    models::User,
-    web::{prelude::*, session::Session, state::AppState},
+    models::{Anonymous, User},
+    web::{prelude::*, state::AppState},
 };
 
 #[instrument(skip_all)]
-pub async fn get(session: Session, State(state): State<AppState>) -> WebResult<impl IntoResponse> {
-    if let Session::Authenticated(user) = session {
+pub async fn get(
+    user: Either<User, Anonymous>,
+    State(state): State<AppState>,
+) -> WebResult<impl IntoResponse> {
+    if let Either::Left(user) = user {
         info!(user.account_id, "😿 Bye!");
         match state.wee_gee.log_out(&user.access_token).await {
             Ok(_) => {

@@ -1,17 +1,21 @@
 //! Index view.
 
 use axum::{extract::State, response::Redirect};
+use either::Either;
 use tracing::{info, instrument};
 
 use crate::{
-    models::User,
-    web::{prelude::*, response::OptionalRedirect, session::Session, state::*, views::partials::*},
+    models::{Anonymous, User},
+    web::{prelude::*, response::OptionalRedirect, state::*, views::partials::*},
 };
 
 /// Index route handler.
 #[instrument(skip_all)]
-pub async fn get(State(state): State<AppState>, session: Session) -> OptionalRedirect {
-    if let Session::Authenticated(User { account_id, .. }) = session {
+pub async fn get(
+    State(state): State<AppState>,
+    session: Either<User, Anonymous>,
+) -> OptionalRedirect {
+    if let Either::Left(User { account_id, .. }) = session {
         info!(account_id, "👋 welcome");
         return OptionalRedirect::Redirect(Redirect::temporary(&format!("/profile/{account_id}")));
     }
