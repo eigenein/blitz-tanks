@@ -1,4 +1,4 @@
-use std::borrow::Cow;
+use std::{borrow::Cow, io::stderr};
 
 use clap::crate_version;
 use sentry::{
@@ -29,7 +29,10 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
 
     let format_filter = EnvFilter::try_from_env("BLITZ_TANKS_LOG")
         .or_else(|_| EnvFilter::try_new("warn,blitz_tanks=info"))?;
-    let format_layer = tracing_subscriber::fmt::layer().without_time().with_filter(format_filter);
+    let format_layer = tracing_subscriber::fmt::layer()
+        .with_writer(stderr)
+        .without_time()
+        .with_filter(format_filter);
 
     tracing_subscriber::Registry::default()
         .with(sentry_layer)
