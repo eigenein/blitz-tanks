@@ -2,7 +2,7 @@ pub mod sessions;
 pub mod tankopedia;
 pub mod votes;
 
-use mongodb::{Client, Collection, Database};
+use mongodb::{Collection, Database};
 use sled::Tree;
 
 use crate::{
@@ -22,23 +22,26 @@ impl Db {
         Self { legacy_db, db }
     }
 
-    /// Open a temporary database for unit testing.
     #[cfg(test)]
-    pub async fn open_temporary() -> Result<Self> {
+    pub async fn open_unittests() -> Result<Self> {
+        use mongodb::Client;
+
         let legacy_db = sled::Config::default()
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        let db = Client::with_uri_str("mongodb://localhost")
+        let db = Client::with_uri_str("mongodb://localhost/?connectTimeoutMS=1000")
+            .await?
+            .database("unittests");
+        db.drop(None)
             .await
-            .context("failed to connect to MongoDB")?
-            .database(&scru128::new_string());
+            .context("failed to drop the database from the previous run")?;
         Ok(Self::new(legacy_db, db))
     }
 
     #[inline]
-    pub fn session_manager(&self) -> Result<Sessions> {
-        self.open_manager("sessions")
+    pub async fn session_manager(&self) -> Result<Sessions> {
+        Sessions::new(self.db.collection("sessions")).await
     }
 
     #[inline]

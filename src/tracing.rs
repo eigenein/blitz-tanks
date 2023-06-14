@@ -8,7 +8,7 @@ use sentry::{
 use tracing::{error, info, Level};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
-use crate::{models::LegacyUser, prelude::*};
+use crate::{models::User, prelude::*};
 
 pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<ClientInitGuard> {
     let sentry_options = ClientOptions {
@@ -43,7 +43,7 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
     Ok(guard)
 }
 
-pub fn configure_user(scope: &mut Scope, user: Option<&LegacyUser>) {
+pub fn configure_user(scope: &mut Scope, user: Option<&User>) {
     match user {
         Some(user) => {
             scope.set_tag("user.is_anonymous", false);
@@ -65,7 +65,7 @@ pub fn configure_user(scope: &mut Scope, user: Option<&LegacyUser>) {
 pub fn trace<T>(result: Result<T>) -> Result<T> {
     if let Err(error) = &result {
         let event_id = capture_anyhow(error);
-        error!(?event_id, "💥 failed");
+        error!(?event_id, "💥 Failed: {:#}", error);
     }
     result
 }

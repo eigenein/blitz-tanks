@@ -1,4 +1,4 @@
-use std::{collections::HashMap, sync::Arc, time::Duration};
+use std::{sync::Arc, time::Duration};
 
 use anyhow::Context;
 use chrono::LocalResult;
@@ -73,6 +73,8 @@ impl VehicleStatsGetter {
 
 #[cfg(test)]
 mod tests {
+    use std::collections::HashMap;
+
     use super::*;
     use crate::wg::result::WgResult;
 

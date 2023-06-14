@@ -85,7 +85,7 @@ pub struct DbArgs {
     #[clap(
         long = "db-uri",
         env = "BLITZ_TANKS_DATABASE_URI",
-        default_value = "mongodb://localhost/test"
+        default_value = "mongodb://localhost/test?connectTimeoutMS=1000"
     )]
     pub uri: String,
 }
@@ -93,10 +93,10 @@ pub struct DbArgs {
 impl DbArgs {
     pub async fn open(&self) -> Result<Db> {
         let legacy_db = sled::open(&self.path)
-            .with_context(|| format!("failed to open the database from `{:?}`", self.path))?;
+            .with_context(|| format!("failed to open legacy database from `{:?}`", self.path))?;
         let db = mongodb::Client::with_uri_str(&self.uri)
             .await
-            .with_context(|| format!("failed to connect to MongoDB at {}", self.uri))?
+            .with_context(|| format!("failed to parse MongoDB URI `{}`", self.uri))?
             .default_database()
             .ok_or_else(|| anyhow!("no default database was specified"))?;
         Ok(Db::new(legacy_db, db))

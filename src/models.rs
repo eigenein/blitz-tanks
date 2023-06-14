@@ -2,9 +2,9 @@
 
 use cookie::{time::OffsetDateTime, Expiration};
 use prost::Message;
-use scru128::Scru128Id;
 use serde::{Deserialize, Serialize};
 use tracing::instrument;
+use uuid::Uuid;
 
 use crate::prelude::*;
 
@@ -16,38 +16,14 @@ pub struct Anonymous;
 /// This model is used to parse the redirect parameters and store it in Sled.
 ///
 /// [1]: https://developers.wargaming.net/reference/all/wot/auth/login/
-#[derive(Message)]
-pub struct LegacyUser {
-    #[prost(string, tag = "1", required)]
-    pub access_token: String,
 
-    #[prost(int64, tag = "2", required)]
-    pub expires_at: i64,
-
-    #[prost(uint32, tag = "3", required)]
-    pub account_id: u32,
-
-    #[prost(string, tag = "4", required)]
-    pub nickname: String,
-}
-
-impl From<&User> for LegacyUser {
-    fn from(user: &User) -> Self {
-        Self {
-            access_token: user.access_token.clone(),
-            expires_at: user.expires_at.timestamp(),
-            account_id: user.account_id,
-            nickname: user.nickname.clone(),
-        }
-    }
-}
-
-#[serde_with::serde_as]
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct User {
-    #[serde_as(as = "serde_with::TryFromInto<u128>")]
-    #[serde(rename = "_id")]
-    pub session_id: Scru128Id,
+    #[serde(
+        rename = "_id",
+        with = "mongodb::bson::serde_helpers::uuid_1_as_binary"
+    )]
+    pub session_id: Uuid,
 
     pub account_id: u32,
     pub nickname: String,
@@ -60,10 +36,10 @@ impl User {
 
     #[inline]
     #[instrument(level = "debug", ret)]
-    pub fn new_session_id() -> Scru128Id {
+    pub fn new_session_id() -> Uuid {
         // SCRU128 is timestamp-based, so makes it easier to purge old sessions from the database.
         // It's also unpredictable, hence suitable for session IDs.
-        scru128::new()
+        Uuid::from_u128(scru128::new().to_u128())
     }
 
     pub fn expires_at(&self) -> Result<Expiration> {

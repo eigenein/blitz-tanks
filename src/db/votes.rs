@@ -92,9 +92,8 @@ mod tests {
     use crate::{db::Db, models::Rating};
 
     #[tokio::test]
-    #[ignore]
     async fn insert_get_vote_ok() -> Result {
-        let manager = Db::open_temporary().await?.vote_manager()?;
+        let manager = Db::open_unittests().await?.vote_manager()?;
         manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         assert!(manager.get(1, 42)?.is_some());
         assert_eq!(manager.get(2, 42)?, None);
@@ -103,9 +102,8 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore]
     async fn get_all_by_account_id_ok() -> Result {
-        let manager = Db::open_temporary().await?.vote_manager()?;
+        let manager = Db::open_unittests().await?.vote_manager()?;
         let vote = Vote::new_now(Rating::Like);
         manager.insert(1, 42, &vote)?;
         assert_eq!(manager.get_all_by_account_id(0)?, []);
@@ -115,9 +113,8 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore]
     async fn delete_vote_ok() -> Result {
-        let manager = Db::open_temporary().await?.vote_manager()?;
+        let manager = Db::open_unittests().await?.vote_manager()?;
         manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
         manager.delete(1, 42)?;
         assert_eq!(manager.get(1, 42)?, None);

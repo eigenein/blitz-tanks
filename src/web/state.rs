@@ -22,7 +22,7 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn new(
+    pub async fn new(
         db: &Db,
         frontend_application_id: &str,
         wee_gee: Wg,
@@ -42,13 +42,13 @@ impl AppState {
             tankopedia,
             vehicle_stats_getter: VehicleStatsGetter::from(wee_gee),
 
-            session_manager: db.session_manager()?,
+            session_manager: db.session_manager().await?,
             vote_manager: db.vote_manager()?,
         })
     }
 
     #[cfg(test)]
     pub async fn new_test() -> Result<Self> {
-        Self::new(&Db::open_temporary().await?, "test", Wg::new("test")?, "localhost:8080")
+        Self::new(&Db::open_unittests().await?, "test", Wg::new("test")?, "localhost:8080").await
     }
 }

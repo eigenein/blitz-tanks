@@ -31,15 +31,12 @@ pub async fn run(args: WebArgs) -> Result {
             .update(wee_gee.get_tankopedia().await?)?;
     }
 
-    let app = create_app(AppState::new(
-        &db,
-        &args.wargaming.frontend_application_id,
-        wee_gee,
-        &args.public_address,
-    )?);
+    let state =
+        AppState::new(&db, &args.wargaming.frontend_application_id, wee_gee, &args.public_address)
+            .await?;
     info!(version = crate_version!(), endpoint = ?args.bind_endpoint, "🚀 running…");
     axum::Server::bind(&args.bind_endpoint)
-        .serve(app.into_make_service())
+        .serve(create_app(state).into_make_service())
         .await
         .context("the web application has failed")
 }

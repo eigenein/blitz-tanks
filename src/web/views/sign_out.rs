@@ -5,17 +5,17 @@ use sentry::integrations::anyhow::capture_anyhow;
 use tracing::{error, info, instrument};
 
 use crate::{
-    models::{Anonymous, LegacyUser, User},
+    models::{Anonymous, User},
     web::{prelude::*, state::AppState},
 };
 
 #[instrument(skip_all)]
 pub async fn get(
-    user: Either<LegacyUser, Anonymous>,
+    user: Either<User, Anonymous>,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     if let Either::Left(user) = user {
-        info!(user.account_id, "😿 Bye!");
+        info!(user.account_id, user.nickname, "😿 Bye!");
         match state.wg.log_out(&user.access_token).await {
             Ok(_) => {
                 info!(user.account_id, "✅ The access token has been successfully revoked");

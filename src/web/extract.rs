@@ -3,17 +3,18 @@ use axum::{
     extract::{FromRequestParts, Path},
     http::request::Parts,
 };
+use either::Either;
 use serde::Deserialize;
 use tracing::{debug, instrument, warn};
 
 use crate::{
-    models::LegacyUser,
+    models::{Anonymous, User},
     web::{prelude::*, state::AppState},
 };
 
 /// User extractor, which validates the account ID path segment.
 /// In order to pass, the path's account ID **must** be the same as that of the logged in user.
-pub struct ProfileOwner(pub LegacyUser);
+pub struct ProfileOwner(pub User);
 
 #[async_trait]
 impl FromRequestParts<AppState> for ProfileOwner {
@@ -30,14 +31,17 @@ impl FromRequestParts<AppState> for ProfileOwner {
         }
 
         let Path(PathParams { account_id }) = Path::from_request_parts(parts, state).await?;
-        let user = LegacyUser::from_request_parts(parts, state).await?;
+        let user = Either::<User, Anonymous>::from_request_parts(parts, state).await?;
 
-        if user.account_id == account_id {
-            debug!(account_id, "✅ verified");
-            Ok(Self(user))
-        } else {
-            warn!(account_id, "❌ forbidden");
-            Err(WebError::Forbidden)
+        match user {
+            Either::Left(user) if user.account_id == account_id => {
+                debug!(account_id, "✅ Verified");
+                Ok(Self(user))
+            }
+            _ => {
+                warn!(account_id, "❌ Forbidden");
+                Err(WebError::Forbidden)
+            }
         }
     }
 }
@@ -47,7 +51,7 @@ impl FromRequestParts<AppState> for ProfileOwner {
 /// Validates that the user is the one logged in, and does own the vehicle.
 pub struct UserOwnedTank {
     pub tank_id: u16,
-    pub user: LegacyUser,
+    pub user: User,
 }
 
 #[async_trait]
@@ -65,19 +69,23 @@ impl FromRequestParts<AppState> for UserOwnedTank {
         }
 
         let Path(params) = Path::<PathParams>::from_request_parts(parts, state).await?;
-        let user = LegacyUser::from_request_parts(parts, state).await?;
+        let user = Either::<User, Anonymous>::from_request_parts(parts, state).await?;
 
-        if params.account_id == user.account_id
-            && state
-                .vehicle_stats_getter
-                .owns_vehicle(params.account_id, params.tank_id)
-                .await?
-        {
-            debug!(params.account_id, params.tank_id, "✅ verified");
-            Ok(Self { tank_id: params.tank_id, user })
-        } else {
-            warn!(params.account_id, params.tank_id, "❌ forbidden");
-            Err(WebError::Forbidden)
+        match user {
+            Either::Left(user)
+                if user.account_id == params.account_id
+                    && state
+                        .vehicle_stats_getter
+                        .owns_vehicle(params.account_id, params.tank_id)
+                        .await? =>
+            {
+                debug!(params.account_id, params.tank_id, "✅ Verified");
+                Ok(Self { tank_id: params.tank_id, user })
+            }
+            _ => {
+                warn!(params.account_id, params.tank_id, "❌ Forbidden");
+                Err(WebError::Forbidden)
+            }
         }
     }
 }

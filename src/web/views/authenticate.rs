@@ -12,7 +12,9 @@ use crate::{
     web::{prelude::*, state::AppState},
 };
 
-/// Wargaming.net redirect query parameters.
+/// Wargaming.net [authentication redirect][1] query parameters.
+///
+/// [1]: https://developers.wargaming.net/reference/all/wot/auth/login/
 #[serde_with::serde_as]
 #[derive(Deserialize)]
 #[serde(tag = "status")]
@@ -74,7 +76,7 @@ pub async fn get(
 ) -> WebResult<impl IntoResponse> {
     let user = Result::<User, WebError>::from(result)?;
     info!(user.nickname, %user.session_id, "👋 welcome");
-    state.session_manager.insert(&user)?;
+    state.session_manager.insert(&user).await?;
     let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, user.session_id.to_string())
         .http_only(true)
         .expires(user.expires_at()?)

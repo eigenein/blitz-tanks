@@ -5,7 +5,7 @@ use either::Either;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{Anonymous, LegacyUser},
+    models::{Anonymous, User},
     web::{prelude::*, response::OptionalRedirect, state::*, views::partials::*},
 };
 
@@ -13,9 +13,9 @@ use crate::{
 #[instrument(skip_all)]
 pub async fn get(
     State(state): State<AppState>,
-    session: Either<LegacyUser, Anonymous>,
+    session: Either<User, Anonymous>,
 ) -> OptionalRedirect {
-    if let Either::Left(LegacyUser { account_id, .. }) = session {
+    if let Either::Left(User { account_id, .. }) = session {
         info!(account_id, "👋 welcome");
         return OptionalRedirect::Redirect(Redirect::temporary(&format!("/profile/{account_id}")));
     }
@@ -119,7 +119,7 @@ mod tests {
     #[tokio::test]
     async fn redirect_ok() -> Result {
         let state = AppState::new_test().await?;
-        let session_id = state.session_manager.insert_test_session()?;
+        let session_id = state.session_manager.insert_test_session().await?;
         let request = Request::builder()
             .uri("/")
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))

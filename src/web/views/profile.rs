@@ -6,7 +6,7 @@ use chrono_humanize::HumanTime;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{LegacyUser, Rating, Vote},
+    models::{Rating, User, Vote},
     prelude::*,
     web::{
         extract::{ProfileOwner, UserOwnedTank},
@@ -217,7 +217,7 @@ fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) ->
 }
 
 /// Profile navigation bar.
-fn navbar(LegacyUser { account_id, nickname, .. }: &LegacyUser) -> Markup {
+fn navbar(User { account_id, nickname, .. }: &User) -> Markup {
     html! {
         nav.navbar.is-warning role="navigation" aria-label="main navigation" {
             div.container {
@@ -273,10 +273,9 @@ mod tests {
     };
 
     #[tokio::test]
-    #[ignore]
     async fn own_profile_ok() -> Result {
         let state = AppState::new_test().await?;
-        let session_id = state.session_manager.insert_test_session()?;
+        let session_id = state.session_manager.insert_test_session().await?;
         let request = Request::builder()
             .uri("/profile/0")
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
