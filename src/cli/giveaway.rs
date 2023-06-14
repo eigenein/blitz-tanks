@@ -9,7 +9,8 @@ pub async fn run(args: GiveawayArgs) -> Result {
 
     info!("⏳ Reading votes…");
     let mut account_ids = manager
-        .vote_manager()?
+        .vote_manager()
+        .await?
         .iter_all()
         .map(|result| {
             let (account_id, ..) = result?;

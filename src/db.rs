@@ -30,7 +30,9 @@ impl Db {
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        let db = Client::with_uri_str("mongodb://localhost").await?.database("unittests");
+        let db = Client::with_uri_str("mongodb://localhost/?connectTimeoutMS=1000")
+            .await?
+            .database("unittests");
         db.drop(None)
             .await
             .context("failed to drop the database from the previous run")?;
@@ -43,12 +45,12 @@ impl Db {
     }
 
     #[inline]
-    pub fn tankopedia_manager(&self) -> Result<Tankopedia> {
+    pub async fn tankopedia_manager(&self) -> Result<Tankopedia> {
         self.open_manager("tankopedia")
     }
 
     #[inline]
-    pub fn vote_manager(&self) -> Result<Votes> {
+    pub async fn vote_manager(&self) -> Result<Votes> {
         self.open_manager("ratings")
     }
 

@@ -26,7 +26,8 @@ pub async fn run(args: WebArgs) -> Result {
     let wee_gee = Wg::new(&args.wargaming.backend_application_id)?;
 
     if args.update_tankopedia {
-        db.tankopedia_manager()?
+        db.tankopedia_manager()
+            .await?
             .prepopulate()?
             .update(wee_gee.get_tankopedia().await?)?;
     }
