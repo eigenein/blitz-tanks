@@ -32,7 +32,10 @@ impl Db {
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        let options = ClientOptions::builder().connect_timeout(Duration::from_secs(1)).build();
+        let options = ClientOptions::builder()
+            .connect_timeout(Duration::from_secs(1))
+            .server_selection_timeout(Duration::from_secs(1))
+            .build();
         let db = Client::with_options(options)?.database("unittests");
         db.drop(None)
             .await
