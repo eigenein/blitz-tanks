@@ -3,7 +3,7 @@ use std::{collections::HashMap, sync::Arc};
 use tracing::warn;
 
 use crate::{
-    db::{Db, SessionManager, VoteManager},
+    db::{sessions::Sessions, votes::Votes, Db},
     models::VehicleDescription,
     prelude::*,
     wg::{stats::VehicleStatsGetter, Wg},
@@ -17,8 +17,8 @@ pub struct AppState {
     pub tankopedia: Arc<HashMap<u16, VehicleDescription>>,
     pub vehicle_stats_getter: VehicleStatsGetter,
 
-    pub session_manager: SessionManager,
-    pub vote_manager: VoteManager,
+    pub session_manager: Sessions,
+    pub vote_manager: Votes,
 }
 
 impl AppState {
