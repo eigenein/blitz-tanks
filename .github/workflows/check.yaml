@@ -18,6 +18,12 @@ jobs:
     name: 🧪 Check
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+
     steps:
       - name: ✨ Set up the toolchain
         uses: actions-rs/toolchain@v1
@@ -35,12 +41,6 @@ jobs:
         with:
           key: "rust"
           cache-on-failure: true
-
-      - name: 🗃️ Set up MongoDB
-        uses: supercharge/mongodb-github-action@v1
-        if: false
-        with:
-          mongodb-version: 4.4
 
       - name: ❓ Ping MongoDB
         run: nc -vz localhost 27017
