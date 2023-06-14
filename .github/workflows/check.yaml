@@ -38,8 +38,6 @@ jobs:
 
       - name: 🗃️ Set up MongoDB
         uses: ankane/setup-mongodb@v1
-        with:
-          mongodb-version: 4.4
 
       - name: ❓ Ping MongoDB
         run: nc -vz localhost 27017
