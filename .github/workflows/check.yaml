@@ -37,10 +37,9 @@ jobs:
           cache-on-failure: true
 
       - name: 🗃️ Set up MongoDB
-        uses: supercharge/mongodb-github-action@v1
+        uses: ankane/setup-mongodb@v1
         with:
           mongodb-version: 4.4
-          mongodb-db: unittests
 
       - name: ❓ Ping MongoDB
         run: nc -vz localhost 27017
