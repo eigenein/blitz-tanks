@@ -2,7 +2,9 @@ pub mod sessions;
 pub mod tankopedia;
 pub mod votes;
 
-use mongodb::{Collection, Database};
+use std::time::Duration;
+
+use mongodb::{options::ClientOptions, Collection, Database};
 use sled::Tree;
 
 use crate::{
@@ -30,11 +32,8 @@ impl Db {
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        let db = Client::with_uri_str(
-            "mongodb://localhost/?directConnection=true&connectTimeoutMS=1000",
-        )
-        .await?
-        .database("unittests");
+        let options = ClientOptions::builder().connect_timeout(Duration::from_secs(1)).build();
+        let db = Client::with_options(options)?.database("unittests");
         db.drop(None)
             .await
             .context("failed to drop the database from the previous run")?;
