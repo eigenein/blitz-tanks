@@ -30,9 +30,11 @@ impl Db {
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        let db = Client::with_uri_str("mongodb://localhost/?connectTimeoutMS=1000")
-            .await?
-            .database("unittests");
+        let db = Client::with_uri_str(
+            "mongodb://localhost/?directConnection=true&connectTimeoutMS=1000",
+        )
+        .await?
+        .database("unittests");
         db.drop(None)
             .await
             .context("failed to drop the database from the previous run")?;
