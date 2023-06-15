@@ -1,6 +1,7 @@
 //! Shared models which are used in both the database and the web app.
 
 use cookie::{time::OffsetDateTime, Expiration};
+use mongodb::bson::serde_helpers;
 use prost::Message;
 use serde::{Deserialize, Serialize};
 use tracing::instrument;
@@ -19,15 +20,16 @@ pub struct Anonymous;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct User {
-    #[serde(
-        rename = "_id",
-        with = "mongodb::bson::serde_helpers::uuid_1_as_binary"
-    )]
+    #[serde(rename = "_id", with = "serde_helpers::uuid_1_as_binary")]
     pub session_id: Uuid,
 
     pub account_id: u32,
+
     pub nickname: String,
+
     pub access_token: String,
+
+    #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
     pub expires_at: DateTime,
 }
 

@@ -2,9 +2,7 @@ pub mod sessions;
 pub mod tankopedia;
 pub mod votes;
 
-use std::env::var;
-
-use mongodb::{Collection, Database};
+use mongodb::{options::ClientOptions, Collection, Database};
 use sled::Tree;
 
 use crate::{
@@ -32,9 +30,7 @@ impl Db {
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        let uri =
-            var("BLITZ_TANKS_DATABASE_URI").unwrap_or_else(|_| "mongodb://localhost".to_string());
-        let db = Client::with_uri_str(uri).await?.database("unittests");
+        let db = Client::with_options(ClientOptions::default())?.database("unittests");
         db.drop(None)
             .await
             .context("failed to drop the database from the previous run")?;

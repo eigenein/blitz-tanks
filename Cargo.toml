@@ -19,7 +19,7 @@ indexmap = "1.9.3"
 itertools = "0.10.5"
 maud = { version = "0.25.0", features = ["axum"] }
 moka = { version = "0.11.2", default-features = false, features = ["future", "atomic64"] }
-mongodb = { version = "2.5.0", features = ["tracing", "bson-uuid-1"] }
+mongodb = { version = "2.5.0", features = ["tracing", "bson-uuid-1", "bson-chrono-0_4"] }
 prost = "0.11.9"
 reqwest = { version = "0.11.18", default-features = false, features = ["gzip", "json", "rustls-tls"] }
 scru128 = "2.7.2"
