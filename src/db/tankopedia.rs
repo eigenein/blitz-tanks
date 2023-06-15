@@ -5,19 +5,19 @@ use prost::Message;
 use sled::Tree;
 use url::Url;
 
-use crate::{models::vehicle::VehicleDescription, prelude::*};
+use crate::{models::vehicle::Vehicle, prelude::*};
 
 pub struct Tankopedia(Tree);
 
-impl From<(Tree, Collection<VehicleDescription>)> for Tankopedia {
-    fn from((tree, _collection): (Tree, Collection<VehicleDescription>)) -> Self {
+impl From<(Tree, Collection<Vehicle>)> for Tankopedia {
+    fn from((tree, _collection): (Tree, Collection<Vehicle>)) -> Self {
         Self(tree)
     }
 }
 
 impl Tankopedia {
     /// Update the tankopedia database: insert new vehicles and update existing ones.
-    pub fn update(&self, vehicles: Vec<VehicleDescription>) -> Result<&Self> {
+    pub fn update(&self, vehicles: Vec<Vehicle>) -> Result<&Self> {
         info!(n_vehicles = vehicles.len(), "📥 Updating the tankopedia…");
         for mut vehicle in vehicles {
             Self::fix_scheme(&mut vehicle)?;
@@ -58,31 +58,28 @@ impl Tankopedia {
     }
 
     /// Load the tankopedia into a hashmap.
-    pub fn load(&self) -> Result<HashMap<u16, VehicleDescription>> {
+    pub fn load(&self) -> Result<HashMap<u16, Vehicle>> {
         info!("📤 Loading the tankopedia…");
         let tankopedia = self
             .0
             .iter()
             .map(|result| {
                 let (key, value) = result?;
-                Ok((
-                    u16::from_be_bytes(key.as_ref().try_into()?),
-                    VehicleDescription::decode(value.as_ref())?,
-                ))
+                Ok((u16::from_be_bytes(key.as_ref().try_into()?), Vehicle::decode(value.as_ref())?))
             })
-            .collect::<Result<HashMap<u16, VehicleDescription>>>()
+            .collect::<Result<HashMap<u16, Vehicle>>>()
             .context("failed to load the tankopedia")?;
         info!(n_vehicles = tankopedia.len(), "✅ Loaded the tankopedia");
         Ok(tankopedia)
     }
 
-    fn insert_vehicle(&self, vehicle: &VehicleDescription) -> Result {
+    fn insert_vehicle(&self, vehicle: &Vehicle) -> Result {
         self.0.insert((vehicle.tank_id as u16).to_be_bytes(), vehicle.encode_to_vec())?;
         Ok(())
     }
 
     fn insert_unknown(&self, tank_id: u16, name: &str, is_premium: bool) -> Result {
-        self.insert_vehicle(&VehicleDescription {
+        self.insert_vehicle(&Vehicle {
             tank_id: tank_id as u32,
             name: name.to_string(),
             images: Default::default(),
@@ -91,7 +88,7 @@ impl Tankopedia {
     }
 
     /// Wargaming is too lazy to use HTTPS either.
-    fn fix_scheme(vehicle: &mut VehicleDescription) -> Result {
+    fn fix_scheme(vehicle: &mut Vehicle) -> Result {
         if let Some(url) = &vehicle.images.normal_url {
             let mut url = Url::parse(url)?;
             url.set_scheme("https")

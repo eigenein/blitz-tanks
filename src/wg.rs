@@ -9,7 +9,7 @@ use tracing::{info, instrument};
 use url::Url;
 
 use crate::{
-    models::vehicle::VehicleDescription,
+    models::vehicle::Vehicle,
     prelude::*,
     wg::{result::WgResult, stats::VehicleStats},
 };
@@ -72,7 +72,7 @@ impl Wg {
     ///
     /// [1]: https://developers.wargaming.net/reference/all/wotb/encyclopedia/vehicles/
     #[instrument(skip_all)]
-    pub async fn get_tankopedia(&self) -> Result<Vec<VehicleDescription>> {
+    pub async fn get_tankopedia(&self) -> Result<Vec<Vehicle>> {
         info!("☎️ Retrieving the tankopedia…");
         let result = self
             .client
@@ -87,7 +87,7 @@ impl Wg {
             .send()
             .await
             .context("failed to retrieve the tankopedia")?
-            .json::<WgResult<HashMap<String, VehicleDescription>>>()
+            .json::<WgResult<HashMap<String, Vehicle>>>()
             .await
             .context("failed to parse the tankopedia")?;
         match result {

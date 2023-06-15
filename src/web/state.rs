@@ -4,7 +4,7 @@ use tracing::warn;
 
 use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
-    models::vehicle::VehicleDescription,
+    models::vehicle::Vehicle,
     prelude::*,
     wg::{stats::VehicleStatsGetter, Wg},
 };
@@ -14,7 +14,7 @@ pub struct AppState {
     pub sign_in_url: Arc<String>,
 
     pub wg: Wg,
-    pub tankopedia: Arc<HashMap<u16, VehicleDescription>>,
+    pub tankopedia: Arc<HashMap<u16, Vehicle>>,
     pub vehicle_stats_getter: VehicleStatsGetter,
 
     pub session_manager: Sessions,

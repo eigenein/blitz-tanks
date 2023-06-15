@@ -7,7 +7,7 @@ use serde::Deserialize;
 ///
 /// [1]: https://developers.wargaming.net/reference/all/wotb/encyclopedia/vehicles/
 #[derive(Deserialize, Message)]
-pub struct VehicleDescription {
+pub struct Vehicle {
     /// # Notes
     ///
     /// Here I had to use [`u32`] because of [`prost`].
