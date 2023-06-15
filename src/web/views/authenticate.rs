@@ -5,6 +5,7 @@ use axum::{
 };
 use serde::Deserialize;
 use tracing::{info, instrument};
+use uuid::Uuid;
 
 use crate::{
     models::User,
@@ -50,7 +51,7 @@ impl From<AuthenticationResult> for Result<User, WebError> {
                 account_id,
                 nickname,
             } => Ok(User {
-                session_id: User::new_session_id(),
+                session_id: Uuid::new_v4(),
                 access_token,
                 expires_at: Utc
                     .timestamp_opt(expires_at, 0)

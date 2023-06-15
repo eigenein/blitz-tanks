@@ -4,7 +4,6 @@ use cookie::{time::OffsetDateTime, Expiration};
 use mongodb::bson::serde_helpers;
 use prost::Message;
 use serde::{Deserialize, Serialize};
-use tracing::instrument;
 use uuid::Uuid;
 
 use crate::prelude::*;
@@ -35,14 +34,6 @@ pub struct User {
 
 impl User {
     pub const SESSION_COOKIE_NAME: &'static str = "blitzTanksSessionId";
-
-    #[inline]
-    #[instrument(level = "debug", ret)]
-    pub fn new_session_id() -> Uuid {
-        // SCRU128 is timestamp-based, so makes it easier to purge old sessions from the database.
-        // It's also unpredictable, hence suitable for session IDs.
-        Uuid::from_u128(scru128::new().to_u128())
-    }
 
     pub fn expires_at(&self) -> Result<Expiration> {
         Ok(Expiration::DateTime(OffsetDateTime::from_unix_timestamp(

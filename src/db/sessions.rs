@@ -40,7 +40,7 @@ impl Sessions {
     pub async fn insert_test_session(&self) -> Result<Uuid> {
         use chrono::Duration;
 
-        let session_id = User::new_session_id();
+        let session_id = Uuid::new_v4();
         self.insert(&User {
             session_id,
             access_token: "test".to_string(),
@@ -74,12 +74,8 @@ mod tests {
 
     #[tokio::test]
     async fn unknown_session_ok() -> Result {
-        let session = Db::open_unittests()
-            .await?
-            .session_manager()
-            .await?
-            .get(User::new_session_id())
-            .await?;
+        let session =
+            Db::open_unittests().await?.session_manager().await?.get(Uuid::new_v4()).await?;
         assert!(session.is_none());
         Ok(())
     }
@@ -96,7 +92,7 @@ mod tests {
     #[tokio::test]
     async fn expired_session_ok() -> Result {
         let manager = Db::open_unittests().await?.session_manager().await?;
-        let session_id = User::new_session_id();
+        let session_id = Uuid::new_v4();
         manager
             .insert(&User {
                 session_id,

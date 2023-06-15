@@ -287,7 +287,6 @@ dependencies = [
  "mongodb",
  "prost",
  "reqwest",
- "scru128",
  "sentry",
  "serde",
  "serde_json",
@@ -830,12 +829,6 @@ dependencies = [
  "libc",
  "winapi",
 ]
-
-[[package]]
-name = "fstr"
-version = "0.2.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f03a044702089b29cbac16d07a20a787334e430c206d97e028e2c9e384b49e13"
 
 [[package]]
 name = "funty"
@@ -2190,18 +2183,6 @@ name = "scopeguard"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d29ab0c6d3fc0ee92fe66e2d99f700eab17a8d57d1c1d3b748380fb20baa78cd"
-
-[[package]]
-name = "scru128"
-version = "2.8.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "21821e19da46209563875ec99c0d099849d6ab0a1ecde858fbee45a675891ea0"
-dependencies = [
- "fstr",
- "once_cell",
- "rand",
- "rand_chacha",
-]
 
 [[package]]
 name = "sct"
