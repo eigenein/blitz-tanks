@@ -1,2 +1,2 @@
 [build.env]
-passthrough = ["CARGO_TERM_COLOR"]
+passthrough = ["CARGO_TERM_COLOR", "BLITZ_TANKS_DATABASE_URI"]
