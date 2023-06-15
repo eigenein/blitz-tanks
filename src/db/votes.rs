@@ -1,33 +1,71 @@
-use mongodb::Collection;
+use mongodb::{
+    bson::{doc, to_document},
+    options::{IndexOptions, UpdateOptions},
+    Collection, IndexModel,
+};
 use prost::Message;
 use sled::Tree;
 
-use crate::{models::vote::Vote, prelude::*};
+use crate::{
+    models::vote::{LegacyVote, Vote},
+    prelude::*,
+};
 
 #[derive(Clone)]
-pub struct Votes(Tree);
-
-impl From<(Tree, Collection<Vote>)> for Votes {
-    fn from((tree, _collection): (Tree, Collection<Vote>)) -> Self {
-        Self(tree)
-    }
-}
+pub struct Votes(Tree, Collection<Vote>);
 
 impl Votes {
+    pub async fn new(tree: Tree, collection: Collection<Vote>) -> Result<Self> {
+        let options = IndexOptions::builder().unique(true).build();
+        let index = IndexModel::builder()
+            .keys(doc! { "account_id": 1, "tank_id": 1 })
+            .options(options)
+            .build();
+        collection
+            .create_index(index, None)
+            .await
+            .context("failed to create index on votes")?;
+        Ok(Self(tree, collection))
+    }
+
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub fn insert(&self, account_id: u32, tank_id: u16, vote: &Vote) -> Result {
+    pub async fn insert(&self, account_id: u32, tank_id: u16, vote: &LegacyVote) -> Result {
         self.0
             .insert(Self::encode_key(account_id, tank_id), vote.encode_to_vec())
             .with_context(|| format!("failed to insert the #{account_id}'s vote for #{tank_id}"))?;
+        self.insert_new(&Vote {
+            account_id,
+            tank_id: tank_id as i32,
+            timestamp: Utc
+                .timestamp_opt(vote.timestamp_secs, 0)
+                .single()
+                .ok_or_else(|| anyhow!("failed to convert the timestamp"))?,
+            rating: vote.rating(),
+        })
+        .await?;
+        Ok(())
+    }
+
+    pub async fn insert_new(&self, vote: &Vote) -> Result {
+        let query = doc! {
+            "account_id": vote.account_id,
+            "tank_id": vote.tank_id,
+            "timestamp": { "$lte": vote.timestamp },
+        };
+        let options = UpdateOptions::builder().upsert(true).build();
+        self.1
+            .update_one(query, doc! { "$set": to_document(vote)? }, options)
+            .await
+            .with_context(|| format!("failed to upsert `{vote:?}`"))?;
         Ok(())
     }
 
     /// Retrieve a single vote.
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub fn get(&self, account_id: u32, tank_id: u16) -> Result<Option<Vote>> {
+    pub fn get(&self, account_id: u32, tank_id: u16) -> Result<Option<LegacyVote>> {
         self.0
             .get(Self::encode_key(account_id, tank_id))?
-            .map(|value| Vote::decode(value.as_ref()))
+            .map(|value| LegacyVote::decode(value.as_ref()))
             .transpose()
             .with_context(|| format!("failed to retrieve a #{account_id}'s vote for #{tank_id}"))
     }
@@ -40,24 +78,24 @@ impl Votes {
 
     /// Retrieve all votes of the user.
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub fn get_all_by_account_id(&self, account_id: u32) -> Result<Vec<(u16, Vote)>> {
+    pub fn get_all_by_account_id(&self, account_id: u32) -> Result<Vec<(u16, LegacyVote)>> {
         self.0
             .scan_prefix(account_id.to_be_bytes())
             .map(|result| {
                 let (key, value) = result?;
                 let tank_id = Self::decode_tank_id(key.as_ref())?;
-                let event = Vote::decode(value.as_ref())?;
+                let event = LegacyVote::decode(value.as_ref())?;
                 Ok((tank_id, event))
             })
             .collect()
     }
 
     /// Iterate over **all** the votes.
-    pub fn iter_all(&self) -> impl Iterator<Item = Result<(u32, u16, Vote)>> {
+    pub fn iter_all(&self) -> impl Iterator<Item = Result<(u32, u16, LegacyVote)>> {
         self.0.iter().map(|result| {
             let (key, value) = result?;
             let (account_id, tank_id) = Self::decode_key(key.as_ref())?;
-            Ok((account_id, tank_id, Vote::decode(value.as_ref())?))
+            Ok((account_id, tank_id, LegacyVote::decode(value.as_ref())?))
         })
     }
 
@@ -94,7 +132,7 @@ mod tests {
     #[tokio::test]
     async fn insert_get_vote_ok() -> Result {
         let manager = Db::open_unittests().await?.vote_manager().await?;
-        manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
+        manager.insert(1, 42, &LegacyVote::new_now(Rating::Like)).await?;
         assert!(manager.get(1, 42)?.is_some());
         assert_eq!(manager.get(2, 42)?, None);
         assert_eq!(manager.get(42, 1)?, None);
@@ -104,8 +142,8 @@ mod tests {
     #[tokio::test]
     async fn get_all_by_account_id_ok() -> Result {
         let manager = Db::open_unittests().await?.vote_manager().await?;
-        let vote = Vote::new_now(Rating::Like);
-        manager.insert(1, 42, &vote)?;
+        let vote = LegacyVote::new_now(Rating::Like);
+        manager.insert(1, 42, &vote).await?;
         assert_eq!(manager.get_all_by_account_id(0)?, []);
         assert_eq!(manager.get_all_by_account_id(1)?, [(42, vote)]);
         assert_eq!(manager.get_all_by_account_id(2)?, []);
@@ -115,7 +153,7 @@ mod tests {
     #[tokio::test]
     async fn delete_vote_ok() -> Result {
         let manager = Db::open_unittests().await?.vote_manager().await?;
-        manager.insert(1, 42, &Vote::new_now(Rating::Like))?;
+        manager.insert(1, 42, &LegacyVote::new_now(Rating::Like)).await?;
         manager.delete(1, 42)?;
         assert_eq!(manager.get(1, 42)?, None);
         Ok(())

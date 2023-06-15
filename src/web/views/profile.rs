@@ -6,7 +6,7 @@ use chrono_humanize::HumanTime;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{rating::Rating, user::User, vote::Vote},
+    models::{rating::Rating, user::User, vote::LegacyVote},
     prelude::*,
     web::{
         extract::{ProfileOwner, UserOwnedTank},
@@ -107,7 +107,7 @@ async fn post(
 
     let manager = state.vote_manager;
     if let Some(rating) = rating {
-        manager.insert(user.account_id, tank_id, &Vote::new_now(rating))?;
+        manager.insert(user.account_id, tank_id, &LegacyVote::new_now(rating)).await?;
     } else {
         manager.delete(user.account_id, tank_id)?;
     }

@@ -49,7 +49,7 @@ impl Db {
 
     #[inline]
     pub async fn vote_manager(&self) -> Result<Votes> {
-        self.open_manager("ratings")
+        Votes::new(self.legacy_db.open_tree("ratings")?, self.db.collection("votes")).await
     }
 
     #[inline]
