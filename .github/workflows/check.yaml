@@ -50,6 +50,7 @@ jobs:
           args: --target=aarch64-unknown-linux-gnu -- --include-ignored
         env:
           BLITZ_TANKS_DATABASE_URI: "mongodb://mongodb:${{ job.services.mongodb.ports[27017] }}/?connectTimeoutMS=1000&serverSelectionTimeoutMS=1000"
+          CROSS_CONTAINER_OPTS: "--network=host"
 
       - name: 💬 Clippy
         uses: actions-rs/clippy-check@v1
