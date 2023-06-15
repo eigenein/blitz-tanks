@@ -5,7 +5,6 @@ mod response;
 mod state;
 mod r#static;
 mod tracing_;
-mod user;
 mod views;
 
 use axum::{
