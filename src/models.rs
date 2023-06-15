@@ -3,7 +3,7 @@
 use cookie::{time::OffsetDateTime, Expiration};
 use mongodb::bson::serde_helpers;
 use prost::Message;
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use uuid::Uuid;
 
 use crate::prelude::*;
@@ -76,11 +76,31 @@ pub struct VehicleImages {
 #[derive(Debug, prost::Enumeration, PartialEq, Eq, Copy, Clone)]
 #[repr(i32)]
 pub enum Rating {
-    /// Unused variant, required for Prost.
+    #[deprecated]
     None = 0,
 
     Dislike = 1,
     Like = 2,
+}
+
+impl Rating {
+    #[allow(clippy::trivially_copy_pass_by_ref)]
+    pub fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_i32(match self {
+            Self::None => 0,
+            Self::Like => 1,
+            Self::Dislike => 2,
+        })
+    }
+
+    pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let rating = i32::deserialize(deserializer)?;
+        match rating {
+            1 => Ok(Self::Like),
+            2 => Ok(Self::Dislike),
+            _ => Err(serde::de::Error::custom(format!("invalid rating value `{rating}`"))),
+        }
+    }
 }
 
 /// User's vote for a vehicle.

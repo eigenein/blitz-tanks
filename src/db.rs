@@ -2,7 +2,7 @@ pub mod sessions;
 pub mod tankopedia;
 pub mod votes;
 
-use mongodb::{options::ClientOptions, Collection, Database};
+use mongodb::{Collection, Database};
 use sled::Tree;
 
 use crate::{
@@ -24,7 +24,7 @@ impl Db {
 
     #[cfg(test)]
     pub async fn open_unittests() -> Result<Self> {
-        use mongodb::Client;
+        use mongodb::{options::ClientOptions, Client};
 
         let legacy_db = sled::Config::default()
             .temporary(true)
