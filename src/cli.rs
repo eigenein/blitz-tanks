@@ -1,5 +1,6 @@
 pub mod export;
 pub mod giveaway;
+pub mod migrate_votes;
 
 use std::{net::SocketAddr, path::PathBuf};
 
@@ -28,6 +29,9 @@ pub enum Command {
 
     /// Pick an account for a giveaway.
     Giveaway(GiveawayArgs),
+
+    /// Migrate votes from Sled to MongoDB.
+    MigrateVotes(MigrateVotesArgs),
 }
 
 #[derive(Args)]
@@ -121,4 +125,10 @@ pub struct GiveawayArgs {
     /// Trace all candidate IDs.
     #[clap(long)]
     pub trace_candidates: bool,
+}
+
+#[derive(Args)]
+pub struct MigrateVotesArgs {
+    #[clap(flatten)]
+    pub db: DbArgs,
 }

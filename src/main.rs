@@ -34,5 +34,6 @@ async fn main() -> Result {
         Command::Web(args) => trace(web::run(args).await),
         Command::ExportVotes(args) => trace(cli::export::export_votes(&args).await),
         Command::Giveaway(args) => trace(cli::giveaway::run(args).await),
+        Command::MigrateVotes(args) => trace(cli::migrate_votes::run(args).await),
     }
 }

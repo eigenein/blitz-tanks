@@ -33,20 +33,25 @@ impl Votes {
         self.0
             .insert(Self::encode_key(account_id, tank_id), vote.encode_to_vec())
             .with_context(|| format!("failed to insert the #{account_id}'s vote for #{tank_id}"))?;
-        self.insert_new(&Vote {
-            account_id,
-            tank_id: tank_id as i32,
-            timestamp: Utc
-                .timestamp_opt(vote.timestamp_secs, 0)
-                .single()
-                .ok_or_else(|| anyhow!("failed to convert the timestamp"))?,
-            rating: vote.rating(),
-        })
-        .await?;
+        self.insert_new(account_id, tank_id, vote).await?;
         Ok(())
     }
 
-    pub async fn insert_new(&self, vote: &Vote) -> Result {
+    pub async fn insert_new(
+        &self,
+        account_id: u32,
+        tank_id: u16,
+        legacy_vote: &LegacyVote,
+    ) -> Result {
+        let vote = &Vote {
+            account_id,
+            tank_id: tank_id as i32,
+            timestamp: Utc
+                .timestamp_opt(legacy_vote.timestamp_secs, 0)
+                .single()
+                .ok_or_else(|| anyhow!("failed to convert the timestamp"))?,
+            rating: legacy_vote.rating(),
+        };
         let query = doc! {
             "account_id": vote.account_id,
             "tank_id": vote.tank_id,

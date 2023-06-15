@@ -1,14 +1,12 @@
 use std::collections::HashSet;
 
-use tracing::info;
-
 use crate::{cli::GiveawayArgs, prelude::*};
 
 pub async fn run(args: GiveawayArgs) -> Result {
-    let manager = args.db.open().await?;
+    let db = args.db.open().await?;
 
     info!("⏳ Reading votes…");
-    let mut account_ids = manager
+    let mut account_ids = db
         .vote_manager()
         .await?
         .iter_all()
