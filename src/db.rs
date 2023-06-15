@@ -2,9 +2,9 @@ pub mod sessions;
 pub mod tankopedia;
 pub mod votes;
 
-use std::time::Duration;
+use std::env::var;
 
-use mongodb::{options::ClientOptions, Collection, Database};
+use mongodb::{Collection, Database};
 use sled::Tree;
 
 use crate::{
@@ -32,11 +32,9 @@ impl Db {
             .temporary(true)
             .open()
             .context("failed to open a temporary database")?;
-        let options = ClientOptions::builder()
-            .connect_timeout(Duration::from_secs(1))
-            .server_selection_timeout(Duration::from_secs(1))
-            .build();
-        let db = Client::with_options(options)?.database("unittests");
+        let uri =
+            var("BLITZ_TANKS_DATABASE_URI").unwrap_or_else(|_| "mongodb://localhost".to_string());
+        let db = Client::with_uri_str(uri).await?.database("unittests");
         db.drop(None)
             .await
             .context("failed to drop the database from the previous run")?;

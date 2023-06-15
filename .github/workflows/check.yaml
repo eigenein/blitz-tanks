@@ -18,6 +18,12 @@ jobs:
     name: 🧪 Check
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: "mongo:4.4"
+        ports:
+          - 27017:27017
+
     steps:
       - name: ✨ Set up the toolchain
         uses: actions-rs/toolchain@v1
@@ -36,17 +42,14 @@ jobs:
           key: "rust"
           cache-on-failure: true
 
-      - name: 🗃️ Set up MongoDB
-        uses: supercharge/mongodb-github-action@v1
-        with:
-          mongodb-version: 4.4
-
       - name: 🧪 Test
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: test
           args: --target=aarch64-unknown-linux-gnu -- --include-ignored
+        env:
+          BLITZ_TANKS_DATABASE_URI: "mongodb://mongodb:${{ job.services.mongodb.ports[27017] }}"
 
       - name: 💬 Clippy
         uses: actions-rs/clippy-check@v1
