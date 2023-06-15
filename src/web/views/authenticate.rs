@@ -8,7 +8,7 @@ use tracing::{info, instrument};
 use uuid::Uuid;
 
 use crate::{
-    models::User,
+    models::user::User,
     prelude::*,
     web::{prelude::*, state::AppState},
 };

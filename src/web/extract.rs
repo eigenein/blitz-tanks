@@ -8,7 +8,7 @@ use serde::Deserialize;
 use tracing::{debug, instrument, warn};
 
 use crate::{
-    models::{Anonymous, User},
+    models::user::{Anonymous, User},
     web::{prelude::*, state::AppState},
 };
 

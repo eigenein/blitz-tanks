@@ -5,7 +5,7 @@ use prost::Message;
 use sled::Tree;
 use url::Url;
 
-use crate::{models::VehicleDescription, prelude::*};
+use crate::{models::vehicle::VehicleDescription, prelude::*};
 
 pub struct Tankopedia(Tree);
 

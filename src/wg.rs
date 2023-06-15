@@ -9,7 +9,7 @@ use tracing::{info, instrument};
 use url::Url;
 
 use crate::{
-    models::VehicleDescription,
+    models::vehicle::VehicleDescription,
     prelude::*,
     wg::{result::WgResult, stats::VehicleStats},
 };

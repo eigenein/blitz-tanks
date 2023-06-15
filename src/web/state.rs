@@ -4,7 +4,7 @@ use tracing::warn;
 
 use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
-    models::VehicleDescription,
+    models::vehicle::VehicleDescription,
     prelude::*,
     wg::{stats::VehicleStatsGetter, Wg},
 };

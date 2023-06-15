@@ -2,7 +2,7 @@ use mongodb::Collection;
 use prost::Message;
 use sled::Tree;
 
-use crate::{models::Vote, prelude::*};
+use crate::{models::vote::Vote, prelude::*};
 
 #[derive(Clone)]
 pub struct Votes(Tree);
@@ -89,7 +89,7 @@ impl Votes {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{db::Db, models::Rating};
+    use crate::{db::Db, models::rating::Rating};
 
     #[tokio::test]
     async fn insert_get_vote_ok() -> Result {

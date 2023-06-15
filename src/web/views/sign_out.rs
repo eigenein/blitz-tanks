@@ -5,7 +5,7 @@ use sentry::integrations::anyhow::capture_anyhow;
 use tracing::{error, info, instrument};
 
 use crate::{
-    models::{Anonymous, User},
+    models::user::{Anonymous, User},
     web::{prelude::*, state::AppState},
 };
 

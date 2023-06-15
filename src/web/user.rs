@@ -13,12 +13,13 @@ use tracing::{debug, instrument};
 use uuid::Uuid;
 
 use crate::{
-    models::{Anonymous, User},
+    models::user::{Anonymous, User},
     tracing::configure_user,
     web::{prelude::*, state::AppState},
 };
 
 /// Extract a user from the request.
+/// TODO: move to `extract`.
 #[async_trait]
 impl FromRequestParts<AppState> for Either<User, Anonymous> {
     type Rejection = WebError;

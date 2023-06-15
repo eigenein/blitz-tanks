@@ -6,7 +6,7 @@ use chrono_humanize::HumanTime;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{Rating, User, Vote},
+    models::{rating::Rating, user::User, vote::Vote},
     prelude::*,
     web::{
         extract::{ProfileOwner, UserOwnedTank},
@@ -266,8 +266,8 @@ mod tests {
     };
     use tower::ServiceExt;
 
+    use super::*;
     use crate::{
-        models::User,
         prelude::Result,
         web::{create_app, state::AppState},
     };

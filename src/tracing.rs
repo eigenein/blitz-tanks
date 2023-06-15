@@ -8,7 +8,7 @@ use sentry::{
 use tracing::{error, info, Level};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
-use crate::{models::User, prelude::*};
+use crate::{models::user::User, prelude::*};
 
 pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<ClientInitGuard> {
     let sentry_options = ClientOptions {
@@ -46,6 +46,7 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
 pub fn configure_user(scope: &mut Scope, user: Option<&User>) {
     match user {
         Some(user) => {
+            // TODO: `From<User> for Option<sentry::User>`.
             scope.set_tag("user.is_anonymous", false);
             scope.set_user(Some(sentry::User {
                 id: Some(user.account_id.to_string()),

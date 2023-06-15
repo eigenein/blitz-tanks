@@ -5,7 +5,7 @@ use either::Either;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{Anonymous, User},
+    models::user::{Anonymous, User},
     web::{prelude::*, response::OptionalRedirect, state::*, views::partials::*},
 };
 
@@ -105,7 +105,7 @@ mod tests {
     use tower::ServiceExt;
 
     use super::*;
-    use crate::{models::User, prelude::Result, web::create_app};
+    use crate::{prelude::Result, web::create_app};
 
     #[tokio::test]
     async fn index_ok() -> Result {
