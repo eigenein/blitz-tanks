@@ -84,7 +84,7 @@ impl Tankopedia {
         self.0
             .update_one(query, doc! { "$set": to_document(vehicle)? }, options)
             .await
-            .with_context(|| format!("failed to upsert `{vehicle:?}`"))?;
+            .with_context(|| format!("failed to upsert vehicle #{}", vehicle.tank_id))?;
         Ok(())
     }
 

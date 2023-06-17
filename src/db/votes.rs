@@ -30,7 +30,9 @@ impl Votes {
         self.0
             .update_one(query, doc! { "$set": to_document(vote)? }, options)
             .await
-            .with_context(|| format!("failed to upsert `{vote:?}`"))?;
+            .with_context(|| {
+                format!("failed to upsert #{}'s vote for #{}", vote.account_id, vote.tank_id)
+            })?;
         Ok(())
     }
 
@@ -49,7 +51,7 @@ impl Votes {
         self.0
             .find(doc! { "account_id": account_id }, None)
             .await
-            .with_context(|| format!("failed to query votes of user #{account_id}"))
+            .with_context(|| format!("failed to query #{account_id}'s votes"))
     }
 
     /// Iterate over **all** the votes.
