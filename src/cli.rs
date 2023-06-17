@@ -15,6 +15,13 @@ pub struct Cli {
 
     #[clap(long, env = "BLITZ_TANKS_SENTRY_DSN")]
     pub sentry_dsn: Option<String>,
+
+    #[clap(
+        long,
+        env = "BLITZ_TANKS_SENTRY_TRACES_SAMPLE_RATE",
+        default_value = "0.1"
+    )]
+    pub traces_sample_rate: f32,
 }
 
 #[derive(Subcommand)]
