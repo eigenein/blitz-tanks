@@ -14,7 +14,7 @@ pub struct AppState {
     pub sign_in_url: Arc<String>,
 
     pub wg: Wg,
-    pub tankopedia: Arc<HashMap<u16, Vehicle>>,
+    pub tankopedia: Arc<HashMap<i32, Vehicle>>,
     pub vehicle_stats_getter: VehicleStatsGetter,
 
     pub session_manager: Sessions,
@@ -28,9 +28,9 @@ impl AppState {
         wee_gee: Wg,
         public_address: &str,
     ) -> Result<Self> {
-        let tankopedia = Arc::new(db.tankopedia_manager().await?.load()?);
+        let tankopedia = Arc::new(db.tankopedia_manager().await?.load().await?);
         if tankopedia.is_empty() {
-            warn!("⚠️ tankopedia database is empty, please re-run with `--update-tankopedia`");
+            warn!("⚠️ Tankopedia database is empty, please re-run with `--update-tankopedia`");
         }
 
         Ok(Self {

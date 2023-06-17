@@ -27,8 +27,10 @@ pub async fn run(args: WebArgs) -> Result {
     if args.update_tankopedia {
         db.tankopedia_manager()
             .await?
-            .prepopulate()?
-            .update(wee_gee.get_tankopedia().await?)?;
+            .prepopulate()
+            .await?
+            .update(wee_gee.get_tankopedia().await?)
+            .await?;
     }
 
     let state =

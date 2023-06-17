@@ -1,8 +1,6 @@
-pub mod export;
 pub mod giveaway;
-pub mod migrate_votes;
 
-use std::{net::SocketAddr, path::PathBuf};
+use std::net::SocketAddr;
 
 use clap::{Args, Parser, Subcommand};
 
@@ -24,14 +22,8 @@ pub enum Command {
     /// Run the web application.
     Web(WebArgs),
 
-    /// Export all the votes in JSONL format.
-    ExportVotes(ExportVotesArgs),
-
     /// Pick an account for a giveaway.
     Giveaway(GiveawayArgs),
-
-    /// Migrate votes from Sled to MongoDB.
-    MigrateVotes(MigrateVotesArgs),
 }
 
 #[derive(Args)]
@@ -76,17 +68,9 @@ pub struct WargamingArgs {
 
 #[derive(Args)]
 pub struct DbArgs {
-    /// Legacy Sled database path.
-    #[clap(
-        short = 'd',
-        long = "db-path",
-        env = "BLITZ_TANKS_DATABASE_PATH",
-        default_value = "db.sled"
-    )]
-    pub path: PathBuf,
-
     /// MongoDB database URI.
     #[clap(
+        short = 'd',
         long = "db-uri",
         env = "BLITZ_TANKS_DATABASE_URI",
         default_value = "mongodb://localhost/test?connectTimeoutMS=1000"
@@ -96,14 +80,12 @@ pub struct DbArgs {
 
 impl DbArgs {
     pub async fn open(&self) -> Result<Db> {
-        let legacy_db = sled::open(&self.path)
-            .with_context(|| format!("failed to open legacy database from `{:?}`", self.path))?;
         let db = mongodb::Client::with_uri_str(&self.uri)
             .await
             .with_context(|| format!("failed to parse MongoDB URI `{}`", self.uri))?
             .default_database()
             .ok_or_else(|| anyhow!("no default database was specified"))?;
-        Ok(Db::new(legacy_db, db))
+        Ok(db.into())
     }
 }
 

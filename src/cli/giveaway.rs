@@ -1,5 +1,7 @@
 use std::collections::HashSet;
 
+use futures::TryStreamExt;
+
 use crate::{cli::GiveawayArgs, prelude::*};
 
 pub async fn run(args: GiveawayArgs) -> Result {
@@ -10,11 +12,10 @@ pub async fn run(args: GiveawayArgs) -> Result {
         .vote_manager()
         .await?
         .iter_all()
-        .map(|result| {
-            let (account_id, ..) = result?;
-            Ok(account_id)
-        })
-        .collect::<Result<HashSet<u32>>>()?;
+        .await?
+        .map_ok(|vote| vote.account_id)
+        .try_collect::<HashSet<u32>>()
+        .await?;
 
     info!(n_accounts = account_ids.len(), "✅ Votes processed");
 

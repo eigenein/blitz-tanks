@@ -3,10 +3,11 @@ use std::collections::HashMap;
 use axum::extract::State;
 use chrono::LocalResult;
 use chrono_humanize::HumanTime;
+use futures::TryStreamExt;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{rating::Rating, user::User, vote::LegacyVote},
+    models::{rating::Rating, user::User, vote::Vote},
     prelude::*,
     web::{
         extract::{ProfileOwner, UserOwnedTank},
@@ -23,12 +24,14 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
-    let votes: HashMap<u16, Rating> = state
+    let votes: HashMap<i32, Rating> = state
         .vote_manager
-        .get_all_by_account_id(user.account_id)?
-        .into_iter()
-        .map(|(tank_id, vote)| (tank_id, vote.rating()))
-        .collect();
+        .get_all_by_account_id(user.account_id)
+        .await?
+        .map_ok(|vote| (vote.tank_id, vote.rating))
+        .map_err(|error| WebError::InternalServerError(anyhow!(error)))
+        .try_collect()
+        .await?;
 
     let markup = html! {
         (head())
@@ -107,9 +110,9 @@ async fn post(
 
     let manager = state.vote_manager;
     if let Some(rating) = rating {
-        manager.insert(user.account_id, tank_id, &LegacyVote::new_now(rating)).await?;
+        manager.insert(&Vote::new(user.account_id, tank_id, rating)).await?;
     } else {
-        manager.delete(user.account_id, tank_id)?;
+        manager.delete(user.account_id, tank_id).await?;
     }
 
     Ok(vehicle_card_footer(user.account_id, tank_id, rating))
@@ -181,7 +184,7 @@ fn vehicle_card(
 /// # Notes
 ///
 /// It's extracted for HTMX to be able to refresh the voting buttons.
-fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) -> Markup {
+fn vehicle_card_footer(account_id: u32, tank_id: i32, rating: Option<Rating>) -> Markup {
     html! {
         a.card-footer-item.has-background-success-light[rating == Some(Rating::Like)]
             data-hx-post=(

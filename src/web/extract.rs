@@ -23,7 +23,7 @@ use crate::{
 impl FromRequestParts<AppState> for Either<User, Anonymous> {
     type Rejection = WebError;
 
-    #[instrument(level = "debug", skip_all)]
+    #[instrument(skip_all)]
     async fn from_request_parts(
         parts: &mut Parts,
         state: &AppState,
@@ -61,7 +61,7 @@ pub struct ProfileOwner(pub User);
 impl FromRequestParts<AppState> for ProfileOwner {
     type Rejection = WebError;
 
-    #[instrument(level = "debug", skip_all)]
+    #[instrument(skip_all)]
     async fn from_request_parts(
         parts: &mut Parts,
         state: &AppState,
@@ -91,7 +91,7 @@ impl FromRequestParts<AppState> for ProfileOwner {
 ///
 /// Validates that the user is the one logged in, and does own the vehicle.
 pub struct UserOwnedTank {
-    pub tank_id: u16,
+    pub tank_id: i32,
     pub user: User,
 }
 
@@ -99,6 +99,7 @@ pub struct UserOwnedTank {
 impl FromRequestParts<AppState> for UserOwnedTank {
     type Rejection = WebError;
 
+    #[instrument(skip_all)]
     async fn from_request_parts(
         parts: &mut Parts,
         state: &AppState,
@@ -106,7 +107,7 @@ impl FromRequestParts<AppState> for UserOwnedTank {
         #[derive(Deserialize)]
         pub struct PathParams {
             pub account_id: u32,
-            pub tank_id: u16,
+            pub tank_id: i32,
         }
 
         let Path(params) = Path::<PathParams>::from_request_parts(parts, state).await?;

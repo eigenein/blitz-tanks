@@ -15,7 +15,7 @@ use crate::{prelude::*, wg::Wg};
 /// We only need tank ID and last battle time for the app's purposes.
 #[derive(Deserialize)]
 pub struct VehicleStats {
-    pub tank_id: u16,
+    pub tank_id: i32,
     pub last_battle_time: i64,
 }
 
@@ -29,7 +29,7 @@ impl VehicleStats {
 #[derive(Clone)]
 pub struct VehicleStatsGetter {
     wee_gee: Wg,
-    cache: Cache<u32, Arc<IndexMap<u16, VehicleStats>>>,
+    cache: Cache<u32, Arc<IndexMap<i32, VehicleStats>>>,
 }
 
 impl From<Wg> for VehicleStatsGetter {
@@ -47,7 +47,7 @@ impl From<Wg> for VehicleStatsGetter {
 impl VehicleStatsGetter {
     /// Retrieve the account's vehicle's statistics and cache it.
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get(&self, account_id: u32) -> Result<Arc<IndexMap<u16, VehicleStats>>> {
+    pub async fn get(&self, account_id: u32) -> Result<Arc<IndexMap<i32, VehicleStats>>> {
         self.cache
             .try_get_with(account_id, async {
                 let map = self
@@ -66,7 +66,7 @@ impl VehicleStatsGetter {
     }
 
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub async fn owns_vehicle(&self, account_id: u32, tank_id: u16) -> Result<bool> {
+    pub async fn owns_vehicle(&self, account_id: u32, tank_id: i32) -> Result<bool> {
         Ok(self.get(account_id).await?.contains_key(&tank_id))
     }
 }

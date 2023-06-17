@@ -1,30 +1,10 @@
 use chrono::Utc;
 use mongodb::bson::serde_helpers;
-use prost::Message;
 use serde::{Deserialize, Serialize};
 
 use crate::{models::rating::Rating, prelude::*};
 
-/// User's vote for a vehicle.
-#[derive(Message, Eq, PartialEq, Serialize)]
-pub struct LegacyVote {
-    #[prost(int64, tag = "1", required)]
-    pub timestamp_secs: i64,
-
-    #[prost(enumeration = "Rating", tag = "2", required)]
-    pub rating: i32,
-}
-
-impl LegacyVote {
-    pub fn new_now(rating: Rating) -> Self {
-        Self {
-            timestamp_secs: Utc::now().timestamp(),
-            rating: rating as i32,
-        }
-    }
-}
-
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
 pub struct Vote {
     pub account_id: u32,
 
@@ -38,4 +18,15 @@ pub struct Vote {
         deserialize_with = "Rating::deserialize"
     )]
     pub rating: Rating,
+}
+
+impl Vote {
+    pub fn new(account_id: u32, tank_id: i32, rating: Rating) -> Self {
+        Self {
+            account_id,
+            tank_id,
+            rating,
+            timestamp: Utc::now(),
+        }
+    }
 }

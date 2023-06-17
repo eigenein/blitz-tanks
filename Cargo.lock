@@ -280,18 +280,17 @@ dependencies = [
  "derive_more",
  "either",
  "fastrand 2.0.0",
+ "futures",
  "indexmap",
  "itertools",
  "maud",
  "moka",
  "mongodb",
- "prost",
  "reqwest",
  "sentry",
  "serde",
  "serde_json",
  "serde_with 3.0.0",
- "sled",
  "thiserror",
  "tokio",
  "tower",
@@ -526,9 +525,9 @@ checksum = "e496a50fda8aacccc86d7529e2c1e0892dbd0f898a6b5645b5561b89c3210efa"
 
 [[package]]
 name = "cpufeatures"
-version = "0.2.7"
+version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e4c1eaa2012c47becbbad2ab175484c2a84d1185b566fb2cc5b8707343dfe58"
+checksum = "03e69e28e9f7f77debdedbaafa2866e1de9ba56df55a8bd7cfc724c25a09987c"
 dependencies = [
  "libc",
 ]
@@ -821,20 +820,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "fs2"
-version = "0.4.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9564fc758e15025b46aa6643b1b77d047d1a56a1aea6e01002ac0c7026876213"
-dependencies = [
- "libc",
- "winapi",
-]
-
-[[package]]
 name = "funty"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e6d5a32815ae3f33302d95fdcb2ce17862f8c65363dcfd29360480ba1001fc9c"
+
+[[package]]
+name = "futures"
+version = "0.3.28"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23342abe12aba583913b2e62f22225ff9c950774065e4bfb61a19cd9770fec40"
+dependencies = [
+ "futures-channel",
+ "futures-core",
+ "futures-io",
+ "futures-sink",
+ "futures-task",
+ "futures-util",
+]
 
 [[package]]
 name = "futures-channel"
@@ -843,6 +846,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "955518d47e09b25bbebc7a18df10b81f0c766eaf4c4f1cccef2fca5f2a4fb5f2"
 dependencies = [
  "futures-core",
+ "futures-sink",
 ]
 
 [[package]]
@@ -915,20 +919,12 @@ dependencies = [
  "futures-core",
  "futures-io",
  "futures-macro",
+ "futures-sink",
  "futures-task",
  "memchr",
  "pin-project-lite",
  "pin-utils",
  "slab",
-]
-
-[[package]]
-name = "fxhash"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c31b6d751ae2c7f11320402d34e41349dd1016f8d5d45e48c4312bc8625af50c"
-dependencies = [
- "byteorder",
 ]
 
 [[package]]
@@ -1502,7 +1498,7 @@ dependencies = [
  "crossbeam-utils",
  "futures-util",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "rustc_version 0.4.0",
  "scheduled-thread-pool",
  "skeptic",
@@ -1678,37 +1674,12 @@ checksum = "14f2252c834a40ed9bb5422029649578e63aa341ac401f74e719dd1afda8394e"
 
 [[package]]
 name = "parking_lot"
-version = "0.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d17b78036a60663b797adeaee46f5c9dfebb86948d1255007a1d6be0271ff99"
-dependencies = [
- "instant",
- "lock_api",
- "parking_lot_core 0.8.6",
-]
-
-[[package]]
-name = "parking_lot"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3742b2c103b9f06bc9fff0a37ff4912935851bee6d36f3c02bcc755bcfec228f"
 dependencies = [
  "lock_api",
- "parking_lot_core 0.9.8",
-]
-
-[[package]]
-name = "parking_lot_core"
-version = "0.8.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60a2cfe6f0ad2bfc16aefa463b497d5c7a5ecd44a23efa72aa342d90177356dc"
-dependencies = [
- "cfg-if 1.0.0",
- "instant",
- "libc",
- "redox_syscall 0.2.16",
- "smallvec",
- "winapi",
+ "parking_lot_core",
 ]
 
 [[package]]
@@ -1719,7 +1690,7 @@ checksum = "93f00c865fe7cabf650081affecd3871070f26767e7b2070a3ffae14c654b447"
 dependencies = [
  "cfg-if 1.0.0",
  "libc",
- "redox_syscall 0.3.5",
+ "redox_syscall",
  "smallvec",
  "windows-targets",
 ]
@@ -1800,7 +1771,7 @@ dependencies = [
  "log",
  "nix 0.26.2",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "smallvec",
  "symbolic-demangle",
  "tempfile",
@@ -1856,29 +1827,6 @@ dependencies = [
  "libc",
  "nom",
  "rustc_version 0.2.3",
-]
-
-[[package]]
-name = "prost"
-version = "0.11.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b82eaa1d779e9a4bc1c3217db8ffbeabaae1dca241bf70183242128d48681cd"
-dependencies = [
- "bytes",
- "prost-derive",
-]
-
-[[package]]
-name = "prost-derive"
-version = "0.11.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5d2d8d10f3c6ded6da8b05b5fb3b8a5082514344d56c9f871412d29b4e075b4"
-dependencies = [
- "anyhow",
- "itertools",
- "proc-macro2",
- "quote",
- "syn 1.0.109",
 ]
 
 [[package]]
@@ -1941,15 +1889,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
  "getrandom",
-]
-
-[[package]]
-name = "redox_syscall"
-version = "0.2.16"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb5a58c1855b4b6819d59012155603f0b22ad30cad752600aadfcb695265519a"
-dependencies = [
- "bitflags",
 ]
 
 [[package]]
@@ -2175,7 +2114,7 @@ version = "0.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3cbc66816425a074528352f5789333ecff06ca41b36b0b0efdfbb29edc391a19"
 dependencies = [
- "parking_lot 0.12.1",
+ "parking_lot",
 ]
 
 [[package]]
@@ -2220,13 +2159,13 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "sentry"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9e0bd2cbc3398be701a933e5b7357a4b6b1f94038d2054f118cba90b481a9fbe"
+checksum = "01b0ad16faa5d12372f914ed40d00bda21a6d1bdcc99264c5e5e1c9495cf3654"
 dependencies = [
  "httpdate",
  "reqwest",
- "rustls 0.20.8",
+ "rustls 0.21.2",
  "sentry-anyhow",
  "sentry-backtrace",
  "sentry-contexts",
@@ -2241,9 +2180,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-anyhow"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ca1d058e1d8b7e83cf9a38b7353114623f064ac7442766619147526f3f7018a"
+checksum = "8f3a571f02f9982af445af829c4837fe4857568a431bd2bed9f7cf88de4a6c44"
 dependencies = [
  "anyhow",
  "sentry-backtrace",
@@ -2252,9 +2191,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-backtrace"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9cf043f9bcb6c9ae084b7f10fb363a697c924badcbe7dac2dbeecea31271ed0c"
+checksum = "11f2ee8f147bb5f22ac59b5c35754a759b9a6f6722402e2a14750b2a63fc59bd"
 dependencies = [
  "backtrace",
  "once_cell",
@@ -2264,9 +2203,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-contexts"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "16bde19e361cff463253371dbabee51dab416c6f9285d6e62106539f96d12079"
+checksum = "dcd133362c745151eeba0ac61e3ba8350f034e9fe7509877d08059fe1d7720c6"
 dependencies = [
  "hostname",
  "libc",
@@ -2278,9 +2217,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-core"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe345c342f17e48b65451f424ce0848405b6b3a84fa0007ba444b84754bf760a"
+checksum = "7163491708804a74446642ff2c80b3acd668d4b9e9f497f85621f3d250fd012b"
 dependencies = [
  "build_id",
  "findshlibs",
@@ -2299,9 +2238,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-panic"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "063ac270f11157e435f8b133a007669a3e1a7920e23374485357a8692996188f"
+checksum = "c4dfe8371c9b2e126a8b64f6fefa54cef716ff2a50e63b5558a48b899265bccd"
 dependencies = [
  "sentry-backtrace",
  "sentry-core",
@@ -2309,9 +2248,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-tower"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e8f072d2c688f09d2cb55e8911aa0ae4562792d6027ea951f1f1a283b2299b22"
+checksum = "01c59d3325570b637cc844fef4e7cd9b3f997ffe4e5e83d5ccb85759c9df3bf2"
 dependencies = [
  "http",
  "pin-project",
@@ -2323,9 +2262,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-tracing"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc167b6746500ea4bb86c2c13afe7ca6f75f2ed1bcfd84243e870780b8ced529"
+checksum = "5aca8b88978677a27ee1a91beafe4052306c474c06f582321fde72d2e2cc2f7f"
 dependencies = [
  "sentry-backtrace",
  "sentry-core",
@@ -2335,9 +2274,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-types"
-version = "0.31.4"
+version = "0.31.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "62d10a5962144f5fb65bb1290551623e6b976f442cb2fcb4e1dfe9fe6f8e8df4"
+checksum = "9e7a88e0c1922d19b3efee12a8215f6a8a806e442e665ada71cc222cab72985f"
 dependencies = [
  "debugid",
  "getrandom",
@@ -2381,9 +2320,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.96"
+version = "1.0.97"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "057d394a50403bcac12672b2b18fb387ab6d289d957dab67dd201875391e52f1"
+checksum = "bdf3bf93142acad5821c99197022e170842cdbc1c30482b98750c688c640842a"
 dependencies = [
  "indexmap",
  "itoa",
@@ -2477,9 +2416,9 @@ dependencies = [
 
 [[package]]
 name = "sha2"
-version = "0.10.6"
+version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "82e6b795fe2e3b1e845bafcb27aa35405c4d47cdfc92af5fc8d3002f76cebdc0"
+checksum = "479fb9d862239e610720565ca91403019f2f00410f1864c5aa7479b950a76ed8"
 dependencies = [
  "cfg-if 1.0.0",
  "cpufeatures",
@@ -2526,22 +2465,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6528351c9bc8ab22353f9d776db39a20288e8d6c37ef8cfe3317cf875eecfc2d"
 dependencies = [
  "autocfg",
-]
-
-[[package]]
-name = "sled"
-version = "0.34.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f96b4737c2ce5987354855aed3797279def4ebf734436c6aa4552cf8e169935"
-dependencies = [
- "crc32fast",
- "crossbeam-epoch",
- "crossbeam-utils",
- "fs2",
- "fxhash",
- "libc",
- "log",
- "parking_lot 0.11.2",
 ]
 
 [[package]]
@@ -2697,7 +2620,7 @@ dependencies = [
  "autocfg",
  "cfg-if 1.0.0",
  "fastrand 1.9.0",
- "redox_syscall 0.3.5",
+ "redox_syscall",
  "rustix",
  "windows-sys",
 ]
@@ -3001,7 +2924,7 @@ dependencies = [
  "lazy_static",
  "log",
  "lru-cache",
- "parking_lot 0.12.1",
+ "parking_lot",
  "resolv-conf",
  "smallvec",
  "thiserror",

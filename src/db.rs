@@ -2,8 +2,7 @@ pub mod sessions;
 pub mod tankopedia;
 pub mod votes;
 
-use mongodb::{Collection, Database};
-use sled::Tree;
+use mongodb::Database;
 
 use crate::{
     db::{sessions::Sessions, tankopedia::Tankopedia, votes::Votes},
@@ -11,54 +10,32 @@ use crate::{
 };
 
 /// Convenience wrapper around the database.
-#[derive(Clone)]
-pub struct Db {
-    legacy_db: sled::Db,
-    db: Database,
-}
+#[derive(Clone, derive_more::From)]
+pub struct Db(Database);
 
 impl Db {
-    pub const fn new(legacy_db: sled::Db, db: Database) -> Self {
-        Self { legacy_db, db }
-    }
-
     #[cfg(test)]
     pub async fn open_unittests() -> Result<Self> {
         use mongodb::{options::ClientOptions, Client};
-
-        let legacy_db = sled::Config::default()
-            .temporary(true)
-            .open()
-            .context("failed to open a temporary database")?;
         let db = Client::with_options(ClientOptions::default())?.database("unittests");
         db.drop(None)
             .await
             .context("failed to drop the database from the previous run")?;
-        Ok(Self::new(legacy_db, db))
+        Ok(db.into())
     }
 
     #[inline]
     pub async fn session_manager(&self) -> Result<Sessions> {
-        Sessions::new(self.db.collection("sessions")).await
+        Sessions::new(self.0.collection("sessions")).await
     }
 
     #[inline]
     pub async fn tankopedia_manager(&self) -> Result<Tankopedia> {
-        self.open_manager("tankopedia")
+        Tankopedia::new(self.0.collection("tankopedia")).await
     }
 
     #[inline]
     pub async fn vote_manager(&self) -> Result<Votes> {
-        Votes::new(self.legacy_db.open_tree("ratings")?, self.db.collection("votes")).await
-    }
-
-    #[inline]
-    pub fn open_manager<D, T: From<(Tree, Collection<D>)>>(&self, name: &str) -> Result<T> {
-        let tree = self
-            .legacy_db
-            .open_tree(name)
-            .with_context(|| format!("failed to open tree `{name}`"))?;
-        let collection = self.db.collection(name);
-        Ok(T::from((tree, collection)))
+        Votes::new(self.0.collection("votes")).await
     }
 }

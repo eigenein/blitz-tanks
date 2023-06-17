@@ -1,32 +1,34 @@
-use prost::Message;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
+use url::Url;
+
+use crate::prelude::*;
 
 /// Vehicle description from the [tankopedia][1].
 ///
-/// This model is used to parse the API response and to store it in Sled.
-///
 /// [1]: https://developers.wargaming.net/reference/all/wotb/encyclopedia/vehicles/
-#[derive(Deserialize, Message)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Vehicle {
-    /// # Notes
-    ///
-    /// Here I had to use [`u32`] because of [`prost`].
-    #[prost(uint32, tag = "1", required)]
-    pub tank_id: u32,
-
-    #[prost(string, tag = "2", required)]
+    pub tank_id: i32,
     pub name: String,
-
-    #[prost(message, tag = "3", required)]
     pub images: VehicleImages,
-
-    #[prost(bool, tag = "4", required)]
     pub is_premium: bool,
 }
 
-#[derive(Deserialize, Message)]
+#[derive(Deserialize, Serialize, Default, Debug)]
 pub struct VehicleImages {
-    #[prost(string, tag = "1", optional)]
     #[serde(rename = "normal")]
     pub normal_url: Option<String>,
+}
+
+impl VehicleImages {
+    /// Wargaming is too lazy to update the URLs to use HTTPS.
+    pub(crate) fn fix_scheme(&mut self) -> Result<&mut Self> {
+        if let Some(url) = &self.normal_url {
+            let mut url = Url::parse(url)?;
+            url.set_scheme("https")
+                .map_err(|_| anyhow!("failed to update the URL scheme"))?;
+            self.normal_url = Some(url.to_string());
+        }
+        Ok(self)
+    }
 }
