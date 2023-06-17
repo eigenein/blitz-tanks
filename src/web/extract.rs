@@ -31,10 +31,15 @@ impl FromRequestParts<AppState> for Either<User, Anonymous> {
         let cookie: Option<TypedHeader<headers::Cookie>> = parts.extract().await?;
         let Some(cookie) = cookie else { return Ok(Either::Right(Anonymous)) };
         let Some(session_id) = cookie.get(User::SESSION_COOKIE_NAME) else { return Ok(Either::Right(Anonymous)) };
+
         debug!(session_id, "🔑 Authenticating…");
-        let session_id = Uuid::from_str(session_id)
-            .context("malformed session ID")
-            .map_err(WebError::BadRequest)?;
+        let session_id = match Uuid::from_str(session_id) {
+            Ok(session_id) => session_id,
+            Err(error) => {
+                warn!("❌ Malformed session ID: {:#}", error);
+                return Ok(Either::Right(Anonymous));
+            }
+        };
 
         sentry::configure_scope(|scope| scope.set_tag("user.session_id", session_id));
 
@@ -43,10 +48,7 @@ impl FromRequestParts<AppState> for Either<User, Anonymous> {
                 sentry::configure_scope(|scope| configure_user(scope, Some(&user)));
                 Ok(Either::Left(user))
             }
-            None => {
-                sentry::configure_scope(|scope| configure_user(scope, None));
-                Ok(Either::Right(Anonymous))
-            }
+            None => Ok(Either::Right(Anonymous)),
         }
     }
 }
