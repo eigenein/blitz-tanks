@@ -42,9 +42,9 @@ impl Wg {
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
     #[instrument(skip_all, fields(account_id = account_id))]
     pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>> {
-        if account_id == 0 {
-            // Fake account ID for testing.
-            return Ok(Vec::default());
+        if account_id == 0 || account_id == 1 {
+            // Fake account IDs for testing.
+            return Ok(vec![VehicleStats { tank_id: 1, last_battle_time: 0 }]);
         }
         let result = self
             .client
