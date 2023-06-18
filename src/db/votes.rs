@@ -12,26 +12,14 @@ pub struct Votes(Collection<Vote>);
 impl Votes {
     pub async fn new(collection: Collection<Vote>) -> Result<Self> {
         let options = IndexOptions::builder().unique(true).build();
-        {
-            let index = IndexModel::builder()
-                .keys(doc! { "account_id": 1, "tank_id": 1 })
-                .options(options.clone())
-                .build();
-            collection
-                .create_index(index, None)
-                .await
-                .context("failed to create the account-tank index on votes")?;
-        }
-        {
-            let index = IndexModel::builder()
-                .keys(doc! { "tank_id": 1, "account_id": 1 })
-                .options(options)
-                .build();
-            collection
-                .create_index(index, None)
-                .await
-                .context("failed to create the tank-account index on votes")?;
-        }
+        let index = IndexModel::builder()
+            .keys(doc! { "account_id": 1, "tank_id": 1 })
+            .options(options.clone())
+            .build();
+        collection
+            .create_index(index, None)
+            .await
+            .context("failed to create the account-tank index on votes")?;
         Ok(Self(collection))
     }
 
