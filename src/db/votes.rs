@@ -1,6 +1,6 @@
 use mongodb::{
     bson::{doc, to_document},
-    options::{IndexOptions, UpdateOptions},
+    options::{FindOptions, IndexOptions, UpdateOptions},
     Collection, Cursor, IndexModel,
 };
 
@@ -12,14 +12,26 @@ pub struct Votes(Collection<Vote>);
 impl Votes {
     pub async fn new(collection: Collection<Vote>) -> Result<Self> {
         let options = IndexOptions::builder().unique(true).build();
-        let index = IndexModel::builder()
-            .keys(doc! { "account_id": 1, "tank_id": 1 })
-            .options(options)
-            .build();
-        collection
-            .create_index(index, None)
-            .await
-            .context("failed to create index on votes")?;
+        {
+            let index = IndexModel::builder()
+                .keys(doc! { "account_id": 1, "tank_id": 1 })
+                .options(options.clone())
+                .build();
+            collection
+                .create_index(index, None)
+                .await
+                .context("failed to create the account-tank index on votes")?;
+        }
+        {
+            let index = IndexModel::builder()
+                .keys(doc! { "tank_id": 1, "account_id": 1 })
+                .options(options)
+                .build();
+            collection
+                .create_index(index, None)
+                .await
+                .context("failed to create the tank-account index on votes")?;
+        }
         Ok(Self(collection))
     }
 
@@ -47,11 +59,20 @@ impl Votes {
 
     /// Retrieve all votes of the user.
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get_all_by_account_id(&self, account_id: u32) -> Result<Cursor<Vote>> {
+    pub async fn iter_by_account_id(&self, account_id: u32) -> Result<Cursor<Vote>> {
         self.0
             .find(doc! { "account_id": account_id }, None)
             .await
             .with_context(|| format!("failed to query #{account_id}'s votes"))
+    }
+
+    #[instrument(skip_all, fields(tank_id = tank_id))]
+    pub async fn iter_by_tank_id(&self, tank_id: i32) -> Result<Cursor<Vote>> {
+        let options = FindOptions::builder().sort(doc! { "account_id": 1 }).build();
+        self.0
+            .find(doc! { "tank_id": tank_id }, options)
+            .await
+            .with_context(|| format!("failed to query votes for vehicle #{tank_id}"))
     }
 
     /// Iterate over **all** the votes.
@@ -70,30 +91,27 @@ mod tests {
 
     #[tokio::test]
     async fn get_all_by_account_id_ok() -> Result {
-        let manager = Db::open_unittests().await?.vote_manager().await?;
+        let manager = Db::open_unittests().await?.votes().await?;
         let mut vote = Vote::new(1, 42, Rating::Like);
         vote.timestamp = vote.timestamp.duration_round(Duration::seconds(1))?;
         manager.insert(&vote).await?;
 
-        assert_eq!(manager.get_all_by_account_id(0).await?.try_collect::<Vec<Vote>>().await?, []);
-        assert_eq!(
-            manager.get_all_by_account_id(1).await?.try_collect::<Vec<Vote>>().await?,
-            [vote]
-        );
-        assert_eq!(manager.get_all_by_account_id(2).await?.try_collect::<Vec<Vote>>().await?, []);
+        assert_eq!(manager.iter_by_account_id(0).await?.try_collect::<Vec<Vote>>().await?, []);
+        assert_eq!(manager.iter_by_account_id(1).await?.try_collect::<Vec<Vote>>().await?, [vote]);
+        assert_eq!(manager.iter_by_account_id(2).await?.try_collect::<Vec<Vote>>().await?, []);
 
         Ok(())
     }
 
     #[tokio::test]
     async fn delete_vote_ok() -> Result {
-        let manager = Db::open_unittests().await?.vote_manager().await?;
+        let manager = Db::open_unittests().await?.votes().await?;
         let vote = Vote::new(1, 42, Rating::Like);
         manager.insert(&vote).await?;
         manager.delete(1, 42).await?;
         assert!(
             manager
-                .get_all_by_account_id(1)
+                .iter_by_account_id(1)
                 .await?
                 .try_collect::<Vec<Vote>>()
                 .await?

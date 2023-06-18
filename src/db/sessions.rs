@@ -74,15 +74,14 @@ mod tests {
 
     #[tokio::test]
     async fn unknown_session_ok() -> Result {
-        let session =
-            Db::open_unittests().await?.session_manager().await?.get(Uuid::new_v4()).await?;
+        let session = Db::open_unittests().await?.sessions().await?.get(Uuid::new_v4()).await?;
         assert!(session.is_none());
         Ok(())
     }
 
     #[tokio::test]
     async fn known_session_ok() -> Result {
-        let manager = Db::open_unittests().await?.session_manager().await?;
+        let manager = Db::open_unittests().await?.sessions().await?;
         let session_id = manager.insert_test_session().await?;
         let user = manager.get(session_id).await?;
         assert!(user.is_some());
@@ -91,7 +90,7 @@ mod tests {
 
     #[tokio::test]
     async fn expired_session_ok() -> Result {
-        let manager = Db::open_unittests().await?.session_manager().await?;
+        let manager = Db::open_unittests().await?.sessions().await?;
         let session_id = Uuid::new_v4();
         manager
             .insert(&User {

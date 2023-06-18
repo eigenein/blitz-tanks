@@ -28,7 +28,7 @@ impl AppState {
         wee_gee: Wg,
         public_address: &str,
     ) -> Result<Self> {
-        let tankopedia = Arc::new(db.tankopedia_manager().await?.load().await?);
+        let tankopedia = Arc::new(db.tankopedia().await?.load().await?);
         if tankopedia.is_empty() {
             warn!("⚠️ Tankopedia database is empty, please re-run with `--update-tankopedia`");
         }
@@ -42,8 +42,8 @@ impl AppState {
             tankopedia,
             vehicle_stats_getter: VehicleStatsGetter::from(wee_gee),
 
-            session_manager: db.session_manager().await?,
-            vote_manager: db.vote_manager().await?,
+            session_manager: db.sessions().await?,
+            vote_manager: db.votes().await?,
         })
     }
 

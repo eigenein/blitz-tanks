@@ -26,7 +26,7 @@ pub async fn get(
     let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
     let votes: HashMap<i32, Rating> = state
         .vote_manager
-        .get_all_by_account_id(user.account_id)
+        .iter_by_account_id(user.account_id)
         .await?
         .map_ok(|vote| (vote.tank_id, vote.rating))
         .map_err(|error| WebError::InternalServerError(anyhow!(error)))

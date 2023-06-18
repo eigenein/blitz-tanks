@@ -15,7 +15,7 @@ cookie = "0.17.0"
 derive_more = { version = "0.99.17", default-features = false, features = ["from"] }
 either = "1.8.1"
 fastrand = "2.0.0"
-futures = { version = "0.3.28", default-features = false }
+futures = { version = "0.3.28", default-features = false, features = ["std"] }
 indexmap = "1.9.3"
 itertools = "0.10.5"
 maud = { version = "0.25.0", features = ["axum"] }

@@ -25,17 +25,17 @@ impl Db {
     }
 
     #[inline]
-    pub async fn session_manager(&self) -> Result<Sessions> {
+    pub async fn sessions(&self) -> Result<Sessions> {
         Sessions::new(self.0.collection("sessions")).await
     }
 
     #[inline]
-    pub async fn tankopedia_manager(&self) -> Result<Tankopedia> {
+    pub async fn tankopedia(&self) -> Result<Tankopedia> {
         Tankopedia::new(self.0.collection("tankopedia")).await
     }
 
     #[inline]
-    pub async fn vote_manager(&self) -> Result<Votes> {
+    pub async fn votes(&self) -> Result<Votes> {
         Votes::new(self.0.collection("votes")).await
     }
 }

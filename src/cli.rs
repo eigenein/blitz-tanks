@@ -31,6 +31,8 @@ pub enum Command {
 
     /// Pick an account for a giveaway.
     Giveaway(GiveawayArgs),
+
+    Train(TrainerArgs),
 }
 
 #[derive(Args)]
@@ -117,7 +119,7 @@ pub struct GiveawayArgs {
 }
 
 #[derive(Args)]
-pub struct MigrateVotesArgs {
+pub struct TrainerArgs {
     #[clap(flatten)]
     pub db: DbArgs,
 }
