@@ -1,9 +1,15 @@
 use std::{collections::HashMap, ops::AddAssign};
 
-use futures::{stream, StreamExt, TryStreamExt};
+use futures::{stream, StreamExt, TryFutureExt, TryStreamExt};
+use indicatif::ProgressIterator;
 use itertools::Itertools;
 
-use crate::{db::votes::Votes, prelude::*, trainer::merge_join_by::merge_join_by};
+use crate::{
+    db::votes::Votes,
+    models::vote::Vote,
+    prelude::*,
+    trainer::merge_join_by::{merge_join_by, Merge},
+};
 
 #[derive(Default)]
 pub struct FitParams {
@@ -26,6 +32,8 @@ impl ModelFitter {
 
     pub async fn fit(&self) -> Result<Model> {
         let biases = self.calculate_biases().await?;
+        let similarities = self.calculate_similarities(&biases).await?;
+        info!(?similarities);
         unimplemented!()
     }
 
@@ -57,14 +65,24 @@ impl ModelFitter {
         &self,
         biases: &[VehicleBias],
     ) -> Result<HashMap<(i32, i32), f64>> {
+        info!("⏳ Calculating similarities…");
         let vehicle_pairs = biases
             .iter()
+            .progress()
             .cartesian_product(biases.iter())
             .filter(|(vehicle_i, vehicle_j)| vehicle_i.tank_id < vehicle_j.tank_id);
         stream::iter(vehicle_pairs)
-            .then(|(vehicle_i, vehicle_j)| async {
-                let similarity = self.calculate_similarity(vehicle_i, vehicle_j).await?;
-                Ok::<_, Error>(((vehicle_i.tank_id, vehicle_j.tank_id), similarity))
+            .map(Ok)
+            .try_filter_map(|(vehicle_i, vehicle_j)| async {
+                match self.calculate_similarity(vehicle_i, vehicle_j).await? {
+                    Some(similarity) => {
+                        Ok::<_, Error>(Some(((vehicle_i.tank_id, vehicle_j.tank_id), similarity)))
+                    }
+                    None => Ok(None),
+                }
+            })
+            .inspect_ok(|((tank_id_i, tank_id_j), similarity)| {
+                info!(tank_id_i, tank_id_j, similarity);
             })
             .try_collect()
             .await
@@ -75,18 +93,46 @@ impl ModelFitter {
         &self,
         vehicle_i: &VehicleBias,
         vehicle_j: &VehicleBias,
-    ) -> Result<f64> {
-        let mut numerator = 0.0;
-        let mut denominator_i = 0.0_f64;
-        let mut denominator_j = 0.0_f64;
-
-        merge_join_by(
+    ) -> Result<Option<f64>> {
+        let (numerator, denominator_i, denominator_j) = merge_join_by(
             self.votes.iter_by_tank_id(vehicle_i.tank_id).await?,
             self.votes.iter_by_tank_id(vehicle_j.tank_id).await?,
             |vote| vote.account_id,
-        );
+        )
+        .try_fold(
+            (0.0, 0.0, 0.0),
+            |(mut numerator, mut denominator_i, mut denominator_j), merge: Merge<Vote>| async move {
+                match merge {
+                    Merge::Left(vote_i) => {
+                        if !self.params.disable_damping {
+                            denominator_i +=
+                                (f64::from(vote_i.rating) - vehicle_i.mean_rating).powi(2);
+                        }
+                    }
+                    Merge::Right(vote_j) => {
+                        if !self.params.disable_damping {
+                            denominator_j +=
+                                (f64::from(vote_j.rating) - vehicle_j.mean_rating).powi(2);
+                        }
+                    }
+                    Merge::Both(vote_i, vote_j) => {
+                        let diff_i = f64::from(vote_i.rating) - vehicle_i.mean_rating;
+                        let diff_j = f64::from(vote_j.rating) - vehicle_j.mean_rating;
+                        numerator += diff_i * diff_j;
+                        denominator_i += diff_i.powi(2);
+                        denominator_j += diff_j.powi(2);
+                    }
+                }
+                Ok((numerator, denominator_i, denominator_j))
+            },
+        )
+        .await?;
 
-        Ok(numerator / denominator_i.sqrt() / denominator_j.sqrt())
+        if denominator_i != 0.0 && denominator_j != 0.0 {
+            Ok(Some(numerator / denominator_i.sqrt() / denominator_j.sqrt()))
+        } else {
+            Ok(None)
+        }
     }
 }
 
