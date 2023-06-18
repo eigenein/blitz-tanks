@@ -1,4 +1,5 @@
 mod item_item;
+mod merge_join_by;
 
 use crate::{
     cli::TrainerArgs,

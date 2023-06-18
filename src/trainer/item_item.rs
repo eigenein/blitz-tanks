@@ -1,8 +1,9 @@
 use std::{collections::HashMap, ops::AddAssign};
 
-use futures::TryStreamExt;
+use futures::{stream, StreamExt, TryStreamExt};
+use itertools::Itertools;
 
-use crate::{db::votes::Votes, models::rating::Rating, prelude::*};
+use crate::{db::votes::Votes, prelude::*};
 
 #[derive(Default)]
 pub struct FitParams {
@@ -37,7 +38,7 @@ impl ModelFitter {
             .try_fold(
                 HashMap::<i32, RatingAccumulator>::new(),
                 |mut accumulators, vote| async move {
-                    *accumulators.entry(vote.tank_id).or_default() += vote.rating;
+                    *accumulators.entry(vote.tank_id).or_default() += f64::from(vote.rating);
                     Ok(accumulators)
                 },
             )
@@ -52,12 +53,37 @@ impl ModelFitter {
         Ok(biases)
     }
 
+    async fn calculate_similarities(
+        &self,
+        biases: &[VehicleBias],
+    ) -> Result<HashMap<(i32, i32), f64>> {
+        let vehicle_pairs = biases
+            .iter()
+            .cartesian_product(biases.iter())
+            .filter(|(vehicle_i, vehicle_j)| vehicle_i.tank_id < vehicle_j.tank_id);
+        stream::iter(vehicle_pairs)
+            .then(|(vehicle_i, vehicle_j)| async {
+                let similarity = self.calculate_similarity(vehicle_i, vehicle_j).await?;
+                Ok::<_, Error>(((vehicle_i.tank_id, vehicle_j.tank_id), similarity))
+            })
+            .try_collect()
+            .await
+            .context("failed to calculate similarities")
+    }
+
     async fn calculate_similarity(
         &self,
-        vehicle_i: VehicleBias,
-        vehicle_j: VehicleBias,
+        vehicle_i: &VehicleBias,
+        vehicle_j: &VehicleBias,
     ) -> Result<f64> {
-        unimplemented!()
+        let mut votes_i = self.votes.iter_by_tank_id(vehicle_i.tank_id).await?;
+        let mut votes_j = self.votes.iter_by_tank_id(vehicle_j.tank_id).await?;
+
+        let mut numerator = 0.0;
+        let mut denominator_i = 0.0_f64;
+        let mut denominator_j = 0.0_f64;
+
+        Ok(numerator / denominator_i.sqrt() / denominator_j.sqrt())
     }
 }
 
@@ -80,17 +106,6 @@ impl AddAssign<f64> for RatingAccumulator {
     fn add_assign(&mut self, rating: f64) {
         self.sum += rating;
         self.n += 1;
-    }
-}
-
-impl AddAssign<Rating> for RatingAccumulator {
-    /// Accumulate the rating.
-    #[inline]
-    fn add_assign(&mut self, rating: Rating) {
-        *self += match rating {
-            Rating::Like => 1.0,
-            Rating::Dislike => 0.0,
-        };
     }
 }
 
