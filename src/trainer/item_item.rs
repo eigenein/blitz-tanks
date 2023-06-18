@@ -1,15 +1,9 @@
 use std::{collections::HashMap, ops::AddAssign};
 
-use futures::{stream, StreamExt, TryFutureExt, TryStreamExt};
 use indicatif::ProgressIterator;
-use itertools::Itertools;
+use itertools::{merge_join_by, EitherOrBoth, Itertools};
 
-use crate::{
-    db::votes::Votes,
-    models::vote::Vote,
-    prelude::*,
-    trainer::merge_join_by::{merge_join_by, Merge},
-};
+use crate::{models::vote::Vote, prelude::*};
 
 #[derive(Default)]
 pub struct FitParams {
@@ -20,37 +14,31 @@ pub struct PredictParams {
     pub n_neighbors: u32,
 }
 
-pub struct ModelFitter {
-    votes: Votes,
+pub struct ModelFitter<'a> {
+    votes: &'a [Vote],
     params: FitParams,
 }
 
-impl ModelFitter {
-    pub const fn new(votes: Votes, params: FitParams) -> Self {
+impl<'a> ModelFitter<'a> {
+    pub const fn new(votes: &'a [Vote], params: FitParams) -> Self {
         Self { votes, params }
     }
 
-    pub async fn fit(&self) -> Result<Model> {
-        let biases = self.calculate_biases().await?;
-        let similarities = self.calculate_similarities(&biases).await?;
-        info!(?similarities);
+    pub fn fit(&self) -> Model {
+        let biases = self.calculate_biases();
+        let similarities = self.calculate_similarities(&biases);
         unimplemented!()
     }
 
-    async fn calculate_biases(&self) -> Result<Box<[VehicleBias]>> {
+    fn calculate_biases(&self) -> Box<[VehicleBias]> {
         info!("⏳ Collecting averages…");
         let biases: Box<[VehicleBias]> = self
             .votes
-            .iter_all()
-            .await?
-            .try_fold(
-                HashMap::<i32, RatingAccumulator>::new(),
-                |mut accumulators, vote| async move {
-                    *accumulators.entry(vote.tank_id).or_default() += f64::from(vote.rating);
-                    Ok(accumulators)
-                },
-            )
-            .await?
+            .iter()
+            .fold(HashMap::<i32, RatingAccumulator>::new(), |mut accumulators, vote| {
+                *accumulators.entry(vote.tank_id).or_default() += f64::from(vote.rating);
+                accumulators
+            })
             .into_iter()
             .map(|(tank_id, accumulator)| {
                 let mean_rating = accumulator.into();
@@ -58,64 +46,55 @@ impl ModelFitter {
             })
             .collect();
         info!(n_vehicles = biases.len(), "✅ Gotcha!");
-        Ok(biases)
+        biases
     }
 
-    async fn calculate_similarities(
-        &self,
-        biases: &[VehicleBias],
-    ) -> Result<HashMap<(i32, i32), f64>> {
+    fn calculate_similarities(&self, biases: &[VehicleBias]) -> HashMap<(i32, i32), f64> {
         info!("⏳ Calculating similarities…");
-        let vehicle_pairs = biases
+        biases
             .iter()
             .progress()
             .cartesian_product(biases.iter())
-            .filter(|(vehicle_i, vehicle_j)| vehicle_i.tank_id < vehicle_j.tank_id);
-        stream::iter(vehicle_pairs)
-            .map(Ok)
-            .try_filter_map(|(vehicle_i, vehicle_j)| async {
-                match self.calculate_similarity(vehicle_i, vehicle_j).await? {
-                    Some(similarity) => {
-                        Ok::<_, Error>(Some(((vehicle_i.tank_id, vehicle_j.tank_id), similarity)))
-                    }
-                    None => Ok(None),
-                }
+            .filter(|(vehicle_i, vehicle_j)| vehicle_i.tank_id < vehicle_j.tank_id)
+            .filter_map(|(vehicle_i, vehicle_j)| {
+                self.calculate_similarity(vehicle_i, vehicle_j).map(|similarity| {
+                    [
+                        ((vehicle_i.tank_id, vehicle_j.tank_id), similarity),
+                        ((vehicle_j.tank_id, vehicle_i.tank_id), similarity),
+                    ]
+                })
             })
-            .inspect_ok(|((tank_id_i, tank_id_j), similarity)| {
-                info!(tank_id_i, tank_id_j, similarity);
-            })
-            .try_collect()
-            .await
-            .context("failed to calculate similarities")
+            .flatten()
+            .collect()
     }
 
-    async fn calculate_similarity(
+    fn calculate_similarity(
         &self,
         vehicle_i: &VehicleBias,
         vehicle_j: &VehicleBias,
-    ) -> Result<Option<f64>> {
+    ) -> Option<f64> {
         let (numerator, denominator_i, denominator_j) = merge_join_by(
-            self.votes.iter_by_tank_id(vehicle_i.tank_id).await?,
-            self.votes.iter_by_tank_id(vehicle_j.tank_id).await?,
-            |vote| vote.account_id,
+            self.votes.iter().filter(|vote| vote.tank_id == vehicle_i.tank_id),
+            self.votes.iter().filter(|vote| vote.tank_id == vehicle_j.tank_id),
+            |i, j| i.account_id.cmp(&j.account_id),
         )
-        .try_fold(
+        .fold(
             (0.0, 0.0, 0.0),
-            |(mut numerator, mut denominator_i, mut denominator_j), merge: Merge<Vote>| async move {
-                match merge {
-                    Merge::Left(vote_i) => {
+            |(mut numerator, mut denominator_i, mut denominator_j), either| {
+                match either {
+                    EitherOrBoth::Left(vote_i) => {
                         if !self.params.disable_damping {
                             denominator_i +=
                                 (f64::from(vote_i.rating) - vehicle_i.mean_rating).powi(2);
                         }
                     }
-                    Merge::Right(vote_j) => {
+                    EitherOrBoth::Right(vote_j) => {
                         if !self.params.disable_damping {
                             denominator_j +=
                                 (f64::from(vote_j.rating) - vehicle_j.mean_rating).powi(2);
                         }
                     }
-                    Merge::Both(vote_i, vote_j) => {
+                    EitherOrBoth::Both(vote_i, vote_j) => {
                         let diff_i = f64::from(vote_i.rating) - vehicle_i.mean_rating;
                         let diff_j = f64::from(vote_j.rating) - vehicle_j.mean_rating;
                         numerator += diff_i * diff_j;
@@ -123,15 +102,14 @@ impl ModelFitter {
                         denominator_j += diff_j.powi(2);
                     }
                 }
-                Ok((numerator, denominator_i, denominator_j))
+                (numerator, denominator_i, denominator_j)
             },
-        )
-        .await?;
+        );
 
         if denominator_i != 0.0 && denominator_j != 0.0 {
-            Ok(Some(numerator / denominator_i.sqrt() / denominator_j.sqrt()))
+            Some(numerator / denominator_i.sqrt() / denominator_j.sqrt())
         } else {
-            Ok(None)
+            None
         }
     }
 }

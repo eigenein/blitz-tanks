@@ -1,6 +1,6 @@
 use mongodb::{
     bson::{doc, to_document},
-    options::{FindOptions, IndexOptions, UpdateOptions},
+    options::{IndexOptions, UpdateOptions},
     Collection, Cursor, IndexModel,
 };
 
@@ -64,15 +64,6 @@ impl Votes {
             .find(doc! { "account_id": account_id }, None)
             .await
             .with_context(|| format!("failed to query #{account_id}'s votes"))
-    }
-
-    #[instrument(skip_all, fields(tank_id = tank_id))]
-    pub async fn iter_by_tank_id(&self, tank_id: i32) -> Result<Cursor<Vote>> {
-        let options = FindOptions::builder().sort(doc! { "account_id": 1 }).build();
-        self.0
-            .find(doc! { "tank_id": tank_id }, options)
-            .await
-            .with_context(|| format!("failed to query votes for vehicle #{tank_id}"))
     }
 
     /// Iterate over **all** the votes.
