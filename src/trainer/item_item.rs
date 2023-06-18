@@ -3,7 +3,7 @@ use std::{collections::HashMap, ops::AddAssign};
 use futures::{stream, StreamExt, TryStreamExt};
 use itertools::Itertools;
 
-use crate::{db::votes::Votes, prelude::*};
+use crate::{db::votes::Votes, prelude::*, trainer::merge_join_by::merge_join_by};
 
 #[derive(Default)]
 pub struct FitParams {
@@ -76,12 +76,15 @@ impl ModelFitter {
         vehicle_i: &VehicleBias,
         vehicle_j: &VehicleBias,
     ) -> Result<f64> {
-        let mut votes_i = self.votes.iter_by_tank_id(vehicle_i.tank_id).await?;
-        let mut votes_j = self.votes.iter_by_tank_id(vehicle_j.tank_id).await?;
-
         let mut numerator = 0.0;
         let mut denominator_i = 0.0_f64;
         let mut denominator_j = 0.0_f64;
+
+        merge_join_by(
+            self.votes.iter_by_tank_id(vehicle_i.tank_id).await?,
+            self.votes.iter_by_tank_id(vehicle_j.tank_id).await?,
+            |vote| vote.account_id,
+        );
 
         Ok(numerator / denominator_i.sqrt() / denominator_j.sqrt())
     }
