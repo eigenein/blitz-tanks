@@ -1,6 +1,6 @@
 use mongodb::{
     bson::{doc, to_document},
-    options::{IndexOptions, UpdateOptions},
+    options::{FindOptions, IndexOptions, UpdateOptions},
     Collection, Cursor, IndexModel,
 };
 
@@ -56,7 +56,8 @@ impl Votes {
 
     /// Iterate over **all** the votes.
     pub async fn iter_all(&self) -> Result<Cursor<Vote>> {
-        self.0.find(None, None).await.context("failed to query all votes")
+        let options = FindOptions::builder().sort(doc! { "account_id": 1, "tank_id": 1 }).build();
+        self.0.find(None, options).await.context("failed to query all votes")
     }
 }
 
