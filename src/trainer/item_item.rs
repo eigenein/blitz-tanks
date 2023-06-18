@@ -27,7 +27,7 @@ impl<'a> ModelFitter<'a> {
     pub fn fit(&self) -> Model {
         let biases = self.calculate_biases();
         let similarities = self.calculate_similarities(&biases);
-        unimplemented!()
+        Model { similarities }
     }
 
     fn calculate_biases(&self) -> Box<[VehicleBias]> {
@@ -51,7 +51,7 @@ impl<'a> ModelFitter<'a> {
 
     fn calculate_similarities(&self, biases: &[VehicleBias]) -> HashMap<(i32, i32), f64> {
         info!("⏳ Calculating similarities…");
-        biases
+        let entries: HashMap<_, _> = biases
             .iter()
             .progress()
             .cartesian_product(biases.iter())
@@ -65,7 +65,10 @@ impl<'a> ModelFitter<'a> {
                 })
             })
             .flatten()
-            .collect()
+            .collect();
+
+        info!(n_entries = entries.len(), "✅ Gotcha!");
+        entries
     }
 
     fn calculate_similarity(
@@ -114,9 +117,10 @@ impl<'a> ModelFitter<'a> {
     }
 }
 
-pub struct Model {}
-
-impl Model {}
+pub struct Model {
+    similarities: HashMap<(i32, i32), f64>,
+    // TODO: `biases`.
+}
 
 /// Sum of ratings and number of them.
 ///
