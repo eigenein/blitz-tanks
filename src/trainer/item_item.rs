@@ -1,4 +1,4 @@
-use std::{collections::HashMap, ops::AddAssign};
+use std::collections::HashMap;
 
 use indicatif::ProgressIterator;
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
@@ -32,12 +32,12 @@ impl Model {
         let biases: Box<[VehicleBias]> = votes
             .iter()
             .fold(HashMap::<i32, RatingAccumulator>::new(), |mut accumulators, vote| {
-                *accumulators.entry(vote.tank_id).or_default() += f64::from(vote.rating);
+                accumulators.entry(vote.tank_id).or_default().add_rating(f64::from(vote.rating));
                 accumulators
             })
             .into_iter()
             .map(|(tank_id, accumulator)| {
-                let mean_rating = accumulator.into();
+                let mean_rating = accumulator.into_mean();
                 VehicleBias { tank_id, mean_rating }
             })
             .collect();
@@ -129,19 +129,17 @@ struct RatingAccumulator {
     n: u32,
 }
 
-impl AddAssign<f64> for RatingAccumulator {
-    /// Accumulate the rating.
+impl RatingAccumulator {
+    #[must_use]
     #[inline]
-    fn add_assign(&mut self, rating: f64) {
+    fn into_mean(self) -> f64 {
+        self.sum / self.n as f64
+    }
+
+    #[inline]
+    fn add_rating(&mut self, rating: f64) {
         self.sum += rating;
         self.n += 1;
-    }
-}
-
-impl From<RatingAccumulator> for f64 {
-    #[inline]
-    fn from(sum: RatingAccumulator) -> Self {
-        sum.sum / sum.n as f64
     }
 }
 
