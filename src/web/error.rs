@@ -26,8 +26,8 @@ pub enum WebError {
     #[error("forbidden")]
     Forbidden,
 
-    #[error("service unavailable: #{code} {message}")]
-    ServiceUnavailable { code: u16, message: String },
+    #[error("service unavailable")]
+    ServiceUnavailable(#[source] Error),
 }
 
 impl From<Infallible> for WebError {
@@ -44,22 +44,23 @@ impl From<PathRejection> for WebError {
 
 impl IntoResponse for WebError {
     fn into_response(self) -> Response {
+        capture_error(&self);
+
         let status_code = match &self {
             Self::BadRequest(error) => {
-                warn!("❌ bad request: {error:#}");
+                warn!("❌ Bad request: {error:#}");
                 StatusCode::BAD_REQUEST
             }
 
             Self::Forbidden => StatusCode::FORBIDDEN,
 
             Self::InternalServerError(error) => {
-                error!("💥 internal server error: {error:#}");
+                error!("💥 Internal server error: {error:#}");
                 StatusCode::INTERNAL_SERVER_ERROR
             }
 
-            Self::ServiceUnavailable { code, message } => {
-                error!("📴 service unavailable: #{code} {message}");
-                capture_error(&self);
+            Self::ServiceUnavailable(error) => {
+                error!("📴 Service unavailable: {error:#}");
                 StatusCode::SERVICE_UNAVAILABLE
             }
         };

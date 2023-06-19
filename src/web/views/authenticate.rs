@@ -61,7 +61,7 @@ impl From<AuthenticationResult> for Result<User, WebError> {
                 nickname,
             }),
             AuthenticationResult::Err { code, message } => {
-                Err(WebError::ServiceUnavailable { code, message })
+                Err(WebError::ServiceUnavailable(anyhow!("error #{code} {message}")))
             }
         }
     }

@@ -23,7 +23,11 @@ pub async fn get(
     ProfileOwner(user): ProfileOwner,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
-    let vehicles_stats = state.vehicle_stats_getter.get(user.account_id).await?;
+    let vehicles_stats = state
+        .vehicle_stats_getter
+        .get(user.account_id)
+        .await
+        .map_err(WebError::ServiceUnavailable)?;
     let votes: HashMap<i32, Rating> = state
         .vote_manager
         .iter_by_account_id(user.account_id)
