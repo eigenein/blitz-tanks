@@ -14,26 +14,22 @@ pub struct PredictParams {
     pub n_neighbors: u32,
 }
 
-pub struct ModelFitter<'a> {
-    votes: &'a [Vote],
-    params: FitParams,
+#[must_use]
+pub struct Model {
+    similarities: HashMap<(i32, i32), f64>,
+    // TODO: `biases`.
 }
 
-impl<'a> ModelFitter<'a> {
-    pub const fn new(votes: &'a [Vote], params: FitParams) -> Self {
-        Self { votes, params }
-    }
-
-    pub fn fit(&self) -> Model {
-        let biases = self.calculate_biases();
-        let similarities = self.calculate_similarities(&biases);
+impl Model {
+    pub fn fit(votes: &[Vote], params: &FitParams) -> Self {
+        let biases = Self::calculate_biases(votes);
+        let similarities = Self::calculate_similarities(votes, &biases, params.disable_damping);
         Model { similarities }
     }
 
-    fn calculate_biases(&self) -> Box<[VehicleBias]> {
+    fn calculate_biases(votes: &[Vote]) -> Box<[VehicleBias]> {
         info!("⏳ Collecting averages…");
-        let biases: Box<[VehicleBias]> = self
-            .votes
+        let biases: Box<[VehicleBias]> = votes
             .iter()
             .fold(HashMap::<i32, RatingAccumulator>::new(), |mut accumulators, vote| {
                 *accumulators.entry(vote.tank_id).or_default() += f64::from(vote.rating);
@@ -49,7 +45,11 @@ impl<'a> ModelFitter<'a> {
         biases
     }
 
-    fn calculate_similarities(&self, biases: &[VehicleBias]) -> HashMap<(i32, i32), f64> {
+    fn calculate_similarities(
+        votes: &[Vote],
+        biases: &[VehicleBias],
+        disable_damping: bool,
+    ) -> HashMap<(i32, i32), f64> {
         info!("⏳ Calculating similarities…");
         let entries: HashMap<_, _> = biases
             .iter()
@@ -57,12 +57,14 @@ impl<'a> ModelFitter<'a> {
             .cartesian_product(biases.iter())
             .filter(|(vehicle_i, vehicle_j)| vehicle_i.tank_id < vehicle_j.tank_id)
             .filter_map(|(vehicle_i, vehicle_j)| {
-                self.calculate_similarity(vehicle_i, vehicle_j).map(|similarity| {
-                    [
-                        ((vehicle_i.tank_id, vehicle_j.tank_id), similarity),
-                        ((vehicle_j.tank_id, vehicle_i.tank_id), similarity),
-                    ]
-                })
+                Self::calculate_similarity(votes, vehicle_i, vehicle_j, disable_damping).map(
+                    |similarity| {
+                        [
+                            ((vehicle_i.tank_id, vehicle_j.tank_id), similarity),
+                            ((vehicle_j.tank_id, vehicle_i.tank_id), similarity),
+                        ]
+                    },
+                )
             })
             .flatten()
             .collect();
@@ -72,13 +74,14 @@ impl<'a> ModelFitter<'a> {
     }
 
     fn calculate_similarity(
-        &self,
+        votes: &[Vote],
         vehicle_i: &VehicleBias,
         vehicle_j: &VehicleBias,
+        disable_damping: bool,
     ) -> Option<f64> {
         let (numerator, denominator_i, denominator_j) = merge_join_by(
-            self.votes.iter().filter(|vote| vote.tank_id == vehicle_i.tank_id),
-            self.votes.iter().filter(|vote| vote.tank_id == vehicle_j.tank_id),
+            votes.iter().filter(|vote| vote.tank_id == vehicle_i.tank_id),
+            votes.iter().filter(|vote| vote.tank_id == vehicle_j.tank_id),
             |i, j| i.account_id.cmp(&j.account_id),
         )
         .fold(
@@ -86,13 +89,13 @@ impl<'a> ModelFitter<'a> {
             |(mut numerator, mut denominator_i, mut denominator_j), either| {
                 match either {
                     EitherOrBoth::Left(vote_i) => {
-                        if !self.params.disable_damping {
+                        if !disable_damping {
                             denominator_i +=
                                 (f64::from(vote_i.rating) - vehicle_i.mean_rating).powi(2);
                         }
                     }
                     EitherOrBoth::Right(vote_j) => {
-                        if !self.params.disable_damping {
+                        if !disable_damping {
                             denominator_j +=
                                 (f64::from(vote_j.rating) - vehicle_j.mean_rating).powi(2);
                         }
@@ -115,11 +118,6 @@ impl<'a> ModelFitter<'a> {
             None
         }
     }
-}
-
-pub struct Model {
-    similarities: HashMap<(i32, i32), f64>,
-    // TODO: `biases`.
 }
 
 /// Sum of ratings and number of them.

@@ -6,7 +6,7 @@ use crate::{
     cli::TrainerArgs,
     models::vote::Vote,
     prelude::*,
-    trainer::item_item::{FitParams, ModelFitter},
+    trainer::item_item::{FitParams, Model},
 };
 
 pub async fn run(args: TrainerArgs) -> Result {
@@ -15,6 +15,7 @@ pub async fn run(args: TrainerArgs) -> Result {
         args.db.open().await?.votes().await?.iter_all().await?.try_collect().await?;
     info!(n_votes = votes.len(), "✅ Gotcha!");
 
-    let model = ModelFitter::new(&votes, FitParams::default()).fit();
+    Model::fit(&votes, &FitParams::default());
+
     Ok(())
 }
