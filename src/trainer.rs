@@ -1,13 +1,15 @@
 mod item_item;
 
+use std::collections::HashMap;
+
 use futures::TryStreamExt;
 
 use crate::{
     cli::TrainerArgs,
-    models::vote::Vote,
+    models::{rating::Rating, vote::Vote},
     prelude::*,
     tracing::report_memory_usage,
-    trainer::item_item::{FitParams, Model},
+    trainer::item_item::{FitParams, Model, PredictParams},
 };
 
 pub async fn run(args: TrainerArgs) -> Result {
@@ -18,7 +20,7 @@ pub async fn run(args: TrainerArgs) -> Result {
     report_memory_usage();
 
     info!("🔢 Fitting…");
-    Model::fit(&votes, &FitParams::default());
+    let model = Model::fit(&votes, &FitParams { disable_damping: true });
     info!("✅ Gotcha!");
     report_memory_usage();
 
