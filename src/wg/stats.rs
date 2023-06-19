@@ -17,6 +17,7 @@ use crate::{prelude::*, wg::Wg};
 pub struct VehicleStats {
     pub tank_id: i32,
     pub last_battle_time: i64,
+    // TODO: `n_battles`.
 }
 
 impl VehicleStats {

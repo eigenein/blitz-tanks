@@ -76,7 +76,10 @@ pub fn report_memory_usage() {
     use jemalloc_ctl::{epoch, stats};
 
     epoch::advance().unwrap();
-    let allocated = ByteSize::b(stats::allocated::read().unwrap() as u64);
-    let resident = ByteSize::b(stats::resident::read().unwrap() as u64);
-    info!(%allocated, %resident, "🍪 Memory report");
+    info!(
+        allocated = %ByteSize::b(stats::allocated::read().unwrap() as u64),
+        active = %ByteSize::b(stats::active::read().unwrap() as u64),
+        resident = %ByteSize::b(stats::resident::read().unwrap() as u64),
+        "🍪 Memory report",
+    );
 }

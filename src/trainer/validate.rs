@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use indicatif::ProgressIterator;
 use itertools::Itertools;
 
 use crate::{
@@ -7,6 +8,31 @@ use crate::{
     prelude::*,
     trainer::item_item::{FitParams, Model, PredictParams},
 };
+
+pub fn fit_and_cross_validate(
+    votes: &mut [Vote],
+    n: usize,
+    fit_params: &FitParams,
+    predict_params: &PredictParams,
+) -> (f64,) {
+    let split_index = votes.len() / n;
+    info!(n, split_index, ?fit_params, ?predict_params, "🧪 Fitting and validating…");
+
+    let (sum_mrr,) = (0..n)
+        .progress()
+        .map(|_| {
+            fastrand::shuffle(votes);
+            fit_and_validate(
+                &votes[split_index..],
+                &votes[..split_index],
+                fit_params,
+                predict_params,
+            )
+        })
+        .fold((0.0,), |(sum_mrr,), (mrr,)| (sum_mrr + mrr,));
+
+    (sum_mrr / n as f64,)
+}
 
 pub fn fit_and_validate(
     train: &[Vote],

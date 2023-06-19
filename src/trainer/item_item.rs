@@ -7,11 +7,12 @@ use crate::{
     prelude::*,
 };
 
-#[derive(Default)]
+#[derive(Default, Debug)]
 pub struct FitParams {
     pub disable_damping: bool,
 }
 
+#[derive(Debug)]
 pub struct PredictParams {
     pub n_neighbors: usize,
 
