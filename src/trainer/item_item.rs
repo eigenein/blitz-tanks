@@ -5,6 +5,7 @@ use itertools::{merge_join_by, EitherOrBoth, Itertools};
 use crate::{
     models::{rating::Rating, vote::Vote},
     prelude::*,
+    trainer::prediction::Prediction,
 };
 
 #[derive(Default, Debug)]
@@ -82,13 +83,13 @@ impl Model {
         for_tank_ids: impl IntoIterator<Item = i32>,
         from: &HashMap<i32, Rating>,
         params: &PredictParams,
-    ) -> Box<[(i32, f64)]> {
+    ) -> Box<[Prediction]> {
         for_tank_ids
             .into_iter()
             .filter_map(|tank_id| {
-                self.predict(tank_id, from, params).map(|prediction| (tank_id, prediction))
+                self.predict(tank_id, from, params).map(|rating| Prediction { tank_id, rating })
             })
-            .sorted_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
+            .sorted_unstable()
             .collect()
     }
 

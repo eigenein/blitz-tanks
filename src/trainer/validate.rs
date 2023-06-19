@@ -63,10 +63,9 @@ pub fn fit_and_validate(
                 test_votes.iter().map(|vote| (vote.tank_id, vote.rating)).collect();
             let predictions =
                 model.predict_many(test_ratings.keys().copied(), train_ratings, predict_params);
-            let first_good_prediction = predictions
-                .iter()
-                .enumerate()
-                .find(|(_, (tank_id, _))| test_ratings.get(tank_id).copied() == Some(Rating::Like));
+            let first_good_prediction = predictions.iter().enumerate().find(|(_, prediction)| {
+                test_ratings.get(&prediction.tank_id).copied() == Some(Rating::Like)
+            });
             debug!(
                 account_id,
                 n_train_ratings = train_ratings.len(),
