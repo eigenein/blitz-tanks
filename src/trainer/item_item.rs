@@ -77,22 +77,18 @@ impl Model {
         }
     }
 
-    #[must_use]
-    pub fn predict_many(
-        &self,
-        for_tank_ids: impl IntoIterator<Item = i32>,
-        from: &HashMap<i32, Rating>,
-        params: &PredictParams,
-    ) -> Box<[Prediction]> {
-        for_tank_ids
-            .into_iter()
-            .filter_map(|tank_id| {
-                self.predict(tank_id, from, params).map(|rating| Prediction { tank_id, rating })
-            })
-            .sorted_unstable()
-            .collect()
+    pub fn predict_many<'a>(
+        &'a self,
+        for_tank_ids: impl IntoIterator<Item = i32> + 'a,
+        from: &'a HashMap<i32, Rating>,
+        params: &'a PredictParams,
+    ) -> impl Iterator<Item = Prediction> + 'a {
+        for_tank_ids.into_iter().filter_map(|tank_id| {
+            self.predict(tank_id, from, params).map(|rating| Prediction { tank_id, rating })
+        })
     }
 
+    #[must_use]
     fn calculate_biases<'a>(votes: &'a HashMap<i32, Vec<&'a Vote>>) -> Box<[Biased<'a>]> {
         votes
             .iter()

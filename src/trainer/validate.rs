@@ -59,17 +59,22 @@ pub fn fit_and_validate(
     let (sum_reciprocal_rank,) = test
         .filter_map(|(account_id, test_votes)| {
             let Some(train_ratings) = train_ratings.get(&account_id) else { return None };
-            let test_ratings: HashMap<i32, Rating> =
-                test_votes.iter().map(|vote| (vote.tank_id, vote.rating)).collect();
-            let predictions =
-                model.predict_many(test_ratings.keys().copied(), train_ratings, predict_params);
-            let first_good_prediction = predictions.iter().enumerate().find(|(_, prediction)| {
-                test_ratings.get(&prediction.tank_id).copied() == Some(Rating::Like)
-            });
+            let predictions = model
+                .predict_many(
+                    test_votes.iter().map(|vote| vote.tank_id),
+                    train_ratings,
+                    predict_params,
+                )
+                .zip(&test_votes)
+                .collect_vec();
+            let first_good_prediction = predictions
+                .iter()
+                .enumerate()
+                .find(|(_, (_, vote))| vote.rating == Rating::Like);
             debug!(
                 account_id,
                 n_train_ratings = train_ratings.len(),
-                n_test_ratings = test_ratings.len(),
+                n_test_votes = test_votes.len(),
                 n_predictions = predictions.len(),
                 ?first_good_prediction,
             );
