@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 
-use indicatif::ProgressIterator;
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
 
 use crate::{
@@ -69,11 +68,27 @@ impl Model {
                 },
             );
         if denominator != 0.0 {
-            info!(n_neighbors);
+            trace!(n_neighbors);
             Some(target_entry.mean_rating + numerator / denominator)
         } else {
             None
         }
+    }
+
+    #[must_use]
+    pub fn predict_many(
+        &self,
+        for_tank_ids: impl IntoIterator<Item = i32>,
+        from: &HashMap<i32, Rating>,
+        params: &PredictParams,
+    ) -> Box<[(i32, f64)]> {
+        for_tank_ids
+            .into_iter()
+            .filter_map(|tank_id| {
+                self.predict(tank_id, from, params).map(|prediction| (tank_id, prediction))
+            })
+            .sorted_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
+            .collect()
     }
 
     fn calculate_biases<'a>(votes: &'a HashMap<i32, Vec<&'a Vote>>) -> Box<[Biased<'a>]> {
@@ -97,7 +112,6 @@ impl Model {
     ) -> HashMap<i32, VehicleEntry> {
         biased
             .iter()
-            .progress()
             .map(|vehicle_i| {
                 let similar: Box<[(i32, f64)]> = biased
                     .iter()
