@@ -1,5 +1,6 @@
 use std::{borrow::Cow, io::stderr};
 
+use bytesize::ByteSize;
 use clap::crate_version;
 use sentry::{
     integrations::{anyhow::capture_anyhow, tracing::EventFilter},
@@ -69,4 +70,13 @@ pub fn trace<T>(result: Result<T>) -> Result<T> {
         error!(?event_id, "💥 Failed: {:#}", error);
     }
     result
+}
+
+pub fn report_memory_usage() {
+    use jemalloc_ctl::{epoch, stats};
+
+    epoch::advance().unwrap();
+    let allocated = ByteSize::b(stats::allocated::read().unwrap() as u64);
+    let resident = ByteSize::b(stats::resident::read().unwrap() as u64);
+    info!(%allocated, %resident, "🍪 Memory report");
 }

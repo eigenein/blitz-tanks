@@ -26,6 +26,9 @@ use crate::{
     tracing::trace,
 };
 
+#[global_allocator]
+static ALLOCATOR: jemallocator::Jemalloc = jemallocator::Jemalloc;
+
 #[tokio::main]
 async fn main() -> Result {
     let args = Cli::parse();

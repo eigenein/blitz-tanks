@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use indicatif::ProgressIterator;
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
 
-use crate::{models::vote::Vote, prelude::*};
+use crate::{models::vote::Vote, prelude::*, tracing::report_memory_usage};
 
 #[derive(Default)]
 pub struct FitParams {
@@ -22,31 +22,30 @@ pub struct Model {
 
 impl Model {
     pub fn fit(votes: &[Vote], params: &FitParams) -> Self {
-        let biases = Self::calculate_biases(votes);
-        let similarities = Self::calculate_similarities(votes, &biases, params.disable_damping);
+        let votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
+        let biases = Self::calculate_biases(&votes);
+        let similarities = Self::calculate_similarities(&votes, &biases, params.disable_damping);
         Model { similarities }
     }
 
-    fn calculate_biases(votes: &[Vote]) -> Box<[VehicleBias]> {
+    fn calculate_biases(votes: &HashMap<i32, Vec<&Vote>>) -> Box<[VehicleBias]> {
         info!("⏳ Collecting averages…");
         let biases: Box<[VehicleBias]> = votes
             .iter()
-            .fold(HashMap::<i32, RatingAccumulator>::new(), |mut accumulators, vote| {
-                accumulators.entry(vote.tank_id).or_default().add_rating(f64::from(vote.rating));
-                accumulators
-            })
-            .into_iter()
-            .map(|(tank_id, accumulator)| {
-                let mean_rating = accumulator.into_mean();
-                VehicleBias { tank_id, mean_rating }
+            .map(|(tank_id, votes)| VehicleBias {
+                tank_id: *tank_id,
+                mean_rating: votes.iter().map(|vote| f64::from(vote.rating)).sum::<f64>()
+                    / votes.len() as f64,
             })
             .collect();
+
         info!(n_vehicles = biases.len(), "✅ Gotcha!");
+        report_memory_usage();
         biases
     }
 
     fn calculate_similarities(
-        votes: &[Vote],
+        votes: &HashMap<i32, Vec<&Vote>>,
         biases: &[VehicleBias],
         disable_damping: bool,
     ) -> HashMap<(i32, i32), f64> {
@@ -55,11 +54,16 @@ impl Model {
             .iter()
             .progress()
             .cartesian_product(biases.iter())
-            .filter(|(vehicle_i, vehicle_j)| vehicle_i.tank_id < vehicle_j.tank_id)
+            .filter(|(vehicle_i, vehicle_j)| {
+                // Avoid calculating the same thing twice.
+                vehicle_i.tank_id < vehicle_j.tank_id
+            })
             .filter_map(|(vehicle_i, vehicle_j)| {
                 Self::calculate_similarity(votes, vehicle_i, vehicle_j, disable_damping).map(
                     |similarity| {
                         [
+                            // Because we only calculate it an either way, we need to emit the
+                            // both entries.
                             ((vehicle_i.tank_id, vehicle_j.tank_id), similarity),
                             ((vehicle_j.tank_id, vehicle_i.tank_id), similarity),
                         ]
@@ -70,18 +74,19 @@ impl Model {
             .collect();
 
         info!(n_entries = entries.len(), "✅ Gotcha!");
+        report_memory_usage();
         entries
     }
 
     fn calculate_similarity(
-        votes: &[Vote],
+        votes: &HashMap<i32, Vec<&Vote>>,
         vehicle_i: &VehicleBias,
         vehicle_j: &VehicleBias,
         disable_damping: bool,
     ) -> Option<f64> {
         let (numerator, denominator_i, denominator_j) = merge_join_by(
-            votes.iter().filter(|vote| vote.tank_id == vehicle_i.tank_id),
-            votes.iter().filter(|vote| vote.tank_id == vehicle_j.tank_id),
+            votes.get(&vehicle_i.tank_id)?,
+            votes.get(&vehicle_j.tank_id)?,
             |i, j| i.account_id.cmp(&j.account_id),
         )
         .fold(
@@ -117,29 +122,6 @@ impl Model {
         } else {
             None
         }
-    }
-}
-
-/// Sum of ratings and number of them.
-///
-/// It's used to calculate mean vehicle ratings.
-#[derive(Default)]
-struct RatingAccumulator {
-    sum: f64,
-    n: u32,
-}
-
-impl RatingAccumulator {
-    #[must_use]
-    #[inline]
-    fn into_mean(self) -> f64 {
-        self.sum / self.n as f64
-    }
-
-    #[inline]
-    fn add_rating(&mut self, rating: f64) {
-        self.sum += rating;
-        self.n += 1;
     }
 }
 
