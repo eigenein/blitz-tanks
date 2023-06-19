@@ -4,6 +4,7 @@ mod prediction;
 mod validate;
 
 use futures::TryStreamExt;
+use itertools::iproduct;
 
 use crate::{
     cli::TrainerArgs,
@@ -12,7 +13,7 @@ use crate::{
     tracing::report_memory_usage,
     trainer::{
         item_item::{FitParams, PredictParams},
-        validate::fit_and_cross_validate,
+        validate::search,
     },
 };
 
@@ -23,18 +24,14 @@ pub async fn run(args: TrainerArgs) -> Result {
     info!(n_votes = votes.len(), "✅ Gotcha!");
     report_memory_usage();
 
-    fastrand::shuffle(&mut votes);
-    let metrics = fit_and_cross_validate(
-        &mut votes,
-        20,
-        0.2,
-        &FitParams { disable_damping: false },
-        &PredictParams {
-            n_neighbors: 20,
-            include_negative: false,
+    let params = iproduct!(1..50, [false, true], [false, true]).map(
+        |(n_neighbors, disable_damping, include_negative)| {
+            (FitParams { disable_damping }, PredictParams { n_neighbors, include_negative })
         },
     );
-    info!(metrics.reciprocal_rank, "🏁 Finished cross validation");
+    let (metrics, fit_params, predict_params) =
+        search(&mut votes, args.n_partitions, args.test_proportion, params).unwrap();
+    info!(metrics.reciprocal_rank, ?fit_params, ?predict_params, "🏁 Finished search");
 
     Ok(())
 }

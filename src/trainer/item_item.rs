@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
+use rayon::prelude::*;
 
 use crate::{
     models::{rating::Rating, vote::Vote},
@@ -91,7 +92,7 @@ impl Model {
     #[must_use]
     fn calculate_biases<'a>(votes: &'a HashMap<i32, Vec<&'a Vote>>) -> Box<[Biased<'a>]> {
         votes
-            .iter()
+            .par_iter()
             .map(|(tank_id, votes)| {
                 let mean_rating = votes.iter().map(|vote| f64::from(vote.rating)).sum::<f64>()
                     / votes.len() as f64;
@@ -101,7 +102,8 @@ impl Model {
                     votes: votes.as_ref(),
                 }
             })
-            .collect()
+            .collect::<Vec<_>>()
+            .into_boxed_slice()
     }
 
     fn calculate_similarities(
@@ -109,7 +111,7 @@ impl Model {
         disable_damping: bool,
     ) -> HashMap<i32, VehicleEntry> {
         biased
-            .iter()
+            .par_iter()
             .map(|vehicle_i| {
                 let similar: Box<[(i32, f64)]> = biased
                     .iter()

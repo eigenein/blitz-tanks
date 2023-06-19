@@ -122,4 +122,14 @@ pub struct GiveawayArgs {
 pub struct TrainerArgs {
     #[clap(flatten)]
     pub db: DbArgs,
+
+    #[clap(
+        long,
+        default_value = "0.2",
+        env = "BLITZ_TANKS_TRAINER_TEST_PROPORTION"
+    )]
+    pub test_proportion: f64,
+
+    #[clap(long, default_value = "50", env = "BLITZ_TANKS_TRAINER_PARTITIONS")]
+    pub n_partitions: usize,
 }

@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use indicatif::ProgressIterator;
+use indicatif::{ProgressIterator, ProgressStyle};
 use itertools::Itertools;
 
 use crate::{
@@ -12,24 +12,63 @@ use crate::{
     },
 };
 
+const PROGRESS_TEMPLATE: &str = "{elapsed} {wide_bar} {pos}/{len} {eta}";
+
+pub fn search(
+    votes: &mut [Vote],
+    n_partitions: usize,
+    test_proportion: f64,
+    params: impl IntoIterator<Item = (FitParams, PredictParams)>,
+) -> Option<(Metrics, FitParams, PredictParams)> {
+    info!(
+        n_votes = votes.len(),
+        n_partitions, test_proportion, "🧪 Searching across the parameter space…",
+    );
+    params
+        .into_iter()
+        .try_progress()
+        .unwrap()
+        .with_style(ProgressStyle::with_template(PROGRESS_TEMPLATE).unwrap())
+        .map(|(fit_params, predict_params)| {
+            (
+                fit_and_cross_validate(
+                    votes,
+                    n_partitions,
+                    test_proportion,
+                    &fit_params,
+                    &predict_params,
+                ),
+                fit_params,
+                predict_params,
+            )
+        })
+        .fold(None, |current, (metrics, fit_params, predict_params)| {
+            if current.as_ref().map_or(true, |(current_metrics, _, _)| {
+                metrics.reciprocal_rank > current_metrics.reciprocal_rank
+            }) {
+                info!(
+                    metrics.reciprocal_rank,
+                    ?fit_params,
+                    ?predict_params,
+                    "🎉 Found better parameters",
+                );
+                Some((metrics, fit_params, predict_params))
+            } else {
+                current
+            }
+        })
+}
+
 pub fn fit_and_cross_validate(
     votes: &mut [Vote],
     n_partitions: usize,
-    proportion: f64,
+    test_proportion: f64,
     fit_params: &FitParams,
     predict_params: &PredictParams,
 ) -> Metrics {
-    let split_index = (votes.len() as f64 * proportion) as usize;
-    info!(
-        n_partitions,
-        split_index,
-        ?fit_params,
-        ?predict_params,
-        "🧪 Fitting and validating…"
-    );
+    let split_index = (votes.len() as f64 * test_proportion) as usize;
 
     (0..n_partitions)
-        .progress()
         .map(|_| {
             fastrand::shuffle(votes);
             fit_and_validate(
