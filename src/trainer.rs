@@ -1,4 +1,5 @@
 mod item_item;
+mod metrics;
 mod prediction;
 mod validate;
 
@@ -23,16 +24,17 @@ pub async fn run(args: TrainerArgs) -> Result {
     report_memory_usage();
 
     fastrand::shuffle(&mut votes);
-    let (mean_reciprocal_rank,) = fit_and_cross_validate(
+    let metrics = fit_and_cross_validate(
         &mut votes,
-        10,
+        20,
+        0.2,
         &FitParams { disable_damping: false },
         &PredictParams {
             n_neighbors: 20,
             include_negative: false,
         },
     );
-    info!(mean_reciprocal_rank, "🏁 Finished cross validation");
+    info!(metrics.reciprocal_rank, "🏁 Finished cross validation");
 
     Ok(())
 }

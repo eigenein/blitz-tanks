@@ -6,19 +6,29 @@ use itertools::Itertools;
 use crate::{
     models::{rating::Rating, vote::Vote},
     prelude::*,
-    trainer::item_item::{FitParams, Model, PredictParams},
+    trainer::{
+        item_item::{FitParams, Model, PredictParams},
+        metrics::Metrics,
+    },
 };
 
 pub fn fit_and_cross_validate(
     votes: &mut [Vote],
-    n: usize,
+    n_partitions: usize,
+    proportion: f64,
     fit_params: &FitParams,
     predict_params: &PredictParams,
-) -> (f64,) {
-    let split_index = votes.len() / n;
-    info!(n, split_index, ?fit_params, ?predict_params, "🧪 Fitting and validating…");
+) -> Metrics {
+    let split_index = (votes.len() as f64 * proportion) as usize;
+    info!(
+        n_partitions,
+        split_index,
+        ?fit_params,
+        ?predict_params,
+        "🧪 Fitting and validating…"
+    );
 
-    let (sum_mrr,) = (0..n)
+    (0..n_partitions)
         .progress()
         .map(|_| {
             fastrand::shuffle(votes);
@@ -29,9 +39,8 @@ pub fn fit_and_cross_validate(
                 predict_params,
             )
         })
-        .fold((0.0,), |(sum_mrr,), (mrr,)| (sum_mrr + mrr,));
-
-    (sum_mrr / n as f64,)
+        .sum::<Metrics>()
+        / n_partitions as f64
 }
 
 pub fn fit_and_validate(
@@ -39,7 +48,7 @@ pub fn fit_and_validate(
     test: &[Vote],
     fit_params: &FitParams,
     predict_params: &PredictParams,
-) -> (f64,) {
+) -> Metrics {
     let model = Model::fit(train, fit_params);
 
     let train_ratings: HashMap<u32, HashMap<i32, Rating>> = train
@@ -54,9 +63,9 @@ pub fn fit_and_validate(
         })
         .collect();
 
-    let test = test.iter().into_group_map_by(|vote| vote.account_id).into_iter();
+    let test = test.iter().into_group_map_by(|vote| vote.account_id);
     let n_test_accounts = test.len() as f64;
-    let (sum_reciprocal_rank,) = test
+    test.into_iter()
         .filter_map(|(account_id, test_votes)| {
             let Some(train_ratings) = train_ratings.get(&account_id) else { return None };
             let predictions = model
@@ -65,26 +74,17 @@ pub fn fit_and_validate(
                     train_ratings,
                     predict_params,
                 )
-                .zip(&test_votes)
+                .zip(test_votes.iter().copied())
                 .collect_vec();
-            let first_good_prediction = predictions
-                .iter()
-                .enumerate()
-                .find(|(_, (_, vote))| vote.rating == Rating::Like);
+            let n_predictions = predictions.len();
             debug!(
                 account_id,
                 n_train_ratings = train_ratings.len(),
                 n_test_votes = test_votes.len(),
-                n_predictions = predictions.len(),
-                ?first_good_prediction,
+                n_predictions,
             );
-            match first_good_prediction {
-                Some((rank, _)) => Some((1.0 / (rank + 1) as f64,)),
-                None => Some((0.0,)),
-            }
+            Some(Metrics::from(predictions))
         })
-        .fold((0.0,), |(sum,), (reciprocal_rank,)| (sum + reciprocal_rank,));
-
-    let mean_reciprocal_rank = sum_reciprocal_rank / n_test_accounts;
-    (mean_reciprocal_rank,)
+        .sum::<Metrics>()
+        / n_test_accounts
 }
