@@ -17,7 +17,10 @@ pub async fn run(args: TrainerArgs) -> Result {
     info!(n_votes = votes.len(), "✅ Gotcha!");
     report_memory_usage();
 
+    info!("🔢 Fitting…");
     Model::fit(&votes, &FitParams::default());
+    info!("✅ Gotcha!");
+    report_memory_usage();
 
     Ok(())
 }
