@@ -39,7 +39,7 @@ pub struct GridSearch {
     #[clap(flatten)]
     db: DbArgs,
 
-    /// Proportion of votes to leave out as a test set. The minimum of 1 vote will always be left out.
+    /// Proportion of votes to leave out as a test set (not less than 1 vote).
     #[clap(
         long,
         default_value = "0.2",
