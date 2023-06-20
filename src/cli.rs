@@ -4,7 +4,7 @@ use std::net::SocketAddr;
 
 use clap::{Args, Parser, Subcommand};
 
-use crate::{db::Db, prelude::*};
+use crate::{db::Db, prelude::*, trainer, web};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -34,6 +34,16 @@ pub enum Command {
 
     /// Train many models, cross-validate them, and pick the best one.
     GridSearch(GridSearchArgs),
+}
+
+impl Command {
+    pub async fn run(self) -> Result {
+        match self {
+            Self::Web(args) => web::run(args).await,
+            Self::Giveaway(args) => giveaway::run(args).await,
+            Self::GridSearch(args) => trainer::run_grid_search(args).await,
+        }
+    }
 }
 
 #[derive(Args)]
