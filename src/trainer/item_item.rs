@@ -10,13 +10,12 @@ use crate::{
     trainer::prediction::Prediction,
 };
 
+/// Model parameters.
 #[derive(Default, Debug)]
-pub struct FitParams {
+pub struct Params {
     pub disable_damping: bool,
-}
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct PredictParams {
+    /// Number of top similar vehicles to include in a prediction.
     pub n_neighbors: usize,
 
     /// Include negative similarities.
@@ -26,44 +25,47 @@ pub struct PredictParams {
 /// Item-item kNN collaborative filtering.
 #[must_use]
 #[derive(Serialize, Deserialize)]
-pub struct Model(
+pub struct Model {
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
     ///
     /// # Note
     ///
     /// The mapping values only contain entries,
     /// for which tank ID are **greater** than the respective mapping key.
-    HashMap<i32, Vehicle>,
-);
+    vehicles: HashMap<i32, Vehicle>,
+
+    n_neighbors: usize,
+
+    include_negative: bool,
+}
 
 impl Model {
-    pub fn fit(votes: &[Vote], params: &FitParams) -> Self {
+    pub fn fit(votes: &[Vote], params: &Params) -> Self {
         let votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
         let biased = Self::calculate_biases(&votes);
-        let mut model = Self::calculate_similarities(&biased, params.disable_damping);
-        Self::sort(&mut model);
-        Model(model)
+        let mut vehicles = Self::calculate_similarities(&biased, params.disable_damping);
+        Self::sort(&mut vehicles);
+        Model {
+            vehicles,
+            n_neighbors: params.n_neighbors,
+            include_negative: params.include_negative,
+        }
     }
 
     #[must_use]
     #[instrument(skip_all, fields(target_id = target_id))]
-    pub fn predict(
-        &self,
-        target_id: i32,
-        source_ratings: &HashMap<i32, Rating>,
-        params: &PredictParams,
-    ) -> Option<f64> {
-        let target_vehicle = self.0.get(&target_id)?;
+    pub fn predict(&self, target_id: i32, source_ratings: &HashMap<i32, Rating>) -> Option<f64> {
+        let target_vehicle = self.vehicles.get(&target_id)?;
         let (numerator, denominator) = target_vehicle
             .similar
             .iter()
-            .filter(|similar_vehicle| params.include_negative || (similar_vehicle.similarity > 0.0))
+            .filter(|similar_vehicle| self.include_negative || (similar_vehicle.similarity > 0.0))
             .filter_map(|similar_vehicle| {
                 source_ratings
                     .get(&similar_vehicle.tank_id)
                     .map(|rating| (similar_vehicle, f64::from(*rating)))
             })
-            .take(params.n_neighbors)
+            .take(self.n_neighbors)
             .fold((0.0, 0.0), |(sum, weight), (similar_vehicle, similar_rating)| {
                 (
                     sum + similar_vehicle.similarity
@@ -82,10 +84,9 @@ impl Model {
         &'a self,
         target_ids: impl IntoIterator<Item = i32> + 'a,
         source_ratings: &'a HashMap<i32, Rating>,
-        params: &'a PredictParams,
     ) -> impl Iterator<Item = Prediction> + 'a {
         target_ids.into_iter().filter_map(|target_id| {
-            self.predict(target_id, source_ratings, params)
+            self.predict(target_id, source_ratings)
                 .map(|rating| Prediction { tank_id: target_id, rating })
         })
     }
@@ -176,8 +177,8 @@ impl Model {
         }
     }
 
-    fn sort(model: &mut HashMap<i32, Vehicle>) {
-        for entry in model.values_mut() {
+    fn sort(vehicles: &mut HashMap<i32, Vehicle>) {
+        for entry in vehicles.values_mut() {
             entry
                 .similar
                 .sort_unstable_by(|lhs, rhs| rhs.similarity.total_cmp(&lhs.similarity))

@@ -7,7 +7,7 @@ use crate::{
     models::{rating::Rating, vote::Vote},
     prelude::*,
     trainer::{
-        item_item::{FitParams, Model, PredictParams},
+        item_item::{Model, Params},
         metrics::ReciprocalRank,
     },
 };
@@ -18,8 +18,8 @@ pub fn search(
     votes: &mut [Vote],
     n_partitions: usize,
     test_proportion: f64,
-    params: impl IntoIterator<Item = (FitParams, PredictParams)>,
-) -> Option<(ReciprocalRank, FitParams, PredictParams)> {
+    params: impl IntoIterator<Item = Params>,
+) -> Option<(ReciprocalRank, Params)> {
     info!(
         n_votes = votes.len(),
         n_partitions, test_proportion, "🧪 Searching across the parameter space…",
@@ -29,31 +29,21 @@ pub fn search(
         .try_progress()
         .unwrap()
         .with_style(ProgressStyle::with_template(PROGRESS_TEMPLATE).unwrap())
-        .map(|(fit_params, predict_params)| {
-            (
-                fit_and_cross_validate(
-                    votes,
-                    n_partitions,
-                    test_proportion,
-                    &fit_params,
-                    &predict_params,
-                ),
-                fit_params,
-                predict_params,
-            )
+        .map(|params| {
+            (fit_and_cross_validate(votes, n_partitions, test_proportion, &params), params)
         })
-        .fold(None, |current, (reciprocal_rank, fit_params, predict_params)| {
-            if current.as_ref().map_or(true, |(current_reciprocal_rank, _, _)| {
+        .fold(None, |current, (reciprocal_rank, params)| {
+            if current.as_ref().map_or(true, |(current_reciprocal_rank, _)| {
                 reciprocal_rank > *current_reciprocal_rank
             }) {
                 info!(
                     %reciprocal_rank,
-                    disable_damping = fit_params.disable_damping,
-                    n_neighbors = predict_params.n_neighbors,
-                    include_negative = predict_params.include_negative,
+                    disable_damping = params.disable_damping,
+                    n_neighbors = params.n_neighbors,
+                    include_negative = params.include_negative,
                     "🎉 Improved",
                 );
-                Some((reciprocal_rank, fit_params, predict_params))
+                Some((reciprocal_rank, params))
             } else {
                 current
             }
@@ -64,32 +54,21 @@ pub fn fit_and_cross_validate(
     votes: &mut [Vote],
     n_partitions: usize,
     test_proportion: f64,
-    fit_params: &FitParams,
-    predict_params: &PredictParams,
+    params: &Params,
 ) -> ReciprocalRank {
     let split_index = (votes.len() as f64 * test_proportion) as usize;
 
     (0..n_partitions)
         .map(|_| {
             fastrand::shuffle(votes);
-            fit_and_validate(
-                &votes[split_index..],
-                &votes[..split_index],
-                fit_params,
-                predict_params,
-            )
+            fit_and_validate(&votes[split_index..], &votes[..split_index], params)
         })
         .sum::<ReciprocalRank>()
         / n_partitions
 }
 
-pub fn fit_and_validate(
-    train: &[Vote],
-    test: &[Vote],
-    fit_params: &FitParams,
-    predict_params: &PredictParams,
-) -> ReciprocalRank {
-    let model = Model::fit(train, fit_params);
+pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> ReciprocalRank {
+    let model = Model::fit(train, params);
 
     let train_ratings: HashMap<u32, HashMap<i32, Rating>> = train
         .iter()
@@ -113,11 +92,7 @@ pub fn fit_and_validate(
                 return None;
             }
             let predictions = model
-                .predict_many(
-                    test_votes.iter().map(|vote| vote.tank_id),
-                    train_ratings,
-                    predict_params,
-                )
+                .predict_many(test_votes.iter().map(|vote| vote.tank_id), train_ratings)
                 .zip(test_votes.iter().copied())
                 .collect_vec();
             let n_predictions = predictions.len();

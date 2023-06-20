@@ -11,10 +11,7 @@ use crate::{
     models::vote::Vote,
     prelude::*,
     tracing::report_memory_usage,
-    trainer::{
-        item_item::{FitParams, PredictParams},
-        validate::search,
-    },
+    trainer::{item_item::Params, validate::search},
 };
 
 pub async fn run(args: TrainerArgs) -> Result {
@@ -25,18 +22,20 @@ pub async fn run(args: TrainerArgs) -> Result {
     report_memory_usage();
 
     let params = iproduct!(1..50, [false, true], [false, true]).map(
-        |(n_neighbors, disable_damping, include_negative)| {
-            (FitParams { disable_damping }, PredictParams { n_neighbors, include_negative })
+        |(n_neighbors, disable_damping, include_negative)| Params {
+            disable_damping,
+            n_neighbors,
+            include_negative,
         },
     );
-    let (reciprocal_rank, fit_params, predict_params) =
+    let (reciprocal_rank, params) =
         search(&mut votes, args.n_partitions, args.test_proportion, params).unwrap();
     info!(
         %reciprocal_rank,
         rank = reciprocal_rank.rank(),
-        disable_damping = fit_params.disable_damping,
-        n_neighbors = predict_params.n_neighbors,
-        include_negative = predict_params.include_negative,
+        disable_damping = params.disable_damping,
+        n_neighbors = params.n_neighbors,
+        include_negative = params.include_negative,
         "🏁 Finished search"
     );
 
