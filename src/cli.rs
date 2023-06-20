@@ -1,6 +1,6 @@
 use clap::{Args, Parser, Subcommand};
 
-use crate::{db::Db, giveaway::Giveaway, prelude::*, trainer::GridSearch, web::Web};
+use crate::{db::Db, giveaway::Giveaway, prelude::*, trainer::Trainer, web::Web};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -28,16 +28,17 @@ pub enum Command {
     /// Pick an account for a giveaway.
     Giveaway(Giveaway),
 
-    /// Train many models, cross-validate them, and pick the best one.
-    GridSearch(GridSearch),
+    /// Trainer subcommands.
+    #[command(subcommand)]
+    Trainer(Trainer),
 }
 
 impl Command {
     pub async fn run(self) -> Result {
         match self {
-            Self::Web(web) => web.run().await,
             Self::Giveaway(giveaway) => giveaway.run().await,
-            Self::GridSearch(grid_search) => grid_search.run().await,
+            Self::Trainer(trainer) => trainer.run().await,
+            Self::Web(web) => web.run().await,
         }
     }
 }

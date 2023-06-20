@@ -3,7 +3,7 @@ mod metrics;
 mod prediction;
 mod validate;
 
-use clap::Args;
+use clap::{Args, Subcommand};
 use futures::TryStreamExt;
 use itertools::iproduct;
 
@@ -14,6 +14,20 @@ use crate::{
     tracing::report_memory_usage,
     trainer::{item_item::Params, validate::search},
 };
+
+#[derive(Subcommand)]
+pub enum Trainer {
+    /// Train many models, cross-validate them, and pick the best one.
+    GridSearch(GridSearch),
+}
+
+impl Trainer {
+    pub async fn run(self) -> Result {
+        match self {
+            Self::GridSearch(grid_search) => grid_search.run().await,
+        }
+    }
+}
 
 #[derive(Args)]
 pub struct GridSearch {
