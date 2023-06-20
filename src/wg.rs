@@ -44,7 +44,7 @@ impl Wg {
     pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>> {
         if account_id == 0 || account_id == 1 {
             // Fake account IDs for testing.
-            return Ok(vec![VehicleStats { tank_id: 1, last_battle_time: 0 }]);
+            return Ok(vec![VehicleStats::FAKE_PLAYED, VehicleStats::FAKE_NON_PLAYED]);
         }
         let result = self
             .client
@@ -53,7 +53,7 @@ impl Wg {
                 &[
                     ("application_id", self.application_id.as_str()),
                     ("account_id", account_id.to_string().as_str()),
-                    ("fields", "tank_id,last_battle_time"),
+                    ("fields", "tank_id,last_battle_time,all.battles"),
                 ],
             )?)
             .send()

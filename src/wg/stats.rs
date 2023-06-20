@@ -10,20 +10,41 @@ use tracing::instrument;
 
 use crate::{prelude::*, wg::Wg};
 
-/// User's vehicle statistics.
-///
-/// We only need tank ID and last battle time for the app's purposes.
+/// Partial user's vehicle statistics.
 #[derive(Deserialize)]
 pub struct VehicleStats {
     pub tank_id: i32,
     pub last_battle_time: i64,
-    // TODO: `n_battles`.
+
+    #[serde(rename = "all")]
+    pub inner: InnerVehicleStats,
 }
 
 impl VehicleStats {
+    pub const FAKE_NON_PLAYED: Self = Self {
+        tank_id: 2,
+        last_battle_time: 0,
+        inner: InnerVehicleStats { n_battles: 0 },
+    };
+    pub const FAKE_PLAYED: Self = Self {
+        tank_id: 1,
+        last_battle_time: 0,
+        inner: InnerVehicleStats { n_battles: 1 },
+    };
+
     pub fn last_battle_time(&self) -> LocalResult<DateTime> {
         Utc.timestamp_opt(self.last_battle_time, 0)
     }
+
+    pub const fn is_played(&self) -> bool {
+        self.inner.n_battles != 0
+    }
+}
+
+#[derive(Deserialize)]
+pub struct InnerVehicleStats {
+    #[serde(rename = "battles")]
+    pub n_battles: u32,
 }
 
 /// Proxy for user's vehicles' statistics.
@@ -56,6 +77,7 @@ impl VehicleStatsGetter {
                     .get_vehicles_stats(account_id)
                     .await?
                     .into_iter()
+                    .filter(VehicleStats::is_played)
                     .sorted_unstable_by_key(|stats| -stats.last_battle_time)
                     .map(|stats| (stats.tank_id, stats))
                     .collect();
@@ -68,7 +90,7 @@ impl VehicleStatsGetter {
 
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
     pub async fn owns_vehicle(&self, account_id: u32, tank_id: i32) -> Result<bool> {
-        Ok(self.get(account_id).await?.contains_key(&tank_id))
+        Ok(self.get(account_id).await?.get(&tank_id).is_some_and(VehicleStats::is_played))
     }
 }
 
@@ -83,7 +105,7 @@ mod tests {
     fn vehicles_stats_ok() -> Result {
         serde_json::from_str::<WgResult<HashMap<String, Vec<VehicleStats>>>>(
             // language=json
-            r#"{"status":"ok","meta":{"count":1},"data":{"594778041":[{"last_battle_time":1681146251,"tank_id":18769}]}}"#,
+            r#"{"status":"ok","meta":{"count":1},"data":{"594778041":[{"all":{"battles":248},"last_battle_time":1681146251,"tank_id":18769}]}}"#,
         )?;
         Ok(())
     }

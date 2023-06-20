@@ -328,6 +328,20 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn reject_own_non_played_vehicle_ok() -> Result {
+        let state = AppState::new_test().await?;
+        let session_id = state.session_manager.insert_test_session().await?;
+        let request = Request::builder()
+            .uri("/profile/0/vehicle/2/like")
+            .method("POST")
+            .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
+            .body(Body::empty())?;
+        let response = Web::create_app(state).oneshot(request).await?;
+        assert_eq!(response.status(), StatusCode::FORBIDDEN);
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn reject_rate_others_vehicle_ok() -> Result {
         let state = AppState::new_test().await?;
         let session_id = state.session_manager.insert_test_session().await?;
