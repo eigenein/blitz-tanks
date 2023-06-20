@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
 use rayon::prelude::*;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     models::{rating::Rating, vote::Vote},
@@ -14,7 +15,7 @@ pub struct FitParams {
     pub disable_damping: bool,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct PredictParams {
     pub n_neighbors: usize,
 
@@ -24,6 +25,7 @@ pub struct PredictParams {
 
 /// Item-item kNN collaborative filtering.
 #[must_use]
+#[derive(Serialize, Deserialize)]
 pub struct Model(
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
     ///
@@ -31,7 +33,7 @@ pub struct Model(
     ///
     /// The mapping values only contain entries,
     /// for which tank ID are **greater** than the respective mapping key.
-    HashMap<i32, VehicleEntry>,
+    HashMap<i32, Vehicle>,
 );
 
 impl Model {
@@ -52,29 +54,23 @@ impl Model {
         params: &PredictParams,
     ) -> Option<f64> {
         let target_vehicle = self.0.get(&for_tank_id)?;
-        let (numerator, denominator, n_neighbors) = target_vehicle
+        let (numerator, denominator) = target_vehicle
             .similar
             .iter()
-            .filter(|(_, similarity)| params.include_negative || (*similarity > 0.0))
-            .filter_map(|(similar_tank_id, similarity)| {
-                from.get(similar_tank_id)
-                    .map(|rating| (*similar_tank_id, *similarity, f64::from(*rating)))
+            .filter(|similar_vehicle| params.include_negative || (similar_vehicle.similarity > 0.0))
+            .filter_map(|similar_vehicle| {
+                from.get(&similar_vehicle.tank_id)
+                    .map(|rating| (similar_vehicle, f64::from(*rating)))
             })
             .take(params.n_neighbors)
-            .fold(
-                (0.0, 0.0, 0_usize),
-                |(numerator, denominator, n_neighbors), (similar_tank_id, similarity, rating_j)| {
-                    (
-                        numerator
-                            + similarity
-                                * (rating_j - self.0.get(&similar_tank_id).unwrap().mean_rating),
-                        denominator + similarity.abs(),
-                        n_neighbors + 1,
-                    )
-                },
-            );
+            .fold((0.0, 0.0), |(sum, weight), (similar_vehicle, similar_rating)| {
+                (
+                    sum + similar_vehicle.similarity
+                        * (similar_rating - similar_vehicle.mean_rating),
+                    weight + similar_vehicle.similarity.abs(),
+                )
+            });
         if denominator != 0.0 {
-            trace!(n_neighbors);
             Some(target_vehicle.mean_rating + numerator / denominator)
         } else {
             None
@@ -83,12 +79,13 @@ impl Model {
 
     pub fn predict_many<'a>(
         &'a self,
-        for_tank_ids: impl IntoIterator<Item = i32> + 'a,
-        from: &'a HashMap<i32, Rating>,
+        target_ids: impl IntoIterator<Item = i32> + 'a,
+        source_ratings: &'a HashMap<i32, Rating>,
         params: &'a PredictParams,
     ) -> impl Iterator<Item = Prediction> + 'a {
-        for_tank_ids.into_iter().filter_map(|tank_id| {
-            self.predict(tank_id, from, params).map(|rating| Prediction { tank_id, rating })
+        target_ids.into_iter().filter_map(|tank_id| {
+            self.predict(tank_id, source_ratings, params)
+                .map(|rating| Prediction { tank_id, rating })
         })
     }
 
@@ -109,23 +106,25 @@ impl Model {
             .into_boxed_slice()
     }
 
-    fn calculate_similarities(
-        biased: &[Biased],
-        disable_damping: bool,
-    ) -> HashMap<i32, VehicleEntry> {
+    fn calculate_similarities(biased: &[Biased], disable_damping: bool) -> HashMap<i32, Vehicle> {
         biased
             .par_iter()
             .map(|vehicle_i| {
-                let similar: Box<[(i32, f64)]> = biased
+                let similar: Box<[SimilarVehicle]> = biased
                     .iter()
                     .filter(|vehicle_j| vehicle_j.tank_id != vehicle_i.tank_id)
                     .filter_map(|vehicle_j| {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
-                        Self::calculate_similarity(vehicle_i, vehicle_j, disable_damping)
-                            .map(|similarity| (vehicle_j.tank_id, similarity))
+                        Self::calculate_similarity(vehicle_i, vehicle_j, disable_damping).map(
+                            |similarity| SimilarVehicle {
+                                similarity,
+                                tank_id: vehicle_j.tank_id,
+                                mean_rating: vehicle_j.mean_rating,
+                            },
+                        )
                     })
                     .collect();
-                let entry = VehicleEntry {
+                let entry = Vehicle {
                     mean_rating: vehicle_i.mean_rating,
                     similar,
                 };
@@ -176,9 +175,11 @@ impl Model {
         }
     }
 
-    fn sort(model: &mut HashMap<i32, VehicleEntry>) {
+    fn sort(model: &mut HashMap<i32, Vehicle>) {
         for entry in model.values_mut() {
-            entry.similar.sort_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
+            entry
+                .similar
+                .sort_unstable_by(|lhs, rhs| rhs.similarity.total_cmp(&lhs.similarity))
         }
     }
 }
@@ -190,9 +191,22 @@ struct Biased<'a> {
     votes: &'a [&'a Vote],
 }
 
-pub struct VehicleEntry {
+#[derive(Serialize, Deserialize)]
+pub struct Vehicle {
     pub mean_rating: f64,
 
     /// Similar vehicles (tank ID and similarity), sorted by descending similarity.
-    pub similar: Box<[(i32, f64)]>,
+    pub similar: Box<[SimilarVehicle]>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SimilarVehicle {
+    /// Similar vehicle ID.
+    tank_id: i32,
+
+    /// Similarity of this vehicle to the source vehicle.
+    similarity: f64,
+
+    /// The similar vehicle's mean rating.
+    mean_rating: f64,
 }
