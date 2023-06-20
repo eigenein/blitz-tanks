@@ -31,8 +31,13 @@ pub struct WebArgs {
     )]
     pub bind_endpoint: SocketAddr,
 
-    #[clap(flatten)]
-    pub wargaming: WargamingArgs,
+    /// Wargaming.net application ID for the front-end app.
+    #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_FRONTEND_APPLICATION_ID")]
+    pub frontend_application_id: String,
+
+    /// Wargaming.net application ID for the back-end app.
+    #[clap(long = "backend-app-id", env = "BLITZ_TANKS_BACKEND_APPLICATION_ID")]
+    pub backend_application_id: String,
 
     /// Public address used in the hyperlinks.
     #[clap(
@@ -50,21 +55,10 @@ pub struct WebArgs {
     pub update_tankopedia: bool,
 }
 
-#[derive(Args)]
-pub struct WargamingArgs {
-    /// Wargaming.net application ID for the front-end app.
-    #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_FRONTEND_APPLICATION_ID")]
-    pub frontend_application_id: String,
-
-    /// Wargaming.net application ID for the back-end app.
-    #[clap(long = "backend-app-id", env = "BLITZ_TANKS_BACKEND_APPLICATION_ID")]
-    pub backend_application_id: String,
-}
-
 /// Run the web application.
 pub async fn run(args: WebArgs) -> Result {
     let db = args.db.open().await?;
-    let wee_gee = Wg::new(&args.wargaming.backend_application_id)?;
+    let wee_gee = Wg::new(&args.backend_application_id)?;
 
     if args.update_tankopedia {
         db.tankopedia()
@@ -76,8 +70,7 @@ pub async fn run(args: WebArgs) -> Result {
     }
 
     let state =
-        AppState::new(&db, &args.wargaming.frontend_application_id, wee_gee, &args.public_address)
-            .await?;
+        AppState::new(&db, &args.frontend_application_id, wee_gee, &args.public_address).await?;
     info!(version = crate_version!(), endpoint = ?args.bind_endpoint, "🚀 running…");
     axum::Server::bind(&args.bind_endpoint)
         .serve(create_app(state).into_make_service())
