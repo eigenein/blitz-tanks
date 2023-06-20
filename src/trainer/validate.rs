@@ -54,7 +54,7 @@ pub fn fit_and_cross_validate(
     test_proportion: f64,
     params: &Params,
 ) -> ReciprocalRank {
-    let split_index = (votes.len() as f64 * test_proportion) as usize;
+    let split_index = ((votes.len() as f64 * test_proportion) as usize).max(1);
 
     (0..n_partitions)
         .map(|_| {
