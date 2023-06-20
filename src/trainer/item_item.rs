@@ -51,21 +51,23 @@ impl Model {
         from: &HashMap<i32, Rating>,
         params: &PredictParams,
     ) -> Option<f64> {
-        let target_entry = self.0.get(&for_tank_id)?;
-        let (numerator, denominator, n_neighbors) = target_entry
+        let target_vehicle = self.0.get(&for_tank_id)?;
+        let (numerator, denominator, n_neighbors) = target_vehicle
             .similar
             .iter()
             .filter(|(_, similarity)| params.include_negative || (*similarity > 0.0))
-            .filter_map(|(tank_id_j, similarity)| {
-                from.get(tank_id_j).map(|rating| (*tank_id_j, *similarity, f64::from(*rating)))
+            .filter_map(|(similar_tank_id, similarity)| {
+                from.get(similar_tank_id)
+                    .map(|rating| (*similar_tank_id, *similarity, f64::from(*rating)))
             })
             .take(params.n_neighbors)
             .fold(
                 (0.0, 0.0, 0_usize),
-                |(numerator, denominator, n_neighbors), (tank_id_j, similarity, rating_j)| {
+                |(numerator, denominator, n_neighbors), (similar_tank_id, similarity, rating_j)| {
                     (
                         numerator
-                            + similarity * (rating_j - self.0.get(&tank_id_j).unwrap().mean_rating),
+                            + similarity
+                                * (rating_j - self.0.get(&similar_tank_id).unwrap().mean_rating),
                         denominator + similarity.abs(),
                         n_neighbors + 1,
                     )
@@ -73,7 +75,7 @@ impl Model {
             );
         if denominator != 0.0 {
             trace!(n_neighbors);
-            Some(target_entry.mean_rating + numerator / denominator)
+            Some(target_vehicle.mean_rating + numerator / denominator)
         } else {
             None
         }

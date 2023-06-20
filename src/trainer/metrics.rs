@@ -24,11 +24,13 @@ where
             .into_iter()
             .sorted_unstable_by(|lhs, rhs| lhs.0.cmp(&rhs.0))
             .collect();
+
         let reciprocal_rank = predictions
             .iter()
             .enumerate()
             .find(|(_, (_, vote))| vote.rating == Rating::Like)
             .map_or(0.0, |(rank, _)| 1.0 / (rank + 1) as f64);
+
         Self { reciprocal_rank }
     }
 }
