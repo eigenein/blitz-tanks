@@ -54,8 +54,8 @@ impl GridSearch {
         report_memory_usage();
 
         let params = iproduct!(1..50, [false, true], [false, true]).map(
-            |(n_neighbors, disable_damping, include_negative)| Params {
-                disable_damping,
+            |(n_neighbors, enable_damping, include_negative)| Params {
+                enable_damping,
                 n_neighbors,
                 include_negative,
             },

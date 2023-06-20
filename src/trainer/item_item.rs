@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use clap::Args;
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
@@ -11,13 +12,16 @@ use crate::{
 };
 
 /// Model parameters.
-#[derive(Default, Debug)]
+#[derive(Debug, Args)]
 pub struct Params {
-    pub disable_damping: bool,
+    #[clap(long, env = "BLITZ_TANKS_MODEL_ENABLE_DAMPING")]
+    pub enable_damping: bool,
 
+    #[clap(long, env = "BLITZ_TANKS_MODEL_NEIGHBORS")]
     /// Number of top similar vehicles to include in a prediction.
     pub n_neighbors: usize,
 
+    #[clap(long, env = "BLITZ_TANKS_MODEL_INCLUDE_NEGATIVE")]
     /// Include negative similarities.
     pub include_negative: bool,
 }
@@ -43,7 +47,7 @@ impl Model {
     pub fn fit(votes: &[Vote], params: &Params) -> Self {
         let votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
         let biased = Self::calculate_biases(&votes);
-        let mut vehicles = Self::calculate_similarities(&biased, params.disable_damping);
+        let mut vehicles = Self::calculate_similarities(&biased, params.enable_damping);
         Self::sort(&mut vehicles);
         Model {
             vehicles,
@@ -68,13 +72,12 @@ impl Model {
             .take(self.n_neighbors)
             .fold((0.0, 0.0), |(sum, weight), (similar_vehicle, similar_rating)| {
                 (
-                    sum + similar_vehicle.similarity
-                        * (similar_rating - similar_vehicle.mean_rating),
+                    sum + similar_vehicle.similarity * (similar_rating - similar_vehicle.bias),
                     weight + similar_vehicle.similarity.abs(),
                 )
             });
         if denominator != 0.0 {
-            Some(target_vehicle.mean_rating + numerator / denominator)
+            Some(target_vehicle.bias + numerator / denominator)
         } else {
             None
         }
@@ -96,11 +99,11 @@ impl Model {
         votes
             .par_iter()
             .map(|(tank_id, votes)| {
-                let mean_rating = votes.iter().map(|vote| f64::from(vote.rating)).sum::<f64>()
+                let bias = votes.iter().map(|vote| f64::from(vote.rating)).sum::<f64>()
                     / votes.len() as f64;
                 Biased {
                     tank_id: *tank_id,
-                    mean_rating,
+                    bias,
                     votes: votes.as_ref(),
                 }
             })
@@ -108,7 +111,7 @@ impl Model {
             .into_boxed_slice()
     }
 
-    fn calculate_similarities(biased: &[Biased], disable_damping: bool) -> HashMap<i32, Vehicle> {
+    fn calculate_similarities(biased: &[Biased], enable_damping: bool) -> HashMap<i32, Vehicle> {
         biased
             .par_iter()
             .map(|vehicle_i| {
@@ -117,19 +120,16 @@ impl Model {
                     .filter(|vehicle_j| vehicle_j.tank_id != vehicle_i.tank_id)
                     .filter_map(|vehicle_j| {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
-                        Self::calculate_similarity(vehicle_i, vehicle_j, disable_damping).map(
+                        Self::calculate_similarity(vehicle_i, vehicle_j, enable_damping).map(
                             |similarity| SimilarVehicle {
                                 similarity,
                                 tank_id: vehicle_j.tank_id,
-                                mean_rating: vehicle_j.mean_rating,
+                                bias: vehicle_j.bias,
                             },
                         )
                     })
                     .collect();
-                let entry = Vehicle {
-                    mean_rating: vehicle_i.mean_rating,
-                    similar,
-                };
+                let entry = Vehicle { bias: vehicle_i.bias, similar };
                 (vehicle_i.tank_id, entry)
             })
             .collect()
@@ -138,7 +138,7 @@ impl Model {
     fn calculate_similarity(
         vehicle_i: &Biased,
         vehicle_j: &Biased,
-        disable_damping: bool,
+        enable_damping: bool,
     ) -> Option<f64> {
         let (numerator, denominator_i, denominator_j) =
             merge_join_by(vehicle_i.votes, vehicle_j.votes, |i, j| i.account_id.cmp(&j.account_id))
@@ -147,20 +147,20 @@ impl Model {
                     |(mut numerator, mut denominator_i, mut denominator_j), either| {
                         match either {
                             EitherOrBoth::Left(vote_i) => {
-                                if !disable_damping {
+                                if enable_damping {
                                     denominator_i +=
-                                        (f64::from(vote_i.rating) - vehicle_i.mean_rating).powi(2);
+                                        (f64::from(vote_i.rating) - vehicle_i.bias).powi(2);
                                 }
                             }
                             EitherOrBoth::Right(vote_j) => {
-                                if !disable_damping {
+                                if enable_damping {
                                     denominator_j +=
-                                        (f64::from(vote_j.rating) - vehicle_j.mean_rating).powi(2);
+                                        (f64::from(vote_j.rating) - vehicle_j.bias).powi(2);
                                 }
                             }
                             EitherOrBoth::Both(vote_i, vote_j) => {
-                                let diff_i = f64::from(vote_i.rating) - vehicle_i.mean_rating;
-                                let diff_j = f64::from(vote_j.rating) - vehicle_j.mean_rating;
+                                let diff_i = f64::from(vote_i.rating) - vehicle_i.bias;
+                                let diff_j = f64::from(vote_j.rating) - vehicle_j.bias;
                                 numerator += diff_i * diff_j;
                                 denominator_i += diff_i.powi(2);
                                 denominator_j += diff_j.powi(2);
@@ -186,16 +186,19 @@ impl Model {
     }
 }
 
-/// Calculated mean rating altogether with the relevant votes.
 struct Biased<'a> {
     tank_id: i32,
-    mean_rating: f64,
+
+    /// Average vehicle rating.
+    bias: f64,
+
     votes: &'a [&'a Vote],
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct Vehicle {
-    pub mean_rating: f64,
+    /// Average vehicle rating.
+    pub bias: f64,
 
     /// Similar vehicles (tank ID and similarity), sorted by descending similarity.
     pub similar: Box<[SimilarVehicle]>,
@@ -210,5 +213,5 @@ pub struct SimilarVehicle {
     similarity: f64,
 
     /// The similar vehicle's mean rating.
-    mean_rating: f64,
+    bias: f64,
 }
