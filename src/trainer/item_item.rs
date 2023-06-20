@@ -22,8 +22,8 @@ pub struct Params {
     /// Number of top similar vehicles to include in a prediction.
     pub n_neighbors: usize,
 
-    #[clap(long, env = "BLITZ_TANKS_MODEL_INCLUDE_NEGATIVE")]
     /// Include negative similarities.
+    #[clap(long, env = "BLITZ_TANKS_MODEL_INCLUDE_NEGATIVE")]
     pub include_negative: bool,
 }
 
@@ -53,7 +53,7 @@ impl Model {
     pub fn fit(votes: &[Vote], params: &Params) -> Self {
         let votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
         let biased = Self::calculate_biases(&votes);
-        let mut vehicles = Self::calculate_similarities(&biased, params.enable_damping);
+        let mut vehicles = Self::calculate_similarities(&biased, params);
         Self::sort(&mut vehicles);
         Model {
             vehicles,
@@ -118,7 +118,7 @@ impl Model {
             .into_boxed_slice()
     }
 
-    fn calculate_similarities(biased: &[Biased], enable_damping: bool) -> HashMap<i32, Vehicle> {
+    fn calculate_similarities(biased: &[Biased], params: &Params) -> HashMap<i32, Vehicle> {
         biased
             .par_iter()
             .map(|vehicle_i| {
@@ -127,13 +127,13 @@ impl Model {
                     .filter(|vehicle_j| vehicle_j.tank_id != vehicle_i.tank_id)
                     .filter_map(|vehicle_j| {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
-                        Self::calculate_similarity(vehicle_i, vehicle_j, enable_damping).map(
-                            |similarity| SimilarVehicle {
+                        Self::calculate_similarity(vehicle_i, vehicle_j, params).map(|similarity| {
+                            SimilarVehicle {
                                 similarity,
                                 tank_id: vehicle_j.tank_id,
                                 bias: vehicle_j.bias,
-                            },
-                        )
+                            }
+                        })
                     })
                     .collect();
                 let entry = Vehicle { bias: vehicle_i.bias, similar };
@@ -145,7 +145,7 @@ impl Model {
     fn calculate_similarity(
         vehicle_i: &Biased,
         vehicle_j: &Biased,
-        enable_damping: bool,
+        params: &Params,
     ) -> Option<f64> {
         let (numerator, denominator_i, denominator_j) =
             merge_join_by(vehicle_i.votes, vehicle_j.votes, |i, j| i.account_id.cmp(&j.account_id))
@@ -154,20 +154,18 @@ impl Model {
                     |(mut numerator, mut denominator_i, mut denominator_j), either| {
                         match either {
                             EitherOrBoth::Left(vote_i) => {
-                                if enable_damping {
-                                    denominator_i +=
-                                        (f64::from(vote_i.rating) - vehicle_i.bias).powi(2);
+                                if params.enable_damping {
+                                    denominator_i += (vote_i.rating - vehicle_i.bias).powi(2);
                                 }
                             }
                             EitherOrBoth::Right(vote_j) => {
-                                if enable_damping {
-                                    denominator_j +=
-                                        (f64::from(vote_j.rating) - vehicle_j.bias).powi(2);
+                                if params.enable_damping {
+                                    denominator_j += (vote_j.rating - vehicle_j.bias).powi(2);
                                 }
                             }
                             EitherOrBoth::Both(vote_i, vote_j) => {
-                                let diff_i = f64::from(vote_i.rating) - vehicle_i.bias;
-                                let diff_j = f64::from(vote_j.rating) - vehicle_j.bias;
+                                let diff_i = vote_i.rating - vehicle_i.bias;
+                                let diff_j = vote_j.rating - vehicle_j.bias;
                                 numerator += diff_i * diff_j;
                                 denominator_i += diff_i.powi(2);
                                 denominator_j += diff_j.powi(2);

@@ -48,6 +48,10 @@ pub struct GridSearch {
 
     #[clap(long, default_value = "50", env = "BLITZ_TANKS_TRAINER_PARTITIONS")]
     n_partitions: usize,
+
+    /// High `n_neighbors` for grid search.
+    #[clap(long, default_value = "10")]
+    high_neighbors: usize,
 }
 
 impl GridSearch {
@@ -57,7 +61,7 @@ impl GridSearch {
         info!(n_votes = votes.len(), "✅ Gotcha!");
         report_memory_usage();
 
-        let params = iproduct!(1..50, [false, true], [false, true]).map(
+        let params = iproduct!(1..=self.high_neighbors, [false, true], [false, true]).map(
             |(n_neighbors, enable_damping, include_negative)| Params {
                 enable_damping,
                 n_neighbors,

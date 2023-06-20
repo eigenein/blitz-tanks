@@ -1,3 +1,5 @@
+use std::ops::Sub;
+
 use serde::{Deserialize, Deserializer, Serializer};
 
 /// User's rating for a vehicle.
@@ -33,5 +35,13 @@ impl From<Rating> for f64 {
             Rating::Like => 0.5,
             Rating::Dislike => -0.5,
         }
+    }
+}
+
+impl Sub<f64> for Rating {
+    type Output = f64;
+
+    fn sub(self, rhs: f64) -> Self::Output {
+        f64::from(self) - rhs
     }
 }
