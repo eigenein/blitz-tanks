@@ -9,7 +9,14 @@ use crate::models::rating::Rating;
 ///
 /// [1]: https://en.wikipedia.org/wiki/Mean_reciprocal_rank
 #[derive(
-    derive_more::Into, derive_more::Add, derive_more::Sum, PartialOrd, PartialEq, Copy, Clone,
+    derive_more::Into,
+    derive_more::Add,
+    derive_more::Sum,
+    PartialOrd,
+    PartialEq,
+    Copy,
+    Clone,
+    Default,
 )]
 pub struct ReciprocalRank(f64);
 
@@ -17,13 +24,6 @@ impl Display for ReciprocalRank {
     #[inline]
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:.3}", self.0)
-    }
-}
-
-impl ReciprocalRank {
-    #[inline]
-    pub fn rank(self) -> f64 {
-        1.0 / self.0
     }
 }
 

@@ -37,6 +37,6 @@ async fn main() -> Result {
     match args.command {
         Command::Web(args) => trace(web::run(args).await),
         Command::Giveaway(args) => trace(cli::giveaway::run(args).await),
-        Command::Train(args) => trace(trainer::run(args).await),
+        Command::GridSearch(args) => trace(trainer::run_grid_search(args).await),
     }
 }

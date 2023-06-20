@@ -32,7 +32,8 @@ pub enum Command {
     /// Pick an account for a giveaway.
     Giveaway(GiveawayArgs),
 
-    Train(TrainerArgs),
+    /// Train many models, cross-validate them, and pick the best one.
+    GridSearch(GridSearchArgs),
 }
 
 #[derive(Args)]
@@ -119,7 +120,7 @@ pub struct GiveawayArgs {
 }
 
 #[derive(Args)]
-pub struct TrainerArgs {
+pub struct GridSearchArgs {
     #[clap(flatten)]
     pub db: DbArgs,
 

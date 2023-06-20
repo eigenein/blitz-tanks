@@ -19,7 +19,7 @@ pub fn search(
     n_partitions: usize,
     test_proportion: f64,
     params: impl IntoIterator<Item = Params>,
-) -> Option<(ReciprocalRank, Params)> {
+) -> ReciprocalRank {
     info!(
         n_votes = votes.len(),
         n_partitions, test_proportion, "🧪 Searching across the parameter space…",
@@ -32,20 +32,18 @@ pub fn search(
         .map(|params| {
             (fit_and_cross_validate(votes, n_partitions, test_proportion, &params), params)
         })
-        .fold(None, |current, (reciprocal_rank, params)| {
-            if current.as_ref().map_or(true, |(current_reciprocal_rank, _)| {
-                reciprocal_rank > *current_reciprocal_rank
-            }) {
+        .fold(ReciprocalRank::default(), |current_mrr, (new_mrr, new_params)| {
+            if new_mrr > current_mrr {
                 info!(
-                    %reciprocal_rank,
-                    disable_damping = params.disable_damping,
-                    n_neighbors = params.n_neighbors,
-                    include_negative = params.include_negative,
+                    %new_mrr,
+                    disable_damping = new_params.disable_damping,
+                    n_neighbors = new_params.n_neighbors,
+                    include_negative = new_params.include_negative,
                     "🎉 Improved",
                 );
-                Some((reciprocal_rank, params))
+                new_mrr
             } else {
-                current
+                current_mrr
             }
         })
 }
