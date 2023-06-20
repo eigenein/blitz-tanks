@@ -31,7 +31,7 @@ pub async fn run(args: TrainerArgs) -> Result {
     );
     let (metrics, fit_params, predict_params) =
         search(&mut votes, args.n_partitions, args.test_proportion, params).unwrap();
-    info!(metrics.reciprocal_rank, ?fit_params, ?predict_params, "🏁 Finished search");
+    info!(?metrics, ?fit_params, ?predict_params, "🏁 Finished search");
 
     Ok(())
 }
