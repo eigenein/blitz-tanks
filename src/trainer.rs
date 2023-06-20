@@ -51,7 +51,7 @@ pub struct GridSearch {
     n_partitions: usize,
 
     /// High `n_neighbors` for grid search.
-    #[clap(long, default_value = "10")]
+    #[clap(long, default_value = "15")]
     high_neighbors: usize,
 }
 

@@ -8,7 +8,7 @@ use crate::{
     prelude::*,
     trainer::{
         item_item::{Model, Params},
-        metrics::ReciprocalRank,
+        metrics::{Mean, ReciprocalRank},
     },
 };
 
@@ -61,8 +61,8 @@ pub fn fit_and_cross_validate(
             fastrand::shuffle(votes);
             fit_and_validate(&votes[split_index..], &votes[..split_index], params)
         })
-        .sum::<ReciprocalRank>()
-        / n_partitions
+        .collect::<Mean<ReciprocalRank>>()
+        .0
 }
 
 pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> ReciprocalRank {
@@ -80,15 +80,14 @@ pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> Recip
         })
         .collect();
 
-    let test = test.iter().into_group_map_by(|vote| vote.account_id);
-    let n_test_accounts = test.len();
-    test.into_iter()
+    test.iter()
+        .into_group_map_by(|vote| vote.account_id)
+        .into_iter()
         .filter_map(|(account_id, test_votes)| {
-            let Some(train_ratings) = train_ratings.get(&account_id) else { return None };
-            if !test_votes.iter().any(|vote| vote.rating == Rating::Like) {
-                // Can't even calculate the metrics in this case.
-                return None;
-            }
+            let Some(train_ratings) = train_ratings.get(&account_id) else {
+                // No train ratings for this account, can't calculate the metrics.
+                return None
+            };
             let predictions = model
                 .predict_many(test_votes.iter().map(|vote| vote.tank_id), train_ratings)
                 .zip(test_votes.iter().copied())
@@ -107,6 +106,6 @@ pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> Recip
                 .collect::<ReciprocalRank>();
             Some(reciprocal_rank)
         })
-        .sum::<ReciprocalRank>()
-        / n_test_accounts
+        .collect::<Mean<ReciprocalRank>>()
+        .0
 }

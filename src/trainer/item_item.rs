@@ -67,7 +67,7 @@ impl Model {
     #[instrument(skip_all, fields(target_id = target_id))]
     pub fn predict(&self, target_id: i32, source_ratings: &HashMap<i32, Rating>) -> Option<f64> {
         let target_vehicle = self.vehicles.get(&target_id)?;
-        let (numerator, denominator) = target_vehicle
+        let (sum, weight) = target_vehicle
             .similar
             .iter()
             .filter(|similar_vehicle| self.include_negative || (similar_vehicle.similarity > 0.0))
@@ -83,8 +83,8 @@ impl Model {
                     weight + similar_vehicle.similarity.abs(),
                 )
             });
-        if denominator != 0.0 {
-            Some(target_vehicle.bias + numerator / denominator)
+        if weight >= f64::EPSILON {
+            Some(target_vehicle.bias + sum / weight)
         } else {
             None
         }
@@ -175,7 +175,10 @@ impl Model {
                     },
                 );
 
-        if denominator_i != 0.0 && denominator_j != 0.0 {
+        if numerator.abs() >= f64::EPSILON
+            && denominator_i >= f64::EPSILON
+            && denominator_j >= f64::EPSILON
+        {
             Some(numerator / denominator_i.sqrt() / denominator_j.sqrt())
         } else {
             None

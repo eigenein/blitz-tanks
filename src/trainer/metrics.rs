@@ -1,6 +1,6 @@
 use std::{
-    fmt::{Display, Formatter},
-    ops::Div,
+    fmt::{Debug, Display, Formatter},
+    ops::{Add, Div},
 };
 
 use crate::models::rating::Rating;
@@ -17,6 +17,7 @@ use crate::models::rating::Rating;
     Copy,
     Clone,
     Default,
+    Debug,
 )]
 pub struct ReciprocalRank(f64);
 
@@ -41,6 +42,22 @@ impl FromIterator<Rating> for ReciprocalRank {
         iter.into_iter()
             .enumerate()
             .find(|(_, rating)| *rating == Rating::Like)
-            .map_or(Self(0.0), |(rank, _)| Self(1.0 / ((rank + 1) as f64)))
+            .map_or(Self::default(), |(rank, _)| ReciprocalRank(1.0 / ((rank + 1) as f64)))
+    }
+}
+
+pub struct Mean<T>(pub T);
+
+impl<T> FromIterator<T> for Mean<T>
+where
+    T: Default,
+    T: Add<Output = T>,
+    T: Div<usize, Output = T>,
+{
+    fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
+        let (n, sum) = iter
+            .into_iter()
+            .fold((0_usize, T::default()), |(n, sum), next| (n + 1, sum + next));
+        Self(if n != 0 { sum / n } else { T::default() })
     }
 }
