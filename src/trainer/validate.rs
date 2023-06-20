@@ -107,6 +107,10 @@ pub fn fit_and_validate(
     test.into_iter()
         .filter_map(|(account_id, test_votes)| {
             let Some(train_ratings) = train_ratings.get(&account_id) else { return None };
+            if !test_votes.iter().any(|vote| vote.rating == Rating::Like) {
+                // Can't even calculate the metrics in this case.
+                return None;
+            }
             let predictions = model
                 .predict_many(
                     test_votes.iter().map(|vote| vote.tank_id),
