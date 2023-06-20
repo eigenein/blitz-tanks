@@ -8,7 +8,7 @@ use crate::{
     prelude::*,
     trainer::{
         item_item::{FitParams, Model, PredictParams},
-        metrics::Metrics,
+        metrics::ReciprocalRank,
     },
 };
 
@@ -19,7 +19,7 @@ pub fn search(
     n_partitions: usize,
     test_proportion: f64,
     params: impl IntoIterator<Item = (FitParams, PredictParams)>,
-) -> Option<(Metrics, FitParams, PredictParams)> {
+) -> Option<(ReciprocalRank, FitParams, PredictParams)> {
     info!(
         n_votes = votes.len(),
         n_partitions, test_proportion, "🧪 Searching across the parameter space…",
@@ -42,18 +42,18 @@ pub fn search(
                 predict_params,
             )
         })
-        .fold(None, |current, (metrics, fit_params, predict_params)| {
-            if current.as_ref().map_or(true, |(current_metrics, _, _)| {
-                metrics.reciprocal_rank > current_metrics.reciprocal_rank
+        .fold(None, |current, (reciprocal_rank, fit_params, predict_params)| {
+            if current.as_ref().map_or(true, |(current_reciprocal_rank, _, _)| {
+                reciprocal_rank > *current_reciprocal_rank
             }) {
                 info!(
-                    metrics.reciprocal_rank,
-                    fit_params.disable_damping,
-                    predict_params.n_neighbors,
-                    predict_params.include_negative,
+                    %reciprocal_rank,
+                    disable_damping = fit_params.disable_damping,
+                    n_neighbors = predict_params.n_neighbors,
+                    include_negative = predict_params.include_negative,
                     "🎉 Improved",
                 );
-                Some((metrics, fit_params, predict_params))
+                Some((reciprocal_rank, fit_params, predict_params))
             } else {
                 current
             }
@@ -66,7 +66,7 @@ pub fn fit_and_cross_validate(
     test_proportion: f64,
     fit_params: &FitParams,
     predict_params: &PredictParams,
-) -> Metrics {
+) -> ReciprocalRank {
     let split_index = (votes.len() as f64 * test_proportion) as usize;
 
     (0..n_partitions)
@@ -79,8 +79,8 @@ pub fn fit_and_cross_validate(
                 predict_params,
             )
         })
-        .sum::<Metrics>()
-        / n_partitions as f64
+        .sum::<ReciprocalRank>()
+        / n_partitions
 }
 
 pub fn fit_and_validate(
@@ -88,7 +88,7 @@ pub fn fit_and_validate(
     test: &[Vote],
     fit_params: &FitParams,
     predict_params: &PredictParams,
-) -> Metrics {
+) -> ReciprocalRank {
     let model = Model::fit(train, fit_params);
 
     let train_ratings: HashMap<u32, HashMap<i32, Rating>> = train
@@ -104,7 +104,7 @@ pub fn fit_and_validate(
         .collect();
 
     let test = test.iter().into_group_map_by(|vote| vote.account_id);
-    let n_test_accounts = test.len() as f64;
+    let n_test_accounts = test.len();
     test.into_iter()
         .filter_map(|(account_id, test_votes)| {
             let Some(train_ratings) = train_ratings.get(&account_id) else { return None };
@@ -127,8 +127,13 @@ pub fn fit_and_validate(
                 n_test_votes = test_votes.len(),
                 n_predictions,
             );
-            Some(Metrics::from(predictions))
+            let reciprocal_rank = predictions
+                .iter()
+                .sorted_unstable_by_key(|(prediction, _)| prediction)
+                .map(|(_, vote)| vote.rating)
+                .collect::<ReciprocalRank>();
+            Some(reciprocal_rank)
         })
-        .sum::<Metrics>()
+        .sum::<ReciprocalRank>()
         / n_test_accounts
 }

@@ -1,55 +1,46 @@
-use std::{iter::Sum, ops::Div};
-
-use itertools::Itertools;
-
-use crate::{
-    models::{rating::Rating, vote::Vote},
-    trainer::prediction::Prediction,
+use std::{
+    fmt::{Display, Formatter},
+    ops::Div,
 };
 
-#[derive(Default, Debug)]
-pub struct Metrics {
-    /// [(Mean) reciprocal rank][1].
-    ///
-    /// [1]: https://en.wikipedia.org/wiki/Mean_reciprocal_rank
-    pub reciprocal_rank: f64,
-}
+use crate::models::rating::Rating;
 
-impl<'a, I> From<I> for Metrics
-where
-    I: IntoIterator<Item = (Prediction, &'a Vote)>,
-{
-    fn from(predictions: I) -> Self {
-        let predictions: Box<[(Prediction, &'a Vote)]> = predictions
-            .into_iter()
-            .sorted_unstable_by(|lhs, rhs| lhs.0.cmp(&rhs.0))
-            .collect();
+/// [(Mean) reciprocal rank][1].
+///
+/// [1]: https://en.wikipedia.org/wiki/Mean_reciprocal_rank
+#[derive(
+    derive_more::Into, derive_more::Add, derive_more::Sum, PartialOrd, PartialEq, Copy, Clone,
+)]
+pub struct ReciprocalRank(f64);
 
-        let reciprocal_rank = predictions
-            .iter()
-            .enumerate()
-            .find(|(_, (_, vote))| vote.rating == Rating::Like)
-            .map_or(0.0, |(rank, _)| 1.0 / (rank + 1) as f64);
-
-        Self { reciprocal_rank }
+impl Display for ReciprocalRank {
+    #[inline]
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:.3}", self.0)
     }
 }
 
-impl Sum for Metrics {
-    fn sum<I: Iterator<Item = Self>>(iter: I) -> Self {
-        iter.fold(Self::default(), |sum, item| Metrics {
-            reciprocal_rank: sum.reciprocal_rank + item.reciprocal_rank,
-        })
+impl ReciprocalRank {
+    #[inline]
+    pub fn rank(self) -> f64 {
+        1.0 / self.0
     }
 }
 
-impl Div<f64> for Metrics {
+impl Div<usize> for ReciprocalRank {
     type Output = Self;
 
     #[inline]
-    fn div(self, rhs: f64) -> Self::Output {
-        Self {
-            reciprocal_rank: self.reciprocal_rank / rhs,
-        }
+    fn div(self, rhs: usize) -> Self::Output {
+        Self(self.0 / rhs as f64)
+    }
+}
+
+impl FromIterator<Rating> for ReciprocalRank {
+    fn from_iter<T: IntoIterator<Item = Rating>>(iter: T) -> Self {
+        iter.into_iter()
+            .enumerate()
+            .find(|(_, rating)| *rating == Rating::Like)
+            .map_or(Self(0.0), |(rank, _)| Self(1.0 / ((rank + 1) as f64)))
     }
 }

@@ -29,14 +29,14 @@ pub async fn run(args: TrainerArgs) -> Result {
             (FitParams { disable_damping }, PredictParams { n_neighbors, include_negative })
         },
     );
-    let (metrics, fit_params, predict_params) =
+    let (reciprocal_rank, fit_params, predict_params) =
         search(&mut votes, args.n_partitions, args.test_proportion, params).unwrap();
     info!(
-        metrics.reciprocal_rank,
-        rank = 1.0 / metrics.reciprocal_rank,
-        fit_params.disable_damping,
-        predict_params.n_neighbors,
-        predict_params.include_negative,
+        %reciprocal_rank,
+        rank = reciprocal_rank.rank(),
+        disable_damping = fit_params.disable_damping,
+        n_neighbors = predict_params.n_neighbors,
+        include_negative = predict_params.include_negative,
         "🏁 Finished search"
     );
 
