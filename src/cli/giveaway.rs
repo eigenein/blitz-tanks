@@ -1,8 +1,23 @@
 use std::collections::HashSet;
 
+use clap::Args;
 use futures::TryStreamExt;
 
-use crate::{cli::GiveawayArgs, prelude::*};
+use crate::{cli::DbArgs, prelude::*};
+
+#[derive(Args)]
+pub struct GiveawayArgs {
+    #[clap(flatten)]
+    pub db: DbArgs,
+
+    /// Account IDs to exclude, comma-separated.
+    #[clap(long, value_parser, num_args = 0.., value_delimiter = ',')]
+    pub exclude_ids: Vec<u32>,
+
+    /// Trace all candidate IDs.
+    #[clap(long)]
+    pub trace_candidates: bool,
+}
 
 pub async fn run(args: GiveawayArgs) -> Result {
     let db = args.db.open().await?;

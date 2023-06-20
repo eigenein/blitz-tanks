@@ -7,17 +7,59 @@ mod r#static;
 mod tracing_;
 mod views;
 
+use std::net::SocketAddr;
+
 use axum::{
     routing::{get, post},
     Router,
 };
-use clap::crate_version;
+use clap::{crate_version, Args};
 use sentry::integrations::tower::{NewSentryLayer, SentryHttpLayer};
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::info;
 
-use crate::{cli::WebArgs, prelude::*, web::state::AppState, wg::Wg};
+use crate::{cli::DbArgs, prelude::*, web::state::AppState, wg::Wg};
+
+#[derive(Args)]
+pub struct WebArgs {
+    /// Web application bind endpoint.
+    #[clap(
+        long,
+        env = "BLITZ_TANKS_BIND_ENDPOINT",
+        default_value = "127.0.0.1:8080"
+    )]
+    pub bind_endpoint: SocketAddr,
+
+    #[clap(flatten)]
+    pub wargaming: WargamingArgs,
+
+    /// Public address used in the hyperlinks.
+    #[clap(
+        long,
+        env = "BLITZ_TANKS_PUBLIC_ADDRESS",
+        default_value = "localhost:8080"
+    )]
+    pub public_address: String,
+
+    #[clap(flatten)]
+    pub db: DbArgs,
+
+    /// Update the tankopedia database on startup.
+    #[clap(long, env = "BLITZ_TANKS_UPDATE_TANKOPEDIA")]
+    pub update_tankopedia: bool,
+}
+
+#[derive(Args)]
+pub struct WargamingArgs {
+    /// Wargaming.net application ID for the front-end app.
+    #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_FRONTEND_APPLICATION_ID")]
+    pub frontend_application_id: String,
+
+    /// Wargaming.net application ID for the back-end app.
+    #[clap(long = "backend-app-id", env = "BLITZ_TANKS_BACKEND_APPLICATION_ID")]
+    pub backend_application_id: String,
+}
 
 /// Run the web application.
 pub async fn run(args: WebArgs) -> Result {

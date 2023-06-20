@@ -1,10 +1,11 @@
 pub mod giveaway;
 
-use std::net::SocketAddr;
-
 use clap::{Args, Parser, Subcommand};
 
-use crate::{db::Db, prelude::*, trainer, web};
+use crate::{
+    cli::giveaway::GiveawayArgs, db::Db, prelude::*, trainer, trainer::GridSearchArgs, web,
+    web::WebArgs,
+};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -47,46 +48,6 @@ impl Command {
 }
 
 #[derive(Args)]
-pub struct WebArgs {
-    /// Web application bind endpoint.
-    #[clap(
-        long,
-        env = "BLITZ_TANKS_BIND_ENDPOINT",
-        default_value = "127.0.0.1:8080"
-    )]
-    pub bind_endpoint: SocketAddr,
-
-    #[clap(flatten)]
-    pub wargaming: WargamingArgs,
-
-    /// Public address used in the hyperlinks.
-    #[clap(
-        long,
-        env = "BLITZ_TANKS_PUBLIC_ADDRESS",
-        default_value = "localhost:8080"
-    )]
-    pub public_address: String,
-
-    #[clap(flatten)]
-    pub db: DbArgs,
-
-    /// Update the tankopedia database on startup.
-    #[clap(long, env = "BLITZ_TANKS_UPDATE_TANKOPEDIA")]
-    pub update_tankopedia: bool,
-}
-
-#[derive(Args)]
-pub struct WargamingArgs {
-    /// Wargaming.net application ID for the front-end app.
-    #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_FRONTEND_APPLICATION_ID")]
-    pub frontend_application_id: String,
-
-    /// Wargaming.net application ID for the back-end app.
-    #[clap(long = "backend-app-id", env = "BLITZ_TANKS_BACKEND_APPLICATION_ID")]
-    pub backend_application_id: String,
-}
-
-#[derive(Args)]
 pub struct DbArgs {
     /// MongoDB database URI.
     #[clap(
@@ -107,40 +68,4 @@ impl DbArgs {
             .ok_or_else(|| anyhow!("no default database was specified"))?;
         Ok(db.into())
     }
-}
-
-#[derive(Args)]
-pub struct ExportVotesArgs {
-    #[clap(flatten)]
-    pub db: DbArgs,
-}
-
-#[derive(Args)]
-pub struct GiveawayArgs {
-    #[clap(flatten)]
-    pub db: DbArgs,
-
-    /// Account IDs to exclude, comma-separated.
-    #[clap(long, value_parser, num_args = 0.., value_delimiter = ',')]
-    pub exclude_ids: Vec<u32>,
-
-    /// Trace all candidate IDs.
-    #[clap(long)]
-    pub trace_candidates: bool,
-}
-
-#[derive(Args)]
-pub struct GridSearchArgs {
-    #[clap(flatten)]
-    pub db: DbArgs,
-
-    #[clap(
-        long,
-        default_value = "0.2",
-        env = "BLITZ_TANKS_TRAINER_TEST_PROPORTION"
-    )]
-    pub test_proportion: f64,
-
-    #[clap(long, default_value = "50", env = "BLITZ_TANKS_TRAINER_PARTITIONS")]
-    pub n_partitions: usize,
 }
