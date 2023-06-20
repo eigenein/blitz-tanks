@@ -1,7 +1,7 @@
 use std::{borrow::Cow, io::stderr};
 
-use bytesize::ByteSize;
 use clap::crate_version;
+use indicatif::HumanBytes;
 use sentry::{
     integrations::{anyhow::capture_anyhow, tracing::EventFilter},
     ClientInitGuard, ClientOptions, Scope,
@@ -77,9 +77,9 @@ pub fn report_memory_usage() {
 
     epoch::advance().unwrap();
     info!(
-        allocated = %ByteSize::b(stats::allocated::read().unwrap() as u64),
-        active = %ByteSize::b(stats::active::read().unwrap() as u64),
-        resident = %ByteSize::b(stats::resident::read().unwrap() as u64),
+        allocated = %HumanBytes(stats::allocated::read().unwrap() as u64),
+        active = %HumanBytes(stats::active::read().unwrap() as u64),
+        resident = %HumanBytes(stats::resident::read().unwrap() as u64),
         "🍪 Memory report",
     );
 }

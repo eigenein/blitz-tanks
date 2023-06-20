@@ -12,7 +12,7 @@ use crate::{
     },
 };
 
-const PROGRESS_TEMPLATE: &str = "{elapsed} {wide_bar} {pos}/{len} {eta}";
+const PROGRESS_TEMPLATE: &str = "{elapsed} {per_sec} {wide_bar} {pos}/{len} {eta}";
 
 pub fn search(
     votes: &mut [Vote],
