@@ -1,11 +1,6 @@
-pub mod giveaway;
-
 use clap::{Args, Parser, Subcommand};
 
-use crate::{
-    cli::giveaway::GiveawayArgs, db::Db, prelude::*, trainer, trainer::GridSearchArgs, web,
-    web::WebArgs,
-};
+use crate::{db::Db, giveaway::Giveaway, prelude::*, trainer::GridSearch, web::Web};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -28,21 +23,21 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Command {
     /// Run the web application.
-    Web(WebArgs),
+    Web(Web),
 
     /// Pick an account for a giveaway.
-    Giveaway(GiveawayArgs),
+    Giveaway(Giveaway),
 
     /// Train many models, cross-validate them, and pick the best one.
-    GridSearch(GridSearchArgs),
+    GridSearch(GridSearch),
 }
 
 impl Command {
     pub async fn run(self) -> Result {
         match self {
-            Self::Web(args) => web::run(args).await,
-            Self::Giveaway(args) => giveaway::run(args).await,
-            Self::GridSearch(args) => trainer::run_grid_search(args).await,
+            Self::Web(web) => web.run().await,
+            Self::Giveaway(giveaway) => giveaway.run().await,
+            Self::GridSearch(grid_search) => grid_search.run().await,
         }
     }
 }

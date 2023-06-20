@@ -11,6 +11,7 @@
 
 mod cli;
 mod db;
+mod giveaway;
 mod models;
 mod prelude;
 mod tracing;

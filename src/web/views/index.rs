@@ -105,11 +105,11 @@ mod tests {
     use tower::ServiceExt;
 
     use super::*;
-    use crate::{prelude::Result, web::create_app};
+    use crate::{prelude::Result, web::Web};
 
     #[tokio::test]
     async fn index_ok() -> Result {
-        let app = create_app(AppState::new_test().await?);
+        let app = Web::create_app(AppState::new_test().await?);
         let request = Request::builder().uri("/").body(Body::empty())?;
         let response = app.oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::OK);
@@ -124,7 +124,7 @@ mod tests {
             .uri("/")
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
-        let response = create_app(state).oneshot(request).await?;
+        let response = Web::create_app(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
         let headers = response.headers();
         assert_eq!(headers.get("Location").unwrap(), "/profile/0");
