@@ -48,10 +48,9 @@ pub fn search(
             }) {
                 info!(
                     metrics.reciprocal_rank,
-                    metrics.root_mean_squared_error,
-                    metrics.mean_absolute_error,
-                    ?fit_params,
-                    ?predict_params,
+                    fit_params.disable_damping,
+                    predict_params.n_neighbors,
+                    predict_params.include_negative,
                     "🎉 Improved",
                 );
                 Some((metrics, fit_params, predict_params))
