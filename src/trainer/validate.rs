@@ -46,12 +46,7 @@ pub fn search(
             if current.as_ref().map_or(true, |(current_metrics, _, _)| {
                 metrics.reciprocal_rank > current_metrics.reciprocal_rank
             }) {
-                info!(
-                    metrics.reciprocal_rank,
-                    ?fit_params,
-                    ?predict_params,
-                    "🎉 Found better parameters",
-                );
+                info!(metrics.reciprocal_rank, ?fit_params, ?predict_params, "🎉 Improved");
                 Some((metrics, fit_params, predict_params))
             } else {
                 current

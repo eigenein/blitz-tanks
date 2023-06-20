@@ -31,7 +31,7 @@ impl From<Rating> for f64 {
     fn from(rating: Rating) -> f64 {
         match rating {
             Rating::Like => 1.0,
-            Rating::Dislike => 0.0,
+            Rating::Dislike => -1.0,
         }
     }
 }
