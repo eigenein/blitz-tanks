@@ -1,30 +1,35 @@
-mod item_item;
+pub mod item_item;
 mod metrics;
 mod prediction;
 mod validate;
 
 use clap::{Args, Subcommand};
-use futures::TryStreamExt;
 use itertools::iproduct;
 
 use crate::{
     cli::DbArgs,
-    models::vote::Vote,
     prelude::*,
     tracing::report_memory_usage,
-    trainer::{item_item::Params, validate::search},
+    trainer::{
+        item_item::{Model, Params},
+        validate::search,
+    },
 };
 
 #[derive(Subcommand)]
 pub enum Trainer {
     /// Train many models, cross-validate them, and pick the best one.
     GridSearch(GridSearch),
+
+    /// Fit the model and store it to the database.
+    Fit(Fit),
 }
 
 impl Trainer {
     pub async fn run(self) -> Result {
         match self {
             Self::GridSearch(grid_search) => grid_search.run().await,
+            Self::Fit(fit) => fit.run().await,
         }
     }
 }
@@ -48,8 +53,7 @@ pub struct GridSearch {
 impl GridSearch {
     pub async fn run(self) -> Result {
         info!("⏳ Reading the votes…");
-        let mut votes: Vec<Vote> =
-            self.db.open().await?.votes().await?.iter_all().await?.try_collect().await?;
+        let mut votes = self.db.open().await?.votes().await?.retrieve_all().await?;
         info!(n_votes = votes.len(), "✅ Gotcha!");
         report_memory_usage();
 
@@ -62,6 +66,38 @@ impl GridSearch {
         );
         search(&mut votes, self.n_partitions, self.test_proportion, params);
         info!("🏁 Finished search");
+
+        Ok(())
+    }
+}
+
+#[derive(Args)]
+pub struct Fit {
+    #[clap(flatten)]
+    db: DbArgs,
+
+    #[clap(flatten)]
+    model_params: Params,
+}
+
+impl Fit {
+    pub async fn run(self) -> Result {
+        let db = self.db.open().await?;
+
+        let model = {
+            info!("⏳ Reading the votes…");
+            let votes = db.votes().await?.retrieve_all().await?;
+            info!(n_votes = votes.len(), "✅ Gotcha!");
+            report_memory_usage();
+
+            info!("⏳ Fitting…");
+            Model::fit(&votes, &self.model_params)
+        };
+        info!("✅ Gotcha!");
+        report_memory_usage();
+
+        let model_id = db.models().await?.insert(&model).await?;
+        info!(%model_id, "✅ Saved to the database");
 
         Ok(())
     }

@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use clap::Args;
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
+use mongodb::bson::serde_helpers;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
@@ -28,6 +29,7 @@ pub struct Params {
 
 /// Item-item kNN collaborative filtering.
 #[must_use]
+#[serde_with::serde_as]
 #[derive(Serialize, Deserialize)]
 pub struct Model {
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
@@ -36,11 +38,15 @@ pub struct Model {
     ///
     /// The mapping values only contain entries,
     /// for which tank ID are **greater** than the respective mapping key.
+    #[serde_as(as = "Vec<(_, _)>")]
     vehicles: HashMap<i32, Vehicle>,
 
     n_neighbors: usize,
 
     include_negative: bool,
+
+    #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
+    pub created_at: DateTime,
 }
 
 impl Model {
@@ -53,6 +59,7 @@ impl Model {
             vehicles,
             n_neighbors: params.n_neighbors,
             include_negative: params.include_negative,
+            created_at: Utc::now(),
         }
     }
 
@@ -198,20 +205,25 @@ struct Biased<'a> {
 #[derive(Serialize, Deserialize)]
 pub struct Vehicle {
     /// Average vehicle rating.
+    #[serde(rename = "b")]
     pub bias: f64,
 
     /// Similar vehicles (tank ID and similarity), sorted by descending similarity.
+    #[serde(rename = "s")]
     pub similar: Box<[SimilarVehicle]>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct SimilarVehicle {
     /// Similar vehicle ID.
+    #[serde(rename = "i")]
     tank_id: i32,
 
     /// Similarity of this vehicle to the source vehicle.
+    #[serde(rename = "w")]
     similarity: f64,
 
     /// The similar vehicle's mean rating.
+    #[serde(rename = "b")]
     bias: f64,
 }

@@ -6,7 +6,7 @@ pub mod votes;
 use mongodb::Database;
 
 use crate::{
-    db::{sessions::Sessions, tankopedia::Tankopedia, votes::Votes},
+    db::{models::Models, sessions::Sessions, tankopedia::Tankopedia, votes::Votes},
     prelude::*,
 };
 
@@ -40,8 +40,8 @@ impl Db {
         Votes::new(self.0.collection("votes")).await
     }
 
-    // #[inline]
-    // pub async fn models(&self) -> Result<Models> {
-    //     Models::new(self.0.collection("models")).await
-    // }
+    #[inline]
+    pub async fn models(&self) -> Result<Models> {
+        Models::new(self.0.collection("models")).await
+    }
 }

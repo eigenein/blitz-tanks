@@ -1,3 +1,4 @@
+use futures::TryStreamExt;
 use mongodb::{
     bson::{doc, to_document},
     options::{FindOptions, IndexOptions, UpdateOptions},
@@ -58,6 +59,10 @@ impl Votes {
     pub async fn iter_all(&self) -> Result<Cursor<Vote>> {
         let options = FindOptions::builder().sort(doc! { "account_id": 1, "tank_id": 1 }).build();
         self.0.find(None, options).await.context("failed to query all votes")
+    }
+
+    pub async fn retrieve_all(&self) -> Result<Box<[Vote]>> {
+        Ok(self.iter_all().await?.try_collect::<Vec<Vote>>().await?.into_boxed_slice())
     }
 }
 
