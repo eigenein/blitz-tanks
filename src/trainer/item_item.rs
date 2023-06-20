@@ -22,6 +22,7 @@ pub struct PredictParams {
     pub include_negative: bool,
 }
 
+/// Item-item kNN collaborative filtering.
 #[must_use]
 pub struct Model(
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
