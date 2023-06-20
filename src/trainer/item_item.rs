@@ -46,20 +46,21 @@ impl Model {
     }
 
     #[must_use]
-    #[instrument(skip_all, fields(for_tank_id = for_tank_id))]
+    #[instrument(skip_all, fields(target_id = target_id))]
     pub fn predict(
         &self,
-        for_tank_id: i32,
-        from: &HashMap<i32, Rating>,
+        target_id: i32,
+        source_ratings: &HashMap<i32, Rating>,
         params: &PredictParams,
     ) -> Option<f64> {
-        let target_vehicle = self.0.get(&for_tank_id)?;
+        let target_vehicle = self.0.get(&target_id)?;
         let (numerator, denominator) = target_vehicle
             .similar
             .iter()
             .filter(|similar_vehicle| params.include_negative || (similar_vehicle.similarity > 0.0))
             .filter_map(|similar_vehicle| {
-                from.get(&similar_vehicle.tank_id)
+                source_ratings
+                    .get(&similar_vehicle.tank_id)
                     .map(|rating| (similar_vehicle, f64::from(*rating)))
             })
             .take(params.n_neighbors)
@@ -83,9 +84,9 @@ impl Model {
         source_ratings: &'a HashMap<i32, Rating>,
         params: &'a PredictParams,
     ) -> impl Iterator<Item = Prediction> + 'a {
-        target_ids.into_iter().filter_map(|tank_id| {
-            self.predict(tank_id, source_ratings, params)
-                .map(|rating| Prediction { tank_id, rating })
+        target_ids.into_iter().filter_map(|target_id| {
+            self.predict(target_id, source_ratings, params)
+                .map(|rating| Prediction { tank_id: target_id, rating })
         })
     }
 

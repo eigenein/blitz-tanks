@@ -1,3 +1,4 @@
+pub mod models;
 pub mod sessions;
 pub mod tankopedia;
 pub mod votes;
@@ -38,4 +39,9 @@ impl Db {
     pub async fn votes(&self) -> Result<Votes> {
         Votes::new(self.0.collection("votes")).await
     }
+
+    // #[inline]
+    // pub async fn models(&self) -> Result<Models> {
+    //     Models::new(self.0.collection("models")).await
+    // }
 }
