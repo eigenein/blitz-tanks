@@ -50,8 +50,8 @@ pub struct Model {
 }
 
 impl Model {
-    pub fn fit(votes: &[Vote], params: &Params) -> Self {
-        let votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
+    pub fn fit<'a>(votes: impl IntoIterator<Item = &'a Vote>, params: &Params) -> Self {
+        let votes = votes.into_iter().into_group_map_by(|vote| vote.tank_id);
         let biased = Self::calculate_biases(&votes);
         let mut vehicles = Self::calculate_similarities(&biased, params);
         Self::sort(&mut vehicles);

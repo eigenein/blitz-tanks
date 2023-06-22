@@ -15,7 +15,7 @@ use crate::{
 const PROGRESS_TEMPLATE: &str = "{elapsed} {per_sec} {wide_bar} {pos}/{len} {eta}";
 
 pub fn search(
-    votes: &mut [Vote],
+    votes: &[Vote],
     n_partitions: usize,
     test_proportion: f64,
     params: impl IntoIterator<Item = Params>,
@@ -49,24 +49,27 @@ pub fn search(
 }
 
 pub fn fit_and_cross_validate(
-    votes: &mut [Vote],
+    votes: &[Vote],
     n_partitions: usize,
     test_proportion: f64,
     params: &Params,
 ) -> ReciprocalRank {
-    let split_index = ((votes.len() as f64 * test_proportion) as usize).max(1);
-
     (0..n_partitions)
         .map(|_| {
-            fastrand::shuffle(votes);
-            fit_and_validate(&votes[split_index..], &votes[..split_index], params)
+            let (train_set, test_set): (Vec<&Vote>, Vec<&Vote>) =
+                votes.iter().partition(|_| fastrand::f64() > test_proportion);
+            fit_and_validate(&train_set, &test_set, params)
         })
         .collect::<Mean<ReciprocalRank>>()
         .0
 }
 
-pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> ReciprocalRank {
-    let model = Model::fit(train, params);
+pub fn fit_and_validate<'a>(
+    train: &'a [&'a Vote],
+    test: &'a [&'a Vote],
+    params: &Params,
+) -> ReciprocalRank {
+    let model = Model::fit(train.iter().copied(), params);
 
     let train_ratings: HashMap<u32, HashMap<u16, Rating>> = train
         .iter()

@@ -39,7 +39,7 @@ pub struct GridSearch {
     #[clap(flatten)]
     db: DbArgs,
 
-    /// Proportion of votes to leave out as a test set (not less than 1 vote).
+    /// Proportion of votes to leave out as a test set.
     #[clap(
         long,
         default_value = "0.2",
@@ -58,7 +58,7 @@ pub struct GridSearch {
 impl GridSearch {
     pub async fn run(self) -> Result {
         info!("⏳ Reading the votes…");
-        let mut votes = self.db.open().await?.votes().await?.retrieve_all().await?;
+        let votes = self.db.open().await?.votes().await?.retrieve_all().await?;
         info!(n_votes = votes.len(), "✅ Gotcha!");
         report_memory_usage();
 
@@ -69,7 +69,7 @@ impl GridSearch {
                 include_negative,
             },
         );
-        search(&mut votes, self.n_partitions, self.test_proportion, params);
+        search(&votes, self.n_partitions, self.test_proportion, params);
         info!("🏁 Finished search");
 
         Ok(())
@@ -96,7 +96,7 @@ impl Fit {
             report_memory_usage();
 
             info!("⏳ Fitting…");
-            Model::fit(&votes, &self.model_params)
+            Model::fit(votes.iter(), &self.model_params)
         };
         info!("✅ Gotcha!");
         report_memory_usage();
