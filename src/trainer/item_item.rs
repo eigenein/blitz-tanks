@@ -68,7 +68,7 @@ impl Params {
         biases
             .par_iter()
             .map(|(i, bias_i)| {
-                let similar: Box<[(u16, f64)]> = biases
+                let similarities: Box<[(u16, f64)]> = biases
                     .iter()
                     .filter(|(j, _)| *i != **j)
                     .map(|(j, bias_j)| {
@@ -78,7 +78,7 @@ impl Params {
                         (*j, similarity)
                     })
                     .collect();
-                (*i, similar)
+                (*i, similarities)
             })
             .collect()
     }
