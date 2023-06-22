@@ -151,8 +151,9 @@ impl Model {
     #[must_use]
     #[instrument(skip_all, fields(target_id = target_id))]
     pub fn predict(&self, target_id: u16, source_ratings: &HashMap<u16, Rating>) -> Option<f64> {
-        let similar = self.similarities.get(&target_id)?;
-        let (sum, weight) = similar
+        let (sum, weight) = self
+            .similarities
+            .get(&target_id)?
             .iter()
             .filter(|(_, similarity)| self.params.include_negative || (*similarity > 0.0))
             .filter_map(|(tank_id, similarity)| {
@@ -164,6 +165,7 @@ impl Model {
             .fold((0.0, 0.0), |(sum, weight), (similarity, similar_bias, similar_rating)| {
                 (sum + similarity * (similar_rating - similar_bias), weight + similarity.abs())
             });
+
         if weight >= f64::EPSILON {
             Some(self.biases[&target_id] + sum / weight)
         } else {
