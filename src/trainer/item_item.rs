@@ -47,6 +47,11 @@ impl Params {
         }
     }
 
+    /// Calculate mean rating for each vehicle.
+    ///
+    /// # Returns
+    ///
+    /// Mapping from tank ID to its mean rating.
     #[must_use]
     fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> HashMap<u16, f64> {
         votes
@@ -59,6 +64,13 @@ impl Params {
             .collect()
     }
 
+    /// Calculate similarities between different vehicles.
+    ///
+    /// # Returns
+    ///
+    /// Mapping from a tank ID to a list of other vehicles, the latter are sorted
+    /// by decreasing similarity in respect to the former.
+    #[must_use]
     fn calculate_similarities(
         &self,
         votes: &mut HashMap<u16, Vec<&Vote>>,
@@ -75,12 +87,15 @@ impl Params {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
                         (*j, self.calculate_similarity(*bias_i, &votes[i], *bias_j, &votes[j]))
                     })
+                    .inspect(|(_, similarity)| debug_assert!(similarity.is_finite()))
                     .collect();
                 (*i, similarities)
             })
             .collect()
     }
 
+    /// Calculate similarity between two vehicles, specified by their respective biases
+    /// and votes sorted by account ID.
     fn calculate_similarity(
         &self,
         bias_i: f64,
@@ -114,11 +129,7 @@ impl Params {
             }
         }
 
-        if dot_product.abs() >= f64::EPSILON && norm2_i >= f64::EPSILON && norm2_j >= f64::EPSILON {
-            dot_product / norm2_i.sqrt() / norm2_j.sqrt()
-        } else {
-            0.0
-        }
+        dot_product / norm2_i.sqrt() / norm2_j.sqrt()
     }
 
     /// Sort each vehicle's similar vehicles by decreasing similarity.
