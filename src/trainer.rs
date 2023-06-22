@@ -9,10 +9,7 @@ use crate::{
     cli::DbArgs,
     prelude::*,
     tracing::report_memory_usage,
-    trainer::{
-        item_item::{Model, Params},
-        validate::search,
-    },
+    trainer::{item_item::Params, validate::search},
 };
 
 #[derive(Subcommand)]
@@ -95,7 +92,7 @@ impl Fit {
             report_memory_usage();
 
             info!("⏳ Fitting…");
-            Model::fit(&votes, &self.model_params)
+            self.model_params.fit(&votes)
         };
         info!("✅ Gotcha!");
         report_memory_usage();

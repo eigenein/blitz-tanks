@@ -7,7 +7,7 @@ use crate::{
     models::{rating::Rating, vote::Vote},
     prelude::*,
     trainer::{
-        item_item::{Model, Params},
+        item_item::Params,
         metrics::{Mean, ReciprocalRank},
     },
 };
@@ -30,7 +30,7 @@ pub fn search(
         .unwrap()
         .with_style(ProgressStyle::with_template(PROGRESS_TEMPLATE).unwrap())
         .map(|params| {
-            (fit_and_cross_validate(votes, n_partitions, test_proportion, &params), params)
+            (fit_and_cross_validate(votes, n_partitions, test_proportion, params), params)
         })
         .fold(ReciprocalRank::default(), |current_mrr, (new_mrr, new_params)| {
             if new_mrr > current_mrr {
@@ -52,7 +52,7 @@ pub fn fit_and_cross_validate(
     votes: &mut [Vote],
     n_partitions: usize,
     test_proportion: f64,
-    params: &Params,
+    params: Params,
 ) -> ReciprocalRank {
     let test_size = ((votes.len() as f64 * test_proportion) as usize).max(1);
 
@@ -65,10 +65,10 @@ pub fn fit_and_cross_validate(
         .0
 }
 
-pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> ReciprocalRank {
-    let model = Model::fit(train, params);
+pub fn fit_and_validate(train_set: &[Vote], test_set: &[Vote], params: Params) -> ReciprocalRank {
+    let model = params.fit(train_set);
 
-    let train_ratings: HashMap<u32, HashMap<u16, Rating>> = train
+    let train_ratings: HashMap<u32, HashMap<u16, Rating>> = train_set
         .iter()
         .into_group_map_by(|vote| vote.account_id)
         .into_iter()
@@ -80,7 +80,8 @@ pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> Recip
         })
         .collect();
 
-    test.iter()
+    test_set
+        .iter()
         .into_group_map_by(|vote| vote.account_id)
         .into_iter()
         .filter_map(|(account_id, test_votes)| {
