@@ -73,9 +73,7 @@ impl Params {
                     .filter(|(j, _)| *i != **j)
                     .map(|(j, bias_j)| {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
-                        let similarity =
-                            self.calculate_similarity(*bias_i, &votes[i], *bias_j, &votes[j]);
-                        (*j, similarity)
+                        (*j, self.calculate_similarity(*bias_i, &votes[i], *bias_j, &votes[j]))
                     })
                     .collect();
                 (*i, similarities)
