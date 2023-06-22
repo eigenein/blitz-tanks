@@ -88,38 +88,34 @@ impl Params {
         bias_j: f64,
         votes_j: &[&Vote],
     ) -> f64 {
-        let (numerator, denominator_i, denominator_j) =
-            merge_join_by(votes_i, votes_j, |i, j| i.account_id.cmp(&j.account_id)).fold(
-                (0.0, 0.0, 0.0),
-                |(mut numerator, mut denominator_i, mut denominator_j), either| {
-                    match either {
-                        EitherOrBoth::Left(vote_i) => {
-                            if self.enable_damping {
-                                denominator_i += (vote_i.rating - bias_i).powi(2);
-                            }
-                        }
-                        EitherOrBoth::Right(vote_j) => {
-                            if self.enable_damping {
-                                denominator_j += (vote_j.rating - bias_j).powi(2);
-                            }
-                        }
-                        EitherOrBoth::Both(vote_i, vote_j) => {
-                            let diff_i = vote_i.rating - bias_i;
-                            let diff_j = vote_j.rating - bias_j;
-                            numerator += diff_i * diff_j;
-                            denominator_i += diff_i.powi(2);
-                            denominator_j += diff_j.powi(2);
-                        }
-                    }
-                    (numerator, denominator_i, denominator_j)
-                },
-            );
+        let mut dot_product = 0.0;
+        let mut norm2_i = 0.0;
+        let mut norm2_j = 0.0;
 
-        if numerator.abs() >= f64::EPSILON
-            && denominator_i >= f64::EPSILON
-            && denominator_j >= f64::EPSILON
-        {
-            numerator / denominator_i.sqrt() / denominator_j.sqrt()
+        for either in merge_join_by(votes_i, votes_j, |i, j| i.account_id.cmp(&j.account_id)) {
+            match either {
+                EitherOrBoth::Left(vote_i) => {
+                    if self.enable_damping {
+                        norm2_i += (vote_i.rating - bias_i).powi(2);
+                    }
+                }
+                EitherOrBoth::Right(vote_j) => {
+                    if self.enable_damping {
+                        norm2_j += (vote_j.rating - bias_j).powi(2);
+                    }
+                }
+                EitherOrBoth::Both(vote_i, vote_j) => {
+                    let diff_i = vote_i.rating - bias_i;
+                    let diff_j = vote_j.rating - bias_j;
+                    dot_product += diff_i * diff_j;
+                    norm2_i += diff_i.powi(2);
+                    norm2_j += diff_j.powi(2);
+                }
+            }
+        }
+
+        if dot_product.abs() >= f64::EPSILON && norm2_i >= f64::EPSILON && norm2_j >= f64::EPSILON {
+            dot_product / norm2_i.sqrt() / norm2_j.sqrt()
         } else {
             0.0
         }
