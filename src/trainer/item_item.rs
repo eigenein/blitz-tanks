@@ -32,6 +32,9 @@ pub struct Params {
 #[serde_with::serde_as]
 #[derive(Serialize, Deserialize)]
 pub struct Model {
+    #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
+    pub created_at: DateTime,
+
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
     ///
     /// # Note
@@ -44,9 +47,6 @@ pub struct Model {
     n_neighbors: usize,
 
     include_negative: bool,
-
-    #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
-    pub created_at: DateTime,
 }
 
 impl Model {

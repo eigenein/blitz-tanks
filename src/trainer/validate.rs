@@ -104,7 +104,7 @@ pub fn fit_and_validate<'a>(
             );
             let reciprocal_rank = predictions
                 .iter()
-                .sorted_unstable_by_key(|(prediction, _)| prediction)
+                .sorted_unstable_by(|(lhs, _), (rhs, _)| rhs.rating.total_cmp(&lhs.rating))
                 .map(|(_, vote)| vote.rating)
                 .collect::<ReciprocalRank>();
             Some(reciprocal_rank)
