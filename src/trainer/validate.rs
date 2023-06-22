@@ -15,7 +15,7 @@ use crate::{
 const PROGRESS_TEMPLATE: &str = "{elapsed} {per_sec} {wide_bar} {pos}/{len} {eta}";
 
 pub fn search(
-    votes: &[Vote],
+    votes: &mut [Vote],
     n_partitions: usize,
     test_proportion: f64,
     params: impl IntoIterator<Item = Params>,
@@ -49,27 +49,24 @@ pub fn search(
 }
 
 pub fn fit_and_cross_validate(
-    votes: &[Vote],
+    votes: &mut [Vote],
     n_partitions: usize,
     test_proportion: f64,
     params: &Params,
 ) -> ReciprocalRank {
+    let test_size = ((votes.len() as f64 * test_proportion) as usize).max(1);
+
     (0..n_partitions)
         .map(|_| {
-            let (train_set, test_set): (Vec<&Vote>, Vec<&Vote>) =
-                votes.iter().partition(|_| fastrand::f64() > test_proportion);
-            fit_and_validate(&train_set, &test_set, params)
+            fastrand::shuffle(votes);
+            fit_and_validate(&votes[test_size..], &votes[..test_size], params)
         })
         .collect::<Mean<ReciprocalRank>>()
         .0
 }
 
-pub fn fit_and_validate<'a>(
-    train: &'a [&'a Vote],
-    test: &'a [&'a Vote],
-    params: &Params,
-) -> ReciprocalRank {
-    let model = Model::fit(train.iter().copied(), params);
+pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> ReciprocalRank {
+    let model = Model::fit(train, params);
 
     let train_ratings: HashMap<u32, HashMap<u16, Rating>> = train
         .iter()
@@ -93,7 +90,7 @@ pub fn fit_and_validate<'a>(
             };
             let predictions = model
                 .predict_many(test_votes.iter().map(|vote| vote.tank_id), train_ratings)
-                .zip(test_votes.iter().copied())
+                .zip(test_votes.iter())
                 .collect_vec();
             let n_predictions = predictions.len();
             debug!(
@@ -104,7 +101,7 @@ pub fn fit_and_validate<'a>(
             );
             let reciprocal_rank = predictions
                 .iter()
-                .sorted_unstable_by(|(lhs, _), (rhs, _)| rhs.rating.total_cmp(&lhs.rating))
+                .sorted_unstable_by(|((_, lhs), _), ((_, rhs), _)| rhs.total_cmp(lhs))
                 .map(|(_, vote)| vote.rating)
                 .collect::<ReciprocalRank>();
             Some(reciprocal_rank)

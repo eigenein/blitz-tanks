@@ -1,6 +1,5 @@
 pub mod item_item;
 mod metrics;
-mod prediction;
 mod validate;
 
 use clap::{Args, Subcommand};
@@ -58,7 +57,7 @@ pub struct GridSearch {
 impl GridSearch {
     pub async fn run(self) -> Result {
         info!("⏳ Reading the votes…");
-        let votes = self.db.open().await?.votes().await?.retrieve_all().await?;
+        let mut votes = self.db.open().await?.votes().await?.retrieve_all().await?;
         info!(n_votes = votes.len(), "✅ Gotcha!");
         report_memory_usage();
 
@@ -69,7 +68,7 @@ impl GridSearch {
                 include_negative,
             },
         );
-        search(&votes, self.n_partitions, self.test_proportion, params);
+        search(&mut votes, self.n_partitions, self.test_proportion, params);
         info!("🏁 Finished search");
 
         Ok(())
@@ -96,7 +95,7 @@ impl Fit {
             report_memory_usage();
 
             info!("⏳ Fitting…");
-            Model::fit(votes.iter(), &self.model_params)
+            Model::fit(&votes, &self.model_params)
         };
         info!("✅ Gotcha!");
         report_memory_usage();

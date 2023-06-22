@@ -9,7 +9,6 @@ use serde::{Deserialize, Serialize};
 use crate::{
     models::{rating::Rating, vote::Vote},
     prelude::*,
-    trainer::prediction::Prediction,
 };
 
 /// Model parameters.
@@ -35,56 +34,51 @@ pub struct Model {
     #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
     pub created_at: DateTime,
 
-    /// Mapping from vehicle's tank ID to other vehicles' similarities.
-    ///
-    /// # Note
-    ///
-    /// The mapping values only contain entries,
-    /// for which tank ID are **greater** than the respective mapping key.
-    #[serde_as(as = "Vec<(_, _)>")]
-    vehicles: HashMap<u16, Vehicle>,
-
     n_neighbors: usize,
 
     include_negative: bool,
+
+    #[serde_as(as = "Vec<(_, _)>")]
+    biases: HashMap<u16, f64>,
+
+    /// Mapping from vehicle's tank ID to other vehicles' similarities.
+    #[serde_as(as = "Vec<(_, _)>")]
+    similarities: HashMap<u16, Box<[(u16, f64)]>>,
 }
 
 impl Model {
-    pub fn fit<'a>(votes: impl IntoIterator<Item = &'a Vote>, params: &Params) -> Self {
-        let votes = votes.into_iter().into_group_map_by(|vote| vote.tank_id);
-        let biased = Self::calculate_biases(&votes);
-        let mut vehicles = Self::calculate_similarities(&biased, params);
-        Self::sort(&mut vehicles);
+    pub fn fit(votes: &[Vote], params: &Params) -> Self {
+        let mut votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
+        let biases = Self::calculate_biases(&votes);
+        let mut similarities = Self::calculate_similarities(&mut votes, &biases, params);
+        Self::sort_similarities(&mut similarities);
         Model {
-            vehicles,
+            created_at: Utc::now(),
             n_neighbors: params.n_neighbors,
             include_negative: params.include_negative,
-            created_at: Utc::now(),
+            biases,
+            similarities,
         }
     }
 
     #[must_use]
     #[instrument(skip_all, fields(target_id = target_id))]
     pub fn predict(&self, target_id: u16, source_ratings: &HashMap<u16, Rating>) -> Option<f64> {
-        let target_vehicle = self.vehicles.get(&target_id)?;
-        let (sum, weight) = target_vehicle
-            .similar
+        let similar = self.similarities.get(&target_id)?;
+        let (sum, weight) = similar
             .iter()
-            .filter(|similar_vehicle| self.include_negative || (similar_vehicle.similarity > 0.0))
-            .filter_map(|similar_vehicle| {
+            .filter(|(_, similarity)| self.include_negative || (*similarity > 0.0))
+            .filter_map(|(tank_id, similarity)| {
                 source_ratings
-                    .get(&similar_vehicle.tank_id)
-                    .map(|rating| (similar_vehicle, f64::from(*rating)))
+                    .get(tank_id)
+                    .map(|rating| (*similarity, self.biases[tank_id], f64::from(*rating)))
             })
             .take(self.n_neighbors)
-            .fold((0.0, 0.0), |(sum, weight), (similar_vehicle, similar_rating)| {
-                (
-                    sum + similar_vehicle.similarity * (similar_rating - similar_vehicle.bias),
-                    weight + similar_vehicle.similarity.abs(),
-                )
+            .fold((0.0, 0.0), |(sum, weight), (similarity, similar_bias, similar_rating)| {
+                (sum + similarity * (similar_rating - similar_bias), weight + similarity.abs())
             });
         if weight >= f64::EPSILON {
-            Some(target_vehicle.bias + sum / weight)
+            Some(self.biases[&target_id] + sum / weight)
         } else {
             None
         }
@@ -94,113 +88,106 @@ impl Model {
         &'a self,
         target_ids: impl IntoIterator<Item = u16> + 'a,
         source_ratings: &'a HashMap<u16, Rating>,
-    ) -> impl Iterator<Item = Prediction> + 'a {
+    ) -> impl Iterator<Item = (u16, f64)> + 'a {
         target_ids.into_iter().filter_map(|target_id| {
-            self.predict(target_id, source_ratings)
-                .map(|rating| Prediction { tank_id: target_id, rating })
+            self.predict(target_id, source_ratings).map(|rating| (target_id, rating))
         })
     }
 
+    /// Sort each vehicle's entries by account ID, to prepare for `merge_join_by()`.
+    fn sort_votes(votes: &mut HashMap<u16, Vec<&Vote>>) {
+        for votes in votes.values_mut() {
+            votes.sort_by_key(|vote| vote.account_id);
+        }
+    }
+
     #[must_use]
-    fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> Box<[Biased<'a>]> {
+    fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> HashMap<u16, f64> {
         votes
             .par_iter()
             .map(|(tank_id, votes)| {
                 let bias = votes.iter().map(|vote| f64::from(vote.rating)).sum::<f64>()
                     / votes.len() as f64;
-                Biased {
-                    tank_id: *tank_id,
-                    bias,
-                    votes: votes.as_ref(),
-                }
+                (*tank_id, bias)
             })
-            .collect::<Vec<_>>()
-            .into_boxed_slice()
+            .collect()
     }
 
-    fn calculate_similarities(biased: &[Biased], params: &Params) -> HashMap<u16, Vehicle> {
-        biased
+    fn calculate_similarities(
+        votes: &mut HashMap<u16, Vec<&Vote>>,
+        biases: &HashMap<u16, f64>,
+        params: &Params,
+    ) -> HashMap<u16, Box<[(u16, f64)]>> {
+        Self::sort_votes(votes);
+        biases
             .par_iter()
-            .map(|vehicle_i| {
-                let similar: Box<[SimilarVehicle]> = biased
+            .map(|(i, bias_i)| {
+                let similar: Box<[(u16, f64)]> = biases
                     .iter()
-                    .filter(|vehicle_j| vehicle_j.tank_id != vehicle_i.tank_id)
-                    .filter_map(|vehicle_j| {
+                    .filter(|(j, _)| *i != **j)
+                    .map(|(j, bias_j)| {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
-                        Self::calculate_similarity(vehicle_i, vehicle_j, params).map(|similarity| {
-                            SimilarVehicle {
-                                similarity,
-                                tank_id: vehicle_j.tank_id,
-                                bias: vehicle_j.bias,
-                            }
-                        })
+                        let similarity = Self::calculate_similarity(
+                            *bias_i, &votes[i], *bias_j, &votes[j], params,
+                        );
+                        (*j, similarity)
                     })
                     .collect();
-                let entry = Vehicle { bias: vehicle_i.bias, similar };
-                (vehicle_i.tank_id, entry)
+                (*i, similar)
             })
             .collect()
     }
 
     fn calculate_similarity(
-        vehicle_i: &Biased,
-        vehicle_j: &Biased,
+        bias_i: f64,
+        votes_i: &[&Vote],
+        bias_j: f64,
+        votes_j: &[&Vote],
         params: &Params,
-    ) -> Option<f64> {
+    ) -> f64 {
         let (numerator, denominator_i, denominator_j) =
-            merge_join_by(vehicle_i.votes, vehicle_j.votes, |i, j| i.account_id.cmp(&j.account_id))
-                .fold(
-                    (0.0, 0.0, 0.0),
-                    |(mut numerator, mut denominator_i, mut denominator_j), either| {
-                        match either {
-                            EitherOrBoth::Left(vote_i) => {
-                                if params.enable_damping {
-                                    denominator_i += (vote_i.rating - vehicle_i.bias).powi(2);
-                                }
-                            }
-                            EitherOrBoth::Right(vote_j) => {
-                                if params.enable_damping {
-                                    denominator_j += (vote_j.rating - vehicle_j.bias).powi(2);
-                                }
-                            }
-                            EitherOrBoth::Both(vote_i, vote_j) => {
-                                let diff_i = vote_i.rating - vehicle_i.bias;
-                                let diff_j = vote_j.rating - vehicle_j.bias;
-                                numerator += diff_i * diff_j;
-                                denominator_i += diff_i.powi(2);
-                                denominator_j += diff_j.powi(2);
+            merge_join_by(votes_i, votes_j, |i, j| i.account_id.cmp(&j.account_id)).fold(
+                (0.0, 0.0, 0.0),
+                |(mut numerator, mut denominator_i, mut denominator_j), either| {
+                    match either {
+                        EitherOrBoth::Left(vote_i) => {
+                            if params.enable_damping {
+                                denominator_i += (vote_i.rating - bias_i).powi(2);
                             }
                         }
-                        (numerator, denominator_i, denominator_j)
-                    },
-                );
+                        EitherOrBoth::Right(vote_j) => {
+                            if params.enable_damping {
+                                denominator_j += (vote_j.rating - bias_j).powi(2);
+                            }
+                        }
+                        EitherOrBoth::Both(vote_i, vote_j) => {
+                            let diff_i = vote_i.rating - bias_i;
+                            let diff_j = vote_j.rating - bias_j;
+                            numerator += diff_i * diff_j;
+                            denominator_i += diff_i.powi(2);
+                            denominator_j += diff_j.powi(2);
+                        }
+                    }
+                    (numerator, denominator_i, denominator_j)
+                },
+            );
 
         if numerator.abs() >= f64::EPSILON
             && denominator_i >= f64::EPSILON
             && denominator_j >= f64::EPSILON
         {
-            Some(numerator / denominator_i.sqrt() / denominator_j.sqrt())
+            numerator / denominator_i.sqrt() / denominator_j.sqrt()
         } else {
-            None
+            0.0
         }
     }
 
-    fn sort(vehicles: &mut HashMap<u16, Vehicle>) {
-        for entry in vehicles.values_mut() {
-            entry
-                .similar
-                .sort_unstable_by(|lhs, rhs| rhs.similarity.total_cmp(&lhs.similarity))
+    /// Sort each vehicle's similar vehicles by decreasing similarity.
+    fn sort_similarities(similarities: &mut HashMap<u16, Box<[(u16, f64)]>>) {
+        for similar in similarities.values_mut() {
+            similar.sort_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
         }
     }
-}
-
-struct Biased<'a> {
-    tank_id: u16,
-
-    /// Average vehicle rating.
-    bias: f64,
-
-    votes: &'a [&'a Vote],
 }
 
 #[derive(Serialize, Deserialize)]
@@ -211,22 +198,5 @@ pub struct Vehicle {
 
     /// Similar vehicles (tank ID and similarity), sorted by descending similarity.
     #[serde(rename = "s")]
-    pub similar: Box<[SimilarVehicle]>,
-}
-
-#[serde_with::serde_as]
-#[derive(Serialize, Deserialize)]
-pub struct SimilarVehicle {
-    /// Similar vehicle ID.
-    #[serde(rename = "i")]
-    #[serde_as(as = "serde_with::TryFromInto<i32>")]
-    tank_id: u16,
-
-    /// Similarity of this vehicle to the source vehicle.
-    #[serde(rename = "w")]
-    similarity: f64,
-
-    /// The similar vehicle's mean rating.
-    #[serde(rename = "b")]
-    bias: f64,
+    pub similar: Box<[(u16, f64)]>,
 }

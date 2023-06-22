@@ -1,7 +1,7 @@
 use futures::TryStreamExt;
 use mongodb::{
     bson::{doc, to_document},
-    options::{FindOptions, IndexOptions, UpdateOptions},
+    options::{IndexOptions, UpdateOptions},
     Collection, Cursor, IndexModel,
 };
 
@@ -57,8 +57,7 @@ impl Votes {
 
     /// Iterate over **all** the votes.
     pub async fn iter_all(&self) -> Result<Cursor<Vote>> {
-        let options = FindOptions::builder().sort(doc! { "account_id": 1, "tank_id": 1 }).build();
-        self.0.find(None, options).await.context("failed to query all votes")
+        self.0.find(None, None).await.context("failed to query all votes")
     }
 
     pub async fn retrieve_all(&self) -> Result<Box<[Vote]>> {

@@ -50,14 +50,14 @@ pub struct InnerVehicleStats {
 /// Proxy for user's vehicles' statistics.
 #[derive(Clone)]
 pub struct VehicleStatsGetter {
-    wee_gee: Wg,
+    wg: Wg,
     cache: Cache<u32, Arc<IndexMap<u16, VehicleStats>>>,
 }
 
 impl From<Wg> for VehicleStatsGetter {
-    fn from(wee_gee: Wg) -> Self {
+    fn from(wg: Wg) -> Self {
         Self {
-            wee_gee,
+            wg,
             cache: Cache::builder()
                 .max_capacity(1000)
                 .time_to_idle(Duration::from_secs(300))
@@ -73,7 +73,7 @@ impl VehicleStatsGetter {
         self.cache
             .try_get_with(account_id, async {
                 let map = self
-                    .wee_gee
+                    .wg
                     .get_vehicles_stats(account_id)
                     .await?
                     .into_iter()
