@@ -26,7 +26,7 @@ impl Votes {
 
     #[instrument(skip_all, fields(account_id = vote.account_id, tank_id = vote.tank_id))]
     pub async fn insert(&self, vote: &Vote) -> Result {
-        let query = doc! { "account_id": vote.account_id, "tank_id": vote.tank_id };
+        let query = doc! { "account_id": vote.account_id, "tank_id": vote.tank_id as i32 };
         let options = UpdateOptions::builder().upsert(true).build();
         self.0
             .update_one(query, doc! { "$set": to_document(vote)? }, options)
@@ -38,9 +38,9 @@ impl Votes {
     }
 
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub async fn delete(&self, account_id: u32, tank_id: i32) -> Result {
+    pub async fn delete(&self, account_id: u32, tank_id: u16) -> Result {
         self.0
-            .delete_one(doc! { "account_id": account_id, "tank_id": tank_id }, None)
+            .delete_one(doc! { "account_id": account_id, "tank_id": tank_id as i32 }, None)
             .await
             .with_context(|| format!("failed to remove #{account_id}'s vote for #{tank_id}"))?;
         Ok(())

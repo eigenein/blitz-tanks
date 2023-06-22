@@ -68,7 +68,7 @@ pub fn fit_and_cross_validate(
 pub fn fit_and_validate(train: &[Vote], test: &[Vote], params: &Params) -> ReciprocalRank {
     let model = Model::fit(train, params);
 
-    let train_ratings: HashMap<u32, HashMap<i32, Rating>> = train
+    let train_ratings: HashMap<u32, HashMap<u16, Rating>> = train
         .iter()
         .into_group_map_by(|vote| vote.account_id)
         .into_iter()

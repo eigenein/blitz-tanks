@@ -7,7 +7,7 @@ use std::cmp::Ordering;
 /// Prediction with a **higher** rating comes **before** prediction with a **lower** rating.
 #[derive(Debug)]
 pub struct Prediction {
-    pub tank_id: i32,
+    pub tank_id: u16,
     pub rating: f64,
 }
 

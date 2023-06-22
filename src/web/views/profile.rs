@@ -28,7 +28,7 @@ pub async fn get(
         .get(user.account_id)
         .await
         .map_err(WebError::ServiceUnavailable)?;
-    let votes: HashMap<i32, Rating> = state
+    let votes: HashMap<u16, Rating> = state
         .vote_manager
         .iter_by_account_id(user.account_id)
         .await?
@@ -188,7 +188,7 @@ fn vehicle_card(
 /// # Notes
 ///
 /// It's extracted for HTMX to be able to refresh the voting buttons.
-fn vehicle_card_footer(account_id: u32, tank_id: i32, rating: Option<Rating>) -> Markup {
+fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) -> Markup {
     html! {
         a.card-footer-item.has-background-success-light[rating == Some(Rating::Like)]
             data-hx-post=(

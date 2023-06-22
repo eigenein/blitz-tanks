@@ -14,7 +14,7 @@ pub struct AppState {
     pub sign_in_url: Arc<String>,
 
     pub wg: Wg,
-    pub tankopedia: Arc<HashMap<i32, Vehicle>>,
+    pub tankopedia: Arc<HashMap<u16, Vehicle>>,
     pub vehicle_stats_getter: VehicleStatsGetter,
 
     pub session_manager: Sessions,

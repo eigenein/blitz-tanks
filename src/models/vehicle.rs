@@ -6,9 +6,12 @@ use crate::prelude::*;
 /// Vehicle description from the [tankopedia][1].
 ///
 /// [1]: https://developers.wargaming.net/reference/all/wotb/encyclopedia/vehicles/
+#[serde_with::serde_as]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Vehicle {
-    pub tank_id: i32,
+    #[serde_as(as = "serde_with::TryFromInto<i32>")]
+    pub tank_id: u16,
+
     pub name: String,
     pub images: VehicleImages,
     pub is_premium: bool,

@@ -91,7 +91,7 @@ impl FromRequestParts<AppState> for ProfileOwner {
 ///
 /// Validates that the user is the one logged in, and does own the vehicle.
 pub struct UserOwnedTank {
-    pub tank_id: i32,
+    pub tank_id: u16,
     pub user: User,
 }
 
@@ -107,7 +107,7 @@ impl FromRequestParts<AppState> for UserOwnedTank {
         #[derive(Deserialize)]
         pub struct PathParams {
             pub account_id: u32,
-            pub tank_id: i32,
+            pub tank_id: u16,
         }
 
         let Path(params) = Path::<PathParams>::from_request_parts(parts, state).await?;

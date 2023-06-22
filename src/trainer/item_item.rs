@@ -39,7 +39,7 @@ pub struct Model {
     /// The mapping values only contain entries,
     /// for which tank ID are **greater** than the respective mapping key.
     #[serde_as(as = "Vec<(_, _)>")]
-    vehicles: HashMap<i32, Vehicle>,
+    vehicles: HashMap<u16, Vehicle>,
 
     n_neighbors: usize,
 
@@ -65,7 +65,7 @@ impl Model {
 
     #[must_use]
     #[instrument(skip_all, fields(target_id = target_id))]
-    pub fn predict(&self, target_id: i32, source_ratings: &HashMap<i32, Rating>) -> Option<f64> {
+    pub fn predict(&self, target_id: u16, source_ratings: &HashMap<u16, Rating>) -> Option<f64> {
         let target_vehicle = self.vehicles.get(&target_id)?;
         let (sum, weight) = target_vehicle
             .similar
@@ -92,8 +92,8 @@ impl Model {
 
     pub fn predict_many<'a>(
         &'a self,
-        target_ids: impl IntoIterator<Item = i32> + 'a,
-        source_ratings: &'a HashMap<i32, Rating>,
+        target_ids: impl IntoIterator<Item = u16> + 'a,
+        source_ratings: &'a HashMap<u16, Rating>,
     ) -> impl Iterator<Item = Prediction> + 'a {
         target_ids.into_iter().filter_map(|target_id| {
             self.predict(target_id, source_ratings)
@@ -102,7 +102,7 @@ impl Model {
     }
 
     #[must_use]
-    fn calculate_biases<'a>(votes: &'a HashMap<i32, Vec<&'a Vote>>) -> Box<[Biased<'a>]> {
+    fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> Box<[Biased<'a>]> {
         votes
             .par_iter()
             .map(|(tank_id, votes)| {
@@ -118,7 +118,7 @@ impl Model {
             .into_boxed_slice()
     }
 
-    fn calculate_similarities(biased: &[Biased], params: &Params) -> HashMap<i32, Vehicle> {
+    fn calculate_similarities(biased: &[Biased], params: &Params) -> HashMap<u16, Vehicle> {
         biased
             .par_iter()
             .map(|vehicle_i| {
@@ -185,7 +185,7 @@ impl Model {
         }
     }
 
-    fn sort(vehicles: &mut HashMap<i32, Vehicle>) {
+    fn sort(vehicles: &mut HashMap<u16, Vehicle>) {
         for entry in vehicles.values_mut() {
             entry
                 .similar
@@ -195,7 +195,7 @@ impl Model {
 }
 
 struct Biased<'a> {
-    tank_id: i32,
+    tank_id: u16,
 
     /// Average vehicle rating.
     bias: f64,
@@ -214,11 +214,13 @@ pub struct Vehicle {
     pub similar: Box<[SimilarVehicle]>,
 }
 
+#[serde_with::serde_as]
 #[derive(Serialize, Deserialize)]
 pub struct SimilarVehicle {
     /// Similar vehicle ID.
     #[serde(rename = "i")]
-    tank_id: i32,
+    #[serde_as(as = "serde_with::TryFromInto<i32>")]
+    tank_id: u16,
 
     /// Similarity of this vehicle to the source vehicle.
     #[serde(rename = "w")]

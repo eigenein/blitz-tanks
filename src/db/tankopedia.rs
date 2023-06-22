@@ -64,9 +64,9 @@ impl Tankopedia {
     }
 
     /// Load the tankopedia into a hashmap.
-    pub async fn load(&self) -> Result<HashMap<i32, Vehicle>> {
+    pub async fn load(&self) -> Result<HashMap<u16, Vehicle>> {
         info!("📤 Loading the tankopedia…");
-        let tankopedia: HashMap<i32, Vehicle> = self
+        let tankopedia: HashMap<u16, Vehicle> = self
             .0
             .find(None, None)
             .await
@@ -79,7 +79,7 @@ impl Tankopedia {
     }
 
     async fn insert_vehicle(&self, vehicle: &Vehicle) -> Result {
-        let query = doc! { "tank_id": vehicle.tank_id };
+        let query = doc! { "tank_id": vehicle.tank_id as i32 };
         let options = UpdateOptions::builder().upsert(true).build();
         self.0
             .update_one(query, doc! { "$set": to_document(vehicle)? }, options)
@@ -88,7 +88,7 @@ impl Tankopedia {
         Ok(())
     }
 
-    async fn insert_unknown(&self, tank_id: i32, name: &str, is_premium: bool) -> Result {
+    async fn insert_unknown(&self, tank_id: u16, name: &str, is_premium: bool) -> Result {
         let vehicle = Vehicle {
             tank_id,
             name: name.to_string(),
