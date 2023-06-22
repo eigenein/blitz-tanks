@@ -87,7 +87,6 @@ impl Params {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
                         (*j, self.calculate_similarity(*bias_i, &votes[i], *bias_j, &votes[j]))
                     })
-                    .inspect(|(_, similarity)| debug_assert!(similarity.is_finite()))
                     .collect();
                 (*i, similarities)
             })
@@ -129,7 +128,11 @@ impl Params {
             }
         }
 
-        dot_product / norm2_i.sqrt() / norm2_j.sqrt()
+        if norm2_i >= f64::EPSILON && norm2_j >= f64::EPSILON {
+            dot_product / norm2_i.sqrt() / norm2_j.sqrt()
+        } else {
+            0.0
+        }
     }
 
     /// Sort each vehicle's similar vehicles by decreasing similarity.
