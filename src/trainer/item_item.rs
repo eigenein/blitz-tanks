@@ -179,14 +179,3 @@ impl Model {
         })
     }
 }
-
-#[derive(Serialize, Deserialize)]
-pub struct Vehicle {
-    /// Average vehicle rating.
-    #[serde(rename = "b")]
-    pub bias: f64,
-
-    /// Similar vehicles (tank ID and similarity), sorted by descending similarity.
-    #[serde(rename = "s")]
-    pub similar: Box<[(u16, f64)]>,
-}

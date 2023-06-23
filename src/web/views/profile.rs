@@ -7,7 +7,7 @@ use futures::TryStreamExt;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{rating::Rating, user::User, vote::Vote},
+    models::{rating::Rating, user::User, vehicle::Vehicle, vote::Vote},
     prelude::*,
     web::{
         extract::{ProfileOwner, UserOwnedTank},
@@ -122,6 +122,19 @@ async fn post(
     Ok(vehicle_card_footer(user.account_id, tank_id, rating))
 }
 
+fn vehicle_card_image(vehicle: Option<&Vehicle>) -> Markup {
+    html! {
+        div.card-image {
+            figure.image {
+                @let url = vehicle
+                    .and_then(|d| d.images.normal_url.as_ref())
+                    .map_or("https://dummyimage.com/1060x774", |url| url.as_str());
+                img src=(url) loading="lazy";
+            }
+        }
+    }
+}
+
 /// Render the vehicle card.
 fn vehicle_card(
     state: &AppState,
@@ -129,19 +142,10 @@ fn vehicle_card(
     stats: &VehicleStats,
     rating: Option<Rating>,
 ) -> Result<Markup> {
-    let description = state.tankopedia.get(&stats.tank_id);
+    let vehicle = state.tankopedia.get(&stats.tank_id);
     let markup = html! {
         div.card {
-            @let is_premium = description.is_some_and(|d| d.is_premium);
-
-            div.card-image {
-                figure.image {
-                    @let url = description
-                        .and_then(|d| d.images.normal_url.as_ref())
-                        .map_or("https://dummyimage.com/1060x774", |url| url.as_str());
-                    img src=(url) loading="lazy";
-                }
-            }
+            (vehicle_card_image(vehicle))
 
             div.card-content {
                 div.media {
@@ -149,8 +153,11 @@ fn vehicle_card(
                         p.title."is-5" {
                             span.icon-text {
                                 span {
-                                    @match description {
-                                        Some(description) => { span.has-text-warning-dark[is_premium] { (description.name) } },
+                                    @match vehicle {
+                                        Some(description) => {
+                                            @let is_premium = vehicle.is_some_and(|d| d.is_premium);
+                                            span.has-text-warning-dark[is_premium] { (description.name) }
+                                        },
                                         None => { "#" (stats.tank_id) },
                                     }
                                 }
