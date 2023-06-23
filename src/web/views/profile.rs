@@ -1,13 +1,11 @@
 use std::collections::HashMap;
 
 use axum::extract::State;
-use chrono::LocalResult;
-use chrono_humanize::HumanTime;
 use futures::TryStreamExt;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{rating::Rating, user::User, vehicle::Vehicle, vote::Vote},
+    models::{rating::Rating, user::User, vote::Vote},
     prelude::*,
     web::{
         extract::{ProfileOwner, UserOwnedTank},
@@ -15,7 +13,6 @@ use crate::{
         state::AppState,
         views::partials::*,
     },
-    wg::stats::VehicleStats,
 };
 
 #[instrument(skip_all, fields(account_id = user.account_id))]
@@ -64,8 +61,12 @@ pub async fn get(
                     div.columns.is-multiline.is-tablet {
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
-                                @let account_id = user.account_id;
-                                (vehicle_card(&state, account_id, stats, votes.get(&stats.tank_id).copied()))
+                                div.card {
+                                    @let vehicle = state.tankopedia.get(&stats.tank_id);
+                                    (vehicle_card_image(vehicle))
+                                    (vehicle_card_content(vehicle, stats))
+                                    (vehicle_card_footer(user.account_id, stats.tank_id, votes.get(&stats.tank_id).copied()))
+                                }
                             }
                         }
                     }
@@ -120,120 +121,6 @@ async fn post(
     }
 
     Ok(vehicle_card_footer(user.account_id, tank_id, rating))
-}
-
-fn vehicle_card_image(vehicle: Option<&Vehicle>) -> Markup {
-    html! {
-        div.card-image {
-            figure.image {
-                @let url = vehicle
-                    .and_then(|d| d.images.normal_url.as_ref())
-                    .map_or("https://dummyimage.com/1060x774", |url| url.as_str());
-                img src=(url) loading="lazy";
-            }
-        }
-    }
-}
-
-fn vehicle_card_content(vehicle: Option<&Vehicle>, stats: &VehicleStats) -> Markup {
-    html! {
-        div.card-content {
-            div.media {
-                div.media-content {
-                    p.title."is-5" {
-                        span.icon-text {
-                            span {
-                                @match vehicle {
-                                    Some(vehicle) => {
-                                        span.has-text-warning-dark[vehicle.is_premium] { (vehicle.name) }
-                                    },
-                                    None => {
-                                        "#" (stats.tank_id)
-                                    },
-                                }
-                            }
-                            span.icon {
-                                a
-                                    title="View in Armor Inspector"
-                                    href=(format!("https://armor.wotinspector.com/en/blitz/{}-/", stats.tank_id))
-                                {
-                                    i.fa-solid.fa-arrow-up-right-from-square {}
-                                }
-                            }
-                        }
-                    }
-                    @if let LocalResult::Single(timestamp) = stats.last_battle_time() {
-                        p.subtitle."is-6" {
-                            span.has-text-grey { "Last played" }
-                            " "
-                            span.has-text-weight-medium title=(timestamp) { (HumanTime::from(timestamp)) }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-/// Render the vehicle card.
-fn vehicle_card(
-    state: &AppState,
-    account_id: u32,
-    stats: &VehicleStats,
-    rating: Option<Rating>,
-) -> Markup {
-    let vehicle = state.tankopedia.get(&stats.tank_id);
-    html! {
-        div.card {
-            (vehicle_card_image(vehicle))
-            (vehicle_card_content(vehicle, stats))
-            (vehicle_card_footer(account_id, stats.tank_id, rating))
-        }
-    }
-}
-
-/// Render the vehicle card's footer inner HTML.
-///
-/// # Notes
-///
-/// It's extracted for HTMX to be able to refresh the voting buttons.
-fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) -> Markup {
-    html! {
-        footer.card-footer {
-            a.card-footer-item.has-background-success-light[rating == Some(Rating::Like)]
-                data-hx-post=(
-                    if rating != Some(Rating::Like) {
-                        format!("/profile/{account_id}/vehicle/{tank_id}/like")
-                    } else {
-                        format!("/profile/{account_id}/vehicle/{tank_id}/unrate")
-                    }
-                )
-                data-hx-target="closest .card-footer"
-                data-hx-swap="outerHTML"
-            {
-                span.icon-text.has-text-success[rating == Some(Rating::Like)] {
-                    span.icon { i.fa-solid.fa-thumbs-up {} }
-                    span { "Like" }
-                }
-            }
-            a.card-footer-item.has-background-danger-light[rating == Some(Rating::Dislike)]
-                data-hx-post=(
-                    if rating != Some(Rating::Dislike) {
-                        format!("/profile/{account_id}/vehicle/{tank_id}/dislike")
-                    } else {
-                        format!("/profile/{account_id}/vehicle/{tank_id}/unrate")
-                    }
-                )
-                data-hx-target="closest .card-footer"
-                data-hx-swap="outerHTML"
-            {
-                span.icon-text.has-text-danger[rating == Some(Rating::Dislike)] {
-                    span.icon { i.fa-solid.fa-thumbs-down {} }
-                    span { "Dislike" }
-                }
-            }
-        }
-    }
 }
 
 /// Profile navigation bar.
