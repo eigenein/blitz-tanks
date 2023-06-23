@@ -14,9 +14,6 @@ use crate::{
 /// Model parameters.
 #[derive(Debug, Args, Serialize, Deserialize, Copy, Clone)]
 pub struct Params {
-    #[clap(long, env = "BLITZ_TANKS_MODEL_ENABLE_DAMPING")]
-    pub enable_damping: bool,
-
     #[clap(long, env = "BLITZ_TANKS_MODEL_NEIGHBORS")]
     /// Number of top similar vehicles to include in a prediction.
     pub n_neighbors: usize,
@@ -30,7 +27,7 @@ impl Params {
     pub fn fit(self, votes: &[Vote]) -> Model {
         let mut votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
         let biases = Self::calculate_biases(&votes);
-        let mut similarities = self.calculate_similarities(&mut votes, &biases);
+        let mut similarities = Self::calculate_similarities(&mut votes, &biases);
         Self::sort_similarities(&mut similarities);
         Model {
             created_at: Utc::now(),
@@ -72,7 +69,6 @@ impl Params {
     /// by decreasing similarity in respect to the former.
     #[must_use]
     fn calculate_similarities(
-        &self,
         votes: &mut HashMap<u16, Vec<&Vote>>,
         biases: &HashMap<u16, f64>,
     ) -> HashMap<u16, Box<[(u16, f64)]>> {
@@ -85,7 +81,7 @@ impl Params {
                     .filter(|(j, _)| *i != **j)
                     .map(|(j, bias_j)| {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
-                        (*j, self.calculate_similarity(*bias_i, &votes[i], *bias_j, &votes[j]))
+                        (*j, Self::calculate_similarity(*bias_i, &votes[i], *bias_j, &votes[j]))
                     })
                     .collect();
                 (*i, similarities)
@@ -95,13 +91,7 @@ impl Params {
 
     /// Calculate similarity between two vehicles, specified by their respective biases
     /// and votes sorted by account ID.
-    fn calculate_similarity(
-        &self,
-        bias_i: f64,
-        votes_i: &[&Vote],
-        bias_j: f64,
-        votes_j: &[&Vote],
-    ) -> f64 {
+    fn calculate_similarity(bias_i: f64, votes_i: &[&Vote], bias_j: f64, votes_j: &[&Vote]) -> f64 {
         let mut dot_product = 0.0;
         let mut norm2_i = 0.0;
         let mut norm2_j = 0.0;
@@ -109,14 +99,10 @@ impl Params {
         for either in merge_join_by(votes_i, votes_j, |i, j| i.account_id.cmp(&j.account_id)) {
             match either {
                 EitherOrBoth::Left(vote_i) => {
-                    if self.enable_damping {
-                        norm2_i += (vote_i.rating - bias_i).powi(2);
-                    }
+                    norm2_i += (vote_i.rating - bias_i).powi(2);
                 }
                 EitherOrBoth::Right(vote_j) => {
-                    if self.enable_damping {
-                        norm2_j += (vote_j.rating - bias_j).powi(2);
-                    }
+                    norm2_j += (vote_j.rating - bias_j).powi(2);
                 }
                 EitherOrBoth::Both(vote_i, vote_j) => {
                     let diff_i = vote_i.rating - bias_i;
@@ -128,11 +114,7 @@ impl Params {
             }
         }
 
-        if norm2_i >= f64::EPSILON && norm2_j >= f64::EPSILON {
-            dot_product / norm2_i.sqrt() / norm2_j.sqrt()
-        } else {
-            0.0
-        }
+        dot_product / norm2_i.sqrt() / norm2_j.sqrt()
     }
 
     /// Sort each vehicle's similar vehicles by decreasing similarity.

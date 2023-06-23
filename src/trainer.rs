@@ -58,13 +58,8 @@ impl GridSearch {
         info!(n_votes = votes.len(), "✅ Gotcha!");
         report_memory_usage();
 
-        let params = iproduct!(1..=self.high_neighbors, [false, true], [false, true]).map(
-            |(n_neighbors, enable_damping, include_negative)| Params {
-                enable_damping,
-                n_neighbors,
-                include_negative,
-            },
-        );
+        let params = iproduct!(1..=self.high_neighbors, [false, true])
+            .map(|(n_neighbors, include_negative)| Params { n_neighbors, include_negative });
         search(&mut votes, self.n_partitions, self.test_proportion, params);
         info!("🏁 Finished search");
 

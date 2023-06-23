@@ -36,7 +36,6 @@ pub fn search(
             if new_mrr > current_mrr {
                 info!(
                     %new_mrr,
-                    enable_damping = new_params.enable_damping,
                     n_neighbors = new_params.n_neighbors,
                     include_negative = new_params.include_negative,
                     "🎉 Improved",
