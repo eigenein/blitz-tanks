@@ -57,14 +57,9 @@ impl Wg {
     /// Get the accounts' vehicles' basic [statistics][1].
     ///
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
+    #[cfg(not(test))]
     #[instrument(skip_all, fields(account_id = account_id))]
     pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>> {
-        #[cfg(test)]
-        if account_id == 0 || account_id == 1 {
-            // Fake account IDs for testing.
-            return Ok(vec![VehicleStats::FAKE_PLAYED, VehicleStats::FAKE_NON_PLAYED]);
-        }
-
         let result = self
             .client
             .get(Url::parse_with_params(
@@ -85,6 +80,21 @@ impl Wg {
             WgResult::Ok { data } => Ok(data.into_values().next().unwrap_or_default()),
             WgResult::Err { error } => Err(error.into()),
         }
+    }
+
+    #[cfg(test)]
+    pub async fn get_vehicles_stats(&self, _account_id: u32) -> Result<Vec<VehicleStats>> {
+        const FAKE_NON_PLAYED: VehicleStats = VehicleStats {
+            tank_id: 2,
+            last_battle_time: 0,
+            inner: InnerVehicleStats { n_battles: 0 },
+        };
+        const FAKE_PLAYED: VehicleStats = VehicleStats {
+            tank_id: 1,
+            last_battle_time: 0,
+            inner: InnerVehicleStats { n_battles: 1 },
+        };
+        Ok(vec![FAKE_PLAYED, FAKE_NON_PLAYED])
     }
 
     /// Retrieve the [tankopedia][1].
@@ -151,19 +161,6 @@ pub struct VehicleStats {
 }
 
 impl VehicleStats {
-    #[cfg(test)]
-    pub const FAKE_NON_PLAYED: Self = Self {
-        tank_id: 2,
-        last_battle_time: 0,
-        inner: InnerVehicleStats { n_battles: 0 },
-    };
-    #[cfg(test)]
-    pub const FAKE_PLAYED: Self = Self {
-        tank_id: 1,
-        last_battle_time: 0,
-        inner: InnerVehicleStats { n_battles: 1 },
-    };
-
     pub fn last_battle_time(&self) -> LocalResult<DateTime> {
         Utc.timestamp_opt(self.last_battle_time, 0)
     }
