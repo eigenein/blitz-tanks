@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use clap::Args;
+use indexmap::IndexMap;
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
 use mongodb::bson::serde_helpers;
 use rayon::prelude::*;
@@ -26,9 +27,9 @@ pub struct Params {
 impl Params {
     pub fn fit(self, votes: &[Vote]) -> Model {
         let mut votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
+        Self::sort_votes(&mut votes);
         let biases = Self::calculate_biases(&votes);
-        let mut similarities = Self::calculate_similarities(&mut votes, &biases);
-        Self::sort_similarities(&mut similarities);
+        let similarities = Self::calculate_similarities(&votes, &biases);
         Model {
             created_at: Utc::now(),
             params: self,
@@ -50,15 +51,17 @@ impl Params {
     ///
     /// Mapping from tank ID to its mean rating.
     #[must_use]
-    fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> HashMap<u16, f64> {
-        votes
+    fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> IndexMap<u16, f64> {
+        let mut biases: IndexMap<_, _> = votes
             .par_iter()
             .map(|(tank_id, votes)| {
                 let bias = votes.iter().map(|vote| f64::from(vote.rating)).sum::<f64>()
                     / votes.len() as f64;
                 (*tank_id, bias)
             })
-            .collect()
+            .collect();
+        biases.sort_unstable_by(|_, lhs, _, rhs| rhs.total_cmp(lhs));
+        biases
     }
 
     /// Calculate similarities between different vehicles.
@@ -69,11 +72,10 @@ impl Params {
     /// by decreasing similarity in respect to the former.
     #[must_use]
     fn calculate_similarities(
-        votes: &mut HashMap<u16, Vec<&Vote>>,
-        biases: &HashMap<u16, f64>,
+        votes: &HashMap<u16, Vec<&Vote>>,
+        biases: &IndexMap<u16, f64>,
     ) -> HashMap<u16, Box<[(u16, f64)]>> {
-        Self::sort_votes(votes);
-        biases
+        let mut similarities: HashMap<_, _> = biases
             .par_iter()
             .map(|(i, bias_i)| {
                 let similarities: Box<[(u16, f64)]> = biases
@@ -86,7 +88,11 @@ impl Params {
                     .collect();
                 (*i, similarities)
             })
-            .collect()
+            .collect();
+        for similar in similarities.values_mut() {
+            similar.sort_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
+        }
+        similarities
     }
 
     /// Calculate similarity between two vehicles, specified by their respective biases
@@ -114,13 +120,10 @@ impl Params {
             }
         }
 
-        dot_product / norm2_i.sqrt() / norm2_j.sqrt()
-    }
-
-    /// Sort each vehicle's similar vehicles by decreasing similarity.
-    fn sort_similarities(similarities: &mut HashMap<u16, Box<[(u16, f64)]>>) {
-        for similar in similarities.values_mut() {
-            similar.sort_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
+        if norm2_i >= f64::EPSILON && norm2_j >= f64::EPSILON {
+            dot_product / norm2_i.sqrt() / norm2_j.sqrt()
+        } else {
+            0.0
         }
     }
 }
@@ -136,7 +139,7 @@ pub struct Model {
     params: Params,
 
     #[serde_as(as = "Vec<(_, _)>")]
-    biases: HashMap<u16, f64>,
+    biases: IndexMap<u16, f64>,
 
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
     #[serde_as(as = "Vec<(_, _)>")]
@@ -155,11 +158,11 @@ impl Model {
             .filter_map(|(tank_id, similarity)| {
                 source_ratings
                     .get(tank_id)
-                    .map(|rating| (*similarity, self.biases[tank_id], f64::from(*rating)))
+                    .map(|rating| (similarity, rating.into_f64() - self.biases[tank_id]))
             })
             .take(self.params.n_neighbors)
-            .fold((0.0, 0.0), |(sum, weight), (similarity, similar_bias, similar_rating)| {
-                (sum + similarity * (similar_rating - similar_bias), weight + similarity.abs())
+            .fold((0.0, 0.0), |(sum, weight), (similarity, relative_rating)| {
+                (sum + similarity * relative_rating, weight + similarity.abs())
             });
 
         if weight >= f64::EPSILON {

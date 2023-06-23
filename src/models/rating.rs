@@ -27,14 +27,22 @@ impl Rating {
             _ => Err(serde::de::Error::custom(format!("invalid rating value `{rating}`"))),
         }
     }
-}
 
-impl From<Rating> for f64 {
-    fn from(rating: Rating) -> f64 {
-        match rating {
+    #[inline]
+    #[must_use]
+    pub const fn into_f64(self) -> f64 {
+        match self {
             Rating::Like => 0.5,
             Rating::Dislike => -0.5,
         }
+    }
+}
+
+impl From<Rating> for f64 {
+    #[inline]
+    #[must_use]
+    fn from(rating: Rating) -> f64 {
+        rating.into_f64()
     }
 }
 
