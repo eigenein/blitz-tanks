@@ -5,7 +5,7 @@ use maud::{html, Markup, PreEscaped, DOCTYPE};
 
 use crate::{
     models::{rating::Rating, user::User, vehicle::Vehicle},
-    wg::stats::VehicleStats,
+    wg::VehicleStats,
 };
 
 pub fn head() -> Markup {

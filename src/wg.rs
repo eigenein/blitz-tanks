@@ -4,15 +4,13 @@ pub mod stats;
 
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
+use chrono::LocalResult;
 use reqwest::{Client, ClientBuilder};
+use serde::Deserialize;
 use tracing::{info, instrument};
 use url::Url;
 
-use crate::{
-    models::vehicle::Vehicle,
-    prelude::*,
-    wg::{result::WgResult, stats::VehicleStats},
-};
+use crate::{models::vehicle::Vehicle, prelude::*, wg::result::WgResult};
 
 /// Wargaming.net API client.
 #[derive(Clone)]
@@ -118,5 +116,56 @@ impl Wg {
             WgResult::Ok { .. } => Ok(()),
             WgResult::Err { error } => Err(error.into()),
         }
+    }
+}
+
+/// Partial user's vehicle statistics.
+#[derive(Deserialize)]
+pub struct VehicleStats {
+    pub tank_id: u16,
+    pub last_battle_time: i64,
+
+    #[serde(rename = "all")]
+    pub inner: InnerVehicleStats,
+}
+
+impl VehicleStats {
+    pub const FAKE_NON_PLAYED: Self = Self {
+        tank_id: 2,
+        last_battle_time: 0,
+        inner: InnerVehicleStats { n_battles: 0 },
+    };
+    pub const FAKE_PLAYED: Self = Self {
+        tank_id: 1,
+        last_battle_time: 0,
+        inner: InnerVehicleStats { n_battles: 1 },
+    };
+
+    pub fn last_battle_time(&self) -> LocalResult<DateTime> {
+        Utc.timestamp_opt(self.last_battle_time, 0)
+    }
+
+    pub const fn is_played(&self) -> bool {
+        self.inner.n_battles != 0
+    }
+}
+
+#[derive(Deserialize)]
+pub struct InnerVehicleStats {
+    #[serde(rename = "battles")]
+    pub n_battles: u32,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn vehicles_stats_ok() -> Result {
+        serde_json::from_str::<WgResult<HashMap<String, Vec<VehicleStats>>>>(
+            // language=json
+            r#"{"status":"ok","meta":{"count":1},"data":{"594778041":[{"all":{"battles":248},"last_battle_time":1681146251,"tank_id":18769}]}}"#,
+        )?;
+        Ok(())
     }
 }
