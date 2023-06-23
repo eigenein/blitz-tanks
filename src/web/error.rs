@@ -23,8 +23,14 @@ pub enum WebError {
     #[error("bad request")]
     BadRequest(#[source] Error),
 
+    #[error("unauthorized")]
+    Unauthorized,
+
     #[error("forbidden")]
     Forbidden,
+
+    #[error("not found")]
+    ImATeapot,
 
     #[error("service unavailable")]
     ServiceUnavailable(#[source] Error),
@@ -52,7 +58,10 @@ impl IntoResponse for WebError {
                 StatusCode::BAD_REQUEST
             }
 
-            Self::Forbidden => StatusCode::FORBIDDEN,
+            Self::Forbidden => {
+                error!("❌ Forbidden");
+                StatusCode::FORBIDDEN
+            }
 
             Self::InternalServerError(error) => {
                 error!("💥 Internal server error: {error:#}");
@@ -62,6 +71,16 @@ impl IntoResponse for WebError {
             Self::ServiceUnavailable(error) => {
                 error!("📴 Service unavailable: {error:#}");
                 StatusCode::SERVICE_UNAVAILABLE
+            }
+
+            Self::Unauthorized => {
+                error!("❌ Unauthorized");
+                StatusCode::UNAUTHORIZED
+            }
+
+            Self::ImATeapot => {
+                error!("🫖 I'm a teapot");
+                StatusCode::IM_A_TEAPOT
             }
         };
         status_code.into_response()

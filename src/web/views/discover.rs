@@ -1,18 +1,24 @@
 use axum::{extract::State, response::IntoResponse};
+use either::Either;
 use maud::html;
 use tracing::instrument;
 
-use crate::web::{extract::ProfileOwner, result::WebResult, state::AppState, views::partials::*};
+use crate::{
+    models::user::{Anonymous, User},
+    web::{error::WebError, result::WebResult, state::AppState, views::partials::*},
+};
 
-#[instrument(skip_all, fields(account_id = user.account_id))]
+#[instrument(skip_all)]
 pub async fn get(
-    ProfileOwner(user): ProfileOwner,
+    user: Either<User, Anonymous>,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
+    let Either::Left(user) = user else { return Err(WebError::Unauthorized) };
+
     let markup = html! {
         (head())
         body {
-            (navbar(&user))
+            (profile_navbar(&user))
 
             section.section {
                 div.container {

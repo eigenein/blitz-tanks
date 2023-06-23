@@ -1,27 +1,42 @@
 use std::collections::HashMap;
 
-use axum::{extract::State, response::IntoResponse};
+use axum::{
+    extract::{Path, State},
+    response::IntoResponse,
+};
+use either::Either;
 use futures::TryStreamExt;
+use serde::Deserialize;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{rating::Rating, vote::Vote},
-    prelude::*,
-    web::{
-        error::WebError,
-        extract::{ProfileOwner, UserOwnedTank},
-        prelude::*,
-        result::WebResult,
-        state::AppState,
-        views::partials::*,
+    models::{
+        rating::Rating,
+        user::{Anonymous, User},
+        vote::Vote,
     },
+    prelude::*,
+    web::{error::WebError, prelude::*, result::WebResult, state::AppState, views::partials::*},
 };
 
-#[instrument(skip_all, fields(account_id = user.account_id))]
+#[derive(Deserialize)]
+pub struct GetParams {
+    pub account_id: u32,
+}
+
+#[instrument(skip_all, fields(account_id = params.account_id))]
 pub async fn get(
-    ProfileOwner(user): ProfileOwner,
+    Path(params): Path<GetParams>,
+    user: Either<User, Anonymous>,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
+    let Either::Left(user) = user else {
+        return Err(WebError::Unauthorized)
+    };
+    if params.account_id != user.account_id {
+        return Err(WebError::Forbidden);
+    }
+
     let vehicles_stats = state
         .get_vehicle_stats(user.account_id)
         .await
@@ -38,7 +53,7 @@ pub async fn get(
     let markup = html! {
         (head())
         body {
-            (navbar(&user))
+            (profile_navbar(&user))
 
             section.section {
                 div.container {
@@ -81,46 +96,65 @@ pub async fn get(
     Ok(markup)
 }
 
+#[derive(Deserialize)]
+pub struct PostParams {
+    pub account_id: u32,
+    pub tank_id: u16,
+}
+
 #[inline]
 pub async fn like_vehicle(
     state: State<AppState>,
-    owned_tank: UserOwnedTank,
+    user: Either<User, Anonymous>,
+    Path(params): Path<PostParams>,
 ) -> WebResult<impl IntoResponse> {
-    rate_vehicle(state, owned_tank, Some(Rating::Like)).await
+    rate_vehicle(state, user, params, Some(Rating::Like)).await
 }
 
 #[inline]
 pub async fn dislike_vehicle(
     state: State<AppState>,
-    owned_tank: UserOwnedTank,
+    user: Either<User, Anonymous>,
+    Path(params): Path<PostParams>,
 ) -> WebResult<impl IntoResponse> {
-    rate_vehicle(state, owned_tank, Some(Rating::Dislike)).await
+    rate_vehicle(state, user, params, Some(Rating::Dislike)).await
 }
 
 #[inline]
 pub async fn unrate_vehicle(
     state: State<AppState>,
-    owned_tank: UserOwnedTank,
+    user: Either<User, Anonymous>,
+    Path(params): Path<PostParams>,
 ) -> WebResult<impl IntoResponse> {
-    rate_vehicle(state, owned_tank, None).await
+    rate_vehicle(state, user, params, None).await
 }
 
-#[instrument(skip_all, fields(account_id = user.account_id, tank_id = tank_id))]
+#[instrument(skip_all, fields(account_id = params.account_id, tank_id = params.tank_id))]
 async fn rate_vehicle(
     State(state): State<AppState>,
-    UserOwnedTank { user, tank_id }: UserOwnedTank,
+    user: Either<User, Anonymous>,
+    params: PostParams,
     rating: Option<Rating>,
 ) -> WebResult<impl IntoResponse> {
-    info!(?rating);
-
-    let manager = state.vote_manager;
-    if let Some(rating) = rating {
-        manager.insert(&Vote::new(user.account_id, tank_id, rating)).await?;
-    } else {
-        manager.delete(user.account_id, tank_id).await?;
+    let Either::Left(user) = user else {
+        return Err(WebError::Unauthorized)
+    };
+    if params.account_id != user.account_id {
+        return Err(WebError::Forbidden);
+    }
+    if !state.owns_vehicle(user.account_id, params.tank_id).await? {
+        return Err(WebError::ImATeapot);
     }
 
-    Ok(vehicle_card_footer(user.account_id, tank_id, rating))
+    info!(?rating);
+    let manager = state.vote_manager;
+    if let Some(rating) = rating {
+        manager.insert(&Vote::new(user.account_id, params.tank_id, rating)).await?;
+    } else {
+        manager.delete(user.account_id, params.tank_id).await?;
+    }
+
+    Ok(vehicle_card_footer(user.account_id, params.tank_id, rating))
 }
 
 #[cfg(test)]
@@ -154,7 +188,7 @@ mod tests {
         let app = Web::create_app(AppState::new_test().await?);
         let request = Request::builder().uri("/profile/0").body(Body::empty())?;
         let response = app.oneshot(request).await?;
-        assert_eq!(response.status(), StatusCode::FORBIDDEN);
+        assert_eq!(response.status(), StatusCode::UNAUTHORIZED);
         Ok(())
     }
 
@@ -167,7 +201,7 @@ mod tests {
             .method("POST")
             .body(Body::empty())?;
         let response = app.oneshot(request).await?;
-        assert_eq!(response.status(), StatusCode::FORBIDDEN);
+        assert_eq!(response.status(), StatusCode::UNAUTHORIZED);
         Ok(())
     }
 
@@ -197,7 +231,7 @@ mod tests {
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
         let response = Web::create_app(state).oneshot(request).await?;
-        assert_eq!(response.status(), StatusCode::FORBIDDEN);
+        assert_eq!(response.status(), StatusCode::IM_A_TEAPOT);
         Ok(())
     }
 

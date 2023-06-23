@@ -53,7 +53,7 @@ pub fn navbar_brand() -> Markup {
     }
 }
 
-pub fn navbar(User { account_id, nickname, .. }: &User) -> Markup {
+pub fn profile_navbar(User { account_id, nickname, .. }: &User) -> Markup {
     html! {
         nav.navbar.is-warning role="navigation" aria-label="main navigation" {
             div.container {
@@ -71,7 +71,7 @@ pub fn navbar(User { account_id, nickname, .. }: &User) -> Markup {
                             span { "Rate" }
                         }
 
-                        a.navbar-item href=(format!("/profile/{account_id}/discover")) {
+                        a.navbar-item href=(format!("/discover")) {
                             span.icon { i.fa-solid.fa-wand-magic-sparkles aria-hidden="true" {} }
                             span { "Discover" }
                         }
