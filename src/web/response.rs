@@ -1,4 +1,4 @@
-use axum::response::{Redirect, Response};
+use axum::response::{IntoResponse, Redirect, Response};
 
 use crate::web::prelude::*;
 

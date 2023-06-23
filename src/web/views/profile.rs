@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use axum::extract::State;
+use axum::{extract::State, response::IntoResponse};
 use futures::TryStreamExt;
 use tracing::{info, instrument};
 
@@ -8,8 +8,10 @@ use crate::{
     models::{rating::Rating, user::User, vote::Vote},
     prelude::*,
     web::{
+        error::WebError,
         extract::{ProfileOwner, UserOwnedTank},
         prelude::*,
+        result::WebResult,
         state::AppState,
         views::partials::*,
     },
@@ -85,7 +87,7 @@ pub async fn like_vehicle(
     state: State<AppState>,
     owned_tank: UserOwnedTank,
 ) -> WebResult<impl IntoResponse> {
-    post(state, owned_tank, Some(Rating::Like)).await
+    rate_vehicle(state, owned_tank, Some(Rating::Like)).await
 }
 
 #[inline]
@@ -93,7 +95,7 @@ pub async fn dislike_vehicle(
     state: State<AppState>,
     owned_tank: UserOwnedTank,
 ) -> WebResult<impl IntoResponse> {
-    post(state, owned_tank, Some(Rating::Dislike)).await
+    rate_vehicle(state, owned_tank, Some(Rating::Dislike)).await
 }
 
 #[inline]
@@ -101,12 +103,11 @@ pub async fn unrate_vehicle(
     state: State<AppState>,
     owned_tank: UserOwnedTank,
 ) -> WebResult<impl IntoResponse> {
-    post(state, owned_tank, None).await
+    rate_vehicle(state, owned_tank, None).await
 }
 
-/// Rate the vehicle.
 #[instrument(skip_all, fields(account_id = user.account_id, tank_id = tank_id))]
-async fn post(
+async fn rate_vehicle(
     State(state): State<AppState>,
     UserOwnedTank { user, tank_id }: UserOwnedTank,
     rating: Option<Rating>,
@@ -121,48 +122,6 @@ async fn post(
     }
 
     Ok(vehicle_card_footer(user.account_id, tank_id, rating))
-}
-
-/// Profile navigation bar.
-fn navbar(User { account_id, nickname, .. }: &User) -> Markup {
-    html! {
-        nav.navbar.is-warning role="navigation" aria-label="main navigation" {
-            div.container {
-                (navbar_brand())
-
-                #navbar.navbar-menu {
-                    div.navbar-start {
-                        div.navbar-item {
-                            span.icon { i.fa-regular.fa-user {} }
-                            span { (nickname) }
-                        }
-
-                        a.navbar-item href=(format!("/profile/{account_id}")) {
-                            span.icon { i.fa-solid.fa-star-half-stroke aria-hidden="true" {} }
-                            span { "Rate" }
-                        }
-
-                        // a.navbar-item href=(format!("/profile/{account_id}/discover")) {
-                        //     span.icon { i.fa-solid.fa-wand-magic-sparkles aria-hidden="true" {} }
-                        //     span { "Discover" }
-                        // }
-                    }
-                    div.navbar-end {
-                        div.navbar-item {
-                            div.field {
-                                p.control {
-                                    a.button.is-rounded.is-danger href="/sign-out" {
-                                        span.icon { i.fa-solid.fa-right-from-bracket {} }
-                                        span { "Sign out" }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 #[cfg(test)]

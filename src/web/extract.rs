@@ -15,7 +15,7 @@ use crate::{
     models::user::{Anonymous, User},
     prelude::*,
     tracing::configure_user,
-    web::{prelude::*, state::AppState},
+    web::{error::WebError, state::AppState},
 };
 
 /// Extract a user from the request.

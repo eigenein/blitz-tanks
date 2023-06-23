@@ -10,7 +10,7 @@ use uuid::Uuid;
 use crate::{
     models::user::User,
     prelude::*,
-    web::{prelude::*, state::AppState},
+    web::{error::WebError, result::WebResult, state::AppState},
 };
 
 /// Wargaming.net [authentication redirect][1] query parameters.
@@ -42,7 +42,7 @@ pub enum AuthenticationResult {
     },
 }
 
-impl From<AuthenticationResult> for Result<User, WebError> {
+impl From<AuthenticationResult> for WebResult<User> {
     fn from(value: AuthenticationResult) -> Self {
         match value {
             AuthenticationResult::Ok {

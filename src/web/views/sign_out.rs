@@ -1,4 +1,8 @@
-use axum::{extract::State, http::header::SET_COOKIE, response::Redirect};
+use axum::{
+    extract::State,
+    http::header::SET_COOKIE,
+    response::{IntoResponse, Redirect},
+};
 use cookie::time::Duration;
 use either::Either;
 use sentry::integrations::anyhow::capture_anyhow;
@@ -6,7 +10,7 @@ use tracing::{error, info, instrument};
 
 use crate::{
     models::user::{Anonymous, User},
-    web::{prelude::*, state::AppState},
+    web::{result::WebResult, state::AppState},
 };
 
 #[instrument(skip_all)]

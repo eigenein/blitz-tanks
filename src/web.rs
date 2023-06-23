@@ -2,6 +2,7 @@ mod error;
 mod extract;
 mod prelude;
 mod response;
+mod result;
 mod state;
 mod r#static;
 mod tracing_;
@@ -104,6 +105,7 @@ impl Web {
                 "/profile/:account_id/vehicle/:tank_id/unrate",
                 post(views::profile::unrate_vehicle),
             )
+            .route("/profile/:account_id/discover", get(views::discover::get))
             .route("/favicon.ico", get(r#static::get_favicon))
             .route("/apple-touch-icon.png", get(r#static::get_apple_touch_icon))
             .route("/icon-192.png", get(r#static::get_icon_192))
