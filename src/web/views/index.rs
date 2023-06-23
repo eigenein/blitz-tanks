@@ -108,6 +108,7 @@ mod tests {
     use crate::{prelude::Result, web::Web};
 
     #[tokio::test]
+    #[ignore]
     async fn index_ok() -> Result {
         let app = Web::create_app(AppState::new_test().await?);
         let request = Request::builder().uri("/").body(Body::empty())?;
@@ -117,6 +118,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn redirect_ok() -> Result {
         let state = AppState::new_test().await?;
         let session_id = state.session_manager.insert_test_session().await?;

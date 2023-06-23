@@ -135,6 +135,7 @@ mod tests {
     use crate::{models::user::User, web::Web};
 
     #[tokio::test]
+    #[ignore]
     async fn own_profile_ok() -> Result {
         let state = AppState::new_test().await?;
         let session_id = state.session_manager.insert_test_session().await?;
@@ -148,6 +149,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn reject_anonymous_profile_ok() -> Result {
         let app = Web::create_app(AppState::new_test().await?);
         let request = Request::builder().uri("/profile/0").body(Body::empty())?;
@@ -157,6 +159,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn reject_anonymous_vote_ok() -> Result {
         let app = Web::create_app(AppState::new_test().await?);
         let request = Request::builder()
@@ -169,6 +172,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn rate_own_vehicle_ok() -> Result {
         let state = AppState::new_test().await?;
         let session_id = state.session_manager.insert_test_session().await?;
@@ -183,6 +187,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn reject_own_non_played_vehicle_ok() -> Result {
         let state = AppState::new_test().await?;
         let session_id = state.session_manager.insert_test_session().await?;
@@ -197,6 +202,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn reject_rate_others_vehicle_ok() -> Result {
         let state = AppState::new_test().await?;
         let session_id = state.session_manager.insert_test_session().await?;

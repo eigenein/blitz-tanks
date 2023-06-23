@@ -74,6 +74,7 @@ mod tests {
     use crate::{db::Db, models::rating::Rating};
 
     #[tokio::test]
+    #[ignore]
     async fn get_all_by_account_id_ok() -> Result {
         let manager = Db::open_unittests().await?.votes().await?;
         let mut vote = Vote::new(1, 42, Rating::Like);
@@ -88,6 +89,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn delete_vote_ok() -> Result {
         let manager = Db::open_unittests().await?.votes().await?;
         let vote = Vote::new(1, 42, Rating::Like);

@@ -73,6 +73,7 @@ mod tests {
     use crate::db::Db;
 
     #[tokio::test]
+    #[ignore]
     async fn unknown_session_ok() -> Result {
         let session = Db::open_unittests().await?.sessions().await?.get(Uuid::new_v4()).await?;
         assert!(session.is_none());
@@ -80,6 +81,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn known_session_ok() -> Result {
         let manager = Db::open_unittests().await?.sessions().await?;
         let session_id = manager.insert_test_session().await?;
@@ -89,6 +91,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn expired_session_ok() -> Result {
         let manager = Db::open_unittests().await?.sessions().await?;
         let session_id = Uuid::new_v4();

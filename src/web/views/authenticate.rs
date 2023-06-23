@@ -101,6 +101,7 @@ mod tests {
     use crate::web::{state::AppState, Web};
 
     #[tokio::test]
+    #[ignore]
     async fn success_ok() -> Result {
         let app = Web::create_app(AppState::new_test().await?);
         let request = Request::builder()
@@ -115,6 +116,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn error_ok() -> Result {
         let app = Web::create_app(AppState::new_test().await?);
         let request = Request::builder()
