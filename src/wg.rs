@@ -1,7 +1,3 @@
-pub mod error;
-pub mod result;
-pub mod stats;
-
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
 use chrono::LocalResult;
@@ -10,13 +6,36 @@ use serde::Deserialize;
 use tracing::{info, instrument};
 use url::Url;
 
-use crate::{models::vehicle::Vehicle, prelude::*, wg::result::WgResult};
+use crate::{models::vehicle::Vehicle, prelude::*};
 
 /// Wargaming.net API client.
 #[derive(Clone)]
 pub struct Wg {
     client: Client,
     application_id: Arc<String>,
+}
+
+#[derive(Deserialize)]
+pub struct WgError {
+    pub code: u16,
+    pub message: String,
+}
+
+impl From<WgError> for Error {
+    fn from(error: WgError) -> Self {
+        anyhow!("Wargaming.net API error #{} ({})", error.code, error.message)
+    }
+}
+
+/// Wargaming.net API result.
+#[derive(Deserialize)]
+#[serde(tag = "status")]
+pub enum WgResult<D> {
+    #[serde(rename = "ok")]
+    Ok { data: D },
+
+    #[serde(rename = "error")]
+    Err { error: WgError },
 }
 
 impl Wg {

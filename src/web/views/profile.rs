@@ -23,8 +23,7 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let vehicles_stats = state
-        .vehicle_stats_getter
-        .get(user.account_id)
+        .get_vehicle_stats(user.account_id)
         .await
         .map_err(WebError::ServiceUnavailable)?;
     let votes: HashMap<u16, Rating> = state

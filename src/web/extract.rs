@@ -116,10 +116,7 @@ impl FromRequestParts<AppState> for UserOwnedTank {
         match user {
             Either::Left(user)
                 if user.account_id == params.account_id
-                    && state
-                        .vehicle_stats_getter
-                        .owns_vehicle(params.account_id, params.tank_id)
-                        .await? =>
+                    && state.owns_vehicle(params.account_id, params.tank_id).await? =>
             {
                 debug!(params.account_id, params.tank_id, "✅ Verified");
                 Ok(Self { tank_id: params.tank_id, user })
