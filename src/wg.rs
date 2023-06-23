@@ -59,10 +59,12 @@ impl Wg {
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
     #[instrument(skip_all, fields(account_id = account_id))]
     pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>> {
+        #[cfg(test)]
         if account_id == 0 || account_id == 1 {
             // Fake account IDs for testing.
             return Ok(vec![VehicleStats::FAKE_PLAYED, VehicleStats::FAKE_NON_PLAYED]);
         }
+
         let result = self
             .client
             .get(Url::parse_with_params(
@@ -149,11 +151,13 @@ pub struct VehicleStats {
 }
 
 impl VehicleStats {
+    #[cfg(test)]
     pub const FAKE_NON_PLAYED: Self = Self {
         tank_id: 2,
         last_battle_time: 0,
         inner: InnerVehicleStats { n_battles: 0 },
     };
+    #[cfg(test)]
     pub const FAKE_PLAYED: Self = Self {
         tank_id: 1,
         last_battle_time: 0,

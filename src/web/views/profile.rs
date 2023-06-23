@@ -5,7 +5,7 @@ use futures::TryStreamExt;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{rating::Rating, user::User, vote::Vote},
+    models::{rating::Rating, vote::Vote},
     prelude::*,
     web::{
         error::WebError,
@@ -132,10 +132,7 @@ mod tests {
     use tower::ServiceExt;
 
     use super::*;
-    use crate::{
-        prelude::Result,
-        web::{state::AppState, Web},
-    };
+    use crate::{models::user::User, web::Web};
 
     #[tokio::test]
     async fn own_profile_ok() -> Result {
