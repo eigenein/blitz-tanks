@@ -1,4 +1,8 @@
-use mongodb::{bson::Bson, Collection};
+use mongodb::{
+    bson::{doc, Bson},
+    options::FindOneOptions,
+    Collection,
+};
 
 use crate::{prelude::*, trainer::item_item::Model};
 
@@ -13,5 +17,11 @@ impl Models {
 
     pub async fn insert(&self, model: &Model) -> Result<Bson> {
         Ok(self.0.insert_one(model, None).await?.inserted_id)
+    }
+
+    #[instrument(skip_all)]
+    pub async fn get_latest(&self) -> Result<Option<Model>> {
+        let options = FindOneOptions::builder().sort(doc! { "_id": -1 }).build();
+        self.0.find_one(None, options).await.context("failed to load the latest model")
     }
 }

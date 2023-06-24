@@ -37,21 +37,21 @@ impl AppState {
             warn!("⚠️ Tankopedia database is empty, please re-run with `--update-tankopedia`");
         }
 
-        Ok(Self {
-            sign_in_url: Arc::new(format!(
-                "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{public_address}/welcome"
-            )),
+        let sign_in_url = Arc::new(format!(
+            "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{public_address}/welcome"
+        ));
+        let stats_cache = Cache::builder()
+            .max_capacity(1000)
+            .time_to_idle(Duration::from_secs(300))
+            .build();
 
+        Ok(Self {
+            sign_in_url,
             wg: wg.clone(),
             tankopedia,
-
             session_manager: db.sessions().await?,
             vote_manager: db.votes().await?,
-
-            stats_cache: Cache::builder()
-                .max_capacity(1000)
-                .time_to_idle(Duration::from_secs(300))
-                .build(),
+            stats_cache,
         })
     }
 
