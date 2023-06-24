@@ -47,7 +47,7 @@ impl AppState {
 
         Ok(Self {
             sign_in_url,
-            wg: wg.clone(),
+            wg,
             tankopedia,
             session_manager: db.sessions().await?,
             vote_manager: db.votes().await?,
