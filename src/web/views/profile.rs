@@ -130,13 +130,16 @@ async fn rate_vehicle(
     }
 
     info!(?rating);
-    let manager = state.vote_manager;
     if let Some(rating) = rating {
-        manager.insert(&Vote::new(user.account_id, params.tank_id, rating)).await?;
+        state
+            .vote_manager
+            .insert(&Vote::new(user.account_id, params.tank_id, rating))
+            .await?;
     } else {
-        manager.delete(user.account_id, params.tank_id).await?;
+        state.vote_manager.delete(user.account_id, params.tank_id).await?;
     }
 
+    state.purge_predictions(user.account_id).await;
     Ok(VehicleCard::vehicle_rate_buttons(user.account_id, params.tank_id, rating))
 }
 

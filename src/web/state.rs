@@ -1,5 +1,6 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
+use futures::TryStreamExt;
 use indexmap::IndexMap;
 use itertools::Itertools;
 use moka::future::Cache;
@@ -109,17 +110,40 @@ impl AppState {
 
     #[allow(clippy::type_complexity)]
     #[instrument(skip_all, fields(account_id))]
-    pub async fn recommend(&self, account_id: u32) -> Result<Arc<Box<[(u16, f64)]>>> {
+    pub async fn get_predictions(&self, account_id: u32) -> Result<Arc<Box<[(u16, f64)]>>> {
         let model = self.model.clone();
+        let stats = self.get_vehicle_stats(account_id).await?;
+
         self.predictions_cache
             .try_get_with(account_id, async {
-                let predictions =
-                    spawn_blocking(move || model.predict_many([], &HashMap::default()).collect())
-                        .await?;
-                Ok::<_, Error>(Arc::new(predictions))
+                let source_ratings = self
+                    .vote_manager
+                    .iter_by_account_id(account_id)
+                    .await?
+                    .map_ok(|vote| (vote.tank_id, vote.rating))
+                    .try_collect()
+                    .await?;
+                let target_ids: Vec<u16> = self
+                    .tankopedia
+                    .keys()
+                    .filter(move |tank_id| !stats.contains_key(*tank_id))
+                    .copied()
+                    .collect();
+                let predict = move || {
+                    model
+                        .predict_many(target_ids, &source_ratings)
+                        .sorted_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
+                        .take_while(|(_, rating)| *rating > 0.0)
+                        .collect()
+                };
+                spawn_blocking(predict).await.map(Arc::new).map(Ok)?
             })
             .await
             .map_err(|error: Arc<Error>| anyhow!(error))
             .with_context(|| format!("failed to generate recommendations for #{account_id}"))
+    }
+
+    pub async fn purge_predictions(&self, account_id: u32) {
+        self.predictions_cache.remove(&account_id).await;
     }
 }
