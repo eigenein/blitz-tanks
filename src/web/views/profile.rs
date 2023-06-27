@@ -60,22 +60,12 @@ pub async fn get(
                     div.columns.is-multiline.is-tablet {
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
-                                @let vehicle = state.tankopedia.get(&stats.tank_id);
-                                @let footer = html! {
-                                    div.field.is-horizontal {
-                                        div.field-body {
-                                            (vehicle_rate_buttons(user.account_id, stats.tank_id, votes.get(&stats.tank_id).copied()))
-                                            (vehicle_inspector_button(stats.tank_id))
-                                        }
-                                    }
-                                };
-                                (vehicle_card(
-                                    stats.tank_id,
-                                    vehicle,
-                                    Some(stats.last_battle_time),
-                                    "is-5",
-                                    Some(footer),
-                                ))
+                                (
+                                    VehicleCard::new(stats.tank_id)
+                                        .tankopedia(state.tankopedia.get(&stats.tank_id))
+                                        .last_battle_time(stats.last_battle_time)
+                                        .rating(user.account_id, votes.get(&stats.tank_id).copied())
+                                )
                             }
                         }
                     }
@@ -147,7 +137,7 @@ async fn rate_vehicle(
         manager.delete(user.account_id, params.tank_id).await?;
     }
 
-    Ok(vehicle_rate_buttons(user.account_id, params.tank_id, rating))
+    Ok(VehicleCard::vehicle_rate_buttons(user.account_id, params.tank_id, rating))
 }
 
 #[cfg(test)]
