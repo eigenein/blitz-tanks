@@ -3,6 +3,7 @@ use std::{collections::HashMap, sync::Arc, time::Duration};
 use indexmap::IndexMap;
 use itertools::Itertools;
 use moka::future::Cache;
+use tokio::task::spawn_blocking;
 use tracing::warn;
 
 use crate::{
@@ -25,6 +26,9 @@ pub struct AppState {
     pub vote_manager: Votes,
 
     stats_cache: Cache<u32, Arc<IndexMap<u16, VehicleStats>>>,
+
+    #[allow(clippy::type_complexity)]
+    predictions_cache: Cache<u32, Arc<Box<[(u16, f64)]>>>,
 }
 
 impl AppState {
@@ -41,6 +45,10 @@ impl AppState {
             .max_capacity(1000)
             .time_to_idle(Duration::from_secs(300))
             .build();
+        let predictions_cache = Cache::builder()
+            .max_capacity(1000)
+            .time_to_idle(Duration::from_secs(300))
+            .build();
 
         #[cfg(not(test))]
         let Some(model) = db.models().await?.get_latest().await? else {
@@ -53,10 +61,11 @@ impl AppState {
             sign_in_url,
             wg,
             tankopedia,
+            model: Arc::new(model),
             session_manager: db.sessions().await?,
             vote_manager: db.votes().await?,
             stats_cache,
-            model: Arc::new(model),
+            predictions_cache,
         })
     }
 
@@ -96,5 +105,21 @@ impl AppState {
             .await?
             .get(&tank_id)
             .is_some_and(VehicleStats::is_played))
+    }
+
+    #[allow(clippy::type_complexity)]
+    #[instrument(skip_all, fields(account_id))]
+    pub async fn recommend(&self, account_id: u32) -> Result<Arc<Box<[(u16, f64)]>>> {
+        let model = self.model.clone();
+        self.predictions_cache
+            .try_get_with(account_id, async {
+                let predictions =
+                    spawn_blocking(move || model.predict_many([], &HashMap::default()).collect())
+                        .await?;
+                Ok::<_, Error>(Arc::new(predictions))
+            })
+            .await
+            .map_err(|error: Arc<Error>| anyhow!(error))
+            .with_context(|| format!("failed to generate recommendations for #{account_id}"))
     }
 }

@@ -185,6 +185,7 @@ impl Model {
         }
     }
 
+    #[instrument(skip_all)]
     pub fn predict_many<'a>(
         &'a self,
         target_ids: impl IntoIterator<Item = u16> + 'a,
