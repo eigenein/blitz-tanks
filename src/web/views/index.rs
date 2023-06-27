@@ -56,22 +56,6 @@ pub async fn get(
                                         }
                                     }
                                 }
-
-                                article.message.is-warning."mt-6" {
-                                    div.message-header {
-                                        "Work in progress"
-                                    }
-                                    div.message-body.content {
-                                        div.content {
-                                            p { "Disclaimer:" }
-                                            ul {
-                                                li { "Only core vital features are implemented" }
-                                                li { "Some functionality may be unimplemented or broken" }
-                                                li { "Only European region is currently supported" }
-                                            }
-                                        }
-                                    }
-                                }
                             }
                         }
                     }
