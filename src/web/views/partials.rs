@@ -1,11 +1,10 @@
-use chrono::LocalResult;
 use chrono_humanize::HumanTime;
 use clap::crate_version;
 use maud::{html, Markup, PreEscaped, DOCTYPE};
 
 use crate::{
     models::{rating::Rating, user::User, vehicle::Vehicle},
-    wg::VehicleStats,
+    prelude::DateTime,
 };
 
 pub fn head() -> Markup {
@@ -149,48 +148,52 @@ pub fn footer() -> Markup {
 pub fn vehicle_card_image(vehicle: Option<&Vehicle>) -> Markup {
     html! {
         div.card-image {
-            figure.image {
+            figure.image."is-3by2".has-object-fit-cover {
                 @let url = vehicle
                     .and_then(|d| d.images.normal_url.as_ref())
-                    .map_or("https://dummyimage.com/1060x774", |url| url.as_str());
+                    .map_or("https://dummyimage.com/1080x720", |url| url.as_str());
                 img src=(url) loading="lazy";
             }
         }
     }
 }
 
-pub fn vehicle_card_content(vehicle: Option<&Vehicle>, stats: &VehicleStats) -> Markup {
+pub fn vehicle_card_content(
+    tank_id: u16,
+    vehicle: Option<&Vehicle>,
+    last_battle_time: Option<DateTime>,
+    title_style: &str,
+) -> Markup {
     html! {
         div.card-content {
             div.media {
                 div.media-content {
-                    p.title."is-5" {
-                        span.icon-text {
+                    p.title.(title_style) {
+                        span.icon-text.is-flex-wrap-nowrap {
                             span {
                                 @match vehicle {
                                     Some(vehicle) => {
                                         span.has-text-warning-dark[vehicle.is_premium] { (vehicle.name) }
                                     },
-                                    None => {
-                                        "#" (stats.tank_id)
-                                    },
+                                    None => { "#" (tank_id) },
                                 }
                             }
                             span.icon {
                                 a
                                     title="View in Armor Inspector"
-                                    href=(format!("https://armor.wotinspector.com/en/blitz/{}-/", stats.tank_id))
+                                    href=(format!("https://armor.wotinspector.com/en/blitz/{tank_id}-/"))
                                 {
                                     i.fa-solid.fa-arrow-up-right-from-square {}
                                 }
                             }
                         }
                     }
-                    @if let LocalResult::Single(timestamp) = stats.last_battle_time() {
+
+                    @if let Some(last_battle_time) = last_battle_time {
                         p.subtitle."is-6" {
                             span.has-text-grey { "Last played" }
                             " "
-                            span.has-text-weight-medium title=(timestamp) { (HumanTime::from(timestamp)) }
+                            span.has-text-weight-medium title=(last_battle_time) { (HumanTime::from(last_battle_time)) }
                         }
                     }
                 }

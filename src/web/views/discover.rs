@@ -22,7 +22,19 @@ pub async fn get(
 
             section.section {
                 div.container {
-                    div.columns.is-multiline.is-tablet {}
+                    h1.title { "Most liked" }
+
+                    div.columns.is-multiline.is-tablet {
+                        @for vehicle_id in state.model.top_vehicles.iter() {
+                            div.column."is-4-tablet"."is-3-desktop"."is-2-widescreen" {
+                                div.card {
+                                    @let vehicle = state.tankopedia.get(vehicle_id);
+                                    (vehicle_card_image(vehicle))
+                                    (vehicle_card_content(*vehicle_id, vehicle, None, "is-6"))
+                                }
+                            }
+                        }
+                    }
                 }
             }
 

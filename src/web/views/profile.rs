@@ -80,7 +80,7 @@ pub async fn get(
                                 div.card {
                                     @let vehicle = state.tankopedia.get(&stats.tank_id);
                                     (vehicle_card_image(vehicle))
-                                    (vehicle_card_content(vehicle, stats))
+                                    (vehicle_card_content(stats.tank_id, vehicle, Some(stats.last_battle_time), "is-5"))
                                     (vehicle_card_footer(user.account_id, stats.tank_id, votes.get(&stats.tank_id).copied()))
                                 }
                             }

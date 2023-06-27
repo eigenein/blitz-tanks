@@ -21,7 +21,11 @@ impl Models {
 
     #[instrument(skip_all)]
     pub async fn get_latest(&self) -> Result<Option<Model>> {
+        info!("📥 Loading the model…");
         let options = FindOneOptions::builder().sort(doc! { "_id": -1 }).build();
-        self.0.find_one(None, options).await.context("failed to load the latest model")
+        self.0
+            .find_one(None, options)
+            .await
+            .context("failed to load the latest model (may need a refit)")
     }
 }

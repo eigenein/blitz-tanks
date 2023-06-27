@@ -1,9 +1,4 @@
 //! ```text
-//! Add this to your HTML <head>:
-//!
-//!     <link rel="icon" href="/favicon.ico" sizes="any">
-//!     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-//!
 //! Add this to your app's manifest.json:
 //!
 //!     ...
@@ -69,6 +64,8 @@ pub async fn get_home_icon() -> impl IntoResponse {
 pub async fn get_bulma_patches() -> impl IntoResponse {
     // language=css
     const CSS: &str = r#"
+        .has-object-fit-cover { object-fit: cover; }
+
         @media (prefers-color-scheme: dark) {
             .has-background-success-light { background-color: hsl(141, 53%, 14%) !important; }
             .has-background-danger-light { background-color: hsl(348, 86%, 14%) !important; }

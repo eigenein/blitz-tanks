@@ -1,5 +1,6 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
+use anyhow::bail;
 use indexmap::IndexMap;
 use itertools::Itertools;
 use moka::future::Cache;
@@ -9,6 +10,7 @@ use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
     models::vehicle::Vehicle,
     prelude::*,
+    trainer::item_item::Model,
     wg::{VehicleStats, Wg},
 };
 
@@ -18,6 +20,7 @@ pub struct AppState {
 
     pub wg: Wg,
     pub tankopedia: Arc<HashMap<u16, Vehicle>>,
+    pub model: Arc<Model>,
 
     pub session_manager: Sessions,
     pub vote_manager: Votes,
@@ -26,24 +29,22 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub async fn new(
-        db: &Db,
-        frontend_application_id: &str,
-        wg: Wg,
-        public_address: &str,
-    ) -> Result<Self> {
+    pub async fn new(db: &Db, application_id: &str, wg: Wg, public_address: &str) -> Result<Self> {
         let tankopedia = Arc::new(db.tankopedia().await?.load().await?);
         if tankopedia.is_empty() {
             warn!("⚠️ Tankopedia database is empty, please re-run with `--update-tankopedia`");
         }
 
         let sign_in_url = Arc::new(format!(
-            "https://api.worldoftanks.eu/wot/auth/login/?application_id={frontend_application_id}&redirect_uri=//{public_address}/welcome"
+            "https://api.worldoftanks.eu/wot/auth/login/?application_id={application_id}&redirect_uri=//{public_address}/welcome"
         ));
         let stats_cache = Cache::builder()
             .max_capacity(1000)
             .time_to_idle(Duration::from_secs(300))
             .build();
+        let Some(model) = db.models().await?.get_latest().await? else {
+            bail!("❌ No recommendation model found, please run the trainer first");
+        };
 
         Ok(Self {
             sign_in_url,
@@ -52,6 +53,7 @@ impl AppState {
             session_manager: db.sessions().await?,
             vote_manager: db.votes().await?,
             stats_cache,
+            model: Arc::new(model),
         })
     }
 
@@ -74,7 +76,7 @@ impl AppState {
                     .await?
                     .into_iter()
                     .filter(VehicleStats::is_played)
-                    .sorted_unstable_by_key(|stats| -stats.last_battle_time)
+                    .sorted_unstable_by(|lhs, rhs| rhs.last_battle_time.cmp(&lhs.last_battle_time))
                     .map(|stats| (stats.tank_id, stats))
                     .collect();
                 Ok(Arc::new(map))

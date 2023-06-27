@@ -1,6 +1,5 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
-use chrono::LocalResult;
 use reqwest::{Client, ClientBuilder};
 use serde::Deserialize;
 use tracing::{info, instrument};
@@ -84,17 +83,17 @@ impl Wg {
 
     #[cfg(test)]
     pub async fn get_vehicles_stats(&self, _account_id: u32) -> Result<Vec<VehicleStats>> {
-        const FAKE_NON_PLAYED: VehicleStats = VehicleStats {
+        let fake_non_played = VehicleStats {
             tank_id: 2,
-            last_battle_time: 0,
+            last_battle_time: Utc.timestamp_opt(0, 0).unwrap(),
             inner: InnerVehicleStats { n_battles: 0 },
         };
-        const FAKE_PLAYED: VehicleStats = VehicleStats {
+        let fake_played = VehicleStats {
             tank_id: 1,
-            last_battle_time: 0,
+            last_battle_time: Utc.timestamp_opt(0, 0).unwrap(),
             inner: InnerVehicleStats { n_battles: 1 },
         };
-        Ok(vec![FAKE_PLAYED, FAKE_NON_PLAYED])
+        Ok(vec![fake_played, fake_non_played])
     }
 
     /// Retrieve the [tankopedia][1].
@@ -151,20 +150,19 @@ impl Wg {
 }
 
 /// Partial user's vehicle statistics.
+#[serde_with::serde_as]
 #[derive(Deserialize)]
 pub struct VehicleStats {
     pub tank_id: u16,
-    pub last_battle_time: i64,
+
+    #[serde_as(as = "serde_with::TimestampSeconds<i64>")]
+    pub last_battle_time: DateTime,
 
     #[serde(rename = "all")]
     pub inner: InnerVehicleStats,
 }
 
 impl VehicleStats {
-    pub fn last_battle_time(&self) -> LocalResult<DateTime> {
-        Utc.timestamp_opt(self.last_battle_time, 0)
-    }
-
     pub const fn is_played(&self) -> bool {
         self.inner.n_battles != 0
     }
