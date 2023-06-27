@@ -189,7 +189,7 @@ impl<'a> VehicleCard<'a> {
     }
 
     pub fn predicted_rating(&mut self, rating: f64) -> &mut Self {
-        self.predicted_rating = Some(rating.clamp(0.0, Rating::Like.into_f64()));
+        self.predicted_rating = Some(rating);
         self
     }
 
@@ -302,7 +302,7 @@ impl<'a> Render for VehicleCard<'a> {
                     @if let Some(predicted_rating) = self.predicted_rating {
                         progress.progress.is-small
                             max=(Rating::Like.into_f64())
-                            value=(predicted_rating)
+                            value=(predicted_rating.clamp(0.0, Rating::Like.into_f64()))
                         {
                             (predicted_rating)
                         }
