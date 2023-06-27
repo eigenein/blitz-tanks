@@ -25,7 +25,7 @@ pub async fn get(
                     h1.title { "Most liked" }
 
                     div.columns.is-multiline.is-tablet {
-                        @for vehicle_id in state.model.top_vehicles.iter() {
+                        @for (vehicle_id, rating) in state.model.biases.iter().take(6) {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen"."is-2-fullhd" {
                                 (
                                     VehicleCard::new(*vehicle_id)

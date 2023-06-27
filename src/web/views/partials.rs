@@ -146,12 +146,14 @@ pub fn footer() -> Markup {
     }
 }
 
+#[must_use]
 pub struct VehicleCard<'a> {
     tank_id: u16,
     vehicle: Option<&'a Vehicle>,
     last_battle_time: Option<DateTime>,
     title_style: &'static str,
     rating: Option<(u32, Option<Rating>)>,
+    predicted_rating: Option<f64>,
 }
 
 impl<'a> VehicleCard<'a> {
@@ -162,6 +164,7 @@ impl<'a> VehicleCard<'a> {
             last_battle_time: None,
             title_style: "is-5",
             rating: None,
+            predicted_rating: None,
         }
     }
 
@@ -182,6 +185,11 @@ impl<'a> VehicleCard<'a> {
 
     pub fn rating(&mut self, account_id: u32, rating: Option<Rating>) -> &mut Self {
         self.rating = Some((account_id, rating));
+        self
+    }
+
+    pub fn predicted_rating(&mut self, rating: f64) -> &mut Self {
+        self.predicted_rating = Some(rating.clamp(0.0, Rating::Like.into_f64()));
         self
     }
 
@@ -291,12 +299,21 @@ impl<'a> Render for VehicleCard<'a> {
                         }
                     }
 
+                    @if let Some(predicted_rating) = self.predicted_rating {
+                        progress.progress.is-small
+                            max=(Rating::Like.into_f64())
+                            value=(predicted_rating)
+                        {
+                            (predicted_rating)
+                        }
+                    }
+
                     div.field.is-horizontal {
                         div.field-body {
                             @if let Some((account_id, rating)) = self.rating {
                                 (Self::vehicle_rate_buttons(account_id, self.tank_id, rating))
                             }
-                            (self.vehicle_inspector_button(!self.rating.is_some()))
+                            (self.vehicle_inspector_button(self.rating.is_none()))
                         }
                     }
                 }

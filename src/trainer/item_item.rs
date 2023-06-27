@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use clap::Args;
+use indexmap::IndexMap;
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
 use mongodb::bson::serde_helpers;
 use rayon::prelude::*;
@@ -29,13 +30,11 @@ impl Params {
         Self::sort_votes(&mut votes);
         let biases = Self::calculate_biases(&votes);
         let similarities = Self::calculate_similarities(&votes, &biases);
-        let top_vehicles = Self::get_top_vehicles(&biases);
         Model {
             created_at: Utc::now(),
             params: self,
             biases,
             similarities,
-            top_vehicles,
         }
     }
 
@@ -52,15 +51,17 @@ impl Params {
     ///
     /// Mapping from tank ID to its mean rating.
     #[must_use]
-    fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> HashMap<u16, f64> {
-        votes
+    fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> IndexMap<u16, f64> {
+        let mut biases: IndexMap<_, _> = votes
             .par_iter()
             .map(|(tank_id, votes)| {
                 let bias = votes.iter().map(|vote| f64::from(vote.rating)).sum::<f64>()
                     / votes.len() as f64;
                 (*tank_id, bias)
             })
-            .collect()
+            .collect();
+        biases.sort_unstable_by(|_, lhs, _, rhs| rhs.total_cmp(lhs));
+        biases
     }
 
     /// Calculate similarities between different vehicles.
@@ -72,7 +73,7 @@ impl Params {
     #[must_use]
     fn calculate_similarities(
         votes: &HashMap<u16, Vec<&Vote>>,
-        biases: &HashMap<u16, f64>,
+        biases: &IndexMap<u16, f64>,
     ) -> HashMap<u16, Box<[(u16, f64)]>> {
         let mut similarities: HashMap<_, _> = biases
             .par_iter()
@@ -125,15 +126,6 @@ impl Params {
             0.0
         }
     }
-
-    fn get_top_vehicles(biases: &HashMap<u16, f64>) -> Box<[u16]> {
-        biases
-            .iter()
-            .sorted_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
-            .map(|(tank_id, _)| *tank_id)
-            .take(biases.len() / 20)
-            .collect()
-    }
 }
 
 /// Item-item kNN collaborative filtering.
@@ -141,15 +133,13 @@ impl Params {
 #[serde_with::serde_as]
 #[derive(Serialize, Deserialize)]
 pub struct Model {
-    pub top_vehicles: Box<[u16]>,
-
     #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
     created_at: DateTime,
 
     params: Params,
 
     #[serde_as(as = "Vec<(_, _)>")]
-    biases: HashMap<u16, f64>,
+    pub biases: IndexMap<u16, f64>,
 
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
     #[serde_as(as = "Vec<(_, _)>")]
@@ -160,7 +150,6 @@ impl Model {
     #[cfg(test)]
     pub fn empty() -> Self {
         Self {
-            top_vehicles: Box::new([]),
             created_at: Utc::now(),
             params: Params {
                 n_neighbors: 0,
