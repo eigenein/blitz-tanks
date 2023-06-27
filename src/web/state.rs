@@ -1,6 +1,5 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
-use anyhow::bail;
 use indexmap::IndexMap;
 use itertools::Itertools;
 use moka::future::Cache;
@@ -42,9 +41,13 @@ impl AppState {
             .max_capacity(1000)
             .time_to_idle(Duration::from_secs(300))
             .build();
+
+        #[cfg(not(test))]
         let Some(model) = db.models().await?.get_latest().await? else {
-            bail!("❌ No recommendation model found, please run the trainer first");
+            anyhow::bail!("❌ No recommendation model found, please run the trainer first");
         };
+        #[cfg(test)]
+        let model = Model::empty();
 
         Ok(Self {
             sign_in_url,

@@ -157,6 +157,20 @@ pub struct Model {
 }
 
 impl Model {
+    #[cfg(test)]
+    pub fn empty() -> Self {
+        Self {
+            top_vehicles: Box::new([]),
+            created_at: Utc::now(),
+            params: Params {
+                n_neighbors: 0,
+                include_negative: false,
+            },
+            biases: Default::default(),
+            similarities: Default::default(),
+        }
+    }
+
     #[must_use]
     #[instrument(skip_all, fields(target_id = target_id))]
     pub fn predict(&self, target_id: u16, source_ratings: &HashMap<u16, Rating>) -> Option<f64> {
