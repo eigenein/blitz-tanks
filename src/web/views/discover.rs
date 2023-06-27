@@ -24,7 +24,7 @@ pub async fn get(
 
             section.section {
                 div.container {
-                    h1.title { "Most liked by community" }
+                    h1.title { "❤️ Most liked by community" }
 
                     div.columns.is-multiline.is-tablet {
                         @for tank_id in state.model.biases.keys().take(6) {
@@ -42,7 +42,7 @@ pub async fn get(
 
             section.section {
                 div.container {
-                    h1.title { "For you" }
+                    h1.title { "✨ For you" }
 
                     div.columns.is-multiline.is-tablet {
                         @for (tank_id, rating) in predictions.iter() {

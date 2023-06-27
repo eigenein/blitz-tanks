@@ -143,6 +143,7 @@ impl AppState {
             .with_context(|| format!("failed to generate recommendations for #{account_id}"))
     }
 
+    /// Remove predictions for the account from the cache, if any.
     pub async fn purge_predictions(&self, account_id: u32) {
         self.predictions_cache.remove(&account_id).await;
     }
