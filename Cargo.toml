@@ -23,7 +23,7 @@ jemalloc-ctl = "0.5.0"
 jemallocator = "0.5.0"
 maud = { version = "0.25.0", features = ["axum"] }
 moka = { version = "0.11.2", default-features = false, features = ["future", "atomic64"] }
-mongodb = { version = "2.5.0", features = ["tracing", "bson-uuid-1", "bson-chrono-0_4"] }
+mongodb = { version = "2.6.0", features = ["tracing", "bson-uuid-1", "bson-chrono-0_4"] }
 rayon = "1.7.0"
 reqwest = { version = "0.11.18", default-features = false, features = ["gzip", "json", "rustls-tls"] }
 sentry = { version = "0.31.3", default-features = false, features = ["anyhow", "backtrace", "contexts", "panic", "tracing", "reqwest", "rustls", "profiling", "tower", "tower-http"] }
