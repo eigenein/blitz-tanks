@@ -145,97 +145,114 @@ pub fn footer() -> Markup {
     }
 }
 
-pub fn vehicle_card_image(vehicle: Option<&Vehicle>) -> Markup {
-    html! {
-        div.card-image {
-            figure.image."is-3by2".has-object-fit-cover {
-                @let url = vehicle
-                    .and_then(|d| d.images.normal_url.as_ref())
-                    .map_or("https://dummyimage.com/1080x720", |url| url.as_str());
-                img src=(url) loading="lazy";
-            }
-        }
-    }
-}
-
-pub fn vehicle_card_content(
+pub fn vehicle_card(
     tank_id: u16,
     vehicle: Option<&Vehicle>,
     last_battle_time: Option<DateTime>,
     title_style: &str,
+    footer: Option<Markup>,
 ) -> Markup {
     html! {
-        div.card-content {
-            div.media {
-                div.media-content {
-                    p.title.(title_style) {
-                        span.icon-text.is-flex-wrap-nowrap {
-                            span {
-                                @match vehicle {
-                                    Some(vehicle) => {
-                                        span.has-text-warning-dark[vehicle.is_premium] { (vehicle.name) }
-                                    },
-                                    None => { "#" (tank_id) },
-                                }
-                            }
-                            span.icon {
-                                a
-                                    title="View in Armor Inspector"
-                                    href=(format!("https://armor.wotinspector.com/en/blitz/{tank_id}-/"))
-                                {
-                                    i.fa-solid.fa-arrow-up-right-from-square {}
-                                }
-                            }
-                        }
-                    }
+        div.card {
+            div.card-image {
+                figure.image."is-3by2".has-object-fit-cover {
+                    @let url = vehicle
+                        .and_then(|d| d.images.normal_url.as_ref())
+                        .map_or("https://dummyimage.com/1080x720", |url| url.as_str());
+                    img src=(url) loading="lazy";
+                }
+            }
 
-                    @if let Some(last_battle_time) = last_battle_time {
-                        p.subtitle."is-6" {
-                            span.has-text-grey { "Last played" }
-                            " "
-                            span.has-text-weight-medium title=(last_battle_time) { (HumanTime::from(last_battle_time)) }
+            div.card-content {
+                div.media {
+                    div.media-content {
+                        p.title.(title_style) {
+                            span.icon-text.is-flex-wrap-nowrap {
+                                span {
+                                    @match vehicle {
+                                        Some(vehicle) => {
+                                            span.has-text-warning-dark[vehicle.is_premium] { (vehicle.name) }
+                                        },
+                                        None => { "#" (tank_id) },
+                                    }
+                                }
+                            }
+                        }
+
+                        @if let Some(last_battle_time) = last_battle_time {
+                            p.subtitle."is-6" {
+                                span.has-text-grey { "Last played" }
+                                " "
+                                span.has-text-weight-medium title=(last_battle_time) { (HumanTime::from(last_battle_time)) }
+                            }
                         }
                     }
+                }
+
+                @if let Some(footer) = footer {
+                    (footer)
                 }
             }
         }
     }
 }
 
-/// Render the vehicle card's footer inner HTML.
-pub fn vehicle_card_footer(account_id: u32, tank_id: u16, rating: Option<Rating>) -> Markup {
+pub fn vehicle_rate_buttons(
+    account_id: u32,
+    tank_id: u16,
+    current_rating: Option<Rating>,
+) -> Markup {
+    let is_liked = current_rating == Some(Rating::Like);
+    let is_disliked = current_rating == Some(Rating::Dislike);
+
     html! {
-        footer.card-footer {
-            a.card-footer-item.has-background-success-light[rating == Some(Rating::Like)]
-                data-hx-post=(
-                    if rating != Some(Rating::Like) {
-                        format!("/profile/{account_id}/vehicle/{tank_id}/like")
-                    } else {
-                        format!("/profile/{account_id}/vehicle/{tank_id}/unrate")
-                    }
-                )
-                data-hx-target="closest .card-footer"
-                data-hx-swap="outerHTML"
-            {
-                span.icon-text.has-text-success[rating == Some(Rating::Like)] {
-                    span.icon { i.fa-solid.fa-thumbs-up {} }
+        div.field.has-addons.is-fullwidth {
+            p.control.is-expanded {
+                a.button.is-small.is-rounded.is-fullwidth.is-success[is_liked].is-selected[is_liked]
+                    data-hx-post=(
+                        if !is_liked {
+                            format!("/profile/{account_id}/vehicle/{tank_id}/like")
+                        } else {
+                            format!("/profile/{account_id}/vehicle/{tank_id}/unrate")
+                        }
+                    )
+                    data-hx-target="closest .field"
+                    data-hx-swap="outerHTML"
+                {
+                    span.icon.is-small { i.fa-solid.fa-thumbs-up {} }
                     span { "Like" }
                 }
             }
-            a.card-footer-item.has-background-danger-light[rating == Some(Rating::Dislike)]
-                data-hx-post=(
-                    if rating != Some(Rating::Dislike) {
-                        format!("/profile/{account_id}/vehicle/{tank_id}/dislike")
-                    } else {
-                        format!("/profile/{account_id}/vehicle/{tank_id}/unrate")
-                    }
-                )
-                data-hx-target="closest .card-footer"
-                data-hx-swap="outerHTML"
-            {
-                span.icon-text.has-text-danger[rating == Some(Rating::Dislike)] {
-                    span.icon { i.fa-solid.fa-thumbs-down {} }
+
+            p.control.is-expanded {
+                a.button.is-small.is-rounded.is-fullwidth.is-danger[is_disliked].is-selected[is_disliked]
+                    data-hx-post=(
+                        if !is_disliked {
+                            format!("/profile/{account_id}/vehicle/{tank_id}/dislike")
+                        } else {
+                            format!("/profile/{account_id}/vehicle/{tank_id}/unrate")
+                        }
+                    )
+                    data-hx-target="closest .field"
+                    data-hx-swap="outerHTML"
+                {
+                    span.icon.is-small { i.fa-solid.fa-thumbs-down {} }
                     span { "Dislike" }
+                }
+            }
+        }
+    }
+}
+
+pub fn vehicle_inspector_button(tank_id: u16) -> Markup {
+    html! {
+        div.field.is-fullwidth {
+            p.control.is-expanded {
+                a.button.is-small.is-rounded.is-fullwidth
+                    title="View in Armor Inspector (external resource)"
+                    href=(format!("https://armor.wotinspector.com/en/blitz/{tank_id}-/"))
+                {
+                    span.icon.is-small { i.fa-solid.fa-arrow-up-right-from-square {} }
                 }
             }
         }

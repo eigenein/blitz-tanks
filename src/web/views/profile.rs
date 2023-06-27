@@ -57,32 +57,25 @@ pub async fn get(
 
             section.section {
                 div.container {
-                    article.message.is-warning {
-                        div.message-body.content {
-                            div.content {
-                                p {
-                                    "Unfortunately, "
-                                    strong { "some pictures and vehicles names are missing" }
-                                    " due to the Wargaming.net API being incomplete."
-                                }
-                                p {
-                                    "Eventually, this will be somehow fixed, but for now "
-                                    strong { "there are links to Armor Inspector" }
-                                    " next to the vehicle titles, which can be used to look up a certain vehicle."
-                                }
-                            }
-                        }
-                    }
-
                     div.columns.is-multiline.is-tablet {
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
-                                div.card {
-                                    @let vehicle = state.tankopedia.get(&stats.tank_id);
-                                    (vehicle_card_image(vehicle))
-                                    (vehicle_card_content(stats.tank_id, vehicle, Some(stats.last_battle_time), "is-5"))
-                                    (vehicle_card_footer(user.account_id, stats.tank_id, votes.get(&stats.tank_id).copied()))
-                                }
+                                @let vehicle = state.tankopedia.get(&stats.tank_id);
+                                @let footer = html! {
+                                    div.field.is-horizontal {
+                                        div.field-body {
+                                            (vehicle_rate_buttons(user.account_id, stats.tank_id, votes.get(&stats.tank_id).copied()))
+                                            (vehicle_inspector_button(stats.tank_id))
+                                        }
+                                    }
+                                };
+                                (vehicle_card(
+                                    stats.tank_id,
+                                    vehicle,
+                                    Some(stats.last_battle_time),
+                                    "is-5",
+                                    Some(footer),
+                                ))
                             }
                         }
                     }
@@ -154,7 +147,7 @@ async fn rate_vehicle(
         manager.delete(user.account_id, params.tank_id).await?;
     }
 
-    Ok(vehicle_card_footer(user.account_id, params.tank_id, rating))
+    Ok(vehicle_rate_buttons(user.account_id, params.tank_id, rating))
 }
 
 #[cfg(test)]

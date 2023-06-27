@@ -26,12 +26,9 @@ pub async fn get(
 
                     div.columns.is-multiline.is-tablet {
                         @for vehicle_id in state.model.top_vehicles.iter() {
-                            div.column."is-4-tablet"."is-3-desktop"."is-2-widescreen" {
-                                div.card {
-                                    @let vehicle = state.tankopedia.get(vehicle_id);
-                                    (vehicle_card_image(vehicle))
-                                    (vehicle_card_content(*vehicle_id, vehicle, None, "is-6"))
-                                }
+                            div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen"."is-2-fullhd" {
+                                @let vehicle = state.tankopedia.get(vehicle_id);
+                                (vehicle_card(*vehicle_id, vehicle, None, "is-6", None))
                             }
                         }
                     }
