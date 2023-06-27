@@ -65,6 +65,7 @@ pub async fn get_bulma_patches() -> impl IntoResponse {
     // language=css
     const CSS: &str = r#"
         .has-object-fit-cover { object-fit: cover; }
+        .has-object-fit-contain { object-fit: contain; }
 
         @media (prefers-color-scheme: dark) {
             .has-background-success-light { background-color: hsl(141, 53%, 14%) !important; }

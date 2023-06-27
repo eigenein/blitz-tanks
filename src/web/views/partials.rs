@@ -264,12 +264,12 @@ impl<'a> Render for VehicleCard<'a> {
         html! {
             div.card {
                 div.card-image {
-                    figure.image."is-3by2".has-object-fit-cover {
+                    figure.image."is-3by2" {
                         @let url = self
                             .vehicle
                             .and_then(|d| d.images.normal_url.as_ref())
                             .map_or("https://dummyimage.com/1080x720", |url| url.as_str());
-                        img src=(url) loading="lazy";
+                        img.has-object-fit-contain src=(url) loading="lazy";
                     }
                 }
 
