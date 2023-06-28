@@ -18,7 +18,7 @@ fastrand = "2.0.0"
 futures = { version = "0.3.28", default-features = false, features = ["std"] }
 indexmap = { version = "1.9.3", features = ["rayon"] }
 indicatif = { version = "0.17.5" }
-itertools = "0.10.5"
+itertools = "0.11.0"
 jemalloc-ctl = "0.5.0"
 jemallocator = "0.5.0"
 maud = { version = "0.25.0", features = ["axum"] }
