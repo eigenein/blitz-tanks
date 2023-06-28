@@ -19,6 +19,7 @@ impl Models {
         Ok(self.0.insert_one(model, None).await?.inserted_id)
     }
 
+    /// TODO: filter by the crate version. Open question: how to load breaking changes?
     #[instrument(skip_all)]
     pub async fn get_latest(&self) -> Result<Option<Model>> {
         info!("📥 Loading the model…");

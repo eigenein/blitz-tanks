@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use clap::Args;
+use clap::{crate_version, Args};
 use indexmap::IndexMap;
 use itertools::{merge_join_by, EitherOrBoth, Itertools};
 use mongodb::bson::serde_helpers;
@@ -32,6 +32,7 @@ impl Params {
         let similarities = Self::calculate_similarities(&votes, &biases);
         Model {
             created_at: Utc::now(),
+            version: crate_version!().to_string(),
             params: self,
             biases,
             similarities,
@@ -132,14 +133,15 @@ impl Params {
 }
 
 /// Item-item kNN collaborative filtering.
-///
-/// TODO: add and filter by the crate version.
 #[must_use]
 #[serde_with::serde_as]
 #[derive(Serialize, Deserialize)]
 pub struct Model {
     #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
     created_at: DateTime,
+
+    /// Version of the trainer that created the model.
+    version: String,
 
     /// The model fit and predict parameters.
     params: Params,
@@ -160,6 +162,7 @@ impl Model {
     pub fn empty() -> Self {
         Self {
             created_at: Utc::now(),
+            version: crate_version!().to_string(),
             params: Params {
                 n_neighbors: 0,
                 include_negative: false,
