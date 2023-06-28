@@ -10,7 +10,7 @@ anyhow = { version = "1.0.71", features = ["backtrace"] }
 axum = { version = "0.6.18", default-features = false, features = ["tokio", "http1", "http2", "tracing", "headers", "query"] }
 chrono = { version = "0.4.26", default-features = false, features = ["std", "clock", "serde"] }
 chrono-humanize = "0.2.2"
-clap = { version = "4.3.8", features = ["derive", "env", "cargo"] }
+clap = { version = "4.3.9", features = ["derive", "env", "cargo"] }
 cookie = "0.17.0"
 derive_more = { version = "0.99.17", default-features = false, features = ["from"] }
 either = "1.8.1"
