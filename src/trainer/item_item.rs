@@ -8,7 +8,7 @@ use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    models::{rating::Rating, vote::Vote},
+    models::{Rating, Vote},
     prelude::*,
 };
 
@@ -129,6 +129,8 @@ impl Params {
 }
 
 /// Item-item kNN collaborative filtering.
+///
+/// TODO: add and filter by the crate version.
 #[must_use]
 #[serde_with::serde_as]
 #[derive(Serialize, Deserialize)]
@@ -136,8 +138,12 @@ pub struct Model {
     #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
     created_at: DateTime,
 
+    /// The model fit and predict parameters.
     params: Params,
 
+    /// Vehicle's mean ratings.
+    ///
+    /// This is also used to display the top liked vehicles.
     #[serde_as(as = "Vec<(_, _)>")]
     pub biases: IndexMap<u16, f64>,
 
@@ -185,6 +191,7 @@ impl Model {
         }
     }
 
+    /// TODO: introduce a new type for `(u16, f64)`.
     #[instrument(skip_all)]
     pub fn predict_many<'a>(
         &'a self,

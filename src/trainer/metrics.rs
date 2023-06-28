@@ -3,7 +3,7 @@ use std::{
     ops::{Add, Div},
 };
 
-use crate::models::rating::Rating;
+use crate::models::Rating;
 
 /// [(Mean) reciprocal rank][1].
 ///

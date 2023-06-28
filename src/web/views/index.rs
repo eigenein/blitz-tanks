@@ -5,7 +5,7 @@ use either::Either;
 use tracing::{info, instrument};
 
 use crate::{
-    models::user::{Anonymous, User},
+    models::{Anonymous, User},
     web::{prelude::*, response::OptionalRedirect, state::*, views::partials::*},
 };
 

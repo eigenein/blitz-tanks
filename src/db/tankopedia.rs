@@ -7,7 +7,7 @@ use mongodb::{
     Collection, IndexModel,
 };
 
-use crate::{models::vehicle::Vehicle, prelude::*};
+use crate::{models::Vehicle, prelude::*};
 
 pub struct Tankopedia(Collection<Vehicle>);
 

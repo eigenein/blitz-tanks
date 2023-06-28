@@ -4,7 +4,7 @@ use indicatif::{ProgressIterator, ProgressStyle};
 use itertools::Itertools;
 
 use crate::{
-    models::{rating::Rating, vote::Vote},
+    models::{Rating, Vote},
     prelude::*,
     trainer::{
         item_item::Params,

@@ -1,4 +1,11 @@
-pub mod rating;
-pub mod user;
-pub mod vehicle;
-pub mod vote;
+mod rating;
+mod user;
+mod vehicle;
+mod vote;
+
+pub use self::{
+    rating::Rating,
+    user::{Anonymous, User},
+    vehicle::Vehicle,
+    vote::Vote,
+};

@@ -5,7 +5,7 @@ use mongodb::{
     Collection, Cursor, IndexModel,
 };
 
-use crate::{models::vote::Vote, prelude::*};
+use crate::{models::Vote, prelude::*};
 
 #[derive(Clone)]
 pub struct Votes(Collection<Vote>);
@@ -71,7 +71,7 @@ mod tests {
     use futures::TryStreamExt;
 
     use super::*;
-    use crate::{db::Db, models::rating::Rating};
+    use crate::{db::Db, models::Rating};
 
     #[tokio::test]
     #[ignore]

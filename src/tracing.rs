@@ -9,7 +9,7 @@ use sentry::{
 use tracing::{error, info, Level};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
-use crate::{models::user::User, prelude::*};
+use crate::{models::User, prelude::*};
 
 pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<ClientInitGuard> {
     let sentry_options = ClientOptions {

@@ -10,11 +10,7 @@ use serde::Deserialize;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{
-        rating::Rating,
-        user::{Anonymous, User},
-        vote::Vote,
-    },
+    models::{Anonymous, Rating, User, Vote},
     prelude::*,
     web::{error::WebError, prelude::*, result::WebResult, state::AppState, views::partials::*},
 };
@@ -152,7 +148,7 @@ mod tests {
     use tower::ServiceExt;
 
     use super::*;
-    use crate::{models::user::User, web::Web};
+    use crate::{models::User, web::Web};
 
     #[tokio::test]
     #[ignore]

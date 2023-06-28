@@ -9,7 +9,7 @@ use tracing::warn;
 
 use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
-    models::vehicle::Vehicle,
+    models::Vehicle,
     prelude::*,
     trainer::item_item::Model,
     wg::{VehicleStats, Wg},

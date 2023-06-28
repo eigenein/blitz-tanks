@@ -3,7 +3,7 @@ use clap::crate_version;
 use maud::{html, Markup, PreEscaped, Render, DOCTYPE};
 
 use crate::{
-    models::{rating::Rating, user::User, vehicle::Vehicle},
+    models::{Rating, User, Vehicle},
     prelude::DateTime,
 };
 

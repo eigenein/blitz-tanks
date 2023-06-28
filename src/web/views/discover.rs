@@ -4,7 +4,7 @@ use maud::html;
 use tracing::instrument;
 
 use crate::{
-    models::user::{Anonymous, User},
+    models::{Anonymous, User},
     web::{error::WebError, result::WebResult, state::AppState, views::partials::*},
 };
 
@@ -13,6 +13,7 @@ pub async fn get(
     user: Either<User, Anonymous>,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
+    // TODO: anonymous account should see the «most liked» section and a banner.
     let Either::Left(user) = user else { return Err(WebError::Unauthorized) };
 
     let predictions = state.get_predictions(user.account_id).await?;

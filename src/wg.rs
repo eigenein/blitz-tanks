@@ -5,7 +5,7 @@ use serde::Deserialize;
 use tracing::{info, instrument};
 use url::Url;
 
-use crate::{models::vehicle::Vehicle, prelude::*};
+use crate::{models::Vehicle, prelude::*};
 
 /// Wargaming.net API client.
 #[derive(Clone)]

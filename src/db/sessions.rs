@@ -7,7 +7,7 @@ use mongodb::{
 };
 use uuid::Uuid;
 
-use crate::{models::user::User, prelude::*};
+use crate::{models::User, prelude::*};
 
 /// Wrapper around the tree to manage client-side sessions.
 #[derive(Clone)]

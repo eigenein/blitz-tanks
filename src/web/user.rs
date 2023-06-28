@@ -11,7 +11,7 @@ use either::Either;
 use uuid::Uuid;
 
 use crate::{
-    models::user::{Anonymous, User},
+    models::{Anonymous, User},
     prelude::*,
     tracing::configure_user,
     web::{error::WebError, state::AppState},
