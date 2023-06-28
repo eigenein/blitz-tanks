@@ -138,7 +138,7 @@ impl Params {
 #[derive(Serialize, Deserialize)]
 pub struct Model {
     #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
-    created_at: DateTime,
+    pub created_at: DateTime,
 
     /// Version of the trainer that created the model.
     version: String,

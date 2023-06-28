@@ -1,7 +1,8 @@
+use clap::crate_version;
 use mongodb::{
     bson::{doc, Bson},
     options::FindOneOptions,
-    Collection,
+    Collection, IndexModel,
 };
 
 use crate::{prelude::*, trainer::item_item::Model};
@@ -12,6 +13,8 @@ pub struct Models(Collection<Model>);
 
 impl Models {
     pub async fn new(collection: Collection<Model>) -> Result<Self> {
+        let index = IndexModel::builder().keys(doc! { "version": 1, "created_at": -1 }).build();
+        collection.create_index(index, None).await?;
         Ok(Self(collection))
     }
 
@@ -19,14 +22,24 @@ impl Models {
         Ok(self.0.insert_one(model, None).await?.inserted_id)
     }
 
-    /// TODO: filter by the crate version. Open question: how to load breaking changes?
     #[instrument(skip_all)]
-    pub async fn get_latest(&self) -> Result<Option<Model>> {
+    pub async fn get_latest(&self) -> Result<Model> {
         info!("📥 Loading the model…");
-        let options = FindOneOptions::builder().sort(doc! { "_id": -1 }).build();
-        self.0
-            .find_one(None, options)
+        let filter = doc! { "version": crate_version!() };
+        let options = FindOneOptions::builder().sort(doc! { "created_at": -1 }).build();
+        let model = self
+            .0
+            .find_one(filter, options)
             .await
-            .context("failed to load the latest model (may need a refit)")
+            .context("failed to query the latest model")?
+            .ok_or_else(|| {
+                anyhow!(concat!(
+                    "model is not found for version `",
+                    crate_version!(),
+                    "`, please re-run the trainer",
+                ))
+            })?;
+        info!(%model.created_at, "✅ Loaded the model");
+        Ok(model)
     }
 }

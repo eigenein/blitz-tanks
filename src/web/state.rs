@@ -53,10 +53,7 @@ impl AppState {
 
         // TODO: model auto-reloader.
         #[cfg(not(test))]
-        let Some(model) = db.models().await?.get_latest().await? else {
-            // TODO: move this to the repo.
-            anyhow::bail!("❌ No recommendation model found, please run the trainer first");
-        };
+        let model = db.models().await?.get_latest().await?;
         #[cfg(test)]
         let model = Model::empty();
 
