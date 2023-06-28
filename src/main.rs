@@ -19,6 +19,8 @@ mod trainer;
 mod web;
 mod wg;
 
+use std::env::var;
+
 use clap::Parser;
 
 use crate::{cli::Cli, prelude::*, tracing::trace};
@@ -28,11 +30,12 @@ static ALLOCATOR: jemallocator::Jemalloc = jemallocator::Jemalloc;
 
 #[tokio::main]
 async fn main() -> Result {
-    let dotenv_result = dotenvy::dotenv_override();
+    let envfile_path = var("BLITZ_TANKS_ENVFILE").unwrap_or_else(|_| ".env".to_string());
+    let dotenv_result = dotenvy::from_path_override(&envfile_path);
     let cli = Cli::parse();
     let _sentry_guard = tracing::init(cli.sentry_dsn, cli.traces_sample_rate)?;
     if let Err(error) = dotenv_result {
-        warn!("⚠️ Failed to load the `.env`: {error:#}");
+        warn!("⚠️ Failed to load environment from `{envfile_path}`: {error:#}");
     }
     trace(cli.command.run().await)
 }
