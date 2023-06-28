@@ -106,5 +106,8 @@ jobs:
           chmod +x blitz-tanks.aarch64-unknown-linux-gnu
           rsync --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu mars:/home/pi/bin/blitz-tanks
 
+      - name: 💪 Refit the model
+        run: ssh mars "BLITZ_TANKS_ENVFILE=./blitz-tanks/.env blitz-tanks trainer fit"
+
       - name: 🏁 Restart
         run: ssh mars "sudo systemctl restart blitz-tanks; systemctl status --lines=0 blitz-tanks"
