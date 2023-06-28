@@ -9,7 +9,7 @@ use tracing::warn;
 
 use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
-    models::Vehicle,
+    models::{RatedTankId, Vehicle},
     prelude::*,
     trainer::item_item::Model,
     wg::{VehicleStats, Wg},
@@ -29,7 +29,7 @@ pub struct AppState {
     stats_cache: Cache<u32, Arc<IndexMap<u16, VehicleStats>>>,
 
     #[allow(clippy::type_complexity)]
-    predictions_cache: Cache<u32, Arc<Box<[(u16, f64)]>>>,
+    predictions_cache: Cache<u32, Arc<Box<[RatedTankId]>>>,
 }
 
 impl AppState {
@@ -108,9 +108,8 @@ impl AppState {
             .is_some_and(VehicleStats::is_played))
     }
 
-    #[allow(clippy::type_complexity)]
     #[instrument(skip_all, fields(account_id))]
-    pub async fn get_predictions(&self, account_id: u32) -> Result<Arc<Box<[(u16, f64)]>>> {
+    pub async fn get_predictions(&self, account_id: u32) -> Result<Arc<Box<[RatedTankId]>>> {
         let model = self.model.clone();
         let stats = self.get_vehicle_stats(account_id).await?;
 
@@ -132,8 +131,8 @@ impl AppState {
                 let predict = move || {
                     model
                         .predict_many(target_ids, &source_ratings)
-                        .sorted_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
-                        .take_while(|(_, rating)| *rating > 0.0)
+                        .sorted_unstable()
+                        .take_while(RatedTankId::is_positive)
                         .collect()
                 };
                 spawn_blocking(predict).await.map(Arc::new).map(Ok)?

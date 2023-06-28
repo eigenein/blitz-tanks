@@ -4,7 +4,7 @@ use maud::html;
 use tracing::instrument;
 
 use crate::{
-    models::{Anonymous, User},
+    models::{Anonymous, RatedTankId, User},
     web::{error::WebError, result::WebResult, state::AppState, views::partials::*},
 };
 
@@ -46,7 +46,7 @@ pub async fn get(
                     h1.title { "✨ For you" }
 
                     div.columns.is-multiline.is-tablet {
-                        @for (tank_id, rating) in predictions.iter() {
+                        @for RatedTankId(tank_id, rating) in predictions.iter() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen"."is-2-fullhd" {
                                 (
                                     VehicleCard::new(*tank_id)

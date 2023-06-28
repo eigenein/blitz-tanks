@@ -8,7 +8,7 @@ use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    models::{Rating, Vote},
+    models::{RatedTankId, Rating, Vote},
     prelude::*,
 };
 
@@ -74,23 +74,26 @@ impl Params {
     fn calculate_similarities(
         votes: &HashMap<u16, Vec<&Vote>>,
         biases: &IndexMap<u16, f64>,
-    ) -> HashMap<u16, Box<[(u16, f64)]>> {
+    ) -> HashMap<u16, Box<[RatedTankId]>> {
         let mut similarities: HashMap<_, _> = biases
             .par_iter()
             .map(|(i, bias_i)| {
-                let similarities: Box<[(u16, f64)]> = biases
+                let similarities: Box<[RatedTankId]> = biases
                     .iter()
                     .filter(|(j, _)| *i != **j)
                     .map(|(j, bias_j)| {
                         // FIXME: I do the same calculation twice: for `(i, j)` and `(j, i)`.
-                        (*j, Self::calculate_similarity(*bias_i, &votes[i], *bias_j, &votes[j]))
+                        RatedTankId(
+                            *j,
+                            Self::calculate_similarity(*bias_i, &votes[i], *bias_j, &votes[j]),
+                        )
                     })
                     .collect();
                 (*i, similarities)
             })
             .collect();
         for similar in similarities.values_mut() {
-            similar.sort_unstable_by(|(_, lhs), (_, rhs)| rhs.total_cmp(lhs))
+            similar.sort_unstable();
         }
         similarities
     }
@@ -149,7 +152,7 @@ pub struct Model {
 
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
     #[serde_as(as = "Vec<(_, _)>")]
-    similarities: HashMap<u16, Box<[(u16, f64)]>>,
+    similarities: HashMap<u16, Box<[RatedTankId]>>,
 }
 
 impl Model {
@@ -173,8 +176,8 @@ impl Model {
             .similarities
             .get(&target_id)?
             .iter()
-            .filter(|(_, similarity)| self.params.include_negative || (*similarity > 0.0))
-            .filter_map(|(tank_id, similarity)| {
+            .filter(|rated_tank_id| self.params.include_negative || rated_tank_id.is_positive())
+            .filter_map(|RatedTankId(tank_id, similarity)| {
                 source_ratings
                     .get(tank_id)
                     .map(|rating| (similarity, rating.into_f64() - self.biases[tank_id]))
@@ -191,15 +194,15 @@ impl Model {
         }
     }
 
-    /// TODO: introduce a new type for `(u16, f64)`.
     #[instrument(skip_all)]
     pub fn predict_many<'a>(
         &'a self,
         target_ids: impl IntoIterator<Item = u16> + 'a,
         source_ratings: &'a HashMap<u16, Rating>,
-    ) -> impl Iterator<Item = (u16, f64)> + 'a {
+    ) -> impl Iterator<Item = RatedTankId> + 'a {
         target_ids.into_iter().filter_map(|target_id| {
-            self.predict(target_id, source_ratings).map(|rating| (target_id, rating))
+            self.predict(target_id, source_ratings)
+                .map(|rating| RatedTankId(target_id, rating))
         })
     }
 }

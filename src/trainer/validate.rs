@@ -101,7 +101,7 @@ pub fn fit_and_validate(train_set: &[Vote], test_set: &[Vote], params: Params) -
             );
             let reciprocal_rank = predictions
                 .iter()
-                .sorted_unstable_by(|((_, lhs), _), ((_, rhs), _)| rhs.total_cmp(lhs))
+                .sorted_unstable_by_key(|(rated_tank_id, _)| rated_tank_id)
                 .map(|(_, vote)| vote.rating)
                 .collect::<ReciprocalRank>();
             Some(reciprocal_rank)
