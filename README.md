@@ -40,5 +40,5 @@ sudo apt-mark hold mongodb-org-mongos mongodb-org-tools mongodb-org-shell mongod
 ## Hourly trainer
 
 ```text
-0 * * * * BLITZ_TANKS_ENVFILE=.blitz-tanks/.env systemd-cat -t blitz-tanks-trainer blitz-tanks trainer fit
+0 * * * * BLITZ_TANKS_ENVFILE=.blitz-tanks/.env systemd-cat -t blitz-tanks-trainer bin/blitz-tanks trainer fit
 ```
