@@ -61,6 +61,7 @@ impl Tankopedia {
         self.insert_unknown(20289, "Pirate", true).await?;
         self.insert_unknown(10801, "Panlong", true).await?;
         self.insert_unknown(10289, "WZ-132-1", false).await?;
+        self.insert_unknown(26113, "Object 452K", true).await?;
         Ok(self)
     }
 
