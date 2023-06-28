@@ -23,6 +23,7 @@ impl Tankopedia {
     }
 
     /// Update the tankopedia database: insert new vehicles and update existing ones.
+    #[instrument(skip_all, fields(n_vehicles = vehicles.len()))]
     pub async fn update(&self, vehicles: Vec<Vehicle>) -> Result<&Self> {
         info!(n_vehicles = vehicles.len(), "📥 Updating the tankopedia…");
         for mut vehicle in vehicles {
@@ -64,6 +65,7 @@ impl Tankopedia {
     }
 
     /// Load the tankopedia into a hashmap.
+    #[instrument(skip_all)]
     pub async fn load(&self) -> Result<HashMap<u16, Vehicle>> {
         info!("📤 Loading the tankopedia…");
         let tankopedia: HashMap<u16, Vehicle> = self
