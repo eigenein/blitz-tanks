@@ -6,7 +6,6 @@ use indexmap::IndexMap;
 use itertools::Itertools;
 use moka::future::Cache;
 use tokio::task::spawn_blocking;
-use tracing::warn;
 
 use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
@@ -36,10 +35,6 @@ pub struct AppState {
 impl AppState {
     pub async fn new(db: &Db, application_id: &str, wg: Wg, public_address: &str) -> Result<Self> {
         let tankopedia = Arc::new(db.tankopedia().await?.load().await?);
-        if tankopedia.is_empty() {
-            warn!("⚠️ Tankopedia database is empty, please re-run with `--update-tankopedia`");
-        }
-
         let sign_in_url = Arc::new(format!(
             "https://api.worldoftanks.eu/wot/auth/login/?application_id={application_id}&redirect_uri=//{public_address}/welcome"
         ));

@@ -77,6 +77,9 @@ impl Tankopedia {
             .try_collect()
             .await?;
         info!(n_vehicles = tankopedia.len(), "✅ Loaded the tankopedia");
+        if tankopedia.is_empty() {
+            warn!("⚠️ Tankopedia database is empty, please re-run with `--update-tankopedia`");
+        }
         Ok(tankopedia)
     }
 
