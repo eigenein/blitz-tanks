@@ -1,5 +1,6 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
+use arc_swap::ArcSwap;
 use futures::TryStreamExt;
 use indexmap::IndexMap;
 use itertools::Itertools;
@@ -21,7 +22,7 @@ pub struct AppState {
 
     pub wg: Wg,
     pub tankopedia: Arc<HashMap<u16, Vehicle>>,
-    pub model: Arc<Model>,
+    pub model: Arc<ArcSwap<Model>>,
 
     pub session_manager: Sessions,
     pub vote_manager: Votes,
@@ -29,7 +30,7 @@ pub struct AppState {
     stats_cache: Cache<u32, Arc<IndexMap<u16, VehicleStats>>>,
 
     #[allow(clippy::type_complexity)]
-    predictions_cache: Cache<u32, Arc<Box<[RatedTankId]>>>,
+    predictions_cache: Cache<u32, Arc<Vec<RatedTankId>>>,
 }
 
 impl AppState {
@@ -51,7 +52,6 @@ impl AppState {
             .time_to_idle(Duration::from_secs(300))
             .build();
 
-        // TODO: model auto-reloader.
         #[cfg(not(test))]
         let model = db.models().await?.get_latest().await?;
         #[cfg(test)]
@@ -61,7 +61,7 @@ impl AppState {
             sign_in_url,
             wg,
             tankopedia,
-            model: Arc::new(model),
+            model: Arc::new(ArcSwap::new(Arc::new(model))),
             session_manager: db.sessions().await?,
             vote_manager: db.votes().await?,
             stats_cache,
@@ -107,8 +107,8 @@ impl AppState {
             .is_some_and(VehicleStats::is_played))
     }
 
-    #[instrument(skip_all, fields(account_id))]
-    pub async fn get_predictions(&self, account_id: u32) -> Result<Arc<Box<[RatedTankId]>>> {
+    #[instrument(skip_all, fields(account_id = account_id))]
+    pub async fn get_predictions(&self, account_id: u32) -> Result<Arc<Vec<RatedTankId>>> {
         let model = self.model.clone();
         let stats = self.get_vehicle_stats(account_id).await?;
 
@@ -128,7 +128,7 @@ impl AppState {
                     .copied()
                     .collect();
                 let predict = move || {
-                    model
+                    ArcSwap::load(&model)
                         .predict_many(target_ids, &source_ratings)
                         .sorted_unstable()
                         .take_while(RatedTankId::is_positive)
@@ -142,6 +142,7 @@ impl AppState {
     }
 
     /// Remove predictions for the account from the cache, if any.
+    #[instrument(skip_all, fields(account_id = account_id))]
     pub async fn purge_predictions(&self, account_id: u32) {
         self.predictions_cache.remove(&account_id).await;
     }

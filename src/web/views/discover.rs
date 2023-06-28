@@ -16,6 +16,7 @@ pub async fn get(
     // TODO: anonymous account should see the «most liked» section and a banner.
     let Either::Left(user) = user else { return Err(WebError::Unauthorized) };
 
+    let biases = &state.model.load().biases;
     let predictions = state.get_predictions(user.account_id).await?;
 
     let markup = html! {
@@ -28,7 +29,7 @@ pub async fn get(
                     h1.title { "❤️ Most liked by community" }
 
                     div.columns.is-multiline.is-tablet {
-                        @for tank_id in state.model.biases.keys().take(6) {
+                        @for tank_id in biases.keys().take(6) {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen"."is-2-fullhd" {
                                 (
                                     VehicleCard::new(*tank_id)

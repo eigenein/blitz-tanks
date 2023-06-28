@@ -76,7 +76,7 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let user = Result::<User, WebError>::from(result)?;
-    info!(user.nickname, %user.session_id, "👋 welcome");
+    info!(user.nickname, %user.session_id, "👋 Welcome");
     state.session_manager.insert(&user).await?;
     let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, user.session_id.to_string())
         .http_only(true)
@@ -103,7 +103,7 @@ mod tests {
     #[tokio::test]
     #[ignore]
     async fn success_ok() -> Result {
-        let app = Web::create_app(AppState::new_test().await?);
+        let app = Web::create_router(AppState::new_test().await?);
         let request = Request::builder()
             .uri("/welcome?status=ok&access_token=fake&expires_at=1686693094&nickname=test&account_id=1")
             .body(Body::empty())?;
@@ -118,7 +118,7 @@ mod tests {
     #[tokio::test]
     #[ignore]
     async fn error_ok() -> Result {
-        let app = Web::create_app(AppState::new_test().await?);
+        let app = Web::create_router(AppState::new_test().await?);
         let request = Request::builder()
             .uri("/welcome?status=error&code=500&message=ricochet")
             .body(Body::empty())?;

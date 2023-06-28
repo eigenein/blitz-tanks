@@ -159,7 +159,7 @@ mod tests {
             .uri("/profile/0")
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
-        let response = Web::create_app(state).oneshot(request).await?;
+        let response = Web::create_router(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::OK);
         Ok(())
     }
@@ -167,7 +167,7 @@ mod tests {
     #[tokio::test]
     #[ignore]
     async fn reject_anonymous_profile_ok() -> Result {
-        let app = Web::create_app(AppState::new_test().await?);
+        let app = Web::create_router(AppState::new_test().await?);
         let request = Request::builder().uri("/profile/0").body(Body::empty())?;
         let response = app.oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::UNAUTHORIZED);
@@ -177,7 +177,7 @@ mod tests {
     #[tokio::test]
     #[ignore]
     async fn reject_anonymous_vote_ok() -> Result {
-        let app = Web::create_app(AppState::new_test().await?);
+        let app = Web::create_router(AppState::new_test().await?);
         let request = Request::builder()
             .uri("/profile/0/vehicle/1/like")
             .method("POST")
@@ -197,7 +197,7 @@ mod tests {
             .method("POST")
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
-        let response = Web::create_app(state).oneshot(request).await?;
+        let response = Web::create_router(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::OK);
         Ok(())
     }
@@ -212,7 +212,7 @@ mod tests {
             .method("POST")
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
-        let response = Web::create_app(state).oneshot(request).await?;
+        let response = Web::create_router(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::IM_A_TEAPOT);
         Ok(())
     }
@@ -227,7 +227,7 @@ mod tests {
             .method("POST")
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
-        let response = Web::create_app(state).oneshot(request).await?;
+        let response = Web::create_router(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::FORBIDDEN);
         Ok(())
     }

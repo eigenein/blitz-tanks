@@ -8,19 +8,24 @@ mod tracing_;
 mod user;
 mod views;
 
-use std::net::SocketAddr;
+use std::{net::SocketAddr, sync::Arc, time::Duration};
 
+use arc_swap::ArcSwap;
 use axum::{
     routing::{get, post},
-    Router,
+    Router, Server,
 };
 use clap::{crate_version, Args};
+use futures::future::try_join;
 use sentry::integrations::tower::{NewSentryLayer, SentryHttpLayer};
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::info;
 
-use crate::{cli::DbArgs, prelude::*, web::state::AppState, wg::Wg};
+use crate::{
+    cli::DbArgs, db::models::Models, prelude::*, trainer::item_item::Model, web::state::AppState,
+    wg::Wg,
+};
 
 #[derive(Args)]
 pub struct Web {
@@ -54,34 +59,45 @@ pub struct Web {
     /// Update the tankopedia database on startup.
     #[clap(long, env = "BLITZ_TANKS_UPDATE_TANKOPEDIA")]
     update_tankopedia: bool,
+
+    /// Model reload interval, in seconds.
+    #[clap(
+        long,
+        default_value = "3600",
+        env = "BLITZ_TANKS_MODEL_UPDATE_INTERVAL"
+    )]
+    model_update_interval_secs: u64,
 }
 
 impl Web {
     /// Run the web application.
     pub async fn run(self) -> Result {
         let db = self.db.open().await?;
-        let wee_gee = Wg::new(&self.backend_application_id)?;
+        let wg = Wg::new(&self.backend_application_id)?;
 
         if self.update_tankopedia {
             db.tankopedia()
                 .await?
                 .prepopulate()
                 .await?
-                .update(wee_gee.get_tankopedia().await?)
+                .update(wg.get_tankopedia().await?)
                 .await?;
         }
 
         let state =
-            AppState::new(&db, &self.frontend_application_id, wee_gee, &self.public_address)
-                .await?;
-        info!(version = crate_version!(), endpoint = ?self.bind_endpoint, "🚀 running…");
-        axum::Server::bind(&self.bind_endpoint)
-            .serve(Self::create_app(state).into_make_service())
-            .await
-            .context("the web application has failed")
+            AppState::new(&db, &self.frontend_application_id, wg, &self.public_address).await?;
+        let reloader = Self::run_model_reloader(
+            state.model.clone(),
+            db.models().await?,
+            Duration::from_secs(self.model_update_interval_secs),
+        );
+        let server = self.serve(state);
+
+        try_join(server, reloader).await.context("the application has failed")?;
+        Ok(())
     }
 
-    pub fn create_app(state: AppState) -> Router {
+    pub fn create_router(state: AppState) -> Router {
         let tracing_layer = ServiceBuilder::new()
             .layer(
                 TraceLayer::new_for_http()
@@ -114,5 +130,28 @@ impl Web {
             .route("/bulma-patches.css/:version", get(r#static::get_bulma_patches))
             .layer(tracing_layer)
             .with_state(state)
+    }
+
+    async fn serve(self, state: AppState) -> Result {
+        info!(version = crate_version!(), endpoint = ?self.bind_endpoint, "🚀 Running the web server…");
+        Server::bind(&self.bind_endpoint)
+            .serve(Self::create_router(state).into_make_service())
+            .await
+            .context("the web server has failed")
+    }
+
+    /// Runs the model reloader forever.
+    async fn run_model_reloader(
+        model: Arc<ArcSwap<Model>>,
+        models: Models,
+        interval: Duration,
+    ) -> Result {
+        info!(?interval, "🚀 Running the model updater…");
+        loop {
+            tokio::time::sleep(interval).await;
+            info!("⏰ Reloading the model…");
+            let new_model = models.get_latest().await?;
+            model.store(Arc::new(new_model));
+        }
     }
 }

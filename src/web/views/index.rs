@@ -16,7 +16,7 @@ pub async fn get(
     session: Either<User, Anonymous>,
 ) -> OptionalRedirect {
     if let Either::Left(User { account_id, .. }) = session {
-        info!(account_id, "👋 welcome");
+        info!(account_id, "👋 Welcome");
         return OptionalRedirect::Redirect(Redirect::temporary(&format!("/profile/{account_id}")));
     }
 
@@ -94,7 +94,7 @@ mod tests {
     #[tokio::test]
     #[ignore]
     async fn index_ok() -> Result {
-        let app = Web::create_app(AppState::new_test().await?);
+        let app = Web::create_router(AppState::new_test().await?);
         let request = Request::builder().uri("/").body(Body::empty())?;
         let response = app.oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::OK);
@@ -110,7 +110,7 @@ mod tests {
             .uri("/")
             .header("Cookie", format!("{}={session_id}", User::SESSION_COOKIE_NAME))
             .body(Body::empty())?;
-        let response = Web::create_app(state).oneshot(request).await?;
+        let response = Web::create_router(state).oneshot(request).await?;
         assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
         let headers = response.headers();
         assert_eq!(headers.get("Location").unwrap(), "/profile/0");
