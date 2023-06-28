@@ -77,7 +77,7 @@ pub struct Fit {
 
     /// URL for a heartbeat after a successful fitting.
     #[clap(long, env = "BLITZ_TANKS_TRAINER_HEARTBEAT_URL")]
-    heartbeat_url: String,
+    heartbeat_url: Option<String>,
 }
 
 impl Fit {
@@ -102,7 +102,9 @@ impl Fit {
         let model_id = db.models().await?.insert(&model).await?;
         info!(%model_id, "✅ Saved to the database");
 
-        reqwest::get(self.heartbeat_url).await.context("failed to send the heartbeat")?;
+        if let Some(heartbeat_url) = self.heartbeat_url {
+            reqwest::get(heartbeat_url).await.context("failed to send the heartbeat")?;
+        }
 
         Ok(())
     }
