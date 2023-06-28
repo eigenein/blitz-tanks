@@ -96,11 +96,7 @@ impl Fit {
         info!("✅ Gotcha!");
         report_memory_usage();
 
-        let model_size = mongodb::bson::to_vec(&model)?.len();
-        info!(model_size, "📦 Checked the document size");
-
-        let model_id = db.models().await?.insert(&model).await?;
-        info!(%model_id, "✅ Saved to the database");
+        db.models().await?.insert(&model).await?;
 
         if let Some(heartbeat_url) = self.heartbeat_url {
             reqwest::get(heartbeat_url).await.context("failed to send the heartbeat")?;

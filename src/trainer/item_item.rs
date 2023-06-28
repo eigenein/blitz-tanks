@@ -141,7 +141,7 @@ pub struct Model {
     pub created_at: DateTime,
 
     /// Version of the trainer that created the model.
-    version: String,
+    pub version: String,
 
     /// The model fit and predict parameters.
     params: Params,

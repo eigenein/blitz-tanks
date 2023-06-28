@@ -18,8 +18,11 @@ impl Models {
         Ok(Self(collection))
     }
 
+    #[instrument(skip_all, fields(version = model.version))]
     pub async fn insert(&self, model: &Model) -> Result<Bson> {
-        Ok(self.0.insert_one(model, None).await?.inserted_id)
+        let inserted_id = self.0.insert_one(model, None).await?.inserted_id;
+        info!(?inserted_id, "🗃️ Model is inserted");
+        Ok(inserted_id)
     }
 
     #[instrument(skip_all)]
