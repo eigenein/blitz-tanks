@@ -1,3 +1,6 @@
+mod footer;
+mod head;
+mod navbar;
 mod vehicle_card;
 
-pub use self::vehicle_card::VehicleCard;
+pub use self::{footer::*, head::*, navbar::*, vehicle_card::VehicleCard};

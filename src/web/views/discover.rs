@@ -5,7 +5,7 @@ use tracing::instrument;
 
 use crate::{
     models::{Anonymous, RatedTankId, User},
-    web::{error::WebError, partials::*, result::WebResult, state::AppState, views::partials::*},
+    web::{error::WebError, partials::*, result::WebResult, state::AppState},
 };
 
 #[instrument(skip_all)]

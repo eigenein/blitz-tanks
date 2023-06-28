@@ -6,7 +6,7 @@ use tracing::{info, instrument};
 
 use crate::{
     models::{Anonymous, User},
-    web::{prelude::*, response::OptionalRedirect, state::*, views::partials::*},
+    web::{partials::*, prelude::*, response::OptionalRedirect, state::*},
 };
 
 /// Index route handler.
