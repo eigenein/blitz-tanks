@@ -51,8 +51,10 @@ impl AppState {
             .time_to_idle(Duration::from_secs(300))
             .build();
 
+        // TODO: model auto-reloader.
         #[cfg(not(test))]
         let Some(model) = db.models().await?.get_latest().await? else {
+            // TODO: move this to the repo.
             anyhow::bail!("❌ No recommendation model found, please run the trainer first");
         };
         #[cfg(test)]

@@ -28,7 +28,11 @@ static ALLOCATOR: jemallocator::Jemalloc = jemallocator::Jemalloc;
 
 #[tokio::main]
 async fn main() -> Result {
-    let args = Cli::parse();
-    let _sentry_guard = tracing::init(args.sentry_dsn, args.traces_sample_rate)?;
-    trace(args.command.run().await)
+    let dotenv_result = dotenvy::dotenv_override();
+    let cli = Cli::parse();
+    let _sentry_guard = tracing::init(cli.sentry_dsn, cli.traces_sample_rate)?;
+    if let Err(error) = dotenv_result {
+        warn!("⚠️ Failed to load the `.env`: {error:#}");
+    }
+    trace(cli.command.run().await)
 }

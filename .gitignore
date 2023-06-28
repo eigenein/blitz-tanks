@@ -1,3 +1,4 @@
+.env
 *.sled
 
 # Created by https://www.toptal.com/developers/gitignore/api/rust,intellij,macos,linux,windows,visualstudiocode

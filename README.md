@@ -7,6 +7,23 @@
 
 # Developer's notes
 
+## systemd unit
+
+```unit file (systemd)
+[Unit]
+After = network.target network-online.target
+BindsTo = network-online.target
+
+[Service]
+Type = simple
+User = pi
+WorkingDirectory = /home/pi/.blitz-tanks
+ExecStart = /home/pi/bin/blitz-tanks web
+
+[Install]
+WantedBy = multi-user.target
+```
+
 ## Keep back MongoDB on Raspberry Pi
 
 ```shell
