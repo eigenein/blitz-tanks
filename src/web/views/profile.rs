@@ -12,7 +12,10 @@ use tracing::{info, instrument};
 use crate::{
     models::{Anonymous, Rating, User, Vote},
     prelude::*,
-    web::{error::WebError, prelude::*, result::WebResult, state::AppState, views::partials::*},
+    web::{
+        error::WebError, partials::*, prelude::*, result::WebResult, state::AppState,
+        views::partials::*,
+    },
 };
 
 #[derive(Deserialize)]
