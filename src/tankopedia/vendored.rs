@@ -6,6 +6,7 @@ use crate::models::{Vehicle, VehicleType};
 
 pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     1_u16 => Vehicle {
+        tank_id: 1,
         name: "T-34",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-34.png",
@@ -14,6 +15,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     17_u16 => Vehicle {
+        tank_id: 17,
         name: "Pz.Kpfw. IV Ausf. G",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIV.png",
@@ -22,6 +24,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     33_u16 => Vehicle {
+        tank_id: 33,
         name: "T14",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T14.png",
@@ -30,6 +33,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     49_u16 => Vehicle {
+        tank_id: 49,
         name: "Type 59",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch01_Type59.png",
@@ -38,6 +42,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     81_u16 => Vehicle {
+        tank_id: 81,
         name: "Vickers Medium Mk. I",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB01_Medium_Mark_I.png",
@@ -46,6 +51,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     113_u16 => Vehicle {
+        tank_id: 113,
         name: "Vindicator Ultramarines",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth08_WH_Vindicator.png",
@@ -54,6 +60,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     257_u16 => Vehicle {
+        tank_id: 257,
         name: "SU-85",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-85.png",
@@ -62,6 +69,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     289_u16 => Vehicle {
+        tank_id: 289,
         name: "M3 Stuart",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M3_Stuart.png",
@@ -70,6 +78,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     321_u16 => Vehicle {
+        tank_id: 321,
         name: "D2",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/D2.png",
@@ -78,6 +87,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     337_u16 => Vehicle {
+        tank_id: 337,
         name: "Vickers Medium Mk. II",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB05_Vickers_Medium_Mk_II.png",
@@ -86,6 +96,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     353_u16 => Vehicle {
+        tank_id: 353,
         name: "Chi-Ni",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Ni.png",
@@ -94,6 +105,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     385_u16 => Vehicle {
+        tank_id: 385,
         name: "Progetto M40 mod. 65",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It08_Progetto_M40_mod65.png",
@@ -102,6 +114,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     513_u16 => Vehicle {
+        tank_id: 513,
         name: "IS",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS.png",
@@ -110,6 +123,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     529_u16 => Vehicle {
+        tank_id: 529,
         name: "Tiger I",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVI.png",
@@ -118,6 +132,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     545_u16 => Vehicle {
+        tank_id: 545,
         name: "T1 Cunningham",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T1_Cunningham.png",
@@ -126,6 +141,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     577_u16 => Vehicle {
+        tank_id: 577,
         name: "Renault FT",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RenaultFT.png",
@@ -134,6 +150,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     593_u16 => Vehicle {
+        tank_id: 593,
         name: "Sherman Firefly",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB19_Sherman_Firefly.png",
@@ -142,6 +159,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     609_u16 => Vehicle {
+        tank_id: 609,
         name: "Renault Otsu",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/NC27.png",
@@ -150,6 +168,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     625_u16 => Vehicle {
+        tank_id: 625,
         name: "Stridsvagn 74A2",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Strv_74A2.png",
@@ -158,6 +177,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     641_u16 => Vehicle {
+        tank_id: 641,
         name: "Prototipo Standard B",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It12_Prototipo_Standard_B.png",
@@ -166,6 +186,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     769_u16 => Vehicle {
+        tank_id: 769,
         name: "BT-7",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/BT-7.png",
@@ -174,6 +195,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     785_u16 => Vehicle {
+        tank_id: 785,
         name: "Pz.Kpfw. 35 (t)",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz35t.png",
@@ -182,6 +204,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     801_u16 => Vehicle {
+        tank_id: 801,
         name: "M6",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6.png",
@@ -190,6 +213,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     817_u16 => Vehicle {
+        tank_id: 817,
         name: "WZ-111",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch03_WZ-111.png",
@@ -198,6 +222,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     849_u16 => Vehicle {
+        tank_id: 849,
         name: "Matilda",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB07_Matilda.png",
@@ -206,6 +231,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     865_u16 => Vehicle {
+        tank_id: 865,
         name: "Type 95 Ha-Go",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ha_Go.png",
@@ -214,6 +240,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     881_u16 => Vehicle {
+        tank_id: 881,
         name: "Edelweiss",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sega_Edelweiss.png",
@@ -222,6 +249,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     897_u16 => Vehicle {
+        tank_id: 897,
         name: "P.44 Pantera",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It14_P44_Pantera.png",
@@ -230,6 +258,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1025_u16 => Vehicle {
+        tank_id: 1025,
         name: "BT-2",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/BT-2.png",
@@ -238,6 +267,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     1041_u16 => Vehicle {
+        tank_id: 1041,
         name: "StuG III Ausf. G",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/StuGIII.png",
@@ -246,6 +276,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     1057_u16 => Vehicle {
+        tank_id: 1057,
         name: "M4 Sherman",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M4_Sherman.png",
@@ -254,6 +285,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1073_u16 => Vehicle {
+        tank_id: 1073,
         name: "T-34-1",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch04_T34_1.png",
@@ -262,6 +294,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1089_u16 => Vehicle {
+        tank_id: 1089,
         name: "B1",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/B1.png",
@@ -270,6 +303,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     1105_u16 => Vehicle {
+        tank_id: 1105,
         name: "Cromwell",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB21_Cromwell.png",
@@ -278,6 +312,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1121_u16 => Vehicle {
+        tank_id: 1121,
         name: "Type 5 Chi-Ri",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Ri.png",
@@ -286,6 +321,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1137_u16 => Vehicle {
+        tank_id: 1137,
         name: "Predator Ultramarines",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth09_WH_Predator.png",
@@ -294,6 +330,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     1153_u16 => Vehicle {
+        tank_id: 1153,
         name: "P.43 ter",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It09_P43_ter.png",
@@ -302,6 +339,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1297_u16 => Vehicle {
+        tank_id: 1297,
         name: "Panther I",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzV.png",
@@ -310,6 +348,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1313_u16 => Vehicle {
+        tank_id: 1313,
         name: "M4A3E8 Sherman",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M4A3E8_Sherman.png",
@@ -318,6 +357,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1329_u16 => Vehicle {
+        tank_id: 1329,
         name: "Renault NC-31",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch06_Renault_NC31.png",
@@ -326,6 +366,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     1361_u16 => Vehicle {
+        tank_id: 1361,
         name: "Churchill Mk. VI",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Churchill_MkVI.png",
@@ -334,6 +375,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     1377_u16 => Vehicle {
+        tank_id: 1377,
         name: "Type 3 Chi-Nu",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Nu.png",
@@ -342,6 +384,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1393_u16 => Vehicle {
+        tank_id: 1393,
         name: "Nameless",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sega_Nameless.png",
@@ -350,6 +393,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     1409_u16 => Vehicle {
+        tank_id: 1409,
         name: "P.43 bis",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It10_P43_bis.png",
@@ -358,6 +402,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1537_u16 => Vehicle {
+        tank_id: 1537,
         name: "T-28 mod. 1940",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-28.png",
@@ -366,6 +411,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1553_u16 => Vehicle {
+        tank_id: 1553,
         name: "Jagdpanzer IV",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPzIV.png",
@@ -374,6 +420,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     1569_u16 => Vehicle {
+        tank_id: 1569,
         name: "T20",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T20.png",
@@ -382,6 +429,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1585_u16 => Vehicle {
+        tank_id: 1585,
         name: "T-34-2",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch05_T34_2.png",
@@ -390,6 +438,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1601_u16 => Vehicle {
+        tank_id: 1601,
         name: "D1",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/D1.png",
@@ -398,6 +447,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     1617_u16 => Vehicle {
+        tank_id: 1617,
         name: "Sherman V",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Sherman_V.png",
@@ -406,6 +456,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1633_u16 => Vehicle {
+        tank_id: 1633,
         name: "Type 1 Chi-He",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_He.png",
@@ -414,6 +465,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1649_u16 => Vehicle {
+        tank_id: 1649,
         name: "Helsing",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Van_Helsing.png",
@@ -422,6 +474,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     1665_u16 => Vehicle {
+        tank_id: 1665,
         name: "Lago",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S04_Lago-I.png",
@@ -430,6 +483,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1809_u16 => Vehicle {
+        tank_id: 1809,
         name: "Hetzer",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Hetzer.png",
@@ -438,6 +492,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     1825_u16 => Vehicle {
+        tank_id: 1825,
         name: "M2 Light Tank",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M2_lt.png",
@@ -446,6 +501,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     1841_u16 => Vehicle {
+        tank_id: 1841,
         name: "WZ-120",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch18_WZ-120.png",
@@ -454,6 +510,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1857_u16 => Vehicle {
+        tank_id: 1857,
         name: "Bat.-Châtillon 25 t AP",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F75_Char_de_25t.png",
@@ -462,6 +519,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     1889_u16 => Vehicle {
+        tank_id: 1889,
         name: "Type 4 Chi-To",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_To.png",
@@ -470,6 +528,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1905_u16 => Vehicle {
+        tank_id: 1905,
         name: "O-47",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Akawara.png",
@@ -478,6 +537,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     1921_u16 => Vehicle {
+        tank_id: 1921,
         name: "Strv m/42",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S02_StrvM42.png",
@@ -486,6 +546,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     2049_u16 => Vehicle {
+        tank_id: 2049,
         name: "A-20",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A-20.png",
@@ -494,6 +555,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2065_u16 => Vehicle {
+        tank_id: 2065,
         name: "Pz.Kpfw. II",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzII.png",
@@ -502,6 +564,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2097_u16 => Vehicle {
+        tank_id: 2097,
         name: "WZ-111 model 1-4",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch12_111_1_2_3.png",
@@ -510,6 +573,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     2129_u16 => Vehicle {
+        tank_id: 2129,
         name: "Crusader",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB20_Crusader.png",
@@ -518,6 +582,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2145_u16 => Vehicle {
+        tank_id: 2145,
         name: "Type 97 Chi-Ha",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Ha.png",
@@ -526,6 +591,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     2161_u16 => Vehicle {
+        tank_id: 2161,
         name: "WZ 135G FT Blaze",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/WZ-135G_FT.png",
@@ -534,6 +600,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     2177_u16 => Vehicle {
+        tank_id: 2177,
         name: "14TP",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl07_14TP.png",
@@ -542,6 +609,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2305_u16 => Vehicle {
+        tank_id: 2305,
         name: "SU-152",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-152.png",
@@ -550,6 +618,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     2321_u16 => Vehicle {
+        tank_id: 2321,
         name: "VK 36.01 (H)",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3601H.png",
@@ -558,6 +627,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     2353_u16 => Vehicle {
+        tank_id: 2353,
         name: "Vickers Mk. E Type B",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch07_Vickers_MkE_Type_BT26.png",
@@ -566,6 +636,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2369_u16 => Vehicle {
+        tank_id: 2369,
         name: "FCM 36 Pak 40",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/FCM_36Pak40.png",
@@ -574,6 +645,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     2385_u16 => Vehicle {
+        tank_id: 2385,
         name: "Vickers Medium Mk. III",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB06_Vickers_Medium_Mk_III.png",
@@ -582,6 +654,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     2401_u16 => Vehicle {
+        tank_id: 2401,
         name: "Type 98 Ke-Ni",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ke_Ni.png",
@@ -590,6 +663,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2433_u16 => Vehicle {
+        tank_id: 2433,
         name: "10TP",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl06_10TP.png",
@@ -598,6 +672,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2561_u16 => Vehicle {
+        tank_id: 2561,
         name: "T-34-85",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-34-85.png",
@@ -606,6 +681,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     2577_u16 => Vehicle {
+        tank_id: 2577,
         name: "VK 30.01 (H)",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3001H.png",
@@ -614,6 +690,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     2593_u16 => Vehicle {
+        tank_id: 2593,
         name: "T30",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T30.png",
@@ -622,6 +699,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     2609_u16 => Vehicle {
+        tank_id: 2609,
         name: "Type 64",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch24_Type64.png",
@@ -630,6 +708,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2625_u16 => Vehicle {
+        tank_id: 2625,
         name: "ARL 44",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ARL_44.png",
@@ -638,6 +717,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     2657_u16 => Vehicle {
+        tank_id: 2657,
         name: "STA-1",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/STA_1.png",
@@ -646,6 +726,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     2689_u16 => Vehicle {
+        tank_id: 2689,
         name: "Vickers Mk. F",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F01_Vickers_MkF.png",
@@ -654,6 +735,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2817_u16 => Vehicle {
+        tank_id: 2817,
         name: "KV-1S",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-1s.png",
@@ -662,6 +744,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     2849_u16 => Vehicle {
+        tank_id: 2849,
         name: "T34",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T34_hvy.png",
@@ -670,6 +753,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     2865_u16 => Vehicle {
+        tank_id: 2865,
         name: "WZ-110",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch11_110.png",
@@ -678,6 +762,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     2881_u16 => Vehicle {
+        tank_id: 2881,
         name: "AMX 40",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX40.png",
@@ -686,6 +771,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     2897_u16 => Vehicle {
+        tank_id: 2897,
         name: "Churchill I",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB08_Churchill_I.png",
@@ -694,6 +780,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     2913_u16 => Vehicle {
+        tank_id: 2913,
         name: "Type 5 Ke-Ho",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ke_Ho.png",
@@ -702,6 +789,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     2945_u16 => Vehicle {
+        tank_id: 2945,
         name: "Progetto M35 mod. 46",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It13_Progetto_M35_mod_46.png",
@@ -710,6 +798,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     3073_u16 => Vehicle {
+        tank_id: 3073,
         name: "T-46",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-46.png",
@@ -718,6 +807,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     3089_u16 => Vehicle {
+        tank_id: 3089,
         name: "Leichttraktor",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ltraktor.png",
@@ -726,6 +816,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     3105_u16 => Vehicle {
+        tank_id: 3105,
         name: "M3 Lee",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M3_Grant.png",
@@ -734,6 +825,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     3121_u16 => Vehicle {
+        tank_id: 3121,
         name: "M5A1 Stuart",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch09_M5.png",
@@ -742,6 +834,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     3137_u16 => Vehicle {
+        tank_id: 3137,
         name: "AMX 50 100",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_50_100.png",
@@ -750,6 +843,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3153_u16 => Vehicle {
+        tank_id: 3153,
         name: "Black Prince",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB10_Black_Prince.png",
@@ -758,6 +852,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3201_u16 => Vehicle {
+        tank_id: 3201,
         name: "50TP prototyp",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl08_50TP_prot.png",
@@ -766,6 +861,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3329_u16 => Vehicle {
+        tank_id: 3329,
         name: "MS-1 mod. 1",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/MS-1.png",
@@ -774,6 +870,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     3345_u16 => Vehicle {
+        tank_id: 3345,
         name: "Pz.Kpfw. 38 (t)",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz38t.png",
@@ -782,6 +879,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     3361_u16 => Vehicle {
+        tank_id: 3361,
         name: "T1 Heavy Tank",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T1_hvy.png",
@@ -790,6 +888,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3377_u16 => Vehicle {
+        tank_id: 3377,
         name: "WZ-131",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch16_WZ_131.png",
@@ -798,6 +897,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     3425_u16 => Vehicle {
+        tank_id: 3425,
         name: "Type 61",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Type_61.png",
@@ -806,6 +906,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     3457_u16 => Vehicle {
+        tank_id: 3457,
         name: "Emil I",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S18_EMIL_1951E1.png",
@@ -814,6 +915,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3585_u16 => Vehicle {
+        tank_id: 3585,
         name: "SU-100",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-100.png",
@@ -822,6 +924,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     3601_u16 => Vehicle {
+        tank_id: 3601,
         name: "Panzerjäger I",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PanzerJager_I.png",
@@ -830,6 +933,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     3633_u16 => Vehicle {
+        tank_id: 3633,
         name: "IS-2",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch10_IS2.png",
@@ -838,6 +942,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3649_u16 => Vehicle {
+        tank_id: 3649,
         name: "Bat.-Châtillon 25 t",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Bat_Chatillon25t.png",
@@ -846,6 +951,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     3681_u16 => Vehicle {
+        tank_id: 3681,
         name: "STB-1",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ST_B1.png",
@@ -854,6 +960,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     3697_u16 => Vehicle {
+        tank_id: 3697,
         name: "Lupus",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth06_Sega_Lupus.png",
@@ -862,6 +969,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3713_u16 => Vehicle {
+        tank_id: 3713,
         name: "Strv 74",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S07_Strv_74.png",
@@ -870,6 +978,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     3857_u16 => Vehicle {
+        tank_id: 3857,
         name: "Jagdpanther",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPanther.png",
@@ -878,6 +987,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     3873_u16 => Vehicle {
+        tank_id: 3873,
         name: "T29",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T29.png",
@@ -886,6 +996,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3889_u16 => Vehicle {
+        tank_id: 3889,
         name: "WZ-132",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch17_WZ131_1_WZ132.png",
@@ -894,6 +1005,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     3905_u16 => Vehicle {
+        tank_id: 3905,
         name: "AMX 50 120",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_50_120.png",
@@ -902,6 +1014,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3921_u16 => Vehicle {
+        tank_id: 3921,
         name: "Caernarvon",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB11_Caernarvon.png",
@@ -910,6 +1023,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     3937_u16 => Vehicle {
+        tank_id: 3937,
         name: "Ho-Ri Type III",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J20_Ho_Ri_type3.png",
@@ -918,6 +1032,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     3953_u16 => Vehicle {
+        tank_id: 3953,
         name: "T 55A",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth11_T-55A.png",
@@ -926,6 +1041,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     3969_u16 => Vehicle {
+        tank_id: 3969,
         name: "Leo",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S13_Leo.png",
@@ -934,6 +1050,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4113_u16 => Vehicle {
+        tank_id: 4113,
         name: "VK 30.02 (D)",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3002DB.png",
@@ -942,6 +1059,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4145_u16 => Vehicle {
+        tank_id: 4145,
         name: "WZ-121",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch19_121.png",
@@ -950,6 +1068,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4193_u16 => Vehicle {
+        tank_id: 4193,
         name: "Ho-Ri Type II",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J21_Ho_Ri.png",
@@ -958,6 +1077,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     4209_u16 => Vehicle {
+        tank_id: 4209,
         name: "WarDuck",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/other-Oth10_WarDuck.png",
@@ -966,6 +1086,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4225_u16 => Vehicle {
+        tank_id: 4225,
         name: "Emil II",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S17_EMIL_1952E2.png",
@@ -974,6 +1095,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4353_u16 => Vehicle {
+        tank_id: 4353,
         name: "T-44",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-44.png",
@@ -982,6 +1104,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4369_u16 => Vehicle {
+        tank_id: 4369,
         name: "Pz.Kpfw. III",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIII.png",
@@ -990,6 +1113,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4385_u16 => Vehicle {
+        tank_id: 4385,
         name: "T32",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T32.png",
@@ -998,6 +1122,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4401_u16 => Vehicle {
+        tank_id: 4401,
         name: "Type 2597 Chi-Ha",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch08_Type97_Chi_Ha.png",
@@ -1006,6 +1131,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4417_u16 => Vehicle {
+        tank_id: 4417,
         name: "AMX M4 mle. 54",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F82_AMX_M4_Mle1949_Ter.png",
@@ -1014,6 +1140,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4433_u16 => Vehicle {
+        tank_id: 4433,
         name: "Conqueror",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB12_Conqueror.png",
@@ -1022,6 +1149,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4449_u16 => Vehicle {
+        tank_id: 4449,
         name: "IS-2 Pravda SP",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-2_GuP.png",
@@ -1030,6 +1158,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4465_u16 => Vehicle {
+        tank_id: 4465,
         name: "Hafen",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth12_Sega_Hafen.png",
@@ -1038,6 +1167,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4481_u16 => Vehicle {
+        tank_id: 4481,
         name: "Kranvagn",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S16_Kranvagn.png",
@@ -1046,6 +1176,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4609_u16 => Vehicle {
+        tank_id: 4609,
         name: "T-26",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-26.png",
@@ -1054,6 +1185,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     4657_u16 => Vehicle {
+        tank_id: 4657,
         name: "Type T-34",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch21_T34.png",
@@ -1062,6 +1194,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4689_u16 => Vehicle {
+        tank_id: 4689,
         name: "Churchill VII",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB09_Churchill_VII.png",
@@ -1070,6 +1203,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4705_u16 => Vehicle {
+        tank_id: 4705,
         name: "Firefly Saunders SP",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Firefly_GuP.png",
@@ -1078,6 +1212,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4721_u16 => Vehicle {
+        tank_id: 4721,
         name: "Gravedigger",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth14_MdM_AshKnight.png",
@@ -1086,6 +1221,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4737_u16 => Vehicle {
+        tank_id: 4737,
         name: "EMIL 1951",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S25_EMIL_51.png",
@@ -1094,6 +1230,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     4881_u16 => Vehicle {
+        tank_id: 4881,
         name: "Pz.Kpfw. III Ausf. A",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIII_A.png",
@@ -1102,6 +1239,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     4897_u16 => Vehicle {
+        tank_id: 4897,
         name: "M2 Medium Tank",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M2_med.png",
@@ -1110,6 +1248,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4913_u16 => Vehicle {
+        tank_id: 4913,
         name: "59-16",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch15_59_16.png",
@@ -1118,6 +1257,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     4929_u16 => Vehicle {
+        tank_id: 4929,
         name: "AMX 13 90",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_13_90.png",
@@ -1126,6 +1266,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     4945_u16 => Vehicle {
+        tank_id: 4945,
         name: "Valentine Mk. IX",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB04_Valentine.png",
@@ -1134,6 +1275,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     4961_u16 => Vehicle {
+        tank_id: 4961,
         name: "Ho-Ri Type I",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J22_Ho_Ri_type96.png",
@@ -1142,6 +1284,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     4977_u16 => Vehicle {
+        tank_id: 4977,
         name: "Scavenger",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth15_RustCrab.png",
@@ -1150,6 +1293,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     4993_u16 => Vehicle {
+        tank_id: 4993,
         name: "P.43/06 anniversario",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It10_P43_BD.png",
@@ -1158,6 +1302,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5121_u16 => Vehicle {
+        tank_id: 5121,
         name: "AT-1",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AT-1.png",
@@ -1166,6 +1311,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     5137_u16 => Vehicle {
+        tank_id: 5137,
         name: "Tiger II",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVIB_Tiger_II.png",
@@ -1174,6 +1320,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     5153_u16 => Vehicle {
+        tank_id: 5153,
         name: "M5 Stuart",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M5_Stuart.png",
@@ -1182,6 +1329,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     5169_u16 => Vehicle {
+        tank_id: 5169,
         name: "Type 58",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch20_Type58.png",
@@ -1190,6 +1338,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5185_u16 => Vehicle {
+        tank_id: 5185,
         name: "AMX 13 75",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_13_75.png",
@@ -1198,6 +1347,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     5201_u16 => Vehicle {
+        tank_id: 5201,
         name: "Cruiser Mk. I",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB03_Cruiser_Mk_I.png",
@@ -1206,6 +1356,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     5217_u16 => Vehicle {
+        tank_id: 5217,
         name: "Chi-To SPG",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J23_Chi_To_SPG.png",
@@ -1214,6 +1365,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     5233_u16 => Vehicle {
+        tank_id: 5233,
         name: "Smasher",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth16_KV_TG.png",
@@ -1222,6 +1374,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     5249_u16 => Vehicle {
+        tank_id: 5249,
         name: "Pudel",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl03_PzV_Pudel.png",
@@ -1230,6 +1383,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5377_u16 => Vehicle {
+        tank_id: 5377,
         name: "IS-3",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-3.png",
@@ -1238,6 +1392,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     5393_u16 => Vehicle {
+        tank_id: 5393,
         name: "VK 16.02 Leopard",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK1602.png",
@@ -1246,6 +1401,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     5409_u16 => Vehicle {
+        tank_id: 5409,
         name: "M7",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M7_med.png",
@@ -1254,6 +1410,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5425_u16 => Vehicle {
+        tank_id: 5425,
         name: "WZ-113",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch22_113.png",
@@ -1262,6 +1419,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     5441_u16 => Vehicle {
+        tank_id: 5441,
         name: "AMX 30 1er prototype",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F71_AMX_30_prototype.png",
@@ -1270,6 +1428,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5457_u16 => Vehicle {
+        tank_id: 5457,
         name: "Comet",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB22_Comet.png",
@@ -1278,6 +1437,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5473_u16 => Vehicle {
+        tank_id: 5473,
         name: "Mitsu 108",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J30_Mitsu_108.png",
@@ -1286,6 +1446,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     5489_u16 => Vehicle {
+        tank_id: 5489,
         name: "Y5 T-34",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth17_BDT-5A.png",
@@ -1294,6 +1455,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5505_u16 => Vehicle {
+        tank_id: 5505,
         name: "TVP T 50/51",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz04_T50_51.png",
@@ -1302,6 +1464,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5665_u16 => Vehicle {
+        tank_id: 5665,
         name: "T2 Medium Tank",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T2_med.png",
@@ -1310,6 +1473,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5681_u16 => Vehicle {
+        tank_id: 5681,
         name: "121B",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch25_121_mod_1971B.png",
@@ -1318,6 +1482,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5713_u16 => Vehicle {
+        tank_id: 5713,
         name: "Centurion Mk. 7/1",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB24_Centurion_Mk3.png",
@@ -1326,6 +1491,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5729_u16 => Vehicle {
+        tank_id: 5729,
         name: "Ju-Nu",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J29_Ju_Nu.png",
@@ -1334,6 +1500,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     5745_u16 => Vehicle {
+        tank_id: 5745,
         name: "Y5 Firefly",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth18_BDT-5B.png",
@@ -1342,6 +1509,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5761_u16 => Vehicle {
+        tank_id: 5761,
         name: "Škoda T 50",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz02_T50.png",
@@ -1350,6 +1518,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5889_u16 => Vehicle {
+        tank_id: 5889,
         name: "KV-3",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-3.png",
@@ -1358,6 +1527,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     5921_u16 => Vehicle {
+        tank_id: 5921,
         name: "M26 Pershing",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pershing.png",
@@ -1366,6 +1536,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5937_u16 => Vehicle {
+        tank_id: 5937,
         name: "59-Patton",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch26_59_Patton.png",
@@ -1374,6 +1545,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5953_u16 => Vehicle {
+        tank_id: 5953,
         name: "AMX 38",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX38.png",
@@ -1382,6 +1554,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5969_u16 => Vehicle {
+        tank_id: 5969,
         name: "Centurion Mk. I",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB23_Centurion.png",
@@ -1390,6 +1563,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     5985_u16 => Vehicle {
+        tank_id: 5985,
         name: "Ju-To",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J28_Ju_To.png",
@@ -1398,6 +1572,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6001_u16 => Vehicle {
+        tank_id: 6001,
         name: "Y5 ELC bis",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth19_BDT-5C.png",
@@ -1406,6 +1581,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6017_u16 => Vehicle {
+        tank_id: 6017,
         name: "TVP VTU Koncept",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz07_TVP_46.png",
@@ -1414,6 +1590,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6145_u16 => Vehicle {
+        tank_id: 6145,
         name: "IS-4",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-4.png",
@@ -1422,6 +1599,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6161_u16 => Vehicle {
+        tank_id: 6161,
         name: "Pz.Kpfw. II Luchs",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzII_Luchs.png",
@@ -1430,6 +1608,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     6177_u16 => Vehicle {
+        tank_id: 6177,
         name: "T18",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T18.png",
@@ -1438,6 +1617,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     6193_u16 => Vehicle {
+        tank_id: 6193,
         name: "T-34-3",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch14_T34_3.png",
@@ -1446,6 +1626,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6209_u16 => Vehicle {
+        tank_id: 6209,
         name: "AMX 50 B",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_50B.png",
@@ -1454,6 +1635,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6225_u16 => Vehicle {
+        tank_id: 6225,
         name: "FV215b",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB13_FV215b.png",
@@ -1462,6 +1644,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6241_u16 => Vehicle {
+        tank_id: 6241,
         name: "Chi-Se",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J27_Chi_Se.png",
@@ -1470,6 +1653,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6257_u16 => Vehicle {
+        tank_id: 6257,
         name: "M4/FL10",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth20_M4FL10.png",
@@ -1478,6 +1662,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6273_u16 => Vehicle {
+        tank_id: 6273,
         name: "Konštrukta T-34/100",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz05_T34-100.png",
@@ -1486,6 +1671,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6401_u16 => Vehicle {
+        tank_id: 6401,
         name: "SU-76",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-76.png",
@@ -1494,6 +1680,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     6417_u16 => Vehicle {
+        tank_id: 6417,
         name: "Pz.Kpfw. III/IV",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIII_IV.png",
@@ -1502,6 +1689,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6433_u16 => Vehicle {
+        tank_id: 6433,
         name: "T82",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T82.png",
@@ -1510,6 +1698,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     6449_u16 => Vehicle {
+        tank_id: 6449,
         name: "WZ-113G FT",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/CH38_WZ113G-FT.png",
@@ -1518,6 +1707,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     6465_u16 => Vehicle {
+        tank_id: 6465,
         name: "AMX 12 t",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_12t.png",
@@ -1526,6 +1716,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     6481_u16 => Vehicle {
+        tank_id: 6481,
         name: "Covenanter",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB60_Covenanter.png",
@@ -1534,6 +1725,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     6497_u16 => Vehicle {
+        tank_id: 6497,
         name: "Type 68",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J26_Type_68.png",
@@ -1542,6 +1734,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6529_u16 => Vehicle {
+        tank_id: 6529,
         name: "Škoda T 25",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz08_T-25.png",
@@ -1550,6 +1743,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6657_u16 => Vehicle {
+        tank_id: 6657,
         name: "T-43",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-43.png",
@@ -1558,6 +1752,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6673_u16 => Vehicle {
+        tank_id: 6673,
         name: "Marder II",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G20_Marder_II.png",
@@ -1566,6 +1761,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     6689_u16 => Vehicle {
+        tank_id: 6689,
         name: "T49 ATM",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T49_Rocket.png",
@@ -1574,6 +1770,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     6705_u16 => Vehicle {
+        tank_id: 6705,
         name: "LT vz. 38",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch_LT_vz38.png",
@@ -1582,6 +1779,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     6721_u16 => Vehicle {
+        tank_id: 6721,
         name: "BDR G1 B",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/BDR_G1B.png",
@@ -1590,6 +1788,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6753_u16 => Vehicle {
+        tank_id: 6753,
         name: "Type 71",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J25_Type71.png",
@@ -1598,6 +1797,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6785_u16 => Vehicle {
+        tank_id: 6785,
         name: "Škoda T 27",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz13_T-27.png",
@@ -1606,6 +1806,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     6913_u16 => Vehicle {
+        tank_id: 6913,
         name: "SU-85B",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GAZ-74b.png",
@@ -1614,6 +1815,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     6929_u16 => Vehicle {
+        tank_id: 6929,
         name: "Maus",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Maus.png",
@@ -1622,6 +1824,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6945_u16 => Vehicle {
+        tank_id: 6945,
         name: "M10 Wolverine",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M10_Wolverine.png",
@@ -1630,6 +1833,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     6961_u16 => Vehicle {
+        tank_id: 6961,
         name: "WZ-120-1G FT",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch39_WZ120_1G_FT.png",
@@ -1638,6 +1842,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     6977_u16 => Vehicle {
+        tank_id: 6977,
         name: "AMX M4 mle. 45",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_M4_1945.png",
@@ -1646,6 +1851,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     6993_u16 => Vehicle {
+        tank_id: 6993,
         name: "Cruiser Mk. II",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB69_Cruiser_Mk_II.png",
@@ -1654,6 +1860,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     7009_u16 => Vehicle {
+        tank_id: 7009,
         name: "Type 57",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J24_Type_57.png",
@@ -1662,6 +1869,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7025_u16 => Vehicle {
+        tank_id: 7025,
         name: "Vulcan",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth22_Sega_Vulcan.png",
@@ -1670,6 +1878,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7041_u16 => Vehicle {
+        tank_id: 7041,
         name: "Turbo",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S07_Strv74BP.png",
@@ -1678,6 +1887,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     7169_u16 => Vehicle {
+        tank_id: 7169,
         name: "IS-7",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-7.png",
@@ -1686,6 +1896,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7185_u16 => Vehicle {
+        tank_id: 7185,
         name: "VK 30.01 (P)",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3001P.png",
@@ -1694,6 +1905,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     7201_u16 => Vehicle {
+        tank_id: 7201,
         name: "M36 Jackson",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M36_Slagger.png",
@@ -1702,6 +1914,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7217_u16 => Vehicle {
+        tank_id: 7217,
         name: "WZ-112-2",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch_WZ-112v2.png",
@@ -1710,6 +1923,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7249_u16 => Vehicle {
+        tank_id: 7249,
         name: "FV4202",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB70_FV4202_105.png",
@@ -1718,6 +1932,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     7265_u16 => Vehicle {
+        tank_id: 7265,
         name: "Ferrum",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/japan-J29_Ju_Nu_BP.png",
@@ -1726,6 +1941,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7281_u16 => Vehicle {
+        tank_id: 7281,
         name: "Lycan",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth23_Werewolf.png",
@@ -1734,6 +1950,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7297_u16 => Vehicle {
+        tank_id: 7297,
         name: "60TP Lewandowskiego",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl15_60TP.png",
@@ -1742,6 +1959,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7425_u16 => Vehicle {
+        tank_id: 7425,
         name: "ISU-152",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ISU-152.png",
@@ -1750,6 +1968,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7441_u16 => Vehicle {
+        tank_id: 7441,
         name: "VK 45.02 (P) Ausf. B",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK4502P.png",
@@ -1758,6 +1977,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7473_u16 => Vehicle {
+        tank_id: 7473,
         name: "T-34-2G FT",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch35_T-34-2G_FT.png",
@@ -1766,6 +1986,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7505_u16 => Vehicle {
+        tank_id: 7505,
         name: "Cruiser Mk. IV",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB59_Cruiser_Mk_IV.png",
@@ -1774,6 +1995,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     7537_u16 => Vehicle {
+        tank_id: 7537,
         name: "Nightmare",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth24_StuH_42HW.png",
@@ -1782,6 +2004,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7553_u16 => Vehicle {
+        tank_id: 7553,
         name: "50TP Tyszkiewicza",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl05_50TP_Tyszkiewicza.png",
@@ -1790,6 +2013,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7697_u16 => Vehicle {
+        tank_id: 7697,
         name: "Ferdinand",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ferdinand.png",
@@ -1798,6 +2022,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7713_u16 => Vehicle {
+        tank_id: 7713,
         name: "T40",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T40.png",
@@ -1806,6 +2031,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7729_u16 => Vehicle {
+        tank_id: 7729,
         name: "WZ-131G FT",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch34_WZ-131G_FT.png",
@@ -1814,6 +2040,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7745_u16 => Vehicle {
+        tank_id: 7745,
         name: "Renault FT AC",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RenaultFT_AC.png",
@@ -1822,6 +2049,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7761_u16 => Vehicle {
+        tank_id: 7761,
         name: "Cruiser Mk. III",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB58_Cruiser_Mk_III.png",
@@ -1830,6 +2058,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     7793_u16 => Vehicle {
+        tank_id: 7793,
         name: "Annihilator",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth25_HWT20_FalconFire.png",
@@ -1838,6 +2067,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7809_u16 => Vehicle {
+        tank_id: 7809,
         name: "53TP Markowskiego",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl13_53TP_Markowskiego.png",
@@ -1846,6 +2076,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     7937_u16 => Vehicle {
+        tank_id: 7937,
         name: "T-54",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-54.png",
@@ -1854,6 +2085,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     7953_u16 => Vehicle {
+        tank_id: 7953,
         name: "Jagdtiger",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdTiger.png",
@@ -1862,6 +2094,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     7985_u16 => Vehicle {
+        tank_id: 7985,
         name: "WZ-111-1G FT",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch36_WZ-111-1G_FT.png",
@@ -1870,6 +2103,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8001_u16 => Vehicle {
+        tank_id: 8001,
         name: "Lorraine 40 t",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F19_Lorraine40t.png",
@@ -1878,6 +2112,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     8017_u16 => Vehicle {
+        tank_id: 8017,
         name: "Valentine AT",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB42_Valentine_AT.png",
@@ -1886,6 +2121,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8049_u16 => Vehicle {
+        tank_id: 8049,
         name: "Spike",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth26_StrvM42HW.png",
@@ -1894,6 +2130,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     8065_u16 => Vehicle {
+        tank_id: 8065,
         name: "40TP Habicha",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl10_40TP_Habicha.png",
@@ -1902,6 +2139,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     8193_u16 => Vehicle {
+        tank_id: 8193,
         name: "Object 704",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object_704.png",
@@ -1910,6 +2148,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8209_u16 => Vehicle {
+        tank_id: 8209,
         name: "Pz.Kpfw. 38 (t) n.A.",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz38_NA.png",
@@ -1918,6 +2157,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     8225_u16 => Vehicle {
+        tank_id: 8225,
         name: "T28",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T28.png",
@@ -1926,6 +2166,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8241_u16 => Vehicle {
+        tank_id: 8241,
         name: "WZ-111G FT",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch37_WZ-111G_FT.png",
@@ -1934,6 +2175,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8257_u16 => Vehicle {
+        tank_id: 8257,
         name: "Renault UE 57",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RenaultUE57.png",
@@ -1942,6 +2184,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8273_u16 => Vehicle {
+        tank_id: 8273,
         name: "Universal Carrier 2-pdr",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB39_Universal_CarrierQF2.png",
@@ -1950,6 +2193,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8305_u16 => Vehicle {
+        tank_id: 8305,
         name: "Titan H-Nd",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth28_Sturmfeur_HW.png",
@@ -1958,6 +2202,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     8321_u16 => Vehicle {
+        tank_id: 8321,
         name: "45TP Habicha",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl11_45TP_Habicha.png",
@@ -1966,6 +2211,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     8465_u16 => Vehicle {
+        tank_id: 8465,
         name: "Panther II",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Panther_II.png",
@@ -1974,6 +2220,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     8497_u16 => Vehicle {
+        tank_id: 8497,
         name: "WZ-111 model 5A",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch41_WZ_111_5A.png",
@@ -1982,6 +2229,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     8513_u16 => Vehicle {
+        tank_id: 8513,
         name: "AMX 30 B",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F72_AMX_30.png",
@@ -1990,6 +2238,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     8529_u16 => Vehicle {
+        tank_id: 8529,
         name: "AT 15",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB72_AT15.png",
@@ -1998,6 +2247,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8561_u16 => Vehicle {
+        tank_id: 8561,
         name: "Titan T24 57",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth27_M24_AMX.png",
@@ -2006,6 +2256,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     8577_u16 => Vehicle {
+        tank_id: 8577,
         name: "Lansen C",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S26_Lancen_C.png",
@@ -2014,6 +2265,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     8737_u16 => Vehicle {
+        tank_id: 8737,
         name: "T95",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T95.png",
@@ -2022,6 +2274,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8753_u16 => Vehicle {
+        tank_id: 8753,
         name: "M41D",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch42_M41D.png",
@@ -2030,6 +2283,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     8785_u16 => Vehicle {
+        tank_id: 8785,
         name: "AT 2",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB73_AT2.png",
@@ -2038,6 +2292,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     8817_u16 => Vehicle {
+        tank_id: 8817,
         name: "Titan Mk. I",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth29_A15HW.png",
@@ -2046,6 +2301,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     8833_u16 => Vehicle {
+        tank_id: 8833,
         name: "Spark",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz08_T-25BP.png",
@@ -2054,6 +2310,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     8961_u16 => Vehicle {
+        tank_id: 8961,
         name: "KV-13",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-13.png",
@@ -2062,6 +2319,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     8993_u16 => Vehicle {
+        tank_id: 8993,
         name: "M46 Patton",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M46_Patton.png",
@@ -2070,6 +2328,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     9009_u16 => Vehicle {
+        tank_id: 9009,
         name: "Ox",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Type_58BP.png",
@@ -2078,6 +2337,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     9041_u16 => Vehicle {
+        tank_id: 9041,
         name: "Alecto",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB57_Alecto.png",
@@ -2086,6 +2346,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     9073_u16 => Vehicle {
+        tank_id: 9073,
         name: "Titan-54d",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth30_T54MS.png",
@@ -2094,6 +2355,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     9089_u16 => Vehicle {
+        tank_id: 9089,
         name: "Škoda T 56",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz14_Skoda_T-56.png",
@@ -2102,6 +2364,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     9217_u16 => Vehicle {
+        tank_id: 9217,
         name: "IS-6",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object252.png",
@@ -2110,6 +2373,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     9249_u16 => Vehicle {
+        tank_id: 9249,
         name: "T25 AT",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T25_AT.png",
@@ -2118,6 +2382,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     9265_u16 => Vehicle {
+        tank_id: 9265,
         name: "Type 58",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Type_58TU.png",
@@ -2126,6 +2391,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     9297_u16 => Vehicle {
+        tank_id: 9297,
         name: "FV215b (183)",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB48_FV215b_183.png",
@@ -2134,6 +2400,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     9329_u16 => Vehicle {
+        tank_id: 9329,
         name: "Titan-150",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth31_T150BP.png",
@@ -2142,6 +2409,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     9345_u16 => Vehicle {
+        tank_id: 9345,
         name: "Svear",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S13_Leo_NY.png",
@@ -2150,6 +2418,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     9489_u16 => Vehicle {
+        tank_id: 9489,
         name: "E 100",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E-100.png",
@@ -2158,6 +2427,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     9505_u16 => Vehicle {
+        tank_id: 9505,
         name: "M103",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M103.png",
@@ -2166,6 +2436,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     9521_u16 => Vehicle {
+        tank_id: 9521,
         name: "WZ-122 TM",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch43_WZ-122_2.png",
@@ -2174,6 +2445,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     9553_u16 => Vehicle {
+        tank_id: 9553,
         name: "AT 8",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB74_AT8.png",
@@ -2182,6 +2454,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     9601_u16 => Vehicle {
+        tank_id: 9601,
         name: "CS-52 LIS",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl119_CS_52_LIS.png",
@@ -2190,6 +2463,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     9745_u16 => Vehicle {
+        tank_id: 9745,
         name: "E 75",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E-75.png",
@@ -2198,6 +2472,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     9761_u16 => Vehicle {
+        tank_id: 9761,
         name: "M24 Chaffee",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M24_Chaffee.png",
@@ -2206,6 +2481,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     9777_u16 => Vehicle {
+        tank_id: 9777,
         name: "WZ-114",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch45_WZ_114.png",
@@ -2214,6 +2490,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     9793_u16 => Vehicle {
+        tank_id: 9793,
         name: "Somua SAu 40",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Somua_Sau_40.png",
@@ -2222,6 +2499,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     9809_u16 => Vehicle {
+        tank_id: 9809,
         name: "Churchill Gun Carrier",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB40_Gun_Carrier_Churchill.png",
@@ -2230,6 +2508,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     9841_u16 => Vehicle {
+        tank_id: 9841,
         name: "Rover",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth33_Blizzard_BP.png",
@@ -2238,6 +2517,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     9857_u16 => Vehicle {
+        tank_id: 9857,
         name: "Škoda T 45",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz15_Skoda_T-45.png",
@@ -2246,6 +2526,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     9985_u16 => Vehicle {
+        tank_id: 9985,
         name: "SU-101",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-101.png",
@@ -2254,6 +2535,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10001_u16 => Vehicle {
+        tank_id: 10001,
         name: "VK 28.01",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK2801.png",
@@ -2262,6 +2544,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     10017_u16 => Vehicle {
+        tank_id: 10017,
         name: "M4A3E2 Sherman Jumbo",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sherman_Jumbo.png",
@@ -2270,6 +2553,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     10033_u16 => Vehicle {
+        tank_id: 10033,
         name: "WZ-132A",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch28_WZ_132A.png",
@@ -2278,6 +2562,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     10049_u16 => Vehicle {
+        tank_id: 10049,
         name: "S35 CA",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S_35CA.png",
@@ -2286,6 +2571,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10065_u16 => Vehicle {
+        tank_id: 10065,
         name: "AT 7",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB75_AT7.png",
@@ -2294,6 +2580,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10097_u16 => Vehicle {
+        tank_id: 10097,
         name: "Medjay",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth35_PanzerMejai.png",
@@ -2302,6 +2589,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     10113_u16 => Vehicle {
+        tank_id: 10113,
         name: "Carro da Combattimento 45t",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It20_Car_Comb_45t.png",
@@ -2310,6 +2598,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     10241_u16 => Vehicle {
+        tank_id: 10241,
         name: "SU-100M1",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU100M1.png",
@@ -2318,6 +2607,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10257_u16 => Vehicle {
+        tank_id: 10257,
         name: "E 50",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E-50.png",
@@ -2326,6 +2616,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     10273_u16 => Vehicle {
+        tank_id: 10273,
         name: "M8A1",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M8A1.png",
@@ -2334,6 +2625,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10289_u16 => Vehicle {
+        tank_id: 10289,
         name: "WZ-132-1",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch29_Type_62C_prot.png",
@@ -2342,6 +2634,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     10353_u16 => Vehicle {
+        tank_id: 10353,
         name: "Pharaoh",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth34_PanzerMummy.png",
@@ -2350,6 +2643,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     10369_u16 => Vehicle {
+        tank_id: 10369,
         name: "Controcarro 3 Minotauro",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It21_Controcarro3_Minotauro.png",
@@ -2358,6 +2652,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10497_u16 => Vehicle {
+        tank_id: 10497,
         name: "KV-2",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV2.png",
@@ -2366,6 +2661,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     10513_u16 => Vehicle {
+        tank_id: 10513,
         name: "VK 45.02 (P) Ausf. A",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK4502A.png",
@@ -2374,6 +2670,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     10529_u16 => Vehicle {
+        tank_id: 10529,
         name: "T67",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T49.png",
@@ -2382,6 +2679,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10545_u16 => Vehicle {
+        tank_id: 10545,
         name: "Wind",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch15_59_16_BP.png",
@@ -2390,6 +2688,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     10609_u16 => Vehicle {
+        tank_id: 10609,
         name: "Magnate",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/other-Oth36_Indien_Panzer_S1.png",
@@ -2398,6 +2697,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     10625_u16 => Vehicle {
+        tank_id: 10625,
         name: "Controcarro 1 Mk. 2",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It19_Controcarro_1MK2_Ciclope.png",
@@ -2406,6 +2706,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10753_u16 => Vehicle {
+        tank_id: 10753,
         name: "ST-I",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ST_I.png",
@@ -2414,6 +2715,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     10769_u16 => Vehicle {
+        tank_id: 10769,
         name: "Tiger (P)",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVI_Tiger_P.png",
@@ -2422,6 +2724,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     10785_u16 => Vehicle {
+        tank_id: 10785,
         name: "T110E5",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T110.png",
@@ -2430,6 +2733,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     10801_u16 => Vehicle {
+        tank_id: 10801,
         name: "Panlong",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch34_WZ-131G_FT_BP.png",
@@ -2438,6 +2742,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10817_u16 => Vehicle {
+        tank_id: 10817,
         name: "AMX AC mle. 46",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_AC_Mle1946.png",
@@ -2446,6 +2751,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     10865_u16 => Vehicle {
+        tank_id: 10865,
         name: "Fixer",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/other-Oth37_T26_E4_SuperPershing_S1.png",
@@ -2454,6 +2760,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     10881_u16 => Vehicle {
+        tank_id: 10881,
         name: "Semovente Controcarro mod. 1964",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It18_Semovente_mod_64.png",
@@ -2462,6 +2769,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11009_u16 => Vehicle {
+        tank_id: 11009,
         name: "KV-4",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV4.png",
@@ -2470,6 +2778,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     11025_u16 => Vehicle {
+        tank_id: 11025,
         name: "Sturer Emil",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sturer_Emil.png",
@@ -2478,6 +2787,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11041_u16 => Vehicle {
+        tank_id: 11041,
         name: "T25/2",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T25_2.png",
@@ -2486,6 +2796,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11057_u16 => Vehicle {
+        tank_id: 11057,
         name: "114 SP2",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch44_114_SP2.png",
@@ -2494,6 +2805,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     11073_u16 => Vehicle {
+        tank_id: 11073,
         name: "AMX 50 Foch",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX50_Foch.png",
@@ -2502,6 +2814,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11121_u16 => Vehicle {
+        tank_id: 11121,
         name: "Regressor",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/other-Oth38_50TP_Tyszkiewicza_S1.png",
@@ -2510,6 +2823,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     11137_u16 => Vehicle {
+        tank_id: 11137,
         name: "Semovente Controcarro mod. 1956",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It17_Semovente_mod_56.png",
@@ -2518,6 +2832,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11265_u16 => Vehicle {
+        tank_id: 11265,
         name: "T-150",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T150.png",
@@ -2526,6 +2841,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     11281_u16 => Vehicle {
+        tank_id: 11281,
         name: "Kampfpanzer 70",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_KpfPz_70.png",
@@ -2534,6 +2850,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     11297_u16 => Vehicle {
+        tank_id: 11297,
         name: "T28 Prototype",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T28_Prototype.png",
@@ -2542,6 +2859,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11393_u16 => Vehicle {
+        tank_id: 11393,
         name: "Semovente M43 Bassotto",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-It16_Bassoto.png",
@@ -2550,6 +2868,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11521_u16 => Vehicle {
+        tank_id: 11521,
         name: "IS-8",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS8.png",
@@ -2558,6 +2877,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     11537_u16 => Vehicle {
+        tank_id: 11537,
         name: "Jagdpanther II",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPantherII.png",
@@ -2566,6 +2886,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11553_u16 => Vehicle {
+        tank_id: 11553,
         name: "M18 Hellcat",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M18_Hellcat.png",
@@ -2574,6 +2895,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11585_u16 => Vehicle {
+        tank_id: 11585,
         name: "ARL V39",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ARL_V39.png",
@@ -2582,6 +2904,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11649_u16 => Vehicle {
+        tank_id: 11649,
         name: "Semovente M41",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It15_Semovente_M41.png",
@@ -2590,6 +2913,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11777_u16 => Vehicle {
+        tank_id: 11777,
         name: "KV-1",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV1.png",
@@ -2598,6 +2922,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     11793_u16 => Vehicle {
+        tank_id: 11793,
         name: "Nashorn",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Nashorn.png",
@@ -2606,6 +2931,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     11809_u16 => Vehicle {
+        tank_id: 11809,
         name: "T23E3",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T23E3.png",
@@ -2614,6 +2940,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     11905_u16 => Vehicle {
+        tank_id: 11905,
         name: "Shadowhunter",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It10_P43_bis_BP.png",
@@ -2622,6 +2949,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     12033_u16 => Vehicle {
+        tank_id: 12033,
         name: "SU-122-54",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU122_54.png",
@@ -2630,6 +2958,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     12049_u16 => Vehicle {
+        tank_id: 12049,
         name: "Jagdpanzer E 100",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPz_E100.png",
@@ -2638,6 +2967,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     12065_u16 => Vehicle {
+        tank_id: 12065,
         name: "T95E2",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T95E2.png",
@@ -2646,6 +2976,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     12097_u16 => Vehicle {
+        tank_id: 12097,
         name: "AMX AC mle. 48",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_AC_Mle1948.png",
@@ -2654,6 +2985,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     12161_u16 => Vehicle {
+        tank_id: 12161,
         name: "Strv K",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S31_Strv_K.png",
@@ -2662,6 +2994,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     12305_u16 => Vehicle {
+        tank_id: 12305,
         name: "E 50 Ausf. M",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E50_Ausf_M.png",
@@ -2670,6 +3003,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     12321_u16 => Vehicle {
+        tank_id: 12321,
         name: "T6E1 Grizzly",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A77_T6M.png",
@@ -2678,6 +3012,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     12417_u16 => Vehicle {
+        tank_id: 12417,
         name: "Bisonte C45",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-It22_Progetto_C45_mod_71.png",
@@ -2686,6 +3021,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     12545_u16 => Vehicle {
+        tank_id: 12545,
         name: "K-91",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/K-91.png",
@@ -2694,6 +3030,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     12673_u16 => Vehicle {
+        tank_id: 12673,
         name: "Bofors Tornvagn",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-S32_Bofors_Tornvagn.png",
@@ -2702,6 +3039,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     12929_u16 => Vehicle {
+        tank_id: 12929,
         name: "TNH T Vz. 51",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz16_TNH_T_vz51.png",
@@ -2710,6 +3048,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     13073_u16 => Vehicle {
+        tank_id: 13073,
         name: "Pz.Kpfw. II Ausf. G",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_II_AusfG.png",
@@ -2718,6 +3057,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     13089_u16 => Vehicle {
+        tank_id: 13089,
         name: "T110E4",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T110E4.png",
@@ -2726,6 +3066,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     13185_u16 => Vehicle {
+        tank_id: 13185,
         name: "Vz. 55",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz17_Vz_55.png",
@@ -2734,6 +3075,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     13329_u16 => Vehicle {
+        tank_id: 13329,
         name: "Durchbruchswagen 2",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/DW_II.png",
@@ -2742,6 +3084,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     13345_u16 => Vehicle {
+        tank_id: 13345,
         name: "T26E4 SuperPershing",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T26_E4_SuperPershing.png",
@@ -2750,6 +3093,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     13441_u16 => Vehicle {
+        tank_id: 13441,
         name: "Aeonix",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz08_T-25BPS.png",
@@ -2758,6 +3102,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     13569_u16 => Vehicle {
+        tank_id: 13569,
         name: "Object 268",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object268.png",
@@ -2766,6 +3111,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     13697_u16 => Vehicle {
+        tank_id: 13697,
         name: "TNH 105/1000",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz18_TNH_105_1000.png",
@@ -2774,6 +3120,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     13825_u16 => Vehicle {
+        tank_id: 13825,
         name: "T-62A",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T62A.png",
@@ -2782,6 +3129,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     13841_u16 => Vehicle {
+        tank_id: 13841,
         name: "Indien-Panzer",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Indien_Panzer.png",
@@ -2790,6 +3138,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     13857_u16 => Vehicle {
+        tank_id: 13857,
         name: "T110E3",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T110E3.png",
@@ -2798,6 +3147,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     13889_u16 => Vehicle {
+        tank_id: 13889,
         name: "AMX 50 Foch (155)",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_50Fosh_155.png",
@@ -2806,6 +3156,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     13953_u16 => Vehicle {
+        tank_id: 13953,
         name: "Vz. 44-1",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz19_Vz_44_1.png",
@@ -2814,6 +3165,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     14097_u16 => Vehicle {
+        tank_id: 14097,
         name: "VK 30.01 (D)",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3002DB_V1.png",
@@ -2822,6 +3174,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     14113_u16 => Vehicle {
+        tank_id: 14113,
         name: "M48 Patton",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M48A1.png",
@@ -2830,6 +3183,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     14145_u16 => Vehicle {
+        tank_id: 14145,
         name: "AMX ELC bis",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ELC_AMX.png",
@@ -2838,6 +3192,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     14209_u16 => Vehicle {
+        tank_id: 14209,
         name: "Škoda P-JS",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz29_Skoda_P-JS.png",
@@ -2846,6 +3201,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     14337_u16 => Vehicle {
+        tank_id: 14337,
         name: "Object 263",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object263.png",
@@ -2854,6 +3210,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     14609_u16 => Vehicle {
+        tank_id: 14609,
         name: "Leopard 1",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Leopard1.png",
@@ -2862,6 +3219,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     14625_u16 => Vehicle {
+        tank_id: 14625,
         name: "T69",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T69.png",
@@ -2870,6 +3228,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     14721_u16 => Vehicle {
+        tank_id: 14721,
         name: "Strv 81",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-S23_Strv_81.png",
@@ -2878,6 +3237,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     14865_u16 => Vehicle {
+        tank_id: 14865,
         name: "Leopard Prototyp A",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pro_Ag_A.png",
@@ -2886,6 +3246,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     14881_u16 => Vehicle {
+        tank_id: 14881,
         name: "T57 Heavy Tank",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T57_58.png",
@@ -2894,6 +3255,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     15137_u16 => Vehicle {
+        tank_id: 15137,
         name: "T21",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T21.png",
@@ -2902,6 +3264,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     15393_u16 => Vehicle {
+        tank_id: 15393,
         name: "T54E1",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T54E1.png",
@@ -2910,6 +3273,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     15441_u16 => Vehicle {
+        tank_id: 15441,
         name: "Chieftain/T95",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB87_Chieftain_T95_turret.png",
@@ -2918,6 +3282,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     15617_u16 => Vehicle {
+        tank_id: 15617,
         name: "Object 907",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object_907.png",
@@ -2926,6 +3291,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     15649_u16 => Vehicle {
+        tank_id: 15649,
         name: "T71",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T71.png",
@@ -2934,6 +3300,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     15697_u16 => Vehicle {
+        tank_id: 15697,
         name: "Chieftain Mk. 6",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB84_Chieftain_Mk6.png",
@@ -2942,6 +3309,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     15889_u16 => Vehicle {
+        tank_id: 15889,
         name: "VK 30.02 (M)",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3002M.png",
@@ -2950,6 +3318,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     15905_u16 => Vehicle {
+        tank_id: 15905,
         name: "M60",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M60.png",
@@ -2958,6 +3327,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     15937_u16 => Vehicle {
+        tank_id: 15937,
         name: "Renault R35",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RenaultR35.png",
@@ -2966,6 +3336,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     15953_u16 => Vehicle {
+        tank_id: 15953,
         name: "FV201 (A45)",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB52_FV201_A45.png",
@@ -2974,6 +3345,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     16145_u16 => Vehicle {
+        tank_id: 16145,
         name: "Pz.Sfl. IVc",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_Sfl_IVc.png",
@@ -2982,6 +3354,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     16193_u16 => Vehicle {
+        tank_id: 16193,
         name: "M4A1 Revalorisé",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F73_M4A1_Revalorise.png",
@@ -2990,6 +3363,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     16209_u16 => Vehicle {
+        tank_id: 16209,
         name: "Cruiser Mk. I",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB03_Cruiser_Mk_I_tutorial_bot.png",
@@ -2998,6 +3372,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     16401_u16 => Vehicle {
+        tank_id: 16401,
         name: "Waffenträger auf Pz. IV",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Waffentrager_IV.png",
@@ -3006,6 +3381,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     16449_u16 => Vehicle {
+        tank_id: 16449,
         name: "AMX 13 57",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F69_AMX_13_57GF.png",
@@ -3014,6 +3390,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     16465_u16 => Vehicle {
+        tank_id: 16465,
         name: "Cruiser Mk. I",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB03_Cruiser_Mk_I_tutorial_bot2.png",
@@ -3022,6 +3399,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     16641_u16 => Vehicle {
+        tank_id: 16641,
         name: "MT-25",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/MT25.png",
@@ -3030,6 +3408,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     16657_u16 => Vehicle {
+        tank_id: 16657,
         name: "Rhm.-Borsig Waffenträger",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RhB_Waffentrager.png",
@@ -3038,6 +3417,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     16673_u16 => Vehicle {
+        tank_id: 16673,
         name: "T37",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A94_T37.png",
@@ -3046,6 +3426,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     16705_u16 => Vehicle {
+        tank_id: 16705,
         name: "AMX M4 mle. 49",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F74_AMX_M4_1949.png",
@@ -3054,6 +3435,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     16897_u16 => Vehicle {
+        tank_id: 16897,
         name: "Object 140",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object_140.png",
@@ -3062,6 +3444,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     17169_u16 => Vehicle {
+        tank_id: 17169,
         name: "Pz.Kpfw. IV Ausf. A",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_IV_AusfA.png",
@@ -3070,6 +3453,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     17217_u16 => Vehicle {
+        tank_id: 17217,
         name: "Eraser BP44",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ARL_44BP.png",
@@ -3078,6 +3462,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     17233_u16 => Vehicle {
+        tank_id: 17233,
         name: "FV4004 Conway",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB81_FV4004.png",
@@ -3086,6 +3471,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     17425_u16 => Vehicle {
+        tank_id: 17425,
         name: "Pz.Kpfw. IV Ausf. D",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_IV_AusfD.png",
@@ -3094,6 +3480,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     17473_u16 => Vehicle {
+        tank_id: 17473,
         name: "AMX Defender",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F69_AMX_13D.png",
@@ -3102,6 +3489,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     17489_u16 => Vehicle {
+        tank_id: 17489,
         name: "Charioteer",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB80_Charioteer.png",
@@ -3110,6 +3498,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     17729_u16 => Vehicle {
+        tank_id: 17729,
         name: "Somua SM",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F84_Somua_SM.png",
@@ -3118,6 +3507,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     17745_u16 => Vehicle {
+        tank_id: 17745,
         name: "FV217 Badger",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB92_FV217.png",
@@ -3126,6 +3516,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     17953_u16 => Vehicle {
+        tank_id: 17953,
         name: "M41 Walker Bulldog",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M41_Bulldog.png",
@@ -3134,6 +3525,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     17985_u16 => Vehicle {
+        tank_id: 17985,
         name: "Bretagne Panther",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F113_PzV_FR.png",
@@ -3142,6 +3534,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     18001_u16 => Vehicle {
+        tank_id: 18001,
         name: "FV4005",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB83_4005.png",
@@ -3150,6 +3543,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     18177_u16 => Vehicle {
+        tank_id: 18177,
         name: "T-54 ltwt.",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R109_T54S.png",
@@ -3158,6 +3552,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     18209_u16 => Vehicle {
+        tank_id: 18209,
         name: "T49",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A100_T49.png",
@@ -3166,6 +3561,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     18241_u16 => Vehicle {
+        tank_id: 18241,
         name: "Bat.-Châtillon Bourrasque",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F116_Bat_Chat_Bourrasque.png",
@@ -3174,6 +3570,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     18257_u16 => Vehicle {
+        tank_id: 18257,
         name: "Challenger",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB41_Challenger.png",
@@ -3182,6 +3579,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     18433_u16 => Vehicle {
+        tank_id: 18433,
         name: "LTTB",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R107_LTB.png",
@@ -3190,6 +3588,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     18449_u16 => Vehicle {
+        tank_id: 18449,
         name: "Ru 251",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G103_RU_251.png",
@@ -3198,6 +3597,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     18465_u16 => Vehicle {
+        tank_id: 18465,
         name: "M2 Light Tank",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-M2_lt_tutorial_bot.png",
@@ -3206,6 +3606,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     18497_u16 => Vehicle {
+        tank_id: 18497,
         name: "Lorraine 40 t Fearless",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F19_Lorraine40t_Com.png",
@@ -3214,6 +3615,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     18513_u16 => Vehicle {
+        tank_id: 18513,
         name: "Chimera",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB97_Chimera.png",
@@ -3222,6 +3624,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     18689_u16 => Vehicle {
+        tank_id: 18689,
         name: "T-70/57",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R43_T-70_57.png",
@@ -3230,6 +3633,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     18721_u16 => Vehicle {
+        tank_id: 18721,
         name: "M2 Light Tank",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-M2_lt_tutorial_bot2.png",
@@ -3238,6 +3642,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     18753_u16 => Vehicle {
+        tank_id: 18753,
         name: "AMX Canon d'assaut 105",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F89_Canon_dassaut_105.png",
@@ -3246,6 +3651,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     18769_u16 => Vehicle {
+        tank_id: 18769,
         name: "Caernarvon Action X",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB93_Caernarvon_AX.png",
@@ -3254,6 +3660,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     18945_u16 => Vehicle {
+        tank_id: 18945,
         name: "ISU-130",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R111_ISU130.png",
@@ -3262,6 +3669,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     18961_u16 => Vehicle {
+        tank_id: 18961,
         name: "Spähpanzer SP I C",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G113_SP_I_C.png",
@@ -3270,6 +3678,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     18977_u16 => Vehicle {
+        tank_id: 18977,
         name: "T95E6",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A95_T95E6.png",
@@ -3278,6 +3687,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     19009_u16 => Vehicle {
+        tank_id: 19009,
         name: "AMXmas",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F_AMX-12BP.png",
@@ -3286,6 +3696,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     19025_u16 => Vehicle {
+        tank_id: 19025,
         name: "Defender Mk. 1",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Centurion_MkDF.png",
@@ -3294,6 +3705,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     19201_u16 => Vehicle {
+        tank_id: 19201,
         name: "T-26",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-T-26_tutorial_bot.png",
@@ -3302,6 +3714,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     19217_u16 => Vehicle {
+        tank_id: 19217,
         name: "Grille 15",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G121_Grille_15_L63.png",
@@ -3310,6 +3723,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     19233_u16 => Vehicle {
+        tank_id: 19233,
         name: "Chrysler K",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A115_Chrysler_K.png",
@@ -3318,6 +3732,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     19265_u16 => Vehicle {
+        tank_id: 19265,
         name: "Charles",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Achilles_FR.png",
@@ -3326,6 +3741,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     19281_u16 => Vehicle {
+        tank_id: 19281,
         name: "Super Conqueror",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB91_Super_Conqueror.png",
@@ -3334,6 +3750,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     19457_u16 => Vehicle {
+        tank_id: 19457,
         name: "T-26",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-T-26_tutorial_bot2.png",
@@ -3342,6 +3759,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     19473_u16 => Vehicle {
+        tank_id: 19473,
         name: "Krupp-38(D)",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Krupp-38D.png",
@@ -3350,6 +3768,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     19489_u16 => Vehicle {
+        tank_id: 19489,
         name: "T28 Defender",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A68_T28D.png",
@@ -3358,6 +3777,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     19521_u16 => Vehicle {
+        tank_id: 19521,
         name: "#france_vehicles:Bat-Chat-25CL",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-Bat-Chat-25CL.png",
@@ -3366,6 +3786,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     19537_u16 => Vehicle {
+        tank_id: 19537,
         name: "Vickers Light 105",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Vickers_Light_105.png",
@@ -3374,6 +3795,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     19713_u16 => Vehicle {
+        tank_id: 19713,
         name: "Loza's M4-A2 Sherman",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R140_M4A2_Loza.png",
@@ -3382,6 +3804,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     19729_u16 => Vehicle {
+        tank_id: 19729,
         name: "Tiger 131",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G136_Tiger_131.png",
@@ -3390,6 +3813,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     19745_u16 => Vehicle {
+        tank_id: 19745,
         name: "T26E5",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A117_T26E5.png",
@@ -3398,6 +3822,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     19777_u16 => Vehicle {
+        tank_id: 19777,
         name: "AltProto AMX 30",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-F117_Alt_Proto_AMX_30.png",
@@ -3406,6 +3831,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     19793_u16 => Vehicle {
+        tank_id: 19793,
         name: "Vickers Cruiser",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Vickers_Cruiser.png",
@@ -3414,6 +3840,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     19969_u16 => Vehicle {
+        tank_id: 19969,
         name: "T-22 medium",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R120_T22SR.png",
@@ -3422,6 +3849,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     19985_u16 => Vehicle {
+        tank_id: 19985,
         name: "Skorpion G",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G114_Rheinmetall_Scorpion.png",
@@ -3430,6 +3858,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     20001_u16 => Vehicle {
+        tank_id: 20001,
         name: "T92E1",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A99_T92E1.png",
@@ -3438,6 +3867,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     20033_u16 => Vehicle {
+        tank_id: 20033,
         name: "Char Futur 4",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-F114_Projet_4_1.png",
@@ -3446,6 +3876,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     20049_u16 => Vehicle {
+        tank_id: 20049,
         name: "FV301",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_FV301.png",
@@ -3454,6 +3885,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     20241_u16 => Vehicle {
+        tank_id: 20241,
         name: "Pz.Kpfw. II",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-PzII_tutorial_bot2.png",
@@ -3462,6 +3894,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     20257_u16 => Vehicle {
+        tank_id: 20257,
         name: "XM551 Sheridan",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A116_XM551.png",
@@ -3470,6 +3903,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     20289_u16 => Vehicle {
+        tank_id: 20289,
         name: "Pirate",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-F34_ARL_V39_BP.png",
@@ -3478,6 +3912,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     20305_u16 => Vehicle {
+        tank_id: 20305,
         name: "Centurion Mk. 5/1 RAAC",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB94_Centurion_Mk5-1_RAAC.png",
@@ -3486,6 +3921,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     20481_u16 => Vehicle {
+        tank_id: 20481,
         name: "Object 252U",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R134_Object_252U.png",
@@ -3494,6 +3930,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     20497_u16 => Vehicle {
+        tank_id: 20497,
         name: "VK 100.01 (P)",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G115_VK10001P.png",
@@ -3502,6 +3939,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     20513_u16 => Vehicle {
+        tank_id: 20513,
         name: "T54E2",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A124_T54E2.png",
@@ -3510,6 +3948,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     20545_u16 => Vehicle {
+        tank_id: 20545,
         name: "Renault G1",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-F11_Renault_G1R.png",
@@ -3518,6 +3957,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     20561_u16 => Vehicle {
+        tank_id: 20561,
         name: "Turtle Mk. I",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB99_Turtle_Mk1.png",
@@ -3526,6 +3966,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     20737_u16 => Vehicle {
+        tank_id: 20737,
         name: "SU-130PM",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R159_SU_130PM.png",
@@ -3534,6 +3975,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     20753_u16 => Vehicle {
+        tank_id: 20753,
         name: "Mäuschen",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G110_Mauschen.png",
@@ -3542,6 +3984,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     20769_u16 => Vehicle {
+        tank_id: 20769,
         name: "T25 Pilot Number 1",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A111_T25_Pilot.png",
@@ -3550,6 +3993,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     20817_u16 => Vehicle {
+        tank_id: 20817,
         name: "Explorer",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB21_A27BP.png",
@@ -3558,6 +4002,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     20993_u16 => Vehicle {
+        tank_id: 20993,
         name: "T-2020",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R63_ST_IBD.png",
@@ -3566,6 +4011,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     21009_u16 => Vehicle {
+        tank_id: 21009,
         name: "Panzer 58",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G119_Pz58_Mutz.png",
@@ -3574,6 +4020,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     21025_u16 => Vehicle {
+        tank_id: 21025,
         name: "T26E3 Eagle 7",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A121_T26E3.png",
@@ -3582,6 +4029,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     21073_u16 => Vehicle {
+        tank_id: 21073,
         name: "Dreadnought",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB40_Gun_Carrier_BP.png",
@@ -3590,6 +4038,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     21249_u16 => Vehicle {
+        tank_id: 21249,
         name: "Thunder",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-1s-BP.png",
@@ -3598,6 +4047,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     21265_u16 => Vehicle {
+        tank_id: 21265,
         name: "VK 168.01 (P)",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G138_VK16801P.png",
@@ -3606,6 +4056,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     21281_u16 => Vehicle {
+        tank_id: 21281,
         name: "Rudolph",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M4A3E8_BP.png",
@@ -3614,6 +4065,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     21329_u16 => Vehicle {
+        tank_id: 21329,
         name: "GSOR 1008",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB109_GSOR_1008.png",
@@ -3622,6 +4074,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     21505_u16 => Vehicle {
+        tank_id: 21505,
         name: "T-44-85",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R98_T44_85.png",
@@ -3630,6 +4083,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     21521_u16 => Vehicle {
+        tank_id: 21521,
         name: "E 75 TS",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_E-75TS.png",
@@ -3638,6 +4092,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     21537_u16 => Vehicle {
+        tank_id: 21537,
         name: "Sherman Easy 8",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-M4A3E8TU.png",
@@ -3646,6 +4101,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     21585_u16 => Vehicle {
+        tank_id: 21585,
         name: "Blasteroid",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB63_TOG_II_BP.png",
@@ -3654,6 +4110,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     21761_u16 => Vehicle {
+        tank_id: 21761,
         name: "STG",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R146_STG.png",
@@ -3662,6 +4119,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     21777_u16 => Vehicle {
+        tank_id: 21777,
         name: "VK 90.01 (P)",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_VK9001P.png",
@@ -3670,6 +4128,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     21793_u16 => Vehicle {
+        tank_id: 21793,
         name: "XM551 Sheridan Missile",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A116_XM551_Exp.png",
@@ -3678,6 +4137,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     21841_u16 => Vehicle {
+        tank_id: 21841,
         name: "Caliban",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB112_Caliban.png",
@@ -3686,6 +4146,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22017_u16 => Vehicle {
+        tank_id: 22017,
         name: "T-34-85",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-T34_85TU.png",
@@ -3694,6 +4155,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     22033_u16 => Vehicle {
+        tank_id: 22033,
         name: "Agent",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK2801_BP.png",
@@ -3702,6 +4164,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     22049_u16 => Vehicle {
+        tank_id: 22049,
         name: "Magnus",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6E2BP.png",
@@ -3710,6 +4173,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22097_u16 => Vehicle {
+        tank_id: 22097,
         name: "Churchill VIII",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB_Churchill_MkVIII.png",
@@ -3718,6 +4182,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22273_u16 => Vehicle {
+        tank_id: 22273,
         name: "Object 260",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R110_Object_260.png",
@@ -3726,6 +4191,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22289_u16 => Vehicle {
+        tank_id: 22289,
         name: "Tiger I",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-PzVI_AusfTU.png",
@@ -3734,6 +4200,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22305_u16 => Vehicle {
+        tank_id: 22305,
         name: "AE Phase I",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A125_AEP_1.png",
@@ -3742,6 +4209,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22353_u16 => Vehicle {
+        tank_id: 22353,
         name: "Churchill W",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB09_Churchill_VII_BP.png",
@@ -3750,6 +4218,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22529_u16 => Vehicle {
+        tank_id: 22529,
         name: "LT-432",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R158_LT_432.png",
@@ -3758,6 +4227,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     22545_u16 => Vehicle {
+        tank_id: 22545,
         name: "Kanonenjagdpanzer 105",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G112_JagdPanzer_105.png",
@@ -3766,6 +4236,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     22561_u16 => Vehicle {
+        tank_id: 22561,
         name: "TS-5",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A122_TS-5.png",
@@ -3774,6 +4245,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     22609_u16 => Vehicle {
+        tank_id: 22609,
         name: "Caernarvon Defender",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB11_Caernarvon_D.png",
@@ -3782,6 +4254,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22785_u16 => Vehicle {
+        tank_id: 22785,
         name: "Triumphant",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T34_85BP.png",
@@ -3790,6 +4263,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     22801_u16 => Vehicle {
+        tank_id: 22801,
         name: "Icebreaker",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVI_AusfBP.png",
@@ -3798,6 +4272,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22817_u16 => Vehicle {
+        tank_id: 22817,
         name: "M-VI-Yoh",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-6-Y.png",
@@ -3806,6 +4281,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     22865_u16 => Vehicle {
+        tank_id: 22865,
         name: "Charlemagne",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB111_Charlemagne.png",
@@ -3814,6 +4290,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     23041_u16 => Vehicle {
+        tank_id: 23041,
         name: "T-34 shielded",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R154_T-34E-43.png",
@@ -3822,6 +4299,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     23057_u16 => Vehicle {
+        tank_id: 23057,
         name: "Kunze Panzer",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G147_mPanzer_64.png",
@@ -3830,6 +4308,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     23073_u16 => Vehicle {
+        tank_id: 23073,
         name: "M-V-Yoh",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-5-Y.png",
@@ -3838,6 +4317,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     23121_u16 => Vehicle {
+        tank_id: 23121,
         name: "Cobra",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB106_Cobra.png",
@@ -3846,6 +4326,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     23297_u16 => Vehicle {
+        tank_id: 23297,
         name: "Object 244",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-R160_object_244.png",
@@ -3854,6 +4335,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     23313_u16 => Vehicle {
+        tank_id: 23313,
         name: "Kampfpanzer 50 t",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G144_Kpz_50t.png",
@@ -3862,6 +4344,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     23329_u16 => Vehicle {
+        tank_id: 23329,
         name: "M-III-Yoh",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-3-Y.png",
@@ -3870,6 +4353,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     23553_u16 => Vehicle {
+        tank_id: 23553,
         name: "MS-1",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/MS-1obr21.png",
@@ -3878,6 +4362,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     23569_u16 => Vehicle {
+        tank_id: 23569,
         name: "Pz. IV Gargoyle",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_IV_AusfBT.png",
@@ -3886,6 +4371,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     23585_u16 => Vehicle {
+        tank_id: 23585,
         name: "M-VII-Yoh",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-7-Y.png",
@@ -3894,6 +4380,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     23809_u16 => Vehicle {
+        tank_id: 23809,
         name: "Object 84",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R_Object_84.png",
@@ -3902,6 +4389,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     23825_u16 => Vehicle {
+        tank_id: 23825,
         name: "Krupp-Steyr Waffenträger",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G109_Steyr_WT.png",
@@ -3910,6 +4398,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     23841_u16 => Vehicle {
+        tank_id: 23841,
         name: "Super Hellcat",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A130_Super_Hellcat.png",
@@ -3918,6 +4407,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     24065_u16 => Vehicle {
+        tank_id: 24065,
         name: "LTG",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R131_LTG.png",
@@ -3926,6 +4416,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     24081_u16 => Vehicle {
+        tank_id: 24081,
         name: "U-Panzer",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3002DB_BP.png",
@@ -3934,6 +4425,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     24097_u16 => Vehicle {
+        tank_id: 24097,
         name: "BLTZ9000",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M18E2BP.png",
@@ -3942,6 +4434,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     24321_u16 => Vehicle {
+        tank_id: 24321,
         name: "T-100 LT",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R132_T100LT.png",
@@ -3950,6 +4443,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     24337_u16 => Vehicle {
+        tank_id: 24337,
         name: "M48A2 Räumpanzer",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G142_M48RPz.png",
@@ -3958,6 +4452,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     24577_u16 => Vehicle {
+        tank_id: 24577,
         name: "Object 268 Version 4",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R149_Object_268_4.png",
@@ -3966,6 +4461,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     24593_u16 => Vehicle {
+        tank_id: 24593,
         name: "Keiler",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_E-75RT.png",
@@ -3974,6 +4470,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     24609_u16 => Vehicle {
+        tank_id: 24609,
         name: "Concept 1B",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A128_Concept_1b.png",
@@ -3982,6 +4479,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     24849_u16 => Vehicle {
+        tank_id: 24849,
         name: "Kryos",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPzIV_AusfBP.png",
@@ -3990,6 +4488,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     24865_u16 => Vehicle {
+        tank_id: 24865,
         name: "Scepter",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-3-Y-Midas.png",
@@ -3998,6 +4497,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     25089_u16 => Vehicle {
+        tank_id: 25089,
         name: "Object 752",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R172_Object_752.png",
@@ -4006,6 +4506,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     25105_u16 => Vehicle {
+        tank_id: 25105,
         name: "Barkhan",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_VK3502_BP.png",
@@ -4014,6 +4515,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     25345_u16 => Vehicle {
+        tank_id: 25345,
         name: "Object 274a",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R180_Object_274A.png",
@@ -4022,6 +4524,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     25361_u16 => Vehicle {
+        tank_id: 25361,
         name: "Waffenträger Ritter",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Waffentrager_IV_CL.png",
@@ -4030,6 +4533,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     25377_u16 => Vehicle {
+        tank_id: 25377,
         name: "T77",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A132_T77.png",
@@ -4038,6 +4542,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     25601_u16 => Vehicle {
+        tank_id: 25601,
         name: "IS-2 shielded",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-R175_IS_2E.png",
@@ -4046,6 +4551,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     25617_u16 => Vehicle {
+        tank_id: 25617,
         name: "HWK 30",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-G140_HWK_30.png",
@@ -4054,6 +4560,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     25633_u16 => Vehicle {
+        tank_id: 25633,
         name: "M-IV-Y",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A141_M-4-Y.png",
@@ -4062,6 +4569,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     25857_u16 => Vehicle {
+        tank_id: 25857,
         name: "Object 777 Version II",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-R119_Object_777.png",
@@ -4070,6 +4578,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     25889_u16 => Vehicle {
+        tank_id: 25889,
         name: "Ranger",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T21_BP.png",
@@ -4078,6 +4587,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     26113_u16 => Vehicle {
+        tank_id: 26113,
         name: "Object 452K",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-R181_Object_452K.png",
@@ -4086,6 +4596,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     26129_u16 => Vehicle {
+        tank_id: 26129,
         name: "Epsilon",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-Nashorn_BP.png",
@@ -4094,6 +4605,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     26145_u16 => Vehicle {
+        tank_id: 26145,
         name: "High Score",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A05_M4_105BD.png",
@@ -4102,6 +4614,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     26401_u16 => Vehicle {
+        tank_id: 26401,
         name: "Enforcer",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M36_BP.png",
@@ -4110,6 +4623,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     26657_u16 => Vehicle {
+        tank_id: 26657,
         name: "ASTRON Rex 105 mm",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A140_ASTRON_REX_105.png",
@@ -4118,6 +4632,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     26913_u16 => Vehicle {
+        tank_id: 26913,
         name: "Frosty",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M24_Chaffee_BP.png",
@@ -4126,6 +4641,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     27169_u16 => Vehicle {
+        tank_id: 27169,
         name: "Cyborg",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6E2V2_BP.png",
@@ -4134,6 +4650,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     27425_u16 => Vehicle {
+        tank_id: 27425,
         name: "TL-7-120",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-A146_TL_7_120.png",
@@ -4142,6 +4659,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     27681_u16 => Vehicle {
+        tank_id: 27681,
         name: "Pawlack Tank",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-A142_Pawlack_Tank.png",
@@ -4150,6 +4668,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     27937_u16 => Vehicle {
+        tank_id: 27937,
         name: "T49 Fearless",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T49_Fearless.png",
@@ -4158,6 +4677,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     28193_u16 => Vehicle {
+        tank_id: 28193,
         name: "TS-60",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-A151_TS_60.png",
@@ -4166,6 +4686,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     28449_u16 => Vehicle {
+        tank_id: 28449,
         name: "T42",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-A136_T42.png",
@@ -4174,6 +4695,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     51201_u16 => Vehicle {
+        tank_id: 51201,
         name: "KV-220 Beta-Test",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-220.png",
@@ -4182,6 +4704,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     51457_u16 => Vehicle {
+        tank_id: 51457,
         name: "Matilda IV",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Matilda_II_LL.png",
@@ -4190,6 +4713,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     51473_u16 => Vehicle {
+        tank_id: 51473,
         name: "Pz.Kpfw. V/IV",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzV_PzIV.png",
@@ -4198,6 +4722,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     51489_u16 => Vehicle {
+        tank_id: 51489,
         name: "T2 Light Tank",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T2_lt.png",
@@ -4206,6 +4731,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     51713_u16 => Vehicle {
+        tank_id: 51713,
         name: "Churchill III",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Churchill_LL.png",
@@ -4214,6 +4740,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     51729_u16 => Vehicle {
+        tank_id: 51729,
         name: "Pz.Kpfw. II Ausf. J",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzII_J.png",
@@ -4222,6 +4749,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     51745_u16 => Vehicle {
+        tank_id: 51745,
         name: "Ram II",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ram-II.png",
@@ -4230,6 +4758,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     51809_u16 => Vehicle {
+        tank_id: 51809,
         name: "Type 98 Ke-Ni Otsu",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ke_Ni_B.png",
@@ -4238,6 +4767,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     51985_u16 => Vehicle {
+        tank_id: 51985,
         name: "Pz.Kpfw. S35 739 (f)",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S35_captured.png",
@@ -4246,6 +4776,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     52065_u16 => Vehicle {
+        tank_id: 52065,
         name: "Hetzer Kame SP",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G09_Hetzer_GuP.png",
@@ -4254,6 +4785,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     52225_u16 => Vehicle {
+        tank_id: 52225,
         name: "BT-SV",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/BT-SV.png",
@@ -4262,6 +4794,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     52241_u16 => Vehicle {
+        tank_id: 52241,
         name: "Pz.Kpfw. B2 740 (f)",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/B-1bis_captured.png",
@@ -4270,6 +4803,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     52257_u16 => Vehicle {
+        tank_id: 52257,
         name: "M4A2E4 Sherman",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M4A2E4.png",
@@ -4278,6 +4812,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     52481_u16 => Vehicle {
+        tank_id: 52481,
         name: "Valentine II",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Valentine_LL.png",
@@ -4286,6 +4821,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     52497_u16 => Vehicle {
+        tank_id: 52497,
         name: "Pz.Kpfw. 38H 735 (f)",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/H39_captured.png",
@@ -4294,6 +4830,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     52513_u16 => Vehicle {
+        tank_id: 52513,
         name: "M6A2E1",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6A2E1.png",
@@ -4302,6 +4839,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     52561_u16 => Vehicle {
+        tank_id: 52561,
         name: "Tortoise",
         tier: 9,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB32_Tortoise.png",
@@ -4310,6 +4848,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     52737_u16 => Vehicle {
+        tank_id: 52737,
         name: "M3 Light",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M3_Stuart_LL.png",
@@ -4318,6 +4857,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     52769_u16 => Vehicle {
+        tank_id: 52769,
         name: "M22 Locust",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M22_Locust.png",
@@ -4326,6 +4866,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     52993_u16 => Vehicle {
+        tank_id: 52993,
         name: "A-32",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A-32.png",
@@ -4334,6 +4875,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     53025_u16 => Vehicle {
+        tank_id: 53025,
         name: "M6A2E1 EXP",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6A2E1_exp.png",
@@ -4342,6 +4884,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     53249_u16 => Vehicle {
+        tank_id: 53249,
         name: "KV-5",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-5.png",
@@ -4350,6 +4893,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     53505_u16 => Vehicle {
+        tank_id: 53505,
         name: "T-127",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-127.png",
@@ -4358,6 +4902,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     53537_u16 => Vehicle {
+        tank_id: 53537,
         name: "T1E6",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T1_E6.png",
@@ -4366,6 +4911,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     53585_u16 => Vehicle {
+        tank_id: 53585,
         name: "Matilda Black Prince",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB68_Matilda_Black_Prince.png",
@@ -4374,6 +4920,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     53761_u16 => Vehicle {
+        tank_id: 53761,
         name: "SU-85I",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU_85I.png",
@@ -4382,6 +4929,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     53841_u16 => Vehicle {
+        tank_id: 53841,
         name: "TOG II*",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB63_TOG_II.png",
@@ -4390,6 +4938,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     54097_u16 => Vehicle {
+        tank_id: 54097,
         name: "AT 15A",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB71_AT_15A.png",
@@ -4398,6 +4947,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     54273_u16 => Vehicle {
+        tank_id: 54273,
         name: "SU-76I",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU76I.png",
@@ -4406,6 +4956,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     54289_u16 => Vehicle {
+        tank_id: 54289,
         name: "Löwe",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Lowe.png",
@@ -4414,6 +4965,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     54353_u16 => Vehicle {
+        tank_id: 54353,
         name: "Excelsior",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB51_Excelsior.png",
@@ -4422,6 +4974,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     54529_u16 => Vehicle {
+        tank_id: 54529,
         name: "Tetrarch",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Tetrarch_LL.png",
@@ -4430,6 +4983,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     54545_u16 => Vehicle {
+        tank_id: 54545,
         name: "T-25",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-25.png",
@@ -4438,6 +4992,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     54785_u16 => Vehicle {
+        tank_id: 54785,
         name: "SU-100Y",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU100Y.png",
@@ -4446,6 +5001,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     54801_u16 => Vehicle {
+        tank_id: 54801,
         name: "T-15",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-15.png",
@@ -4454,6 +5010,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     54865_u16 => Vehicle {
+        tank_id: 54865,
         name: "Light Mk. VIC",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB76_Mk_VIC.png",
@@ -4462,6 +5019,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     55057_u16 => Vehicle {
+        tank_id: 55057,
         name: "Pz.Kpfw. IV hydrostat.",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIV_Hydro.png",
@@ -4470,6 +5028,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     55073_u16 => Vehicle {
+        tank_id: 55073,
         name: "T7 Combat Car",
         tier: 2,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T7_Combat_Car.png",
@@ -4478,6 +5037,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     55297_u16 => Vehicle {
+        tank_id: 55297,
         name: "SU-122-44",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU122_44.png",
@@ -4486,6 +5046,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     55313_u16 => Vehicle {
+        tank_id: 55313,
         name: "8,8 cm Pak 43 Jagdtiger",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdTiger_SdKfz_185.png",
@@ -4494,6 +5055,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     55889_u16 => Vehicle {
+        tank_id: 55889,
         name: "Cromwell B",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB85_Cromwell_Berlin.png",
@@ -4502,6 +5064,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     56097_u16 => Vehicle {
+        tank_id: 56097,
         name: "M4A3E8 Fury",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A104_M4A3E8A.png",
@@ -4510,6 +5073,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     56577_u16 => Vehicle {
+        tank_id: 56577,
         name: "LTP",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/LTP.png",
@@ -4518,6 +5082,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     56609_u16 => Vehicle {
+        tank_id: 56609,
         name: "T28 Concept",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A102_T28_concept.png",
@@ -4526,6 +5091,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     57105_u16 => Vehicle {
+        tank_id: 57105,
         name: "Dicker Max",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/DickerMax.png",
@@ -4534,6 +5100,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     57361_u16 => Vehicle {
+        tank_id: 57361,
         name: "Pz.Kpfw. IV Schmalturm",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIV_schmalturm.png",
@@ -4542,6 +5109,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     57617_u16 => Vehicle {
+        tank_id: 57617,
         name: "Panther/M10",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Panther_M10.png",
@@ -4550,6 +5118,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     58641_u16 => Vehicle {
+        tank_id: 58641,
         name: "VK 72.01 (K)",
         tier: 10,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK7201.png",
@@ -4558,6 +5127,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     58881_u16 => Vehicle {
+        tank_id: 58881,
         name: "IS-5 (Object 730)",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R113_Object_730.png",
@@ -4566,6 +5136,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     59137_u16 => Vehicle {
+        tank_id: 59137,
         name: "IS-2 (1945)",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R71_IS_2B.png",
@@ -4574,6 +5145,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     59649_u16 => Vehicle {
+        tank_id: 59649,
         name: "ISU-122S",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R116_ISU122C_Berlin.png",
@@ -4582,6 +5154,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     59665_u16 => Vehicle {
+        tank_id: 59665,
         name: "Großtraktor - Krupp",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G100_Gtraktor_Krupp.png",
@@ -4590,6 +5163,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     59905_u16 => Vehicle {
+        tank_id: 59905,
         name: "T-54 first prototype",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R112_T54_45.png",
@@ -4598,6 +5172,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     60161_u16 => Vehicle {
+        tank_id: 60161,
         name: "IS-2Sh",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-2Sh.png",
@@ -4606,6 +5181,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     60177_u16 => Vehicle {
+        tank_id: 60177,
         name: "Panther mit 8,8 cm L/71",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G106_PzKpfwPanther_AusfF.png",
@@ -4614,6 +5190,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     60417_u16 => Vehicle {
+        tank_id: 60417,
         name: "IS-3 Defender",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R115_IS-3_auto.png",
@@ -4622,6 +5199,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     60929_u16 => Vehicle {
+        tank_id: 60929,
         name: "BT-7 artillery",
         tier: 3,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R105_BT_7A.png",
@@ -4630,6 +5208,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     62737_u16 => Vehicle {
+        tank_id: 62737,
         name: "leKpz M 41 90 mm",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G120_M41_90.png",
@@ -4638,6 +5217,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     62977_u16 => Vehicle {
+        tank_id: 62977,
         name: "T-44-100",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R127_T44_100_P.png",
@@ -4646,6 +5226,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     62993_u16 => Vehicle {
+        tank_id: 62993,
         name: "VK 45.03",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G118_VK4503.png",
@@ -4654,6 +5235,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     63553_u16 => Vehicle {
+        tank_id: 63553,
         name: "AMX Chasseur de chars",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F68_AMX_Chasseur_de_char_46.png",
@@ -4662,6 +5244,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     63585_u16 => Vehicle {
+        tank_id: 63585,
         name: "Tiger Kuromorimine SP",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVI_GuP.png",
@@ -4670,6 +5253,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     63601_u16 => Vehicle {
+        tank_id: 63601,
         name: "Dracula",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_dracula.png",
@@ -4678,6 +5262,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     63841_u16 => Vehicle {
+        tank_id: 63841,
         name: "Panzer IV Ankou Special",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_IV_AusfH.png",
@@ -4686,6 +5271,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     64001_u16 => Vehicle {
+        tank_id: 64001,
         name: "T-34-85 Rudy",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-34-85_Rudy.png",
@@ -4694,6 +5280,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     64017_u16 => Vehicle {
+        tank_id: 64017,
         name: "Tankenstein",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S01_Frankentank.png",
@@ -4702,6 +5289,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     64065_u16 => Vehicle {
+        tank_id: 64065,
         name: "FCM 50 t",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/FCM_50t.png",
@@ -4710,6 +5298,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     64081_u16 => Vehicle {
+        tank_id: 64081,
         name: "Mk I* Heavy Tank",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB_Mark_I.png",
@@ -4718,6 +5307,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     64257_u16 => Vehicle {
+        tank_id: 64257,
         name: "T-34-85 Victory",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-34-85_Victory.png",
@@ -4726,6 +5316,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     64273_u16 => Vehicle {
+        tank_id: 64273,
         name: "Snowstorm Jagdtiger 8.8",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdTiger_SdKfz_185_Snowstorm.png",
@@ -4734,6 +5325,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     64337_u16 => Vehicle {
+        tank_id: 64337,
         name: "AC IV Sentinel",
         tier: 6,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB35_Sentinel_AC_IV.png",
@@ -4742,6 +5334,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     64529_u16 => Vehicle {
+        tank_id: 64529,
         name: "E 25",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E-25.png",
@@ -4750,6 +5343,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     64561_u16 => Vehicle {
+        tank_id: 64561,
         name: "112 Glacial",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch23_112.png",
@@ -4758,6 +5352,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     64593_u16 => Vehicle {
+        tank_id: 64593,
         name: "Angry Connor",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB44_Archer_Custom.png",
@@ -4766,6 +5361,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
     },
     64769_u16 => Vehicle {
+        tank_id: 64769,
         name: "IS-6 Fearless",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object252_Fearless.png",
@@ -4774,6 +5370,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     64785_u16 => Vehicle {
+        tank_id: 64785,
         name: "Pz.Kpfw. II",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-PzII_tutorial_bot.png",
@@ -4782,6 +5379,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     64801_u16 => Vehicle {
+        tank_id: 64801,
         name: "T34 (1776)",
         tier: 8,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T34_hvy_Freedom.png",
@@ -4790,6 +5388,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
     },
     64849_u16 => Vehicle {
+        tank_id: 64849,
         name: "Sentinel\u{a0}AC I",
         tier: 4,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sentinel_AC1.png",
@@ -4798,6 +5397,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     65025_u16 => Vehicle {
+        tank_id: 65025,
         name: "MS-1 mod. 1",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-MS-1_tutorial_bot.png",
@@ -4806,6 +5406,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     65041_u16 => Vehicle {
+        tank_id: 65041,
         name: "Leichttraktor",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-Ltraktor_tutorial_bot.png",
@@ -4814,6 +5415,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     65057_u16 => Vehicle {
+        tank_id: 65057,
         name: "T1 Cunningham",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-T1_Cunningham_tutorial_bot.png",
@@ -4822,6 +5424,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     65105_u16 => Vehicle {
+        tank_id: 65105,
         name: "Vickers Medium Mk. I",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB01_Medium_Mark_I_tutorial_bot.png",
@@ -4830,6 +5433,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     65281_u16 => Vehicle {
+        tank_id: 65281,
         name: "MS-1 mod. 1",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-MS-1_tutorial_bot2.png",
@@ -4838,6 +5442,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     65297_u16 => Vehicle {
+        tank_id: 65297,
         name: "Leichttraktor",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-Ltraktor_tutorial_bot2.png",
@@ -4846,6 +5451,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     65313_u16 => Vehicle {
+        tank_id: 65313,
         name: "T1 Cunningham",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-T1_Cunningham_tutorial_bot2.png",
@@ -4854,6 +5460,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     65329_u16 => Vehicle {
+        tank_id: 65329,
         name: "Type 62",
         tier: 7,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch02_Type62.png",
@@ -4862,6 +5469,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
     },
     65361_u16 => Vehicle {
+        tank_id: 65361,
         name: "Vickers Medium Mk. I",
         tier: 1,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB01_Medium_Mark_I_tutorial_bot2.png",
@@ -4870,6 +5478,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
     },
     65377_u16 => Vehicle {
+        tank_id: 65377,
         name: "Type 3 Chi-Nu Kai Shinobi",
         tier: 5,
         image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Nu_Kai.png",

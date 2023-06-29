@@ -81,6 +81,7 @@ impl AppState {
                     .await?
                     .into_iter()
                     .filter(VehicleStats::is_played)
+                    .filter(|stats| TANKOPEDIA.contains_key(&stats.tank_id))
                     .sorted_unstable_by(|lhs, rhs| rhs.last_battle_time.cmp(&lhs.last_battle_time))
                     .map(|stats| (stats.tank_id, stats))
                     .collect();

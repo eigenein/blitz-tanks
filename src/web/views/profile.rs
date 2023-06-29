@@ -58,8 +58,7 @@ pub async fn get(
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
                                 (
-                                    VehicleCard::new(stats.tank_id)
-                                        .tankopedia(TANKOPEDIA.get(&stats.tank_id))
+                                    VehicleCard::new(&TANKOPEDIA[&stats.tank_id])
                                         .last_battle_time(stats.last_battle_time)
                                         .rating(user.account_id, votes.get(&stats.tank_id).copied())
                                 )

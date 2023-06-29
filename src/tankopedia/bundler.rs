@@ -55,6 +55,7 @@ impl BundleTankopedia {
         writeln!(&mut bundle, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
         for vehicle in vehicles {
             writeln!(&mut bundle, "    {}_u16 => Vehicle {{", vehicle.tank_id)?;
+            writeln!(&mut bundle, "        tank_id: {:?},", vehicle.tank_id)?;
             writeln!(&mut bundle, "        name: {:?},", vehicle.user_string)?;
             writeln!(&mut bundle, "        tier: {:?},", vehicle.tier)?;
             writeln!(&mut bundle, "        image_url: {:?},", vehicle.image_url)?;

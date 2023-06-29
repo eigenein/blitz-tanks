@@ -7,30 +7,23 @@ use crate::{
 };
 
 #[must_use]
-pub struct VehicleCard<'a> {
-    tank_id: u16,
-    vehicle: Option<&'a Vehicle>,
+pub struct VehicleCard {
+    vehicle: &'static Vehicle,
     last_battle_time: Option<DateTime>,
     title_style: &'static str,
     rating: Option<(u32, Option<Rating>)>,
     predicted_rating: Option<f64>,
 }
 
-impl<'a> VehicleCard<'a> {
-    pub const fn new(tank_id: u16) -> Self {
+impl VehicleCard {
+    pub const fn new(vehicle: &'static Vehicle) -> Self {
         Self {
-            tank_id,
-            vehicle: None,
+            vehicle,
             last_battle_time: None,
             title_style: "is-5",
             rating: None,
             predicted_rating: None,
         }
-    }
-
-    pub fn tankopedia(&mut self, vehicle: impl Into<Option<&'a Vehicle>>) -> &mut Self {
-        self.vehicle = vehicle.into();
-        self
     }
 
     pub fn last_battle_time(&mut self, last_battle_time: impl Into<Option<DateTime>>) -> &mut Self {
@@ -106,7 +99,7 @@ impl<'a> VehicleCard<'a> {
                 p.control.is-expanded {
                     a.button.is-small.is-rounded.is-fullwidth
                         title="View in Armor Inspector (external resource)"
-                        href=(format!("https://armor.wotinspector.com/en/blitz/{}-/", self.tank_id))
+                        href=(format!("https://armor.wotinspector.com/en/blitz/{}-/", self.vehicle.tank_id))
                     {
                         span.icon.is-small { i.fa-solid.fa-arrow-up-right-from-square {} }
                         @if is_expanded {
@@ -119,17 +112,14 @@ impl<'a> VehicleCard<'a> {
     }
 }
 
-impl<'a> Render for VehicleCard<'a> {
+impl Render for VehicleCard {
     fn render(&self) -> Markup {
         html! {
             div.card {
                 div.card-image {
                     figure.image."is-3by2" {
-                        @let url = self
-                            .vehicle
-                            .map_or("https://dummyimage.com/1080x720", |d| d.image_url);
                         img.has-object-fit-contain
-                            src=(url)
+                            src=(self.vehicle.image_url)
                             loading="lazy"
                             onerror="this.onerror=null;this.src='https://dummyimage.com/1080x720'";
                     }
@@ -140,16 +130,11 @@ impl<'a> Render for VehicleCard<'a> {
                         div.media-content {
                             p.title.(self.title_style) {
                                 span.icon-text.is-flex-wrap-nowrap {
-                                    span {
-                                        @match self.vehicle {
-                                            Some(vehicle) => {
-                                                span
-                                                    .has-text-warning-dark[vehicle.is_premium && !vehicle.is_collectible]
-                                                    .has-text-info-dark[vehicle.is_collectible]
-                                                { (vehicle.name) }
-                                            },
-                                            None => { "#" (self.tank_id) },
-                                        }
+                                    span
+                                        .has-text-warning-dark[self.vehicle.is_premium()]
+                                        .has-text-info-dark[self.vehicle.is_collectible]
+                                    {
+                                        (self.vehicle.name)
                                     }
                                 }
                             }
@@ -176,7 +161,7 @@ impl<'a> Render for VehicleCard<'a> {
                     div.field.is-horizontal {
                         div.field-body {
                             @if let Some((account_id, rating)) = self.rating {
-                                (Self::vehicle_rate_buttons(account_id, self.tank_id, rating))
+                                (Self::vehicle_rate_buttons(account_id, self.vehicle.tank_id, rating))
                             }
                             (self.vehicle_inspector_button(self.rating.is_none()))
                         }
