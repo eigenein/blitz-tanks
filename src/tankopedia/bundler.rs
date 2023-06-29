@@ -32,8 +32,7 @@ impl BundleTankopedia {
 
         let vehicles_path = self.data_path.join("XML").join("item_defs").join("vehicles");
         let mut vehicles: Vec<Vehicle> = stream::iter(Self::NATIONS)
-            .map(|nation| vehicles_path.join(nation))
-            .then(|path| Self::stream_nation(path, &client))
+            .then(|nation| Self::stream_nation(&vehicles_path, nation, &client))
             .try_flatten()
             .try_collect()
             .await?;
@@ -69,11 +68,12 @@ impl BundleTankopedia {
         Ok(())
     }
 
-    async fn stream_nation(
-        root_path: PathBuf,
-        client: &Client,
-    ) -> Result<impl Stream<Item = Result<Vehicle>> + '_> {
-        let path = root_path.join("list.xml.dvpl");
+    async fn stream_nation<'a>(
+        vehicles_path: &'a Path,
+        nation: &'static str,
+        client: &'a Client,
+    ) -> Result<impl Stream<Item = Result<Vehicle>> + 'a> {
+        let path = vehicles_path.join(nation).join("list.xml.dvpl");
         info!(?path, "📝 Unpacking…");
         let xml = {
             let dvpl = read(&path).with_context(|| format!("failed to read `{path:?}`"))?;
