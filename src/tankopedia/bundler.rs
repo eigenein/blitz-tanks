@@ -6,12 +6,11 @@ use std::{
 };
 
 use clap::Args;
+use futures::{stream, Stream, StreamExt, TryStreamExt};
+use reqwest::Client;
 use serde::Deserialize;
 
-use crate::{
-    prelude::*,
-    tankopedia::{dvpl::unpack_dvpl, Vehicle},
-};
+use crate::{prelude::*, tankopedia::dvpl::unpack_dvpl};
 
 #[derive(Args)]
 pub struct BundleTankopedia {
@@ -24,98 +23,111 @@ pub struct BundleTankopedia {
 }
 
 impl BundleTankopedia {
-    pub fn run(self) -> Result {
+    const NATIONS: [&'static str; 9] = [
+        "germany", "usa", "china", "france", "uk", "japan", "other", "european", "ussr",
+    ];
+
+    pub async fn run(self) -> Result {
+        let client = Client::new();
+
         let vehicles_path = self.data_path.join("XML").join("item_defs").join("vehicles");
-        let vehicles: BTreeMap<u16, ClientVehicle> =
-            Self::iter_nation(&vehicles_path.join("ussr"), 0)?
-                .chain(Self::iter_nation(&vehicles_path.join("germany"), 1)?)
-                .chain(Self::iter_nation(&vehicles_path.join("usa"), 2)?)
-                .chain(Self::iter_nation(&vehicles_path.join("china"), 3)?)
-                .chain(Self::iter_nation(&vehicles_path.join("france"), 4)?)
-                .chain(Self::iter_nation(&vehicles_path.join("uk"), 5)?)
-                .chain(Self::iter_nation(&vehicles_path.join("japan"), 6)?)
-                .chain(Self::iter_nation(&vehicles_path.join("other"), 7)?)
-                .chain(Self::iter_nation(&vehicles_path.join("european"), 8)?)
-                .collect();
+        let mut vehicles: Vec<Vehicle> = stream::iter(Self::NATIONS)
+            .map(|nation| vehicles_path.join(nation))
+            .then(|path| Self::stream_nation(path, &client))
+            .try_flatten()
+            .try_collect()
+            .await?;
+        vehicles.sort_unstable_by_key(|vehicle| vehicle.tank_id);
+
         let mut bundle = File::options()
             .write(true)
             .create(true)
             .open(Path::new("src").join("tankopedia").join("vendored.rs"))?;
-
         writeln!(
             &mut bundle,
             "//! Auto-generated tankopedia, to update run `blitz-tanks bundle-tankopedia`.",
         )?;
         writeln!(&mut bundle)?;
-        writeln!(&mut bundle, "use phf::{{Map, phf_map}};")?;
+        writeln!(&mut bundle, "use phf::{{phf_map, Map}};")?;
         writeln!(&mut bundle)?;
-        writeln!(&mut bundle, "use crate::tankopedia::Vehicle;")?;
+        writeln!(&mut bundle, "use crate::tankopedia::{{Vehicle, VehicleType}};")?;
         writeln!(&mut bundle)?;
-        writeln!(&mut bundle, "#[rustfmt::skip]")?;
         writeln!(&mut bundle, "static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
-        for (tank_id, vehicle) in vehicles {
-            let vehicle = Vehicle { tier: vehicle.tier };
-            writeln!(&mut bundle, "    {tank_id}_u16 => {:?},", vehicle)?;
+        for vehicle in vehicles {
+            writeln!(&mut bundle, "    {}_u16 => Vehicle {{", vehicle.tank_id)?;
+            writeln!(&mut bundle, "        name: {:?},", vehicle.user_string)?;
+            writeln!(&mut bundle, "        tier: {:?},", vehicle.tier)?;
+            writeln!(&mut bundle, "        image_url: {:?},", vehicle.image_url)?;
+            writeln!(&mut bundle, "        is_premium: {:?},", vehicle.is_premium)?;
+            writeln!(&mut bundle, "        is_collectible: {:?},", vehicle.is_collectible)?;
+            writeln!(&mut bundle, "        type_: VehicleType::{:?},", vehicle.type_)?;
+            writeln!(&mut bundle, "    }},")?;
         }
         writeln!(&mut bundle, "}};")?;
 
         Ok(())
     }
 
-    fn iter_nation(
-        root_path: &Path,
-        nation_id: u16,
-    ) -> Result<impl Iterator<Item = (u16, ClientVehicle)>> {
+    async fn stream_nation(
+        root_path: PathBuf,
+        client: &Client,
+    ) -> Result<impl Stream<Item = Result<Vehicle>> + '_> {
         let path = root_path.join("list.xml.dvpl");
         info!(?path, "📝 Unpacking…");
-        let dvpl = read(&path).with_context(|| format!("failed to read `{path:?}`"))?;
-        let xml = unpack_dvpl(dvpl).with_context(|| format!("failed to unpack `{path:?}`"))?;
-        let vehicles: BTreeMap<String, ClientVehicle> =
+        let xml = {
+            let dvpl = read(&path).with_context(|| format!("failed to read `{path:?}`"))?;
+            unpack_dvpl(dvpl).with_context(|| format!("failed to unpack `{path:?}`"))?
+        };
+        let vehicles: BTreeMap<String, ()> =
             quick_xml::de::from_reader(xml.as_slice()).context("failed to deserialize the XML")?;
-        Ok(vehicles
-            .into_values()
-            .map(move |vehicle| (vehicle.make_tank_id(nation_id), vehicle)))
+        let stream = stream::iter(vehicles)
+            .then(|(vehicle_tag, _)| Self::get_vehicle_details(client, vehicle_tag));
+        Ok(stream)
+    }
+
+    #[instrument(skip_all, fields(vehicle_tag = vehicle_tag))]
+    async fn get_vehicle_details(client: &Client, vehicle_tag: String) -> Result<Vehicle> {
+        info!("☎️ Requesting…");
+        client
+            .get(format!("https://eu.wotblitz.com/en/api/tankopedia/vehicle/{vehicle_tag}/"))
+            .send()
+            .await
+            .with_context(|| format!("failed to request vehicle `{vehicle_tag}`"))?
+            .json()
+            .await
+            .with_context(|| format!("failed to deserialize vehicle `{vehicle_tag}`"))
     }
 }
 
 /// Game client's vehicle listing item. We only use it to parse the XMLs.
 #[derive(Deserialize)]
-struct ClientVehicle {
-    id: u16,
-
-    #[serde(rename = "userString")]
-    user_string: String,
+struct Vehicle {
+    #[serde(rename = "id")]
+    tank_id: u16,
 
     #[serde(rename = "level")]
     tier: u8,
 
-    tags: Vec<Tag>,
+    #[serde(rename = "type_slug")]
+    type_: VehicleType,
+
+    user_string: String,
+    image_url: String,
+    is_premium: bool,
+    is_collectible: bool,
 }
 
-impl ClientVehicle {
-    #[inline]
-    pub const fn make_tank_id(&self, nation_id: u16) -> u16 {
-        (self.id << 8) + (nation_id << 4) + 1
-    }
-}
-
-#[derive(Deserialize)]
-enum Tag {
+#[derive(Debug, Deserialize)]
+enum VehicleType {
     #[serde(rename = "lightTank")]
-    LightTank,
-
-    #[serde(rename = "heavyTank")]
-    HeavyTank,
+    Light,
 
     #[serde(rename = "mediumTank")]
-    MediumTank,
+    Medium,
+
+    #[serde(rename = "heavyTank")]
+    Heavy,
 
     #[serde(rename = "AT-SPG")]
     AntiTank,
-
-    #[serde(rename = "collectible")]
-    Collectible,
-
-    #[serde(other)]
-    Other,
 }

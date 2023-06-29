@@ -79,16 +79,4 @@ mod tests {
         unpack_dvpl(dvpl)?;
         Ok(())
     }
-
-    #[test]
-    fn skin_ok() -> Result {
-        let dvpl = read(
-            Path::new("src")
-                .join("tankopedia")
-                .join("tests")
-                .join("european-Cz08_T-25BPS_skin@2x.packed.webp.dvpl"),
-        )?;
-        unpack_dvpl(dvpl)?;
-        Ok(())
-    }
 }

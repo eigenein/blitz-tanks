@@ -1,8 +1,12 @@
 use clap::{Args, Parser, Subcommand};
 
 use crate::{
-    db::Db, giveaway::Giveaway, prelude::*, tankopedia::bundler::BundleTankopedia,
-    trainer::Trainer, web::Web,
+    db::Db,
+    giveaway::Giveaway,
+    prelude::*,
+    tankopedia::{bundler::BundleTankopedia, unpacker::UnpackData},
+    trainer::Trainer,
+    web::Web,
 };
 
 #[derive(Parser)]
@@ -37,15 +41,19 @@ pub enum Command {
 
     /// Parse the client resources and bundle the tankopedia to the source code.
     BundleTankopedia(BundleTankopedia),
+
+    /// Unpack DVPL's recursively in the specified directory.
+    UnpackData(UnpackData),
 }
 
 impl Command {
     pub async fn run(self) -> Result {
         match self {
+            Self::BundleTankopedia(bundle_tankopedia) => bundle_tankopedia.run().await,
             Self::Giveaway(giveaway) => giveaway.run().await,
             Self::Trainer(trainer) => trainer.run().await,
+            Self::UnpackData(unpack_data) => unpack_data.run(),
             Self::Web(web) => web.run().await,
-            Self::BundleTankopedia(bundle_tankopedia) => bundle_tankopedia.run(),
         }
     }
 }
