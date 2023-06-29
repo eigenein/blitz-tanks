@@ -1,6 +1,9 @@
 use clap::{Args, Parser, Subcommand};
 
-use crate::{db::Db, giveaway::Giveaway, prelude::*, trainer::Trainer, web::Web};
+use crate::{
+    db::Db, giveaway::Giveaway, prelude::*, tankopedia::bundler::BundleTankopedia,
+    trainer::Trainer, web::Web,
+};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -31,6 +34,9 @@ pub enum Command {
     /// Trainer subcommands.
     #[command(subcommand)]
     Trainer(Trainer),
+
+    /// Parse the client resources and bundle the tankopedia to the source code.
+    BundleTankopedia(BundleTankopedia),
 }
 
 impl Command {
@@ -39,6 +45,7 @@ impl Command {
             Self::Giveaway(giveaway) => giveaway.run().await,
             Self::Trainer(trainer) => trainer.run().await,
             Self::Web(web) => web.run().await,
+            Self::BundleTankopedia(bundle_tankopedia) => bundle_tankopedia.run(),
         }
     }
 }

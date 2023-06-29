@@ -1,2 +1,2 @@
-generated/* linguist-vendored
+vendored.rs linguist-vendored
 tests/* linguist-vendored

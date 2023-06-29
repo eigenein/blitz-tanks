@@ -1,18 +1,16 @@
 use anyhow::bail;
+use byteorder::{LittleEndian, ReadBytesExt};
 use lz4_flex::decompress;
-use tokio::{io::AsyncReadExt, task::spawn_blocking};
 
 use crate::prelude::*;
 
-pub async fn unpack_dvpl(mut dvpl: Vec<u8>) -> Result<Vec<u8>> {
-    let footer = Footer::try_new(&dvpl).await?;
+pub fn unpack_dvpl(mut dvpl: Vec<u8>) -> Result<Vec<u8>> {
+    let footer = Footer::try_from(dvpl.as_slice())?;
     dvpl.truncate(footer.compressed_size);
     match footer.compression_type {
         CompressionType::None => Ok(dvpl),
         CompressionType::Lz4 | CompressionType::Lz4Hc => {
-            spawn_blocking(move || decompress(&dvpl, footer.uncompressed_size))
-                .await?
-                .context("failed to decompress LZ4")
+            decompress(&dvpl, footer.uncompressed_size).context("failed to decompress LZ4")
         }
         CompressionType::Rfc1951 => unimplemented!("RFC1951 is not implemented"),
     }
@@ -24,16 +22,18 @@ struct Footer {
     compression_type: CompressionType,
 }
 
-impl Footer {
-    async fn try_new(dvpl: &[u8]) -> Result<Self> {
+impl TryFrom<&[u8]> for Footer {
+    type Error = Error;
+
+    fn try_from(dvpl: &[u8]) -> std::result::Result<Self, Self::Error> {
         let (body, mut footer) = dvpl.split_at(dvpl.len() - 20);
-        let uncompressed_size = footer.read_u32_le().await? as usize;
-        let compressed_size = footer.read_u32_le().await? as usize;
+        let uncompressed_size = footer.read_u32::<LittleEndian>()? as usize;
+        let compressed_size = footer.read_u32::<LittleEndian>()? as usize;
         ensure!(compressed_size == body.len(), "incorrect compressed size ({compressed_size})");
-        let crc32 = footer.read_u32_le().await?;
+        let crc32 = footer.read_u32::<LittleEndian>()?;
         ensure!(crc32 == crc32fast::hash(body), "incorrect CRC32");
-        let compression_type = CompressionType::try_from(footer.read_u32_le().await?)?;
-        let magic = footer.read_u32_le().await?;
+        let compression_type = CompressionType::try_from(footer.read_u32::<LittleEndian>()?)?;
+        let magic = footer.read_u32::<LittleEndian>()?;
         ensure!(magic == MAGIC, "incorrect magic number (expected {MAGIC:x}, got {magic:x})");
         Ok(Self {
             uncompressed_size,
@@ -69,22 +69,26 @@ const MAGIC: u32 = 0x4C505644;
 
 #[cfg(test)]
 mod tests {
-    use tokio::fs::read;
+    use std::{fs::read, path::Path};
 
     use super::*;
 
-    #[tokio::test]
-    async fn unpack_list_ok() -> Result {
-        let dvpl = read("src/tankopedia/tests/list.xml.dvpl").await?;
-        unpack_dvpl(dvpl).await?;
+    #[test]
+    fn unpack_list_ok() -> Result {
+        let dvpl = read(Path::new("src").join("tankopedia").join("tests").join("list.xml.dvpl"))?;
+        unpack_dvpl(dvpl)?;
         Ok(())
     }
 
-    #[tokio::test]
-    async fn skin_ok() -> Result {
-        let dvpl =
-            read("src/tankopedia/tests/european-Cz08_T-25BPS_skin@2x.packed.webp.dvpl").await?;
-        unpack_dvpl(dvpl).await?;
+    #[test]
+    fn skin_ok() -> Result {
+        let dvpl = read(
+            Path::new("src")
+                .join("tankopedia")
+                .join("tests")
+                .join("european-Cz08_T-25BPS_skin@2x.packed.webp.dvpl"),
+        )?;
+        unpack_dvpl(dvpl)?;
         Ok(())
     }
 }
