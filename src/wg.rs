@@ -3,7 +3,6 @@ use std::{collections::HashMap, sync::Arc, time::Duration};
 use reqwest::{Client, ClientBuilder};
 use serde::Deserialize;
 use tracing::instrument;
-use url::Url;
 
 use crate::prelude::*;
 
@@ -61,7 +60,7 @@ impl Wg {
     pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>> {
         let result = self
             .client
-            .get(Url::parse_with_params(
+            .get(url::Url::parse_with_params(
                 "https://api.wotblitz.eu/wotb/tanks/stats/",
                 &[
                     ("application_id", self.application_id.as_str()),
