@@ -2,10 +2,10 @@ use std::{collections::HashMap, sync::Arc, time::Duration};
 
 use reqwest::{Client, ClientBuilder};
 use serde::Deserialize;
-use tracing::{info, instrument};
+use tracing::instrument;
 use url::Url;
 
-use crate::{models::Vehicle, prelude::*};
+use crate::prelude::*;
 
 /// Wargaming.net API client.
 #[derive(Clone)]
@@ -94,34 +94,6 @@ impl Wg {
             inner: InnerVehicleStats { n_battles: 1 },
         };
         Ok(vec![fake_played, fake_non_played])
-    }
-
-    /// Retrieve the [tankopedia][1].
-    ///
-    /// [1]: https://developers.wargaming.net/reference/all/wotb/encyclopedia/vehicles/
-    #[instrument(skip_all)]
-    pub async fn get_tankopedia(&self) -> Result<Vec<Vehicle>> {
-        info!("☎️ Retrieving the tankopedia…");
-        let result = self
-            .client
-            .get(Url::parse_with_params(
-                "https://api.wotblitz.eu/wotb/encyclopedia/vehicles/",
-                &[
-                    ("application_id", self.application_id.as_str()),
-                    ("language", "en"),
-                    ("fields", "tank_id,name,images.normal,is_premium"),
-                ],
-            )?)
-            .send()
-            .await
-            .context("failed to retrieve the tankopedia")?
-            .json::<WgResult<HashMap<String, Vehicle>>>()
-            .await
-            .context("failed to parse the tankopedia")?;
-        match result {
-            WgResult::Ok { data } => Ok(data.into_values().collect()),
-            WgResult::Err { error } => Err(error.into()),
-        }
     }
 
     /// [Log out][1].

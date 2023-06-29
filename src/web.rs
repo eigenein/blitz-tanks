@@ -57,10 +57,6 @@ pub struct Web {
     #[clap(flatten)]
     db: DbArgs,
 
-    /// Update the tankopedia database on startup.
-    #[clap(long, env = "BLITZ_TANKS_UPDATE_TANKOPEDIA")]
-    update_tankopedia: bool,
-
     /// Model reload interval, in seconds.
     #[clap(
         long,
@@ -75,15 +71,6 @@ impl Web {
     pub async fn run(self) -> Result {
         let db = self.db.open().await?;
         let wg = Wg::new(&self.backend_application_id)?;
-
-        if self.update_tankopedia {
-            db.tankopedia()
-                .await?
-                .prepopulate()
-                .await?
-                .update(wg.get_tankopedia().await?)
-                .await?;
-        }
 
         let state =
             AppState::new(&db, &self.frontend_application_id, wg, &self.public_address).await?;

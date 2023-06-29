@@ -1,12 +1,11 @@
 pub mod models;
 pub mod sessions;
-pub mod tankopedia;
 pub mod votes;
 
 use mongodb::Database;
 
 use crate::{
-    db::{models::Models, sessions::Sessions, tankopedia::Tankopedia, votes::Votes},
+    db::{models::Models, sessions::Sessions, votes::Votes},
     prelude::*,
 };
 
@@ -28,11 +27,6 @@ impl Db {
     #[inline]
     pub async fn sessions(&self) -> Result<Sessions> {
         Sessions::new(self.0.collection("sessions")).await
-    }
-
-    #[inline]
-    pub async fn tankopedia(&self) -> Result<Tankopedia> {
-        Tankopedia::new(self.0.collection("tankopedia")).await
     }
 
     #[inline]
