@@ -1,4 +1,4 @@
-pub use anyhow::{anyhow, Context, Error};
+pub use anyhow::{anyhow, ensure, Context, Error};
 pub use chrono::{TimeZone, Utc};
 pub use tracing::{debug, error, info, instrument, trace, warn};
 

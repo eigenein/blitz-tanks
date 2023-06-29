@@ -14,6 +14,7 @@ mod db;
 mod giveaway;
 mod models;
 mod prelude;
+mod tankopedia;
 mod tracing;
 mod trainer;
 mod web;

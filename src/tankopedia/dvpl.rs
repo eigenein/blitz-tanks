@@ -1,0 +1,90 @@
+use anyhow::bail;
+use lz4_flex::decompress;
+use tokio::{io::AsyncReadExt, task::spawn_blocking};
+
+use crate::prelude::*;
+
+pub async fn unpack_dvpl(mut dvpl: Vec<u8>) -> Result<Vec<u8>> {
+    let footer = Footer::try_new(&dvpl).await?;
+    dvpl.truncate(footer.compressed_size);
+    match footer.compression_type {
+        CompressionType::None => Ok(dvpl),
+        CompressionType::Lz4 | CompressionType::Lz4Hc => {
+            spawn_blocking(move || decompress(&dvpl, footer.uncompressed_size))
+                .await?
+                .context("failed to decompress LZ4")
+        }
+        CompressionType::Rfc1951 => unimplemented!("RFC1951 is not implemented"),
+    }
+}
+
+struct Footer {
+    uncompressed_size: usize,
+    compressed_size: usize,
+    compression_type: CompressionType,
+}
+
+impl Footer {
+    async fn try_new(dvpl: &[u8]) -> Result<Self> {
+        let (body, mut footer) = dvpl.split_at(dvpl.len() - 20);
+        let uncompressed_size = footer.read_u32_le().await? as usize;
+        let compressed_size = footer.read_u32_le().await? as usize;
+        ensure!(compressed_size == body.len(), "incorrect compressed size ({compressed_size})");
+        let crc32 = footer.read_u32_le().await?;
+        ensure!(crc32 == crc32fast::hash(body), "incorrect CRC32");
+        let compression_type = CompressionType::try_from(footer.read_u32_le().await?)?;
+        let magic = footer.read_u32_le().await?;
+        ensure!(magic == MAGIC, "incorrect magic number (expected {MAGIC:x}, got {magic:x})");
+        Ok(Self {
+            uncompressed_size,
+            compressed_size,
+            compression_type,
+        })
+    }
+}
+
+enum CompressionType {
+    None,
+    Lz4,
+    Lz4Hc,
+    Rfc1951,
+}
+
+impl TryFrom<u32> for CompressionType {
+    type Error = Error;
+
+    fn try_from(value: u32) -> Result<Self, Self::Error> {
+        match value {
+            0 => Ok(CompressionType::None),
+            1 => Ok(CompressionType::Lz4),
+            2 => Ok(CompressionType::Lz4Hc),
+            3 => Ok(CompressionType::Rfc1951),
+            _ => bail!("incorrect compression type ({value})"),
+        }
+    }
+}
+
+/// Magic number at the end of DVPL file, this is just a low-endian for «DVPL».
+const MAGIC: u32 = 0x4C505644;
+
+#[cfg(test)]
+mod tests {
+    use tokio::fs::read;
+
+    use super::*;
+
+    #[tokio::test]
+    async fn unpack_list_ok() -> Result {
+        let dvpl = read("src/tankopedia/tests/list.xml.dvpl").await?;
+        unpack_dvpl(dvpl).await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn skin_ok() -> Result {
+        let dvpl =
+            read("src/tankopedia/tests/european-Cz08_T-25BPS_skin@2x.packed.webp.dvpl").await?;
+        unpack_dvpl(dvpl).await?;
+        Ok(())
+    }
+}
