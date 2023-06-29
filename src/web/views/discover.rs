@@ -5,6 +5,7 @@ use tracing::instrument;
 
 use crate::{
     models::{Anonymous, RatedTankId, User},
+    tankopedia::vendored::TANKOPEDIA,
     web::{error::WebError, partials::*, result::WebResult, state::AppState},
 };
 
@@ -33,7 +34,7 @@ pub async fn get(
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen"."is-2-fullhd" {
                                 (
                                     VehicleCard::new(*tank_id)
-                                        .tankopedia(state.tankopedia.get(tank_id))
+                                        .tankopedia(&TANKOPEDIA[tank_id])
                                         .title_style("is-6")
                                 )
                             }
@@ -51,7 +52,7 @@ pub async fn get(
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen"."is-2-fullhd" {
                                 (
                                     VehicleCard::new(*tank_id)
-                                        .tankopedia(state.tankopedia.get(tank_id))
+                                        .tankopedia(&TANKOPEDIA[tank_id])
                                         .title_style("is-6")
                                         .predicted_rating(*rating)
                                 )

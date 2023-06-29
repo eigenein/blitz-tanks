@@ -1,4 +1,4 @@
-use std::{collections::HashMap, sync::Arc, time::Duration};
+use std::{sync::Arc, time::Duration};
 
 use arc_swap::ArcSwap;
 use futures::TryStreamExt;
@@ -9,8 +9,9 @@ use tokio::task::spawn_blocking;
 
 use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
-    models::{RatedTankId, Vehicle},
+    models::RatedTankId,
     prelude::*,
+    tankopedia::vendored::TANKOPEDIA,
     trainer::item_item::Model,
     wg::{VehicleStats, Wg},
 };
@@ -20,7 +21,6 @@ pub struct AppState {
     pub sign_in_url: Arc<String>,
 
     pub wg: Wg,
-    pub tankopedia: Arc<HashMap<u16, Vehicle>>,
     pub model: Arc<ArcSwap<Model>>,
 
     pub session_manager: Sessions,
@@ -34,7 +34,6 @@ pub struct AppState {
 
 impl AppState {
     pub async fn new(db: &Db, application_id: &str, wg: Wg, public_address: &str) -> Result<Self> {
-        let tankopedia = Arc::new(db.tankopedia().await?.load().await?);
         let sign_in_url = Arc::new(format!(
             "https://api.worldoftanks.eu/wot/auth/login/?application_id={application_id}&redirect_uri=//{public_address}/welcome"
         ));
@@ -55,7 +54,6 @@ impl AppState {
         Ok(Self {
             sign_in_url,
             wg,
-            tankopedia,
             model: Arc::new(ArcSwap::new(Arc::new(model))),
             session_manager: db.sessions().await?,
             vote_manager: db.votes().await?,
@@ -116,8 +114,7 @@ impl AppState {
                     .map_ok(|vote| (vote.tank_id, vote.rating))
                     .try_collect()
                     .await?;
-                let target_ids: Vec<u16> = self
-                    .tankopedia
+                let target_ids: Vec<u16> = TANKOPEDIA
                     .keys()
                     .filter(move |tank_id| !stats.contains_key(*tank_id))
                     .copied()

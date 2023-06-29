@@ -4,7 +4,7 @@ use phf::{phf_map, Map};
 
 use crate::tankopedia::{Vehicle, VehicleType};
 
-static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
+pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     1_u16 => Vehicle {
         name: "T-34",
         tier: 5,

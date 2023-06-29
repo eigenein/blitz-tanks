@@ -1,10 +1,7 @@
 use chrono_humanize::HumanTime;
 use maud::{html, Markup, Render};
 
-use crate::{
-    models::{Rating, Vehicle},
-    prelude::*,
-};
+use crate::{models::Rating, prelude::*, tankopedia::Vehicle};
 
 #[must_use]
 pub struct VehicleCard<'a> {
@@ -127,9 +124,11 @@ impl<'a> Render for VehicleCard<'a> {
                     figure.image."is-3by2" {
                         @let url = self
                             .vehicle
-                            .and_then(|d| d.images.normal_url.as_ref())
-                            .map_or("https://dummyimage.com/1080x720", |url| url.as_str());
-                        img.has-object-fit-contain src=(url) loading="lazy";
+                            .map_or("https://dummyimage.com/1080x720", |d| d.image_url);
+                        img.has-object-fit-contain
+                            src=(url)
+                            loading="lazy"
+                            onerror="this.onerror=null;this.src='https://dummyimage.com/1080x720'";
                     }
                 }
 
@@ -141,7 +140,10 @@ impl<'a> Render for VehicleCard<'a> {
                                     span {
                                         @match self.vehicle {
                                             Some(vehicle) => {
-                                                span.has-text-warning-dark[vehicle.is_premium] { (vehicle.name) }
+                                                span
+                                                    .has-text-warning-dark[vehicle.is_premium && !vehicle.is_collectible]
+                                                    .has-text-info-dark[vehicle.is_collectible]
+                                                { (vehicle.name) }
                                             },
                                             None => { "#" (self.tank_id) },
                                         }
