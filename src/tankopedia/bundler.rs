@@ -50,7 +50,7 @@ impl BundleTankopedia {
         writeln!(&mut bundle)?;
         writeln!(&mut bundle, "use phf::{{phf_map, Map}};")?;
         writeln!(&mut bundle)?;
-        writeln!(&mut bundle, "use crate::tankopedia::{{Vehicle, VehicleType}};")?;
+        writeln!(&mut bundle, "use crate::models::{{Vehicle, VehicleType}};")?;
         writeln!(&mut bundle)?;
         writeln!(&mut bundle, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
         for vehicle in vehicles {

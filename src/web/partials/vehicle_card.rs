@@ -1,7 +1,10 @@
 use chrono_humanize::HumanTime;
 use maud::{html, Markup, Render};
 
-use crate::{models::Rating, prelude::*, tankopedia::Vehicle};
+use crate::{
+    models::{Rating, Vehicle},
+    prelude::*,
+};
 
 #[must_use]
 pub struct VehicleCard<'a> {

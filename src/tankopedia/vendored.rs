@@ -2,7 +2,7 @@
 
 use phf::{phf_map, Map};
 
-use crate::tankopedia::{Vehicle, VehicleType};
+use crate::models::{Vehicle, VehicleType};
 
 pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     1_u16 => Vehicle {
