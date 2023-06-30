@@ -148,11 +148,12 @@ impl BundleTankopedia {
     ///
     /// - `big_icon_path`: the path coming from the vehicle parameters, it looks like
     ///   `~res:/Gfx/UI/BigTankIcons/ussr-KV_1s_BP`
+    #[instrument(skip_all, fields(big_icon_path = big_icon_path))]
     async fn extract_vehicle_icon(&self, big_icon_path: &str) -> Result<Option<DynamicImage>> {
         let big_icon_path = big_icon_path
             .strip_prefix("~res:/")
             .ok_or_else(|| anyhow!("unexpected icon path (`{}`)", big_icon_path))?;
-        info!(big_icon_path, "📤 Copying…");
+        info!(big_icon_path, "📤 Extracting…");
         let big_icon_path = self.data_path.join(format!("{big_icon_path}@2x.packed.webp.dvpl"));
         if !big_icon_path.exists() {
             return Ok(None);
