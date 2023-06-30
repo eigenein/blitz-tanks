@@ -1,11 +1,12 @@
 use futures::TryStreamExt;
+use itertools::Itertools;
 use mongodb::{
     bson::{doc, to_document},
     options::{IndexOptions, UpdateOptions},
     Collection, Cursor, IndexModel,
 };
 
-use crate::{models::Vote, prelude::*};
+use crate::{models::Vote, prelude::*, tankopedia::vendored::TANKOPEDIA};
 
 #[derive(Clone)]
 pub struct Votes(Collection<Vote>);
@@ -55,9 +56,10 @@ impl Votes {
             .with_context(|| format!("failed to query #{account_id}'s votes"))
     }
 
-    /// Iterate over **all** the votes.
+    /// Iterate over **all** the votes. Only the **tankopedia vehicles** are taken into account.
     pub async fn iter_all(&self) -> Result<Cursor<Vote>> {
-        self.0.find(None, None).await.context("failed to query all votes")
+        let filter = doc! { "tank_id": { "$in": TANKOPEDIA.keys().map(|tank_id| *tank_id as u32).collect_vec() } };
+        self.0.find(filter, None).await.context("failed to query all votes")
     }
 
     pub async fn retrieve_all(&self) -> Result<Box<[Vote]>> {
