@@ -39,10 +39,11 @@ pub struct Web {
     bind_endpoint: SocketAddr,
 
     /// Wargaming.net application ID.
-    #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_APPLICATION_ID")]
+    #[clap(long = "app-id", env = "BLITZ_TANKS_APPLICATION_ID")]
     application_id: String,
 
     /// Public address used in the hyperlinks.
+    /// TODO: replace with `redirect_url`.
     #[clap(
         long,
         env = "BLITZ_TANKS_PUBLIC_ADDRESS",
