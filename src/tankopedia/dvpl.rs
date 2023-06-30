@@ -1,12 +1,11 @@
 use anyhow::bail;
-use byteorder::{LittleEndian, ReadBytesExt};
 use lz4_flex::decompress;
-use tokio::task::spawn_blocking;
+use tokio::{io::AsyncReadExt, task::spawn_blocking};
 
 use crate::prelude::*;
 
 pub async fn unpack_dvpl(mut dvpl: Vec<u8>) -> Result<Vec<u8>> {
-    let footer = Footer::try_from(dvpl.as_slice())?;
+    let footer = Footer::try_from(dvpl.as_slice()).await?;
     dvpl.truncate(footer.compressed_size);
     match footer.compression_type {
         CompressionType::None => Ok(dvpl),
@@ -25,18 +24,16 @@ struct Footer {
     compression_type: CompressionType,
 }
 
-impl TryFrom<&[u8]> for Footer {
-    type Error = Error;
-
-    fn try_from(dvpl: &[u8]) -> std::result::Result<Self, Self::Error> {
+impl Footer {
+    pub async fn try_from(dvpl: &[u8]) -> Result<Self> {
         let (body, mut footer) = dvpl.split_at(dvpl.len() - 20);
-        let uncompressed_size = footer.read_u32::<LittleEndian>()? as usize;
-        let compressed_size = footer.read_u32::<LittleEndian>()? as usize;
+        let uncompressed_size = footer.read_u32_le().await? as usize;
+        let compressed_size = footer.read_u32_le().await? as usize;
         ensure!(compressed_size == body.len(), "incorrect compressed size ({compressed_size})");
-        let crc32 = footer.read_u32::<LittleEndian>()?;
+        let crc32 = footer.read_u32_le().await?;
         ensure!(crc32 == crc32fast::hash(body), "incorrect CRC32");
-        let compression_type = CompressionType::try_from(footer.read_u32::<LittleEndian>()?)?;
-        let magic = footer.read_u32::<LittleEndian>()?;
+        let compression_type = CompressionType::try_from(footer.read_u32_le().await?)?;
+        let magic = footer.read_u32_le().await?;
         ensure!(magic == MAGIC, "incorrect magic number (expected {MAGIC:x}, got {magic:x})");
         Ok(Self {
             uncompressed_size,

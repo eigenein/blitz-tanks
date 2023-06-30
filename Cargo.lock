@@ -292,7 +292,6 @@ dependencies = [
  "anyhow",
  "arc-swap",
  "axum",
- "byteorder",
  "bytes",
  "chrono",
  "chrono-humanize",
