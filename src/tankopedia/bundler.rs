@@ -9,7 +9,7 @@ use anyhow::bail;
 use bytes::Bytes;
 use clap::Args;
 use futures::{stream, Stream, StreamExt, TryStreamExt};
-use image::ImageFormat;
+use image::{DynamicImage, ImageFormat};
 use img_parts::webp::WebP;
 use reqwest::Client;
 use serde::Deserialize;
@@ -71,11 +71,13 @@ impl BundleTankopedia {
         writeln!(&mut module)?;
         writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
         for (details, parameters) in vehicles {
-            let has_icon = self.copy_icon(
-                details.tank_id,
-                &parameters.resources_path.big_icon_path,
-                &vendored_path,
-            )?;
+            let has_icon = self
+                .copy_icon(
+                    details.tank_id,
+                    &parameters.resources_path.big_icon_path,
+                    &vendored_path,
+                )
+                .await?;
 
             writeln!(&mut module, "    {}_u16 => Vehicle {{", details.tank_id)?;
             writeln!(&mut module, "        tank_id: {:?},", details.tank_id)?;
@@ -145,26 +147,45 @@ impl BundleTankopedia {
 
     /// Copy the icon from the game client to the [`self::vendored`] directory.
     #[instrument(skip_all)]
-    fn copy_icon(&self, tank_id: u16, big_icon_path: &str, vendored_path: &Path) -> Result<bool> {
+    async fn copy_icon(
+        &self,
+        tank_id: u16,
+        big_icon_path: &str,
+        vendored_path: &Path,
+    ) -> Result<bool> {
+        match self.extract_vehicle_icon(big_icon_path).await? {
+            Some(image) => {
+                image
+                    .save(vendored_path.join(tank_id.to_string()).with_extension("webp"))
+                    .with_context(|| format!("failed to save `{big_icon_path:?}`"))?;
+                Ok(true)
+            }
+            None => Ok(false),
+        }
+    }
+
+    /// Extract the vehicle icon from the game client.
+    ///
+    /// # Parameters
+    ///
+    /// - `big_icon_path`: the path coming from the vehicle parameters, it looks like
+    ///   `~res:/Gfx/UI/BigTankIcons/ussr-KV_1s_BP`
+    async fn extract_vehicle_icon(&self, big_icon_path: &str) -> Result<Option<DynamicImage>> {
         let big_icon_path = big_icon_path
             .strip_prefix("~res:/")
             .ok_or_else(|| anyhow!("unexpected icon path (`{}`)", big_icon_path))?;
         info!(big_icon_path, "📤 Copying…");
         let big_icon_path = self.data_path.join(format!("{big_icon_path}@2x.packed.webp.dvpl"));
-        let Ok(dvpl) = read(&big_icon_path) else {
-            warn!(?big_icon_path, "⚠️ Failed to read");
-            return Ok(false);
-        };
-        let webp = unpack_dvpl(dvpl)?;
+        if !big_icon_path.exists() {
+            return Ok(None);
+        }
+        let webp = unpack_dvpl(read(&big_icon_path)?)?;
         let (position_x, position_y, width, height) = Self::extract_dimensions(&webp)?;
-
-        image::io::Reader::with_format(Cursor::new(webp), ImageFormat::WebP)
+        let image = image::io::Reader::with_format(Cursor::new(webp), ImageFormat::WebP)
             .decode()
             .with_context(|| format!("failed to decode `{big_icon_path:?}`"))?
-            .crop(position_x, position_y, width, height)
-            .save(vendored_path.join(tank_id.to_string()).with_extension("webp"))
-            .with_context(|| format!("failed to save `{big_icon_path:?}`"))?;
-        Ok(true)
+            .crop(position_x, position_y, width, height);
+        Ok(Some(image))
     }
 
     /// Extract dimensions from the WebP icon.
