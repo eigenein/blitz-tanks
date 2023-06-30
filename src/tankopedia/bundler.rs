@@ -1,7 +1,7 @@
 use std::{
     collections::BTreeMap,
-    fs::{read, write, File},
-    io::Write,
+    fs::{create_dir_all, read, File},
+    io::{Cursor, Write},
     path::{Path, PathBuf},
 };
 
@@ -9,8 +9,8 @@ use anyhow::bail;
 use bytes::Bytes;
 use clap::Args;
 use futures::{stream, Stream, StreamExt, TryStreamExt};
+use image::ImageFormat;
 use img_parts::webp::WebP;
-use itertools::Itertools;
 use reqwest::Client;
 use serde::Deserialize;
 
@@ -37,7 +37,7 @@ impl BundleTankopedia {
     pub async fn run(self) -> Result {
         let client = Client::new();
 
-        static NATIONS: [&'static str; 9] = [
+        static NATIONS: [&str; 9] = [
             "germany", "usa", "china", "france", "uk", "japan", "other", "european", "ussr",
         ];
 
@@ -58,6 +58,7 @@ impl BundleTankopedia {
             .truncate(true)
             .open(Path::new("src").join("tankopedia").join("vendored.rs"))?;
         let vendored_path = Path::new("src").join("tankopedia").join("vendored");
+        create_dir_all(&vendored_path)?;
 
         writeln!(
             &mut module,
@@ -155,7 +156,14 @@ impl BundleTankopedia {
             return Ok(false);
         };
         let webp = unpack_dvpl(dvpl)?;
-        Self::extract_dimensions(&webp)?;
+        let (position_x, position_y, width, height) = Self::extract_dimensions(&webp)?;
+
+        image::io::Reader::with_format(Cursor::new(webp), ImageFormat::WebP)
+            .decode()
+            .with_context(|| format!("failed to decode `{big_icon_path:?}`"))?
+            .crop(position_x, position_y, width, height)
+            .save(vendored_path.join(tank_id.to_string()).with_extension("webp"))
+            .with_context(|| format!("failed to save `{big_icon_path:?}`"))?;
         Ok(true)
     }
 

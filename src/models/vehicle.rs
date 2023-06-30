@@ -15,6 +15,7 @@ impl Vehicle {
     }
 }
 
+#[allow(unused)]
 pub enum VehicleType {
     Light,
     Medium,
