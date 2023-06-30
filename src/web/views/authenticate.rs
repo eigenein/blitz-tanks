@@ -1,8 +1,10 @@
 use axum::{
     extract::{Query, State},
     http::header::SET_COOKIE,
-    response::{IntoResponse, Redirect},
+    response::IntoResponse,
 };
+use cookie::SameSite;
+use maud::{html, DOCTYPE};
 use serde::Deserialize;
 use tracing::{info, instrument};
 use uuid::Uuid;
@@ -81,12 +83,19 @@ pub async fn get(
     let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, user.session_id.to_string())
         .http_only(true)
         .expires(user.expires_at()?)
+        .same_site(SameSite::Strict)
+        .secure(true)
         .finish();
 
-    Ok((
-        [(SET_COOKIE, cookie.to_string())],
-        Redirect::temporary(&format!("/profile/{}", user.account_id)),
-    ))
+    // Workaround for Chrome & Firefox not sending the cookie after the redirect.
+    let markup = html! {
+        (DOCTYPE)
+        html {
+            head { meta http-equiv="refresh" content=(format!("0; url='/profile/{}'", user.account_id)); }
+            body {}
+        }
+    };
+    Ok(([(SET_COOKIE, cookie.to_string())], markup))
 }
 
 #[cfg(test)]
