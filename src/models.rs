@@ -8,6 +8,6 @@ pub use self::{
     rated_tank_id::RatedTankId,
     rating::Rating,
     user::{Anonymous, User},
-    vehicle::{Vehicle, VehicleType},
+    vehicle::{Vehicle, VehicleAvailability, VehicleType},
     vote::Vote,
 };

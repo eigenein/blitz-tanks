@@ -3,15 +3,8 @@ pub struct Vehicle {
     pub name: &'static str,
     pub tier: u8,
     pub type_: VehicleType,
-    pub is_premium: bool,
-    pub is_collectible: bool,
+    pub availability: VehicleAvailability,
     pub image_content: &'static [u8],
-}
-
-impl Vehicle {
-    pub const fn is_premium(&self) -> bool {
-        self.is_premium && !self.is_collectible
-    }
 }
 
 #[allow(unused)]
@@ -20,4 +13,12 @@ pub enum VehicleType {
     Medium,
     Heavy,
     AntiTank,
+}
+
+#[allow(unused)]
+#[derive(Debug, Eq, PartialEq)]
+pub enum VehicleAvailability {
+    Researchable,
+    Premium,
+    Collectible,
 }

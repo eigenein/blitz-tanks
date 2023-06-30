@@ -22,7 +22,7 @@ use reqwest::{Client, StatusCode};
 use serde::Deserialize;
 use tokio::task::spawn_blocking;
 
-use crate::{prelude::*, tankopedia::dvpl::Dvpl};
+use crate::{models::VehicleAvailability, prelude::*, tankopedia::dvpl::Dvpl};
 
 #[derive(Args)]
 pub struct BundleTankopedia {
@@ -80,7 +80,10 @@ impl BundleTankopedia {
         writeln!(&mut module)?;
         writeln!(&mut module, "use phf::{{phf_map, Map}};")?;
         writeln!(&mut module)?;
-        writeln!(&mut module, "use crate::models::{{Vehicle, VehicleType}};")?;
+        writeln!(
+            &mut module,
+            "use crate::models::{{Vehicle, VehicleAvailability::*, VehicleType::*}};"
+        )?;
         writeln!(&mut module)?;
         writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
         for (xml_details, json_details, image) in vehicles {
@@ -95,9 +98,12 @@ impl BundleTankopedia {
             writeln!(&mut module, "        tank_id: {:?},", json_details.tank_id)?;
             writeln!(&mut module, "        name: {:?},", name)?;
             writeln!(&mut module, "        tier: {:?},", json_details.tier)?;
-            writeln!(&mut module, "        type_: VehicleType::{:?},", json_details.type_)?;
-            writeln!(&mut module, "        is_premium: {:?},", json_details.is_premium)?;
-            writeln!(&mut module, "        is_collectible: {:?},", json_details.is_collectible)?;
+            writeln!(&mut module, "        type_: {:?},", json_details.type_)?;
+            writeln!(
+                &mut module,
+                "        availability: {:?},",
+                VehicleAvailability::from(&json_details),
+            )?;
             writeln!(
                 &mut module,
                 r#"        image_content: include_bytes!("vendored/{}.webp"),"#,
@@ -280,6 +286,20 @@ struct VehicleJsonDetails {
     image_url: String,
     is_premium: bool,
     is_collectible: bool,
+}
+
+impl From<&VehicleJsonDetails> for VehicleAvailability {
+    #[inline]
+    fn from(value: &VehicleJsonDetails) -> Self {
+        if value.is_collectible {
+            // They mark some collectibles as «premium», too. So, this order is important.
+            Self::Collectible
+        } else if value.is_premium {
+            Self::Premium
+        } else {
+            Self::Researchable
+        }
+    }
 }
 
 #[must_use]

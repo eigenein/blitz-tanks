@@ -2,7 +2,7 @@ use chrono_humanize::HumanTime;
 use maud::{html, Markup, Render};
 
 use crate::{
-    models::{Rating, Vehicle},
+    models::{Rating, Vehicle, VehicleAvailability},
     prelude::*,
 };
 
@@ -130,8 +130,8 @@ impl Render for VehicleCard {
                             p.title.(self.title_style) {
                                 span.icon-text.is-flex-wrap-nowrap {
                                     span
-                                        .has-text-warning-dark[self.vehicle.is_premium()]
-                                        .has-text-info-dark[self.vehicle.is_collectible]
+                                        .has-text-warning-dark[self.vehicle.availability == VehicleAvailability::Premium]
+                                        .has-text-info-dark[self.vehicle.availability == VehicleAvailability::Collectible]
                                     {
                                         (self.vehicle.name)
                                     }
