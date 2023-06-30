@@ -69,15 +69,16 @@ impl AppState {
 
     /// Retrieve the account's vehicle's statistics and cache it.
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get_vehicle_stats(
+    pub async fn get_vehicles_stats(
         &self,
         account_id: u32,
+        access_token: Option<&str>,
     ) -> Result<Arc<IndexMap<u16, VehicleStats>>> {
         self.stats_cache
             .try_get_with(account_id, async {
                 let map = self
                     .wg
-                    .get_vehicles_stats(account_id)
+                    .get_vehicles_stats(account_id, access_token)
                     .await?
                     .into_iter()
                     .filter(VehicleStats::is_played)
@@ -95,7 +96,7 @@ impl AppState {
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
     pub async fn owns_vehicle(&self, account_id: u32, tank_id: u16) -> Result<bool> {
         Ok(self
-            .get_vehicle_stats(account_id)
+            .get_vehicles_stats(account_id, None)
             .await?
             .get(&tank_id)
             .is_some_and(VehicleStats::is_played))
@@ -104,7 +105,7 @@ impl AppState {
     #[instrument(skip_all, fields(account_id = account_id))]
     pub async fn get_predictions(&self, account_id: u32) -> Result<Arc<Vec<RatedTankId>>> {
         let model = self.model.clone();
-        let stats = self.get_vehicle_stats(account_id).await?;
+        let stats = self.get_vehicles_stats(account_id, None).await?;
 
         self.predictions_cache
             .try_get_with(account_id, async {

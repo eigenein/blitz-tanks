@@ -62,9 +62,9 @@ impl From<AuthenticationResult> for WebResult<User> {
                 account_id,
                 nickname,
             }),
-            AuthenticationResult::Err { code, message } => {
-                Err(WebError::ServiceUnavailable(anyhow!("error #{code} {message}")))
-            }
+            AuthenticationResult::Err { code, message } => Err(WebError::ServiceUnavailable(
+                anyhow!("Wargaming.net API error {code}/{message}"),
+            )),
         }
     }
 }
@@ -78,6 +78,13 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let user = Result::<User, WebError>::from(result)?;
+
+    // Verify the sign-in arguments and pre-cache the vehicles.
+    // TODO: return something more friendly, if this fails.
+    state
+        .get_vehicles_stats(user.account_id, Some(user.access_token.as_str()))
+        .await?;
+
     info!(user.nickname, %user.session_id, "👋 Welcome");
     state.session_manager.insert(&user).await?;
     let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, user.session_id.to_string())

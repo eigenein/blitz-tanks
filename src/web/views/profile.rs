@@ -35,7 +35,7 @@ pub async fn get(
     }
 
     let vehicles_stats = state
-        .get_vehicle_stats(user.account_id)
+        .get_vehicles_stats(user.account_id, None)
         .await
         .map_err(WebError::ServiceUnavailable)?;
     let votes: HashMap<u16, Rating> = state

@@ -13,6 +13,7 @@ pub struct Wg {
     application_id: Arc<String>,
 }
 
+// TODO: probably, I need to extract `407/INVALID_ACCESS_TOKEN`.
 #[derive(Deserialize)]
 pub struct WgError {
     pub code: u16,
@@ -21,7 +22,7 @@ pub struct WgError {
 
 impl From<WgError> for Error {
     fn from(error: WgError) -> Self {
-        anyhow!("Wargaming.net API error #{} ({})", error.code, error.message)
+        anyhow!("Wargaming.net API error {}/{}", error.code, error.message)
     }
 }
 
@@ -57,7 +58,11 @@ impl Wg {
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
     #[cfg(not(test))]
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>> {
+    pub async fn get_vehicles_stats(
+        &self,
+        account_id: u32,
+        access_token: Option<&str>,
+    ) -> Result<Vec<VehicleStats>> {
         let result = self
             .client
             .get(url::Url::parse_with_params(
@@ -66,6 +71,7 @@ impl Wg {
                     ("application_id", self.application_id.as_str()),
                     ("account_id", account_id.to_string().as_str()),
                     ("fields", "tank_id,last_battle_time,all.battles"),
+                    ("access_token", access_token.unwrap_or("")),
                 ],
             )?)
             .send()
@@ -81,7 +87,11 @@ impl Wg {
     }
 
     #[cfg(test)]
-    pub async fn get_vehicles_stats(&self, _account_id: u32) -> Result<Vec<VehicleStats>> {
+    pub async fn get_vehicles_stats(
+        &self,
+        _account_id: u32,
+        _access_token: Option<&str>,
+    ) -> Result<Vec<VehicleStats>> {
         let fake_non_played = VehicleStats {
             tank_id: 2,
             last_battle_time: Utc.timestamp_opt(0, 0).unwrap(),
