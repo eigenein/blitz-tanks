@@ -19,6 +19,7 @@ use axum::{
     http::header::{CACHE_CONTROL, CONTENT_TYPE},
     response::IntoResponse,
 };
+use indoc::indoc;
 
 const CACHE_PUBLIC_WEEK: (HeaderName, &str) = (CACHE_CONTROL, "max-age=604800, public");
 
@@ -26,6 +27,7 @@ const CONTENT_TYPE_CSS: (HeaderName, &str) = (CONTENT_TYPE, "text/css");
 const CONTENT_TYPE_MICROSOFT_ICON: (HeaderName, &str) = (CONTENT_TYPE, "image/vnd.microsoft.icon");
 const CONTENT_TYPE_PNG: (HeaderName, &str) = (CONTENT_TYPE, "image/png");
 
+#[inline]
 pub async fn get_favicon() -> impl IntoResponse {
     (
         [CONTENT_TYPE_MICROSOFT_ICON, CACHE_PUBLIC_WEEK],
@@ -33,6 +35,7 @@ pub async fn get_favicon() -> impl IntoResponse {
     )
 }
 
+#[inline]
 pub async fn get_apple_touch_icon() -> impl IntoResponse {
     (
         [CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK],
@@ -40,14 +43,17 @@ pub async fn get_apple_touch_icon() -> impl IntoResponse {
     )
 }
 
+#[inline]
 pub async fn get_icon_192() -> impl IntoResponse {
     ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/icon-192.png"))
 }
 
+#[inline]
 pub async fn get_icon_512() -> impl IntoResponse {
     ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/icon-512.png"))
 }
 
+#[inline]
 pub async fn get_home_icon() -> impl IntoResponse {
     ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/home.png"))
 }
@@ -61,9 +67,9 @@ pub async fn get_home_icon() -> impl IntoResponse {
 /// [1]: https://bulma.io/
 /// [2]: https://github.com/jloh/bulma-prefers-dark
 /// [3]: https://github.com/jgthms/bulma/issues/2342
+#[inline]
 pub async fn get_bulma_patches() -> impl IntoResponse {
-    // language=css
-    const CSS: &str = r#"
+    const CSS: &str = indoc! { /* language=css */ r#"
         .has-object-fit-cover { object-fit: cover; }
         .has-object-fit-contain { object-fit: contain; }
 
@@ -73,6 +79,6 @@ pub async fn get_bulma_patches() -> impl IntoResponse {
             .has-background-warning-light { background-color: hsl(48, 100%, 14%) !important; }
             .has-background-info-light { background-color: hsl(204, 71%, 14%) !important; }
         }
-    "#;
+    "#};
     ([CONTENT_TYPE_CSS, CACHE_PUBLIC_WEEK], CSS)
 }

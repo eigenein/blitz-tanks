@@ -16,6 +16,8 @@ pub struct UnpackData {
 }
 
 impl UnpackData {
+    /// Unpack all the DVPL's in the specified directory recursively and place the
+    /// unpacked files next to the original files.
     pub fn run(self) -> Result {
         for entry in WalkDir::new(self.path) {
             let entry = entry?;

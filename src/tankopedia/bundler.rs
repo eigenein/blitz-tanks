@@ -5,8 +5,12 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use anyhow::bail;
+use bytes::Bytes;
 use clap::Args;
 use futures::{stream, Stream, StreamExt, TryStreamExt};
+use img_parts::webp::WebP;
+use itertools::Itertools;
 use reqwest::Client;
 use serde::Deserialize;
 
@@ -20,21 +24,28 @@ pub struct BundleTankopedia {
         default_value = "/Applications/World of Tanks Blitz.app/Contents/Resources/Data"
     )]
     data_path: PathBuf,
+
+    /// Bundle the first vehicle from each nation (for testing and debugging).
+    #[clap(long)]
+    take_one: bool,
 }
 
 impl BundleTankopedia {
-    const NATIONS: [&'static str; 9] = [
-        "germany", "usa", "china", "france", "uk", "japan", "other", "european", "ussr",
-    ];
-
+    /// Build the tankopedia from the game client and bundle it into the source code.
+    ///
+    /// Now, the game client is just a set of kludges, so… all hope abandon ye who enter here.
     pub async fn run(self) -> Result {
         let client = Client::new();
 
+        static NATIONS: [&'static str; 9] = [
+            "germany", "usa", "china", "france", "uk", "japan", "other", "european", "ussr",
+        ];
+
         let vehicles_path = self.data_path.join("XML").join("item_defs").join("vehicles");
         let parameters_path = self.data_path.join("3d").join("Tanks").join("Parameters");
-        let mut vehicles: Vec<(VehicleDetails, VehicleParameters)> = stream::iter(Self::NATIONS)
+        let mut vehicles: Vec<(VehicleDetails, VehicleParameters)> = stream::iter(NATIONS)
             .then(|nation| {
-                Self::load_nation(vehicles_path.join(nation), parameters_path.join(nation), &client)
+                self.load_nation(vehicles_path.join(nation), parameters_path.join(nation), &client)
             })
             .try_flatten()
             .try_collect()
@@ -44,6 +55,7 @@ impl BundleTankopedia {
         let mut module = File::options()
             .write(true)
             .create(true)
+            .truncate(true)
             .open(Path::new("src").join("tankopedia").join("vendored.rs"))?;
         let vendored_path = Path::new("src").join("tankopedia").join("vendored");
 
@@ -58,36 +70,50 @@ impl BundleTankopedia {
         writeln!(&mut module)?;
         writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
         for (details, parameters) in vehicles {
-            writeln!(&mut module, "    {}_u16 => Vehicle {{", details.tank_id)?;
-            writeln!(&mut module, "        tank_id: {:?},", details.tank_id)?;
-            writeln!(&mut module, "        name: {:?},", details.user_string)?;
-            writeln!(&mut module, "        tier: {:?},", details.tier)?;
-            writeln!(&mut module, "        image_url: {:?},", details.image_url)?;
-            writeln!(&mut module, "        is_premium: {:?},", details.is_premium)?;
-            writeln!(&mut module, "        is_collectible: {:?},", details.is_collectible)?;
-            writeln!(&mut module, "        type_: VehicleType::{:?},", details.type_)?;
-            writeln!(&mut module, "    }},")?;
-
-            self.copy_icon(
+            let has_icon = self.copy_icon(
                 details.tank_id,
                 &parameters.resources_path.big_icon_path,
                 &vendored_path,
             )?;
+
+            writeln!(&mut module, "    {}_u16 => Vehicle {{", details.tank_id)?;
+            writeln!(&mut module, "        tank_id: {:?},", details.tank_id)?;
+            writeln!(&mut module, "        name: {:?},", details.user_string)?;
+            writeln!(&mut module, "        tier: {:?},", details.tier)?;
+            writeln!(&mut module, "        type_: VehicleType::{:?},", details.type_)?;
+            writeln!(&mut module, "        is_premium: {:?},", details.is_premium)?;
+            writeln!(&mut module, "        is_collectible: {:?},", details.is_collectible)?;
+            writeln!(&mut module, "        image_url: {:?},", details.image_url)?;
+            if has_icon {
+                writeln!(
+                    &mut module,
+                    r#"        image_content: Some(include_bytes!("vendored/{}.webp")),"#,
+                    details.tank_id
+                )?;
+            } else {
+                writeln!(&mut module, "        image_content: None,")?;
+            }
+            writeln!(&mut module, r#"    }},"#)?;
         }
         writeln!(&mut module, "}};")?;
 
         Ok(())
     }
 
-    async fn load_nation(
+    async fn load_nation<'a>(
+        &'a self,
         vehicles_path: PathBuf,
         parameters_path: PathBuf,
-        client: &Client,
-    ) -> Result<impl Stream<Item = Result<(VehicleDetails, VehicleParameters)>> + '_> {
+        client: &'a Client,
+    ) -> Result<impl Stream<Item = Result<(VehicleDetails, VehicleParameters)>> + 'a> {
         let path = vehicles_path.join("list.xml.dvpl");
         info!(?path, "📝 Unpacking…");
         let xml = unpack_dvpl(read(&path)?)?;
-        let vehicles: BTreeMap<String, ()> = quick_xml::de::from_reader(xml.as_slice())?;
+        let mut vehicles: BTreeMap<String, ()> = quick_xml::de::from_reader(xml.as_slice())?;
+        if self.take_one {
+            warn!("🐛 Stopping after the first vehicle");
+            vehicles = vehicles.into_iter().take(1).collect();
+        }
         let stream = stream::iter(vehicles).then(move |(vehicle_tag, _)| {
             Self::load_vehicle(client, parameters_path.clone(), vehicle_tag)
         });
@@ -116,25 +142,76 @@ impl BundleTankopedia {
         Ok((vehicle, parameters))
     }
 
+    /// Copy the icon from the game client to the [`self::vendored`] directory.
     #[instrument(skip_all)]
-    fn copy_icon(&self, tank_id: u16, big_icon_path: &str, vendored_path: &Path) -> Result {
+    fn copy_icon(&self, tank_id: u16, big_icon_path: &str, vendored_path: &Path) -> Result<bool> {
         let big_icon_path = big_icon_path
             .strip_prefix("~res:/")
-            .ok_or_else(|| anyhow!("incorrect icon path (`{}`)", big_icon_path))?;
+            .ok_or_else(|| anyhow!("unexpected icon path (`{}`)", big_icon_path))?;
         info!(big_icon_path, "📤 Copying…");
         let big_icon_path = self.data_path.join(format!("{big_icon_path}@2x.packed.webp.dvpl"));
-        match read(&big_icon_path) {
-            Ok(buffer) => {
-                write(
-                    vendored_path.join(tank_id.to_string()).with_extension("webp"),
-                    unpack_dvpl(buffer)?,
-                )?;
-            }
-            Err(error) => {
-                warn!(?big_icon_path, "⚠️ Failed to read: {:#}", error);
-            }
+        let Ok(dvpl) = read(&big_icon_path) else {
+            warn!(?big_icon_path, "⚠️ Failed to read");
+            return Ok(false);
+        };
+        let webp = unpack_dvpl(dvpl)?;
+        Self::extract_dimensions(&webp)?;
+        Ok(true)
+    }
+
+    /// Extract dimensions from the WebP icon.
+    ///
+    /// # Returns
+    ///
+    /// - Position X
+    /// - Position Y
+    /// - Width
+    /// - Height
+    ///
+    /// # Notes
+    ///
+    /// The metadata is included in the `extr` chunk of WebP icon and it looks like this:
+    ///
+    /// ```text
+    /// 1
+    ///
+    /// 320 200
+    /// 1
+    /// 0 0 270 197 42 3 0 frame0
+    /// ```
+    fn extract_dimensions(webp: &[u8]) -> Result<(u32, u32, u32, u32)> {
+        let webp =
+            WebP::from_bytes(Bytes::copy_from_slice(webp)).context("failed to parse WebP")?;
+        const EXTRA_ID: [u8; 4] = [101, 120, 116, 114];
+        let chunk = webp
+            .chunk_by_id(EXTRA_ID)
+            .ok_or_else(|| anyhow!("the extra chunk is missing"))?
+            .content()
+            .data()
+            .ok_or_else(|| anyhow!("no data in the extra chunk"))?;
+        let chunk = String::from_utf8_lossy(chunk);
+        let mut metadata = chunk.split_whitespace();
+        let n_entries: usize = metadata
+            .next()
+            .ok_or_else(|| anyhow!("number of entries is missing"))?
+            .parse()?;
+        if n_entries != 1 {
+            bail!("unexpected number of entries: {n_entries}");
         }
-        Ok(())
+        metadata.next().ok_or_else(|| anyhow!("atlas width is missing"))?;
+        metadata.next().ok_or_else(|| anyhow!("atlas height is missing"))?;
+        let n_layers: usize =
+            metadata.next().ok_or_else(|| anyhow!("number of layers is missing"))?.parse()?;
+        if n_layers != 1 {
+            bail!("unexpected number of layers: {n_layers}");
+        }
+        let position_x =
+            metadata.next().ok_or_else(|| anyhow!("position X is missing"))?.parse()?;
+        let position_y =
+            metadata.next().ok_or_else(|| anyhow!("position Y is missing"))?.parse()?;
+        let width = metadata.next().ok_or_else(|| anyhow!("width is missing"))?.parse()?;
+        let height = metadata.next().ok_or_else(|| anyhow!("height is missing"))?.parse()?;
+        Ok((position_x, position_y, width, height))
     }
 }
 

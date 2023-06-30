@@ -2,10 +2,11 @@ pub struct Vehicle {
     pub tank_id: u16,
     pub name: &'static str,
     pub tier: u8,
-    pub image_url: &'static str,
+    pub type_: VehicleType,
     pub is_premium: bool,
     pub is_collectible: bool,
-    pub type_: VehicleType,
+    pub image_url: &'static str,
+    pub image_content: Option<&'static [u8]>,
 }
 
 impl Vehicle {
