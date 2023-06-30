@@ -12,7 +12,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-34.png",
         image_content: include_bytes!("vendored/1.webp"),
     },
     17_u16 => Vehicle {
@@ -22,7 +21,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIV.png",
         image_content: include_bytes!("vendored/17.webp"),
     },
     33_u16 => Vehicle {
@@ -32,7 +30,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T14.png",
         image_content: include_bytes!("vendored/33.webp"),
     },
     49_u16 => Vehicle {
@@ -42,7 +39,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch01_Type59.png",
         image_content: include_bytes!("vendored/49.webp"),
     },
     81_u16 => Vehicle {
@@ -52,7 +48,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB01_Medium_Mark_I.png",
         image_content: include_bytes!("vendored/81.webp"),
     },
     113_u16 => Vehicle {
@@ -62,7 +57,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth08_WH_Vindicator.png",
         image_content: include_bytes!("vendored/113.webp"),
     },
     257_u16 => Vehicle {
@@ -72,7 +66,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-85.png",
         image_content: include_bytes!("vendored/257.webp"),
     },
     289_u16 => Vehicle {
@@ -82,7 +75,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M3_Stuart.png",
         image_content: include_bytes!("vendored/289.webp"),
     },
     321_u16 => Vehicle {
@@ -92,7 +84,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/D2.png",
         image_content: include_bytes!("vendored/321.webp"),
     },
     337_u16 => Vehicle {
@@ -102,7 +93,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB05_Vickers_Medium_Mk_II.png",
         image_content: include_bytes!("vendored/337.webp"),
     },
     353_u16 => Vehicle {
@@ -112,7 +102,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Ni.png",
         image_content: include_bytes!("vendored/353.webp"),
     },
     385_u16 => Vehicle {
@@ -122,7 +111,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It08_Progetto_M40_mod65.png",
         image_content: include_bytes!("vendored/385.webp"),
     },
     513_u16 => Vehicle {
@@ -132,7 +120,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS.png",
         image_content: include_bytes!("vendored/513.webp"),
     },
     529_u16 => Vehicle {
@@ -142,7 +129,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVI.png",
         image_content: include_bytes!("vendored/529.webp"),
     },
     545_u16 => Vehicle {
@@ -152,7 +138,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T1_Cunningham.png",
         image_content: include_bytes!("vendored/545.webp"),
     },
     577_u16 => Vehicle {
@@ -162,7 +147,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RenaultFT.png",
         image_content: include_bytes!("vendored/577.webp"),
     },
     593_u16 => Vehicle {
@@ -172,7 +156,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB19_Sherman_Firefly.png",
         image_content: include_bytes!("vendored/593.webp"),
     },
     609_u16 => Vehicle {
@@ -182,7 +165,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/NC27.png",
         image_content: include_bytes!("vendored/609.webp"),
     },
     625_u16 => Vehicle {
@@ -192,7 +174,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Strv_74A2.png",
         image_content: include_bytes!("vendored/625.webp"),
     },
     641_u16 => Vehicle {
@@ -202,7 +183,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It12_Prototipo_Standard_B.png",
         image_content: include_bytes!("vendored/641.webp"),
     },
     769_u16 => Vehicle {
@@ -212,7 +192,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/BT-7.png",
         image_content: include_bytes!("vendored/769.webp"),
     },
     785_u16 => Vehicle {
@@ -222,7 +201,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz35t.png",
         image_content: include_bytes!("vendored/785.webp"),
     },
     801_u16 => Vehicle {
@@ -232,7 +210,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6.png",
         image_content: include_bytes!("vendored/801.webp"),
     },
     817_u16 => Vehicle {
@@ -242,7 +219,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch03_WZ-111.png",
         image_content: include_bytes!("vendored/817.webp"),
     },
     849_u16 => Vehicle {
@@ -252,7 +228,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB07_Matilda.png",
         image_content: include_bytes!("vendored/849.webp"),
     },
     865_u16 => Vehicle {
@@ -262,7 +237,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ha_Go.png",
         image_content: include_bytes!("vendored/865.webp"),
     },
     881_u16 => Vehicle {
@@ -272,7 +246,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sega_Edelweiss.png",
         image_content: include_bytes!("vendored/881.webp"),
     },
     897_u16 => Vehicle {
@@ -282,7 +255,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It14_P44_Pantera.png",
         image_content: include_bytes!("vendored/897.webp"),
     },
     1025_u16 => Vehicle {
@@ -292,7 +264,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/BT-2.png",
         image_content: include_bytes!("vendored/1025.webp"),
     },
     1041_u16 => Vehicle {
@@ -302,7 +273,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/StuGIII.png",
         image_content: include_bytes!("vendored/1041.webp"),
     },
     1057_u16 => Vehicle {
@@ -312,7 +282,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M4_Sherman.png",
         image_content: include_bytes!("vendored/1057.webp"),
     },
     1073_u16 => Vehicle {
@@ -322,7 +291,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch04_T34_1.png",
         image_content: include_bytes!("vendored/1073.webp"),
     },
     1089_u16 => Vehicle {
@@ -332,7 +300,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/B1.png",
         image_content: include_bytes!("vendored/1089.webp"),
     },
     1105_u16 => Vehicle {
@@ -342,7 +309,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB21_Cromwell.png",
         image_content: include_bytes!("vendored/1105.webp"),
     },
     1121_u16 => Vehicle {
@@ -352,7 +318,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Ri.png",
         image_content: include_bytes!("vendored/1121.webp"),
     },
     1137_u16 => Vehicle {
@@ -362,7 +327,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth09_WH_Predator.png",
         image_content: include_bytes!("vendored/1137.webp"),
     },
     1153_u16 => Vehicle {
@@ -372,7 +336,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It09_P43_ter.png",
         image_content: include_bytes!("vendored/1153.webp"),
     },
     1297_u16 => Vehicle {
@@ -382,7 +345,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzV.png",
         image_content: include_bytes!("vendored/1297.webp"),
     },
     1313_u16 => Vehicle {
@@ -392,7 +354,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M4A3E8_Sherman.png",
         image_content: include_bytes!("vendored/1313.webp"),
     },
     1329_u16 => Vehicle {
@@ -402,7 +363,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch06_Renault_NC31.png",
         image_content: include_bytes!("vendored/1329.webp"),
     },
     1361_u16 => Vehicle {
@@ -412,7 +372,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Churchill_MkVI.png",
         image_content: include_bytes!("vendored/1361.webp"),
     },
     1377_u16 => Vehicle {
@@ -422,7 +381,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Nu.png",
         image_content: include_bytes!("vendored/1377.webp"),
     },
     1393_u16 => Vehicle {
@@ -432,7 +390,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sega_Nameless.png",
         image_content: include_bytes!("vendored/1393.webp"),
     },
     1409_u16 => Vehicle {
@@ -442,7 +399,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It10_P43_bis.png",
         image_content: include_bytes!("vendored/1409.webp"),
     },
     1537_u16 => Vehicle {
@@ -452,7 +408,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-28.png",
         image_content: include_bytes!("vendored/1537.webp"),
     },
     1553_u16 => Vehicle {
@@ -462,7 +417,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPzIV.png",
         image_content: include_bytes!("vendored/1553.webp"),
     },
     1569_u16 => Vehicle {
@@ -472,7 +426,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T20.png",
         image_content: include_bytes!("vendored/1569.webp"),
     },
     1585_u16 => Vehicle {
@@ -482,7 +435,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch05_T34_2.png",
         image_content: include_bytes!("vendored/1585.webp"),
     },
     1601_u16 => Vehicle {
@@ -492,7 +444,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/D1.png",
         image_content: include_bytes!("vendored/1601.webp"),
     },
     1617_u16 => Vehicle {
@@ -502,7 +453,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Sherman_V.png",
         image_content: include_bytes!("vendored/1617.webp"),
     },
     1633_u16 => Vehicle {
@@ -512,7 +462,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_He.png",
         image_content: include_bytes!("vendored/1633.webp"),
     },
     1649_u16 => Vehicle {
@@ -522,7 +471,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Van_Helsing.png",
         image_content: include_bytes!("vendored/1649.webp"),
     },
     1665_u16 => Vehicle {
@@ -532,7 +480,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S04_Lago-I.png",
         image_content: include_bytes!("vendored/1665.webp"),
     },
     1809_u16 => Vehicle {
@@ -542,7 +489,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Hetzer.png",
         image_content: include_bytes!("vendored/1809.webp"),
     },
     1825_u16 => Vehicle {
@@ -552,7 +498,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M2_lt.png",
         image_content: include_bytes!("vendored/1825.webp"),
     },
     1841_u16 => Vehicle {
@@ -562,7 +507,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch18_WZ-120.png",
         image_content: include_bytes!("vendored/1841.webp"),
     },
     1857_u16 => Vehicle {
@@ -572,7 +516,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F75_Char_de_25t.png",
         image_content: include_bytes!("vendored/1857.webp"),
     },
     1889_u16 => Vehicle {
@@ -582,7 +525,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_To.png",
         image_content: include_bytes!("vendored/1889.webp"),
     },
     1905_u16 => Vehicle {
@@ -592,7 +534,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Akawara.png",
         image_content: include_bytes!("vendored/1905.webp"),
     },
     1921_u16 => Vehicle {
@@ -602,7 +543,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S02_StrvM42.png",
         image_content: include_bytes!("vendored/1921.webp"),
     },
     2049_u16 => Vehicle {
@@ -612,7 +552,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A-20.png",
         image_content: include_bytes!("vendored/2049.webp"),
     },
     2065_u16 => Vehicle {
@@ -622,7 +561,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzII.png",
         image_content: include_bytes!("vendored/2065.webp"),
     },
     2097_u16 => Vehicle {
@@ -632,7 +570,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch12_111_1_2_3.png",
         image_content: include_bytes!("vendored/2097.webp"),
     },
     2129_u16 => Vehicle {
@@ -642,7 +579,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB20_Crusader.png",
         image_content: include_bytes!("vendored/2129.webp"),
     },
     2145_u16 => Vehicle {
@@ -652,7 +588,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Ha.png",
         image_content: include_bytes!("vendored/2145.webp"),
     },
     2161_u16 => Vehicle {
@@ -662,7 +597,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/WZ-135G_FT.png",
         image_content: include_bytes!("vendored/2161.webp"),
     },
     2177_u16 => Vehicle {
@@ -672,7 +606,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl07_14TP.png",
         image_content: include_bytes!("vendored/2177.webp"),
     },
     2305_u16 => Vehicle {
@@ -682,7 +615,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-152.png",
         image_content: include_bytes!("vendored/2305.webp"),
     },
     2321_u16 => Vehicle {
@@ -692,7 +624,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3601H.png",
         image_content: include_bytes!("vendored/2321.webp"),
     },
     2353_u16 => Vehicle {
@@ -702,7 +633,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch07_Vickers_MkE_Type_BT26.png",
         image_content: include_bytes!("vendored/2353.webp"),
     },
     2369_u16 => Vehicle {
@@ -712,7 +642,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/FCM_36Pak40.png",
         image_content: include_bytes!("vendored/2369.webp"),
     },
     2385_u16 => Vehicle {
@@ -722,7 +651,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB06_Vickers_Medium_Mk_III.png",
         image_content: include_bytes!("vendored/2385.webp"),
     },
     2401_u16 => Vehicle {
@@ -732,7 +660,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ke_Ni.png",
         image_content: include_bytes!("vendored/2401.webp"),
     },
     2433_u16 => Vehicle {
@@ -742,7 +669,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl06_10TP.png",
         image_content: include_bytes!("vendored/2433.webp"),
     },
     2561_u16 => Vehicle {
@@ -752,7 +678,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-34-85.png",
         image_content: include_bytes!("vendored/2561.webp"),
     },
     2577_u16 => Vehicle {
@@ -762,7 +687,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3001H.png",
         image_content: include_bytes!("vendored/2577.webp"),
     },
     2593_u16 => Vehicle {
@@ -772,7 +696,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T30.png",
         image_content: include_bytes!("vendored/2593.webp"),
     },
     2609_u16 => Vehicle {
@@ -782,7 +705,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch24_Type64.png",
         image_content: include_bytes!("vendored/2609.webp"),
     },
     2625_u16 => Vehicle {
@@ -792,7 +714,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ARL_44.png",
         image_content: include_bytes!("vendored/2625.webp"),
     },
     2657_u16 => Vehicle {
@@ -802,7 +723,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/STA_1.png",
         image_content: include_bytes!("vendored/2657.webp"),
     },
     2689_u16 => Vehicle {
@@ -812,7 +732,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F01_Vickers_MkF.png",
         image_content: include_bytes!("vendored/2689.webp"),
     },
     2817_u16 => Vehicle {
@@ -822,7 +741,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-1s.png",
         image_content: include_bytes!("vendored/2817.webp"),
     },
     2849_u16 => Vehicle {
@@ -832,7 +750,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T34_hvy.png",
         image_content: include_bytes!("vendored/2849.webp"),
     },
     2865_u16 => Vehicle {
@@ -842,7 +759,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch11_110.png",
         image_content: include_bytes!("vendored/2865.webp"),
     },
     2881_u16 => Vehicle {
@@ -852,7 +768,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX40.png",
         image_content: include_bytes!("vendored/2881.webp"),
     },
     2897_u16 => Vehicle {
@@ -862,7 +777,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB08_Churchill_I.png",
         image_content: include_bytes!("vendored/2897.webp"),
     },
     2913_u16 => Vehicle {
@@ -872,7 +786,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ke_Ho.png",
         image_content: include_bytes!("vendored/2913.webp"),
     },
     2945_u16 => Vehicle {
@@ -882,7 +795,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It13_Progetto_M35_mod_46.png",
         image_content: include_bytes!("vendored/2945.webp"),
     },
     3073_u16 => Vehicle {
@@ -892,7 +804,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-46.png",
         image_content: include_bytes!("vendored/3073.webp"),
     },
     3089_u16 => Vehicle {
@@ -902,7 +813,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ltraktor.png",
         image_content: include_bytes!("vendored/3089.webp"),
     },
     3105_u16 => Vehicle {
@@ -912,7 +822,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M3_Grant.png",
         image_content: include_bytes!("vendored/3105.webp"),
     },
     3121_u16 => Vehicle {
@@ -922,7 +831,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch09_M5.png",
         image_content: include_bytes!("vendored/3121.webp"),
     },
     3137_u16 => Vehicle {
@@ -932,7 +840,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_50_100.png",
         image_content: include_bytes!("vendored/3137.webp"),
     },
     3153_u16 => Vehicle {
@@ -942,7 +849,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB10_Black_Prince.png",
         image_content: include_bytes!("vendored/3153.webp"),
     },
     3201_u16 => Vehicle {
@@ -952,7 +858,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl08_50TP_prot.png",
         image_content: include_bytes!("vendored/3201.webp"),
     },
     3329_u16 => Vehicle {
@@ -962,7 +867,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/MS-1.png",
         image_content: include_bytes!("vendored/3329.webp"),
     },
     3345_u16 => Vehicle {
@@ -972,7 +876,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz38t.png",
         image_content: include_bytes!("vendored/3345.webp"),
     },
     3361_u16 => Vehicle {
@@ -982,7 +885,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T1_hvy.png",
         image_content: include_bytes!("vendored/3361.webp"),
     },
     3377_u16 => Vehicle {
@@ -992,7 +894,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch16_WZ_131.png",
         image_content: include_bytes!("vendored/3377.webp"),
     },
     3425_u16 => Vehicle {
@@ -1002,7 +903,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Type_61.png",
         image_content: include_bytes!("vendored/3425.webp"),
     },
     3457_u16 => Vehicle {
@@ -1012,7 +912,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S18_EMIL_1951E1.png",
         image_content: include_bytes!("vendored/3457.webp"),
     },
     3585_u16 => Vehicle {
@@ -1022,7 +921,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-100.png",
         image_content: include_bytes!("vendored/3585.webp"),
     },
     3601_u16 => Vehicle {
@@ -1032,7 +930,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PanzerJager_I.png",
         image_content: include_bytes!("vendored/3601.webp"),
     },
     3633_u16 => Vehicle {
@@ -1042,7 +939,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch10_IS2.png",
         image_content: include_bytes!("vendored/3633.webp"),
     },
     3649_u16 => Vehicle {
@@ -1052,7 +948,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Bat_Chatillon25t.png",
         image_content: include_bytes!("vendored/3649.webp"),
     },
     3681_u16 => Vehicle {
@@ -1062,7 +957,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ST_B1.png",
         image_content: include_bytes!("vendored/3681.webp"),
     },
     3697_u16 => Vehicle {
@@ -1072,7 +966,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth06_Sega_Lupus.png",
         image_content: include_bytes!("vendored/3697.webp"),
     },
     3713_u16 => Vehicle {
@@ -1082,7 +975,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S07_Strv_74.png",
         image_content: include_bytes!("vendored/3713.webp"),
     },
     3857_u16 => Vehicle {
@@ -1092,7 +984,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPanther.png",
         image_content: include_bytes!("vendored/3857.webp"),
     },
     3873_u16 => Vehicle {
@@ -1102,7 +993,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T29.png",
         image_content: include_bytes!("vendored/3873.webp"),
     },
     3889_u16 => Vehicle {
@@ -1112,7 +1002,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch17_WZ131_1_WZ132.png",
         image_content: include_bytes!("vendored/3889.webp"),
     },
     3905_u16 => Vehicle {
@@ -1122,7 +1011,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_50_120.png",
         image_content: include_bytes!("vendored/3905.webp"),
     },
     3921_u16 => Vehicle {
@@ -1132,7 +1020,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB11_Caernarvon.png",
         image_content: include_bytes!("vendored/3921.webp"),
     },
     3937_u16 => Vehicle {
@@ -1142,7 +1029,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J20_Ho_Ri_type3.png",
         image_content: include_bytes!("vendored/3937.webp"),
     },
     3953_u16 => Vehicle {
@@ -1152,7 +1038,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth11_T-55A.png",
         image_content: include_bytes!("vendored/3953.webp"),
     },
     3969_u16 => Vehicle {
@@ -1162,7 +1047,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S13_Leo.png",
         image_content: include_bytes!("vendored/3969.webp"),
     },
     4113_u16 => Vehicle {
@@ -1172,7 +1056,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3002DB.png",
         image_content: include_bytes!("vendored/4113.webp"),
     },
     4145_u16 => Vehicle {
@@ -1182,7 +1065,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch19_121.png",
         image_content: include_bytes!("vendored/4145.webp"),
     },
     4193_u16 => Vehicle {
@@ -1192,7 +1074,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J21_Ho_Ri.png",
         image_content: include_bytes!("vendored/4193.webp"),
     },
     4209_u16 => Vehicle {
@@ -1202,7 +1083,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/other-Oth10_WarDuck.png",
         image_content: include_bytes!("vendored/4209.webp"),
     },
     4225_u16 => Vehicle {
@@ -1212,7 +1092,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S17_EMIL_1952E2.png",
         image_content: include_bytes!("vendored/4225.webp"),
     },
     4353_u16 => Vehicle {
@@ -1222,7 +1101,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-44.png",
         image_content: include_bytes!("vendored/4353.webp"),
     },
     4369_u16 => Vehicle {
@@ -1232,7 +1110,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIII.png",
         image_content: include_bytes!("vendored/4369.webp"),
     },
     4385_u16 => Vehicle {
@@ -1242,7 +1119,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T32.png",
         image_content: include_bytes!("vendored/4385.webp"),
     },
     4401_u16 => Vehicle {
@@ -1252,7 +1128,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch08_Type97_Chi_Ha.png",
         image_content: include_bytes!("vendored/4401.webp"),
     },
     4417_u16 => Vehicle {
@@ -1262,7 +1137,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F82_AMX_M4_Mle1949_Ter.png",
         image_content: include_bytes!("vendored/4417.webp"),
     },
     4433_u16 => Vehicle {
@@ -1272,7 +1146,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB12_Conqueror.png",
         image_content: include_bytes!("vendored/4433.webp"),
     },
     4449_u16 => Vehicle {
@@ -1282,7 +1155,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-2_GuP.png",
         image_content: include_bytes!("vendored/4449.webp"),
     },
     4465_u16 => Vehicle {
@@ -1292,7 +1164,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth12_Sega_Hafen.png",
         image_content: include_bytes!("vendored/4465.webp"),
     },
     4481_u16 => Vehicle {
@@ -1302,7 +1173,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S16_Kranvagn.png",
         image_content: include_bytes!("vendored/4481.webp"),
     },
     4609_u16 => Vehicle {
@@ -1312,7 +1182,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-26.png",
         image_content: include_bytes!("vendored/4609.webp"),
     },
     4657_u16 => Vehicle {
@@ -1322,7 +1191,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch21_T34.png",
         image_content: include_bytes!("vendored/4657.webp"),
     },
     4689_u16 => Vehicle {
@@ -1332,7 +1200,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB09_Churchill_VII.png",
         image_content: include_bytes!("vendored/4689.webp"),
     },
     4705_u16 => Vehicle {
@@ -1342,7 +1209,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Firefly_GuP.png",
         image_content: include_bytes!("vendored/4705.webp"),
     },
     4721_u16 => Vehicle {
@@ -1352,7 +1218,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth14_MdM_AshKnight.png",
         image_content: include_bytes!("vendored/4721.webp"),
     },
     4737_u16 => Vehicle {
@@ -1362,7 +1227,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S25_EMIL_51.png",
         image_content: include_bytes!("vendored/4737.webp"),
     },
     4881_u16 => Vehicle {
@@ -1372,7 +1236,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIII_A.png",
         image_content: include_bytes!("vendored/4881.webp"),
     },
     4897_u16 => Vehicle {
@@ -1382,7 +1245,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M2_med.png",
         image_content: include_bytes!("vendored/4897.webp"),
     },
     4913_u16 => Vehicle {
@@ -1392,7 +1254,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch15_59_16.png",
         image_content: include_bytes!("vendored/4913.webp"),
     },
     4929_u16 => Vehicle {
@@ -1402,7 +1263,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_13_90.png",
         image_content: include_bytes!("vendored/4929.webp"),
     },
     4945_u16 => Vehicle {
@@ -1412,7 +1272,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB04_Valentine.png",
         image_content: include_bytes!("vendored/4945.webp"),
     },
     4961_u16 => Vehicle {
@@ -1422,7 +1281,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J22_Ho_Ri_type96.png",
         image_content: include_bytes!("vendored/4961.webp"),
     },
     4977_u16 => Vehicle {
@@ -1432,7 +1290,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth15_RustCrab.png",
         image_content: include_bytes!("vendored/4977.webp"),
     },
     4993_u16 => Vehicle {
@@ -1442,7 +1299,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It10_P43_BD.png",
         image_content: include_bytes!("vendored/4993.webp"),
     },
     5121_u16 => Vehicle {
@@ -1452,7 +1308,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AT-1.png",
         image_content: include_bytes!("vendored/5121.webp"),
     },
     5137_u16 => Vehicle {
@@ -1462,7 +1317,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVIB_Tiger_II.png",
         image_content: include_bytes!("vendored/5137.webp"),
     },
     5153_u16 => Vehicle {
@@ -1472,7 +1326,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M5_Stuart.png",
         image_content: include_bytes!("vendored/5153.webp"),
     },
     5169_u16 => Vehicle {
@@ -1482,7 +1335,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch20_Type58.png",
         image_content: include_bytes!("vendored/5169.webp"),
     },
     5185_u16 => Vehicle {
@@ -1492,7 +1344,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_13_75.png",
         image_content: include_bytes!("vendored/5185.webp"),
     },
     5201_u16 => Vehicle {
@@ -1502,7 +1353,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB03_Cruiser_Mk_I.png",
         image_content: include_bytes!("vendored/5201.webp"),
     },
     5217_u16 => Vehicle {
@@ -1512,7 +1362,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J23_Chi_To_SPG.png",
         image_content: include_bytes!("vendored/5217.webp"),
     },
     5233_u16 => Vehicle {
@@ -1522,7 +1371,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth16_KV_TG.png",
         image_content: include_bytes!("vendored/5233.webp"),
     },
     5249_u16 => Vehicle {
@@ -1532,7 +1380,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl03_PzV_Pudel.png",
         image_content: include_bytes!("vendored/5249.webp"),
     },
     5377_u16 => Vehicle {
@@ -1542,7 +1389,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-3.png",
         image_content: include_bytes!("vendored/5377.webp"),
     },
     5393_u16 => Vehicle {
@@ -1552,7 +1398,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK1602.png",
         image_content: include_bytes!("vendored/5393.webp"),
     },
     5409_u16 => Vehicle {
@@ -1562,7 +1407,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M7_med.png",
         image_content: include_bytes!("vendored/5409.webp"),
     },
     5425_u16 => Vehicle {
@@ -1572,7 +1416,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch22_113.png",
         image_content: include_bytes!("vendored/5425.webp"),
     },
     5441_u16 => Vehicle {
@@ -1582,7 +1425,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F71_AMX_30_prototype.png",
         image_content: include_bytes!("vendored/5441.webp"),
     },
     5457_u16 => Vehicle {
@@ -1592,7 +1434,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB22_Comet.png",
         image_content: include_bytes!("vendored/5457.webp"),
     },
     5473_u16 => Vehicle {
@@ -1602,7 +1443,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J30_Mitsu_108.png",
         image_content: include_bytes!("vendored/5473.webp"),
     },
     5489_u16 => Vehicle {
@@ -1612,7 +1452,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth17_BDT-5A.png",
         image_content: include_bytes!("vendored/5489.webp"),
     },
     5505_u16 => Vehicle {
@@ -1622,7 +1461,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz04_T50_51.png",
         image_content: include_bytes!("vendored/5505.webp"),
     },
     5665_u16 => Vehicle {
@@ -1632,7 +1470,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T2_med.png",
         image_content: include_bytes!("vendored/5665.webp"),
     },
     5681_u16 => Vehicle {
@@ -1642,7 +1479,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch25_121_mod_1971B.png",
         image_content: include_bytes!("vendored/5681.webp"),
     },
     5713_u16 => Vehicle {
@@ -1652,7 +1488,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB24_Centurion_Mk3.png",
         image_content: include_bytes!("vendored/5713.webp"),
     },
     5729_u16 => Vehicle {
@@ -1662,7 +1497,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J29_Ju_Nu.png",
         image_content: include_bytes!("vendored/5729.webp"),
     },
     5745_u16 => Vehicle {
@@ -1672,7 +1506,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth18_BDT-5B.png",
         image_content: include_bytes!("vendored/5745.webp"),
     },
     5761_u16 => Vehicle {
@@ -1682,7 +1515,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz02_T50.png",
         image_content: include_bytes!("vendored/5761.webp"),
     },
     5889_u16 => Vehicle {
@@ -1692,7 +1524,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-3.png",
         image_content: include_bytes!("vendored/5889.webp"),
     },
     5921_u16 => Vehicle {
@@ -1702,7 +1533,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pershing.png",
         image_content: include_bytes!("vendored/5921.webp"),
     },
     5937_u16 => Vehicle {
@@ -1712,7 +1542,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch26_59_Patton.png",
         image_content: include_bytes!("vendored/5937.webp"),
     },
     5953_u16 => Vehicle {
@@ -1722,7 +1551,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX38.png",
         image_content: include_bytes!("vendored/5953.webp"),
     },
     5969_u16 => Vehicle {
@@ -1732,7 +1560,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB23_Centurion.png",
         image_content: include_bytes!("vendored/5969.webp"),
     },
     5985_u16 => Vehicle {
@@ -1742,7 +1569,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J28_Ju_To.png",
         image_content: include_bytes!("vendored/5985.webp"),
     },
     6001_u16 => Vehicle {
@@ -1752,7 +1578,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth19_BDT-5C.png",
         image_content: include_bytes!("vendored/6001.webp"),
     },
     6017_u16 => Vehicle {
@@ -1762,7 +1587,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz07_TVP_46.png",
         image_content: include_bytes!("vendored/6017.webp"),
     },
     6145_u16 => Vehicle {
@@ -1772,7 +1596,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-4.png",
         image_content: include_bytes!("vendored/6145.webp"),
     },
     6161_u16 => Vehicle {
@@ -1782,7 +1605,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzII_Luchs.png",
         image_content: include_bytes!("vendored/6161.webp"),
     },
     6177_u16 => Vehicle {
@@ -1792,7 +1614,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T18.png",
         image_content: include_bytes!("vendored/6177.webp"),
     },
     6193_u16 => Vehicle {
@@ -1802,7 +1623,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch14_T34_3.png",
         image_content: include_bytes!("vendored/6193.webp"),
     },
     6209_u16 => Vehicle {
@@ -1812,7 +1632,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_50B.png",
         image_content: include_bytes!("vendored/6209.webp"),
     },
     6225_u16 => Vehicle {
@@ -1822,7 +1641,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB13_FV215b.png",
         image_content: include_bytes!("vendored/6225.webp"),
     },
     6241_u16 => Vehicle {
@@ -1832,7 +1650,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J27_Chi_Se.png",
         image_content: include_bytes!("vendored/6241.webp"),
     },
     6257_u16 => Vehicle {
@@ -1842,7 +1659,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth20_M4FL10.png",
         image_content: include_bytes!("vendored/6257.webp"),
     },
     6273_u16 => Vehicle {
@@ -1852,7 +1668,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz05_T34-100.png",
         image_content: include_bytes!("vendored/6273.webp"),
     },
     6401_u16 => Vehicle {
@@ -1862,7 +1677,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-76.png",
         image_content: include_bytes!("vendored/6401.webp"),
     },
     6417_u16 => Vehicle {
@@ -1872,7 +1686,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIII_IV.png",
         image_content: include_bytes!("vendored/6417.webp"),
     },
     6433_u16 => Vehicle {
@@ -1882,7 +1695,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T82.png",
         image_content: include_bytes!("vendored/6433.webp"),
     },
     6449_u16 => Vehicle {
@@ -1892,7 +1704,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/CH38_WZ113G-FT.png",
         image_content: include_bytes!("vendored/6449.webp"),
     },
     6465_u16 => Vehicle {
@@ -1902,7 +1713,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_12t.png",
         image_content: include_bytes!("vendored/6465.webp"),
     },
     6481_u16 => Vehicle {
@@ -1912,7 +1722,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB60_Covenanter.png",
         image_content: include_bytes!("vendored/6481.webp"),
     },
     6497_u16 => Vehicle {
@@ -1922,7 +1731,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J26_Type_68.png",
         image_content: include_bytes!("vendored/6497.webp"),
     },
     6529_u16 => Vehicle {
@@ -1932,7 +1740,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz08_T-25.png",
         image_content: include_bytes!("vendored/6529.webp"),
     },
     6657_u16 => Vehicle {
@@ -1942,7 +1749,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-43.png",
         image_content: include_bytes!("vendored/6657.webp"),
     },
     6673_u16 => Vehicle {
@@ -1952,7 +1758,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G20_Marder_II.png",
         image_content: include_bytes!("vendored/6673.webp"),
     },
     6689_u16 => Vehicle {
@@ -1962,7 +1767,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T49_Rocket.png",
         image_content: include_bytes!("vendored/6689.webp"),
     },
     6705_u16 => Vehicle {
@@ -1972,7 +1776,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch_LT_vz38.png",
         image_content: include_bytes!("vendored/6705.webp"),
     },
     6721_u16 => Vehicle {
@@ -1982,7 +1785,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/BDR_G1B.png",
         image_content: include_bytes!("vendored/6721.webp"),
     },
     6753_u16 => Vehicle {
@@ -1992,7 +1794,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J25_Type71.png",
         image_content: include_bytes!("vendored/6753.webp"),
     },
     6785_u16 => Vehicle {
@@ -2002,7 +1803,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz13_T-27.png",
         image_content: include_bytes!("vendored/6785.webp"),
     },
     6913_u16 => Vehicle {
@@ -2012,7 +1812,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GAZ-74b.png",
         image_content: include_bytes!("vendored/6913.webp"),
     },
     6929_u16 => Vehicle {
@@ -2022,7 +1821,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Maus.png",
         image_content: include_bytes!("vendored/6929.webp"),
     },
     6945_u16 => Vehicle {
@@ -2032,7 +1830,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M10_Wolverine.png",
         image_content: include_bytes!("vendored/6945.webp"),
     },
     6961_u16 => Vehicle {
@@ -2042,7 +1839,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch39_WZ120_1G_FT.png",
         image_content: include_bytes!("vendored/6961.webp"),
     },
     6977_u16 => Vehicle {
@@ -2052,7 +1848,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_M4_1945.png",
         image_content: include_bytes!("vendored/6977.webp"),
     },
     6993_u16 => Vehicle {
@@ -2062,7 +1857,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB69_Cruiser_Mk_II.png",
         image_content: include_bytes!("vendored/6993.webp"),
     },
     7009_u16 => Vehicle {
@@ -2072,7 +1866,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/J24_Type_57.png",
         image_content: include_bytes!("vendored/7009.webp"),
     },
     7025_u16 => Vehicle {
@@ -2082,7 +1875,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth22_Sega_Vulcan.png",
         image_content: include_bytes!("vendored/7025.webp"),
     },
     7041_u16 => Vehicle {
@@ -2092,7 +1884,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S07_Strv74BP.png",
         image_content: include_bytes!("vendored/7041.webp"),
     },
     7169_u16 => Vehicle {
@@ -2102,7 +1893,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-7.png",
         image_content: include_bytes!("vendored/7169.webp"),
     },
     7185_u16 => Vehicle {
@@ -2112,7 +1902,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3001P.png",
         image_content: include_bytes!("vendored/7185.webp"),
     },
     7201_u16 => Vehicle {
@@ -2122,7 +1911,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M36_Slagger.png",
         image_content: include_bytes!("vendored/7201.webp"),
     },
     7217_u16 => Vehicle {
@@ -2132,7 +1920,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch_WZ-112v2.png",
         image_content: include_bytes!("vendored/7217.webp"),
     },
     7249_u16 => Vehicle {
@@ -2142,7 +1929,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB70_FV4202_105.png",
         image_content: include_bytes!("vendored/7249.webp"),
     },
     7265_u16 => Vehicle {
@@ -2152,7 +1938,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/japan-J29_Ju_Nu_BP.png",
         image_content: include_bytes!("vendored/7265.webp"),
     },
     7281_u16 => Vehicle {
@@ -2162,7 +1947,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth23_Werewolf.png",
         image_content: include_bytes!("vendored/7281.webp"),
     },
     7297_u16 => Vehicle {
@@ -2172,7 +1956,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl15_60TP.png",
         image_content: include_bytes!("vendored/7297.webp"),
     },
     7425_u16 => Vehicle {
@@ -2182,7 +1965,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ISU-152.png",
         image_content: include_bytes!("vendored/7425.webp"),
     },
     7441_u16 => Vehicle {
@@ -2192,7 +1974,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK4502P.png",
         image_content: include_bytes!("vendored/7441.webp"),
     },
     7473_u16 => Vehicle {
@@ -2202,7 +1983,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch35_T-34-2G_FT.png",
         image_content: include_bytes!("vendored/7473.webp"),
     },
     7505_u16 => Vehicle {
@@ -2212,7 +1992,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB59_Cruiser_Mk_IV.png",
         image_content: include_bytes!("vendored/7505.webp"),
     },
     7537_u16 => Vehicle {
@@ -2222,7 +2001,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth24_StuH_42HW.png",
         image_content: include_bytes!("vendored/7537.webp"),
     },
     7553_u16 => Vehicle {
@@ -2232,7 +2010,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl05_50TP_Tyszkiewicza.png",
         image_content: include_bytes!("vendored/7553.webp"),
     },
     7697_u16 => Vehicle {
@@ -2242,7 +2019,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ferdinand.png",
         image_content: include_bytes!("vendored/7697.webp"),
     },
     7713_u16 => Vehicle {
@@ -2252,7 +2028,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T40.png",
         image_content: include_bytes!("vendored/7713.webp"),
     },
     7729_u16 => Vehicle {
@@ -2262,7 +2037,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch34_WZ-131G_FT.png",
         image_content: include_bytes!("vendored/7729.webp"),
     },
     7745_u16 => Vehicle {
@@ -2272,7 +2046,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RenaultFT_AC.png",
         image_content: include_bytes!("vendored/7745.webp"),
     },
     7761_u16 => Vehicle {
@@ -2282,7 +2055,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB58_Cruiser_Mk_III.png",
         image_content: include_bytes!("vendored/7761.webp"),
     },
     7793_u16 => Vehicle {
@@ -2292,7 +2064,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth25_HWT20_FalconFire.png",
         image_content: include_bytes!("vendored/7793.webp"),
     },
     7809_u16 => Vehicle {
@@ -2302,7 +2073,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl13_53TP_Markowskiego.png",
         image_content: include_bytes!("vendored/7809.webp"),
     },
     7937_u16 => Vehicle {
@@ -2312,7 +2082,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-54.png",
         image_content: include_bytes!("vendored/7937.webp"),
     },
     7953_u16 => Vehicle {
@@ -2322,7 +2091,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdTiger.png",
         image_content: include_bytes!("vendored/7953.webp"),
     },
     7985_u16 => Vehicle {
@@ -2332,7 +2100,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch36_WZ-111-1G_FT.png",
         image_content: include_bytes!("vendored/7985.webp"),
     },
     8001_u16 => Vehicle {
@@ -2342,7 +2109,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F19_Lorraine40t.png",
         image_content: include_bytes!("vendored/8001.webp"),
     },
     8017_u16 => Vehicle {
@@ -2352,7 +2118,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB42_Valentine_AT.png",
         image_content: include_bytes!("vendored/8017.webp"),
     },
     8049_u16 => Vehicle {
@@ -2362,7 +2127,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth26_StrvM42HW.png",
         image_content: include_bytes!("vendored/8049.webp"),
     },
     8065_u16 => Vehicle {
@@ -2372,7 +2136,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl10_40TP_Habicha.png",
         image_content: include_bytes!("vendored/8065.webp"),
     },
     8193_u16 => Vehicle {
@@ -2382,7 +2145,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object_704.png",
         image_content: include_bytes!("vendored/8193.webp"),
     },
     8209_u16 => Vehicle {
@@ -2392,7 +2154,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz38_NA.png",
         image_content: include_bytes!("vendored/8209.webp"),
     },
     8225_u16 => Vehicle {
@@ -2402,7 +2163,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T28.png",
         image_content: include_bytes!("vendored/8225.webp"),
     },
     8241_u16 => Vehicle {
@@ -2412,7 +2172,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch37_WZ-111G_FT.png",
         image_content: include_bytes!("vendored/8241.webp"),
     },
     8257_u16 => Vehicle {
@@ -2422,7 +2181,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RenaultUE57.png",
         image_content: include_bytes!("vendored/8257.webp"),
     },
     8273_u16 => Vehicle {
@@ -2432,7 +2190,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB39_Universal_CarrierQF2.png",
         image_content: include_bytes!("vendored/8273.webp"),
     },
     8305_u16 => Vehicle {
@@ -2442,7 +2199,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth28_Sturmfeur_HW.png",
         image_content: include_bytes!("vendored/8305.webp"),
     },
     8321_u16 => Vehicle {
@@ -2452,7 +2208,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl11_45TP_Habicha.png",
         image_content: include_bytes!("vendored/8321.webp"),
     },
     8465_u16 => Vehicle {
@@ -2462,7 +2217,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Panther_II.png",
         image_content: include_bytes!("vendored/8465.webp"),
     },
     8497_u16 => Vehicle {
@@ -2472,7 +2226,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch41_WZ_111_5A.png",
         image_content: include_bytes!("vendored/8497.webp"),
     },
     8513_u16 => Vehicle {
@@ -2482,7 +2235,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F72_AMX_30.png",
         image_content: include_bytes!("vendored/8513.webp"),
     },
     8529_u16 => Vehicle {
@@ -2492,7 +2244,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB72_AT15.png",
         image_content: include_bytes!("vendored/8529.webp"),
     },
     8561_u16 => Vehicle {
@@ -2502,7 +2253,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth27_M24_AMX.png",
         image_content: include_bytes!("vendored/8561.webp"),
     },
     8577_u16 => Vehicle {
@@ -2512,7 +2262,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S26_Lancen_C.png",
         image_content: include_bytes!("vendored/8577.webp"),
     },
     8737_u16 => Vehicle {
@@ -2522,7 +2271,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T95.png",
         image_content: include_bytes!("vendored/8737.webp"),
     },
     8753_u16 => Vehicle {
@@ -2532,7 +2280,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch42_M41D.png",
         image_content: include_bytes!("vendored/8753.webp"),
     },
     8785_u16 => Vehicle {
@@ -2542,7 +2289,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB73_AT2.png",
         image_content: include_bytes!("vendored/8785.webp"),
     },
     8817_u16 => Vehicle {
@@ -2552,7 +2298,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth29_A15HW.png",
         image_content: include_bytes!("vendored/8817.webp"),
     },
     8833_u16 => Vehicle {
@@ -2562,7 +2307,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz08_T-25BP.png",
         image_content: include_bytes!("vendored/8833.webp"),
     },
     8961_u16 => Vehicle {
@@ -2572,7 +2316,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-13.png",
         image_content: include_bytes!("vendored/8961.webp"),
     },
     8993_u16 => Vehicle {
@@ -2582,7 +2325,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M46_Patton.png",
         image_content: include_bytes!("vendored/8993.webp"),
     },
     9009_u16 => Vehicle {
@@ -2592,7 +2334,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Type_58BP.png",
         image_content: include_bytes!("vendored/9009.webp"),
     },
     9041_u16 => Vehicle {
@@ -2602,7 +2343,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB57_Alecto.png",
         image_content: include_bytes!("vendored/9041.webp"),
     },
     9073_u16 => Vehicle {
@@ -2612,7 +2352,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth30_T54MS.png",
         image_content: include_bytes!("vendored/9073.webp"),
     },
     9089_u16 => Vehicle {
@@ -2622,7 +2361,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz14_Skoda_T-56.png",
         image_content: include_bytes!("vendored/9089.webp"),
     },
     9217_u16 => Vehicle {
@@ -2632,7 +2370,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object252.png",
         image_content: include_bytes!("vendored/9217.webp"),
     },
     9249_u16 => Vehicle {
@@ -2642,7 +2379,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T25_AT.png",
         image_content: include_bytes!("vendored/9249.webp"),
     },
     9265_u16 => Vehicle {
@@ -2652,7 +2388,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Type_58TU.png",
         image_content: include_bytes!("vendored/9265.webp"),
     },
     9297_u16 => Vehicle {
@@ -2662,7 +2397,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB48_FV215b_183.png",
         image_content: include_bytes!("vendored/9297.webp"),
     },
     9329_u16 => Vehicle {
@@ -2672,7 +2406,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth31_T150BP.png",
         image_content: include_bytes!("vendored/9329.webp"),
     },
     9345_u16 => Vehicle {
@@ -2682,7 +2415,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S13_Leo_NY.png",
         image_content: include_bytes!("vendored/9345.webp"),
     },
     9489_u16 => Vehicle {
@@ -2692,7 +2424,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E-100.png",
         image_content: include_bytes!("vendored/9489.webp"),
     },
     9505_u16 => Vehicle {
@@ -2702,7 +2433,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M103.png",
         image_content: include_bytes!("vendored/9505.webp"),
     },
     9521_u16 => Vehicle {
@@ -2712,7 +2442,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch43_WZ-122_2.png",
         image_content: include_bytes!("vendored/9521.webp"),
     },
     9553_u16 => Vehicle {
@@ -2722,7 +2451,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB74_AT8.png",
         image_content: include_bytes!("vendored/9553.webp"),
     },
     9601_u16 => Vehicle {
@@ -2732,7 +2460,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pl119_CS_52_LIS.png",
         image_content: include_bytes!("vendored/9601.webp"),
     },
     9745_u16 => Vehicle {
@@ -2742,7 +2469,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E-75.png",
         image_content: include_bytes!("vendored/9745.webp"),
     },
     9761_u16 => Vehicle {
@@ -2752,7 +2478,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M24_Chaffee.png",
         image_content: include_bytes!("vendored/9761.webp"),
     },
     9777_u16 => Vehicle {
@@ -2762,7 +2487,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch45_WZ_114.png",
         image_content: include_bytes!("vendored/9777.webp"),
     },
     9793_u16 => Vehicle {
@@ -2772,7 +2496,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Somua_Sau_40.png",
         image_content: include_bytes!("vendored/9793.webp"),
     },
     9809_u16 => Vehicle {
@@ -2782,7 +2505,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB40_Gun_Carrier_Churchill.png",
         image_content: include_bytes!("vendored/9809.webp"),
     },
     9841_u16 => Vehicle {
@@ -2792,7 +2514,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth33_Blizzard_BP.png",
         image_content: include_bytes!("vendored/9841.webp"),
     },
     9857_u16 => Vehicle {
@@ -2802,7 +2523,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Cz15_Skoda_T-45.png",
         image_content: include_bytes!("vendored/9857.webp"),
     },
     9985_u16 => Vehicle {
@@ -2812,7 +2532,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU-101.png",
         image_content: include_bytes!("vendored/9985.webp"),
     },
     10001_u16 => Vehicle {
@@ -2822,7 +2541,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK2801.png",
         image_content: include_bytes!("vendored/10001.webp"),
     },
     10017_u16 => Vehicle {
@@ -2832,7 +2550,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sherman_Jumbo.png",
         image_content: include_bytes!("vendored/10017.webp"),
     },
     10033_u16 => Vehicle {
@@ -2842,7 +2559,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch28_WZ_132A.png",
         image_content: include_bytes!("vendored/10033.webp"),
     },
     10049_u16 => Vehicle {
@@ -2852,7 +2568,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S_35CA.png",
         image_content: include_bytes!("vendored/10049.webp"),
     },
     10065_u16 => Vehicle {
@@ -2862,7 +2577,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB75_AT7.png",
         image_content: include_bytes!("vendored/10065.webp"),
     },
     10097_u16 => Vehicle {
@@ -2872,7 +2586,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth35_PanzerMejai.png",
         image_content: include_bytes!("vendored/10097.webp"),
     },
     10113_u16 => Vehicle {
@@ -2882,7 +2595,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It20_Car_Comb_45t.png",
         image_content: include_bytes!("vendored/10113.webp"),
     },
     10241_u16 => Vehicle {
@@ -2892,7 +2604,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU100M1.png",
         image_content: include_bytes!("vendored/10241.webp"),
     },
     10257_u16 => Vehicle {
@@ -2902,7 +2613,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E-50.png",
         image_content: include_bytes!("vendored/10257.webp"),
     },
     10273_u16 => Vehicle {
@@ -2912,7 +2622,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M8A1.png",
         image_content: include_bytes!("vendored/10273.webp"),
     },
     10289_u16 => Vehicle {
@@ -2922,7 +2631,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch29_Type_62C_prot.png",
         image_content: include_bytes!("vendored/10289.webp"),
     },
     10353_u16 => Vehicle {
@@ -2932,7 +2640,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Oth34_PanzerMummy.png",
         image_content: include_bytes!("vendored/10353.webp"),
     },
     10369_u16 => Vehicle {
@@ -2942,7 +2649,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It21_Controcarro3_Minotauro.png",
         image_content: include_bytes!("vendored/10369.webp"),
     },
     10497_u16 => Vehicle {
@@ -2952,7 +2658,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV2.png",
         image_content: include_bytes!("vendored/10497.webp"),
     },
     10513_u16 => Vehicle {
@@ -2962,7 +2667,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK4502A.png",
         image_content: include_bytes!("vendored/10513.webp"),
     },
     10529_u16 => Vehicle {
@@ -2972,7 +2676,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T49.png",
         image_content: include_bytes!("vendored/10529.webp"),
     },
     10545_u16 => Vehicle {
@@ -2982,7 +2685,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch15_59_16_BP.png",
         image_content: include_bytes!("vendored/10545.webp"),
     },
     10609_u16 => Vehicle {
@@ -2992,7 +2694,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/other-Oth36_Indien_Panzer_S1.png",
         image_content: include_bytes!("vendored/10609.webp"),
     },
     10625_u16 => Vehicle {
@@ -3002,7 +2703,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It19_Controcarro_1MK2_Ciclope.png",
         image_content: include_bytes!("vendored/10625.webp"),
     },
     10753_u16 => Vehicle {
@@ -3012,7 +2712,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ST_I.png",
         image_content: include_bytes!("vendored/10753.webp"),
     },
     10769_u16 => Vehicle {
@@ -3022,7 +2721,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVI_Tiger_P.png",
         image_content: include_bytes!("vendored/10769.webp"),
     },
     10785_u16 => Vehicle {
@@ -3032,7 +2730,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T110.png",
         image_content: include_bytes!("vendored/10785.webp"),
     },
     10801_u16 => Vehicle {
@@ -3042,7 +2739,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch34_WZ-131G_FT_BP.png",
         image_content: include_bytes!("vendored/10801.webp"),
     },
     10817_u16 => Vehicle {
@@ -3052,7 +2748,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_AC_Mle1946.png",
         image_content: include_bytes!("vendored/10817.webp"),
     },
     10865_u16 => Vehicle {
@@ -3062,7 +2757,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/other-Oth37_T26_E4_SuperPershing_S1.png",
         image_content: include_bytes!("vendored/10865.webp"),
     },
     10881_u16 => Vehicle {
@@ -3072,7 +2766,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It18_Semovente_mod_64.png",
         image_content: include_bytes!("vendored/10881.webp"),
     },
     11009_u16 => Vehicle {
@@ -3082,7 +2775,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV4.png",
         image_content: include_bytes!("vendored/11009.webp"),
     },
     11025_u16 => Vehicle {
@@ -3092,7 +2784,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sturer_Emil.png",
         image_content: include_bytes!("vendored/11025.webp"),
     },
     11041_u16 => Vehicle {
@@ -3102,7 +2793,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T25_2.png",
         image_content: include_bytes!("vendored/11041.webp"),
     },
     11057_u16 => Vehicle {
@@ -3112,7 +2802,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/china-Ch44_114_SP2.png",
         image_content: include_bytes!("vendored/11057.webp"),
     },
     11073_u16 => Vehicle {
@@ -3122,7 +2811,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX50_Foch.png",
         image_content: include_bytes!("vendored/11073.webp"),
     },
     11121_u16 => Vehicle {
@@ -3132,7 +2820,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/other-Oth38_50TP_Tyszkiewicza_S1.png",
         image_content: include_bytes!("vendored/11121.webp"),
     },
     11137_u16 => Vehicle {
@@ -3142,7 +2829,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It17_Semovente_mod_56.png",
         image_content: include_bytes!("vendored/11137.webp"),
     },
     11265_u16 => Vehicle {
@@ -3152,7 +2838,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T150.png",
         image_content: include_bytes!("vendored/11265.webp"),
     },
     11281_u16 => Vehicle {
@@ -3162,7 +2847,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_KpfPz_70.png",
         image_content: include_bytes!("vendored/11281.webp"),
     },
     11297_u16 => Vehicle {
@@ -3172,7 +2856,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T28_Prototype.png",
         image_content: include_bytes!("vendored/11297.webp"),
     },
     11393_u16 => Vehicle {
@@ -3182,7 +2865,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-It16_Bassoto.png",
         image_content: include_bytes!("vendored/11393.webp"),
     },
     11521_u16 => Vehicle {
@@ -3192,7 +2874,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS8.png",
         image_content: include_bytes!("vendored/11521.webp"),
     },
     11537_u16 => Vehicle {
@@ -3202,7 +2883,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPantherII.png",
         image_content: include_bytes!("vendored/11537.webp"),
     },
     11553_u16 => Vehicle {
@@ -3212,7 +2892,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M18_Hellcat.png",
         image_content: include_bytes!("vendored/11553.webp"),
     },
     11585_u16 => Vehicle {
@@ -3222,7 +2901,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ARL_V39.png",
         image_content: include_bytes!("vendored/11585.webp"),
     },
     11649_u16 => Vehicle {
@@ -3232,7 +2910,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It15_Semovente_M41.png",
         image_content: include_bytes!("vendored/11649.webp"),
     },
     11777_u16 => Vehicle {
@@ -3242,7 +2919,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV1.png",
         image_content: include_bytes!("vendored/11777.webp"),
     },
     11793_u16 => Vehicle {
@@ -3252,7 +2928,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Nashorn.png",
         image_content: include_bytes!("vendored/11793.webp"),
     },
     11809_u16 => Vehicle {
@@ -3262,7 +2937,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T23E3.png",
         image_content: include_bytes!("vendored/11809.webp"),
     },
     11905_u16 => Vehicle {
@@ -3272,7 +2946,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/It10_P43_bis_BP.png",
         image_content: include_bytes!("vendored/11905.webp"),
     },
     12033_u16 => Vehicle {
@@ -3282,7 +2955,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU122_54.png",
         image_content: include_bytes!("vendored/12033.webp"),
     },
     12049_u16 => Vehicle {
@@ -3292,7 +2964,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPz_E100.png",
         image_content: include_bytes!("vendored/12049.webp"),
     },
     12065_u16 => Vehicle {
@@ -3302,7 +2973,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T95E2.png",
         image_content: include_bytes!("vendored/12065.webp"),
     },
     12097_u16 => Vehicle {
@@ -3312,7 +2982,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_AC_Mle1948.png",
         image_content: include_bytes!("vendored/12097.webp"),
     },
     12161_u16 => Vehicle {
@@ -3322,7 +2991,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S31_Strv_K.png",
         image_content: include_bytes!("vendored/12161.webp"),
     },
     12305_u16 => Vehicle {
@@ -3332,7 +3000,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E50_Ausf_M.png",
         image_content: include_bytes!("vendored/12305.webp"),
     },
     12321_u16 => Vehicle {
@@ -3342,7 +3009,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A77_T6M.png",
         image_content: include_bytes!("vendored/12321.webp"),
     },
     12417_u16 => Vehicle {
@@ -3352,7 +3018,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-It22_Progetto_C45_mod_71.png",
         image_content: include_bytes!("vendored/12417.webp"),
     },
     12545_u16 => Vehicle {
@@ -3362,7 +3027,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/K-91.png",
         image_content: include_bytes!("vendored/12545.webp"),
     },
     12673_u16 => Vehicle {
@@ -3372,7 +3036,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-S32_Bofors_Tornvagn.png",
         image_content: include_bytes!("vendored/12673.webp"),
     },
     12929_u16 => Vehicle {
@@ -3382,7 +3045,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz16_TNH_T_vz51.png",
         image_content: include_bytes!("vendored/12929.webp"),
     },
     13073_u16 => Vehicle {
@@ -3392,7 +3054,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_II_AusfG.png",
         image_content: include_bytes!("vendored/13073.webp"),
     },
     13089_u16 => Vehicle {
@@ -3402,7 +3063,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T110E4.png",
         image_content: include_bytes!("vendored/13089.webp"),
     },
     13185_u16 => Vehicle {
@@ -3412,7 +3072,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz17_Vz_55.png",
         image_content: include_bytes!("vendored/13185.webp"),
     },
     13329_u16 => Vehicle {
@@ -3422,7 +3081,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/DW_II.png",
         image_content: include_bytes!("vendored/13329.webp"),
     },
     13345_u16 => Vehicle {
@@ -3432,7 +3090,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T26_E4_SuperPershing.png",
         image_content: include_bytes!("vendored/13345.webp"),
     },
     13441_u16 => Vehicle {
@@ -3442,7 +3099,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz08_T-25BPS.png",
         image_content: include_bytes!("vendored/13441.webp"),
     },
     13569_u16 => Vehicle {
@@ -3452,7 +3108,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object268.png",
         image_content: include_bytes!("vendored/13569.webp"),
     },
     13697_u16 => Vehicle {
@@ -3462,7 +3117,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz18_TNH_105_1000.png",
         image_content: include_bytes!("vendored/13697.webp"),
     },
     13825_u16 => Vehicle {
@@ -3472,7 +3126,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T62A.png",
         image_content: include_bytes!("vendored/13825.webp"),
     },
     13841_u16 => Vehicle {
@@ -3482,7 +3135,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Indien_Panzer.png",
         image_content: include_bytes!("vendored/13841.webp"),
     },
     13857_u16 => Vehicle {
@@ -3492,7 +3144,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T110E3.png",
         image_content: include_bytes!("vendored/13857.webp"),
     },
     13889_u16 => Vehicle {
@@ -3502,7 +3153,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_50Fosh_155.png",
         image_content: include_bytes!("vendored/13889.webp"),
     },
     13953_u16 => Vehicle {
@@ -3512,7 +3162,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz19_Vz_44_1.png",
         image_content: include_bytes!("vendored/13953.webp"),
     },
     14097_u16 => Vehicle {
@@ -3522,7 +3171,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3002DB_V1.png",
         image_content: include_bytes!("vendored/14097.webp"),
     },
     14113_u16 => Vehicle {
@@ -3532,7 +3180,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M48A1.png",
         image_content: include_bytes!("vendored/14113.webp"),
     },
     14145_u16 => Vehicle {
@@ -3542,7 +3189,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ELC_AMX.png",
         image_content: include_bytes!("vendored/14145.webp"),
     },
     14209_u16 => Vehicle {
@@ -3552,7 +3198,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-Cz29_Skoda_P-JS.png",
         image_content: include_bytes!("vendored/14209.webp"),
     },
     14337_u16 => Vehicle {
@@ -3562,7 +3207,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object263.png",
         image_content: include_bytes!("vendored/14337.webp"),
     },
     14609_u16 => Vehicle {
@@ -3572,7 +3216,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Leopard1.png",
         image_content: include_bytes!("vendored/14609.webp"),
     },
     14625_u16 => Vehicle {
@@ -3582,7 +3225,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T69.png",
         image_content: include_bytes!("vendored/14625.webp"),
     },
     14721_u16 => Vehicle {
@@ -3592,7 +3234,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/european-S23_Strv_81.png",
         image_content: include_bytes!("vendored/14721.webp"),
     },
     14865_u16 => Vehicle {
@@ -3602,7 +3243,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pro_Ag_A.png",
         image_content: include_bytes!("vendored/14865.webp"),
     },
     14881_u16 => Vehicle {
@@ -3612,7 +3252,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T57_58.png",
         image_content: include_bytes!("vendored/14881.webp"),
     },
     15137_u16 => Vehicle {
@@ -3622,7 +3261,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T21.png",
         image_content: include_bytes!("vendored/15137.webp"),
     },
     15393_u16 => Vehicle {
@@ -3632,7 +3270,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T54E1.png",
         image_content: include_bytes!("vendored/15393.webp"),
     },
     15441_u16 => Vehicle {
@@ -3642,7 +3279,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB87_Chieftain_T95_turret.png",
         image_content: include_bytes!("vendored/15441.webp"),
     },
     15617_u16 => Vehicle {
@@ -3652,7 +3288,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object_907.png",
         image_content: include_bytes!("vendored/15617.webp"),
     },
     15649_u16 => Vehicle {
@@ -3662,7 +3297,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T71.png",
         image_content: include_bytes!("vendored/15649.webp"),
     },
     15697_u16 => Vehicle {
@@ -3672,7 +3306,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB84_Chieftain_Mk6.png",
         image_content: include_bytes!("vendored/15697.webp"),
     },
     15889_u16 => Vehicle {
@@ -3682,7 +3315,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3002M.png",
         image_content: include_bytes!("vendored/15889.webp"),
     },
     15905_u16 => Vehicle {
@@ -3692,7 +3324,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M60.png",
         image_content: include_bytes!("vendored/15905.webp"),
     },
     15937_u16 => Vehicle {
@@ -3702,7 +3333,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RenaultR35.png",
         image_content: include_bytes!("vendored/15937.webp"),
     },
     15953_u16 => Vehicle {
@@ -3712,7 +3342,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB52_FV201_A45.png",
         image_content: include_bytes!("vendored/15953.webp"),
     },
     16145_u16 => Vehicle {
@@ -3722,7 +3351,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_Sfl_IVc.png",
         image_content: include_bytes!("vendored/16145.webp"),
     },
     16193_u16 => Vehicle {
@@ -3732,7 +3360,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F73_M4A1_Revalorise.png",
         image_content: include_bytes!("vendored/16193.webp"),
     },
     16209_u16 => Vehicle {
@@ -3742,7 +3369,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB03_Cruiser_Mk_I_tutorial_bot.png",
         image_content: include_bytes!("vendored/16209.webp"),
     },
     16401_u16 => Vehicle {
@@ -3752,7 +3378,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Waffentrager_IV.png",
         image_content: include_bytes!("vendored/16401.webp"),
     },
     16449_u16 => Vehicle {
@@ -3762,7 +3387,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F69_AMX_13_57GF.png",
         image_content: include_bytes!("vendored/16449.webp"),
     },
     16465_u16 => Vehicle {
@@ -3772,7 +3396,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB03_Cruiser_Mk_I_tutorial_bot2.png",
         image_content: include_bytes!("vendored/16465.webp"),
     },
     16641_u16 => Vehicle {
@@ -3782,7 +3405,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/MT25.png",
         image_content: include_bytes!("vendored/16641.webp"),
     },
     16657_u16 => Vehicle {
@@ -3792,7 +3414,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/RhB_Waffentrager.png",
         image_content: include_bytes!("vendored/16657.webp"),
     },
     16673_u16 => Vehicle {
@@ -3802,7 +3423,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A94_T37.png",
         image_content: include_bytes!("vendored/16673.webp"),
     },
     16705_u16 => Vehicle {
@@ -3812,7 +3432,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F74_AMX_M4_1949.png",
         image_content: include_bytes!("vendored/16705.webp"),
     },
     16897_u16 => Vehicle {
@@ -3822,7 +3441,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object_140.png",
         image_content: include_bytes!("vendored/16897.webp"),
     },
     17169_u16 => Vehicle {
@@ -3832,7 +3450,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_IV_AusfA.png",
         image_content: include_bytes!("vendored/17169.webp"),
     },
     17217_u16 => Vehicle {
@@ -3842,7 +3459,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/ARL_44BP.png",
         image_content: include_bytes!("vendored/17217.webp"),
     },
     17233_u16 => Vehicle {
@@ -3852,7 +3468,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB81_FV4004.png",
         image_content: include_bytes!("vendored/17233.webp"),
     },
     17425_u16 => Vehicle {
@@ -3862,7 +3477,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_IV_AusfD.png",
         image_content: include_bytes!("vendored/17425.webp"),
     },
     17473_u16 => Vehicle {
@@ -3872,7 +3486,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F69_AMX_13D.png",
         image_content: include_bytes!("vendored/17473.webp"),
     },
     17489_u16 => Vehicle {
@@ -3882,7 +3495,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB80_Charioteer.png",
         image_content: include_bytes!("vendored/17489.webp"),
     },
     17729_u16 => Vehicle {
@@ -3892,7 +3504,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F84_Somua_SM.png",
         image_content: include_bytes!("vendored/17729.webp"),
     },
     17745_u16 => Vehicle {
@@ -3902,7 +3513,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB92_FV217.png",
         image_content: include_bytes!("vendored/17745.webp"),
     },
     17953_u16 => Vehicle {
@@ -3912,7 +3522,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M41_Bulldog.png",
         image_content: include_bytes!("vendored/17953.webp"),
     },
     17985_u16 => Vehicle {
@@ -3922,7 +3531,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F113_PzV_FR.png",
         image_content: include_bytes!("vendored/17985.webp"),
     },
     18001_u16 => Vehicle {
@@ -3932,7 +3540,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB83_4005.png",
         image_content: include_bytes!("vendored/18001.webp"),
     },
     18177_u16 => Vehicle {
@@ -3942,7 +3549,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R109_T54S.png",
         image_content: include_bytes!("vendored/18177.webp"),
     },
     18209_u16 => Vehicle {
@@ -3952,7 +3558,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A100_T49.png",
         image_content: include_bytes!("vendored/18209.webp"),
     },
     18241_u16 => Vehicle {
@@ -3962,7 +3567,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F116_Bat_Chat_Bourrasque.png",
         image_content: include_bytes!("vendored/18241.webp"),
     },
     18257_u16 => Vehicle {
@@ -3972,7 +3576,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB41_Challenger.png",
         image_content: include_bytes!("vendored/18257.webp"),
     },
     18433_u16 => Vehicle {
@@ -3982,7 +3585,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R107_LTB.png",
         image_content: include_bytes!("vendored/18433.webp"),
     },
     18449_u16 => Vehicle {
@@ -3992,7 +3594,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G103_RU_251.png",
         image_content: include_bytes!("vendored/18449.webp"),
     },
     18465_u16 => Vehicle {
@@ -4002,7 +3603,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-M2_lt_tutorial_bot.png",
         image_content: include_bytes!("vendored/18465.webp"),
     },
     18497_u16 => Vehicle {
@@ -4012,7 +3612,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F19_Lorraine40t_Com.png",
         image_content: include_bytes!("vendored/18497.webp"),
     },
     18513_u16 => Vehicle {
@@ -4022,7 +3621,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB97_Chimera.png",
         image_content: include_bytes!("vendored/18513.webp"),
     },
     18689_u16 => Vehicle {
@@ -4032,7 +3630,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R43_T-70_57.png",
         image_content: include_bytes!("vendored/18689.webp"),
     },
     18721_u16 => Vehicle {
@@ -4042,7 +3639,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-M2_lt_tutorial_bot2.png",
         image_content: include_bytes!("vendored/18721.webp"),
     },
     18753_u16 => Vehicle {
@@ -4052,7 +3648,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F89_Canon_dassaut_105.png",
         image_content: include_bytes!("vendored/18753.webp"),
     },
     18769_u16 => Vehicle {
@@ -4062,7 +3657,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB93_Caernarvon_AX.png",
         image_content: include_bytes!("vendored/18769.webp"),
     },
     18945_u16 => Vehicle {
@@ -4072,7 +3666,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R111_ISU130.png",
         image_content: include_bytes!("vendored/18945.webp"),
     },
     18961_u16 => Vehicle {
@@ -4082,7 +3675,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G113_SP_I_C.png",
         image_content: include_bytes!("vendored/18961.webp"),
     },
     18977_u16 => Vehicle {
@@ -4092,7 +3684,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A95_T95E6.png",
         image_content: include_bytes!("vendored/18977.webp"),
     },
     19009_u16 => Vehicle {
@@ -4102,7 +3693,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F_AMX-12BP.png",
         image_content: include_bytes!("vendored/19009.webp"),
     },
     19025_u16 => Vehicle {
@@ -4112,7 +3702,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Centurion_MkDF.png",
         image_content: include_bytes!("vendored/19025.webp"),
     },
     19201_u16 => Vehicle {
@@ -4122,7 +3711,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-T-26_tutorial_bot.png",
         image_content: include_bytes!("vendored/19201.webp"),
     },
     19217_u16 => Vehicle {
@@ -4132,7 +3720,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G121_Grille_15_L63.png",
         image_content: include_bytes!("vendored/19217.webp"),
     },
     19233_u16 => Vehicle {
@@ -4142,7 +3729,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A115_Chrysler_K.png",
         image_content: include_bytes!("vendored/19233.webp"),
     },
     19265_u16 => Vehicle {
@@ -4152,7 +3738,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Achilles_FR.png",
         image_content: include_bytes!("vendored/19265.webp"),
     },
     19281_u16 => Vehicle {
@@ -4162,7 +3747,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB91_Super_Conqueror.png",
         image_content: include_bytes!("vendored/19281.webp"),
     },
     19457_u16 => Vehicle {
@@ -4172,7 +3756,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-T-26_tutorial_bot2.png",
         image_content: include_bytes!("vendored/19457.webp"),
     },
     19473_u16 => Vehicle {
@@ -4182,7 +3765,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Krupp-38D.png",
         image_content: include_bytes!("vendored/19473.webp"),
     },
     19489_u16 => Vehicle {
@@ -4192,7 +3774,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A68_T28D.png",
         image_content: include_bytes!("vendored/19489.webp"),
     },
     19521_u16 => Vehicle {
@@ -4202,7 +3783,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-Bat-Chat-25CL.png",
         image_content: include_bytes!("vendored/19521.webp"),
     },
     19537_u16 => Vehicle {
@@ -4212,7 +3792,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Vickers_Light_105.png",
         image_content: include_bytes!("vendored/19537.webp"),
     },
     19713_u16 => Vehicle {
@@ -4222,7 +3801,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R140_M4A2_Loza.png",
         image_content: include_bytes!("vendored/19713.webp"),
     },
     19729_u16 => Vehicle {
@@ -4232,7 +3810,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G136_Tiger_131.png",
         image_content: include_bytes!("vendored/19729.webp"),
     },
     19745_u16 => Vehicle {
@@ -4242,7 +3819,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A117_T26E5.png",
         image_content: include_bytes!("vendored/19745.webp"),
     },
     19777_u16 => Vehicle {
@@ -4252,7 +3828,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-F117_Alt_Proto_AMX_30.png",
         image_content: include_bytes!("vendored/19777.webp"),
     },
     19793_u16 => Vehicle {
@@ -4262,7 +3837,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_Vickers_Cruiser.png",
         image_content: include_bytes!("vendored/19793.webp"),
     },
     19969_u16 => Vehicle {
@@ -4272,7 +3846,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R120_T22SR.png",
         image_content: include_bytes!("vendored/19969.webp"),
     },
     19985_u16 => Vehicle {
@@ -4282,7 +3855,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G114_Rheinmetall_Scorpion.png",
         image_content: include_bytes!("vendored/19985.webp"),
     },
     20001_u16 => Vehicle {
@@ -4292,7 +3864,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A99_T92E1.png",
         image_content: include_bytes!("vendored/20001.webp"),
     },
     20033_u16 => Vehicle {
@@ -4302,7 +3873,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-F114_Projet_4_1.png",
         image_content: include_bytes!("vendored/20033.webp"),
     },
     20049_u16 => Vehicle {
@@ -4312,7 +3882,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB_FV301.png",
         image_content: include_bytes!("vendored/20049.webp"),
     },
     20241_u16 => Vehicle {
@@ -4322,7 +3891,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-PzII_tutorial_bot2.png",
         image_content: include_bytes!("vendored/20241.webp"),
     },
     20257_u16 => Vehicle {
@@ -4332,7 +3900,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A116_XM551.png",
         image_content: include_bytes!("vendored/20257.webp"),
     },
     20289_u16 => Vehicle {
@@ -4342,7 +3909,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-F34_ARL_V39_BP.png",
         image_content: include_bytes!("vendored/20289.webp"),
     },
     20305_u16 => Vehicle {
@@ -4352,7 +3918,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB94_Centurion_Mk5-1_RAAC.png",
         image_content: include_bytes!("vendored/20305.webp"),
     },
     20481_u16 => Vehicle {
@@ -4362,7 +3927,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R134_Object_252U.png",
         image_content: include_bytes!("vendored/20481.webp"),
     },
     20497_u16 => Vehicle {
@@ -4372,7 +3936,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G115_VK10001P.png",
         image_content: include_bytes!("vendored/20497.webp"),
     },
     20513_u16 => Vehicle {
@@ -4382,7 +3945,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A124_T54E2.png",
         image_content: include_bytes!("vendored/20513.webp"),
     },
     20545_u16 => Vehicle {
@@ -4392,7 +3954,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/france-F11_Renault_G1R.png",
         image_content: include_bytes!("vendored/20545.webp"),
     },
     20561_u16 => Vehicle {
@@ -4402,7 +3963,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB99_Turtle_Mk1.png",
         image_content: include_bytes!("vendored/20561.webp"),
     },
     20737_u16 => Vehicle {
@@ -4412,7 +3972,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R159_SU_130PM.png",
         image_content: include_bytes!("vendored/20737.webp"),
     },
     20753_u16 => Vehicle {
@@ -4422,7 +3981,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G110_Mauschen.png",
         image_content: include_bytes!("vendored/20753.webp"),
     },
     20769_u16 => Vehicle {
@@ -4432,7 +3990,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A111_T25_Pilot.png",
         image_content: include_bytes!("vendored/20769.webp"),
     },
     20817_u16 => Vehicle {
@@ -4442,7 +3999,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB21_A27BP.png",
         image_content: include_bytes!("vendored/20817.webp"),
     },
     20993_u16 => Vehicle {
@@ -4452,7 +4008,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R63_ST_IBD.png",
         image_content: include_bytes!("vendored/20993.webp"),
     },
     21009_u16 => Vehicle {
@@ -4462,7 +4017,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G119_Pz58_Mutz.png",
         image_content: include_bytes!("vendored/21009.webp"),
     },
     21025_u16 => Vehicle {
@@ -4472,7 +4026,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A121_T26E3.png",
         image_content: include_bytes!("vendored/21025.webp"),
     },
     21073_u16 => Vehicle {
@@ -4482,7 +4035,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB40_Gun_Carrier_BP.png",
         image_content: include_bytes!("vendored/21073.webp"),
     },
     21249_u16 => Vehicle {
@@ -4492,7 +4044,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-1s-BP.png",
         image_content: include_bytes!("vendored/21249.webp"),
     },
     21265_u16 => Vehicle {
@@ -4502,7 +4053,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G138_VK16801P.png",
         image_content: include_bytes!("vendored/21265.webp"),
     },
     21281_u16 => Vehicle {
@@ -4512,7 +4062,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M4A3E8_BP.png",
         image_content: include_bytes!("vendored/21281.webp"),
     },
     21329_u16 => Vehicle {
@@ -4522,7 +4071,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB109_GSOR_1008.png",
         image_content: include_bytes!("vendored/21329.webp"),
     },
     21505_u16 => Vehicle {
@@ -4532,7 +4080,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R98_T44_85.png",
         image_content: include_bytes!("vendored/21505.webp"),
     },
     21521_u16 => Vehicle {
@@ -4542,7 +4089,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_E-75TS.png",
         image_content: include_bytes!("vendored/21521.webp"),
     },
     21537_u16 => Vehicle {
@@ -4552,7 +4098,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-M4A3E8TU.png",
         image_content: include_bytes!("vendored/21537.webp"),
     },
     21585_u16 => Vehicle {
@@ -4562,7 +4107,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB63_TOG_II_BP.png",
         image_content: include_bytes!("vendored/21585.webp"),
     },
     21761_u16 => Vehicle {
@@ -4572,7 +4116,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R146_STG.png",
         image_content: include_bytes!("vendored/21761.webp"),
     },
     21777_u16 => Vehicle {
@@ -4582,7 +4125,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_VK9001P.png",
         image_content: include_bytes!("vendored/21777.webp"),
     },
     21793_u16 => Vehicle {
@@ -4592,7 +4134,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A116_XM551_Exp.png",
         image_content: include_bytes!("vendored/21793.webp"),
     },
     21841_u16 => Vehicle {
@@ -4602,7 +4143,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB112_Caliban.png",
         image_content: include_bytes!("vendored/21841.webp"),
     },
     22017_u16 => Vehicle {
@@ -4612,7 +4152,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-T34_85TU.png",
         image_content: include_bytes!("vendored/22017.webp"),
     },
     22033_u16 => Vehicle {
@@ -4622,7 +4161,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK2801_BP.png",
         image_content: include_bytes!("vendored/22033.webp"),
     },
     22049_u16 => Vehicle {
@@ -4632,7 +4170,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6E2BP.png",
         image_content: include_bytes!("vendored/22049.webp"),
     },
     22097_u16 => Vehicle {
@@ -4642,7 +4179,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB_Churchill_MkVIII.png",
         image_content: include_bytes!("vendored/22097.webp"),
     },
     22273_u16 => Vehicle {
@@ -4652,7 +4188,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R110_Object_260.png",
         image_content: include_bytes!("vendored/22273.webp"),
     },
     22289_u16 => Vehicle {
@@ -4662,7 +4197,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-PzVI_AusfTU.png",
         image_content: include_bytes!("vendored/22289.webp"),
     },
     22305_u16 => Vehicle {
@@ -4672,7 +4206,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A125_AEP_1.png",
         image_content: include_bytes!("vendored/22305.webp"),
     },
     22353_u16 => Vehicle {
@@ -4682,7 +4215,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB09_Churchill_VII_BP.png",
         image_content: include_bytes!("vendored/22353.webp"),
     },
     22529_u16 => Vehicle {
@@ -4692,7 +4224,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R158_LT_432.png",
         image_content: include_bytes!("vendored/22529.webp"),
     },
     22545_u16 => Vehicle {
@@ -4702,7 +4233,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G112_JagdPanzer_105.png",
         image_content: include_bytes!("vendored/22545.webp"),
     },
     22561_u16 => Vehicle {
@@ -4712,7 +4242,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A122_TS-5.png",
         image_content: include_bytes!("vendored/22561.webp"),
     },
     22609_u16 => Vehicle {
@@ -4722,7 +4251,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB11_Caernarvon_D.png",
         image_content: include_bytes!("vendored/22609.webp"),
     },
     22785_u16 => Vehicle {
@@ -4732,7 +4260,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T34_85BP.png",
         image_content: include_bytes!("vendored/22785.webp"),
     },
     22801_u16 => Vehicle {
@@ -4742,7 +4269,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVI_AusfBP.png",
         image_content: include_bytes!("vendored/22801.webp"),
     },
     22817_u16 => Vehicle {
@@ -4752,7 +4278,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-6-Y.png",
         image_content: include_bytes!("vendored/22817.webp"),
     },
     22865_u16 => Vehicle {
@@ -4762,7 +4287,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB111_Charlemagne.png",
         image_content: include_bytes!("vendored/22865.webp"),
     },
     23041_u16 => Vehicle {
@@ -4772,7 +4296,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R154_T-34E-43.png",
         image_content: include_bytes!("vendored/23041.webp"),
     },
     23057_u16 => Vehicle {
@@ -4782,7 +4305,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G147_mPanzer_64.png",
         image_content: include_bytes!("vendored/23057.webp"),
     },
     23073_u16 => Vehicle {
@@ -4792,7 +4314,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-5-Y.png",
         image_content: include_bytes!("vendored/23073.webp"),
     },
     23121_u16 => Vehicle {
@@ -4802,7 +4323,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB106_Cobra.png",
         image_content: include_bytes!("vendored/23121.webp"),
     },
     23297_u16 => Vehicle {
@@ -4812,7 +4332,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-R160_object_244.png",
         image_content: include_bytes!("vendored/23297.webp"),
     },
     23313_u16 => Vehicle {
@@ -4822,7 +4341,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G144_Kpz_50t.png",
         image_content: include_bytes!("vendored/23313.webp"),
     },
     23329_u16 => Vehicle {
@@ -4832,7 +4350,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-3-Y.png",
         image_content: include_bytes!("vendored/23329.webp"),
     },
     23553_u16 => Vehicle {
@@ -4842,7 +4359,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/MS-1obr21.png",
         image_content: include_bytes!("vendored/23553.webp"),
     },
     23569_u16 => Vehicle {
@@ -4852,7 +4368,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_IV_AusfBT.png",
         image_content: include_bytes!("vendored/23569.webp"),
     },
     23585_u16 => Vehicle {
@@ -4862,7 +4377,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-7-Y.png",
         image_content: include_bytes!("vendored/23585.webp"),
     },
     23809_u16 => Vehicle {
@@ -4872,7 +4386,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R_Object_84.png",
         image_content: include_bytes!("vendored/23809.webp"),
     },
     23825_u16 => Vehicle {
@@ -4882,7 +4395,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G109_Steyr_WT.png",
         image_content: include_bytes!("vendored/23825.webp"),
     },
     23841_u16 => Vehicle {
@@ -4892,7 +4404,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A130_Super_Hellcat.png",
         image_content: include_bytes!("vendored/23841.webp"),
     },
     24065_u16 => Vehicle {
@@ -4902,7 +4413,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R131_LTG.png",
         image_content: include_bytes!("vendored/24065.webp"),
     },
     24081_u16 => Vehicle {
@@ -4912,7 +4422,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK3002DB_BP.png",
         image_content: include_bytes!("vendored/24081.webp"),
     },
     24097_u16 => Vehicle {
@@ -4922,7 +4431,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M18E2BP.png",
         image_content: include_bytes!("vendored/24097.webp"),
     },
     24321_u16 => Vehicle {
@@ -4932,7 +4440,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R132_T100LT.png",
         image_content: include_bytes!("vendored/24321.webp"),
     },
     24337_u16 => Vehicle {
@@ -4942,7 +4449,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G142_M48RPz.png",
         image_content: include_bytes!("vendored/24337.webp"),
     },
     24577_u16 => Vehicle {
@@ -4952,7 +4458,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R149_Object_268_4.png",
         image_content: include_bytes!("vendored/24577.webp"),
     },
     24593_u16 => Vehicle {
@@ -4962,7 +4467,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_E-75RT.png",
         image_content: include_bytes!("vendored/24593.webp"),
     },
     24609_u16 => Vehicle {
@@ -4972,7 +4476,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A128_Concept_1b.png",
         image_content: include_bytes!("vendored/24609.webp"),
     },
     24849_u16 => Vehicle {
@@ -4982,7 +4485,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdPzIV_AusfBP.png",
         image_content: include_bytes!("vendored/24849.webp"),
     },
     24865_u16 => Vehicle {
@@ -4992,7 +4494,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M-3-Y-Midas.png",
         image_content: include_bytes!("vendored/24865.webp"),
     },
     25089_u16 => Vehicle {
@@ -5002,7 +4503,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R172_Object_752.png",
         image_content: include_bytes!("vendored/25089.webp"),
     },
     25105_u16 => Vehicle {
@@ -5012,7 +4512,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G_VK3502_BP.png",
         image_content: include_bytes!("vendored/25105.webp"),
     },
     25345_u16 => Vehicle {
@@ -5022,7 +4521,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R180_Object_274A.png",
         image_content: include_bytes!("vendored/25345.webp"),
     },
     25361_u16 => Vehicle {
@@ -5032,7 +4530,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Waffentrager_IV_CL.png",
         image_content: include_bytes!("vendored/25361.webp"),
     },
     25377_u16 => Vehicle {
@@ -5042,7 +4539,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A132_T77.png",
         image_content: include_bytes!("vendored/25377.webp"),
     },
     25601_u16 => Vehicle {
@@ -5052,7 +4548,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-R175_IS_2E.png",
         image_content: include_bytes!("vendored/25601.webp"),
     },
     25617_u16 => Vehicle {
@@ -5062,7 +4557,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-G140_HWK_30.png",
         image_content: include_bytes!("vendored/25617.webp"),
     },
     25633_u16 => Vehicle {
@@ -5072,7 +4566,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A141_M-4-Y.png",
         image_content: include_bytes!("vendored/25633.webp"),
     },
     25857_u16 => Vehicle {
@@ -5082,7 +4575,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-R119_Object_777.png",
         image_content: include_bytes!("vendored/25857.webp"),
     },
     25889_u16 => Vehicle {
@@ -5092,7 +4584,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T21_BP.png",
         image_content: include_bytes!("vendored/25889.webp"),
     },
     26113_u16 => Vehicle {
@@ -5102,7 +4593,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-R181_Object_452K.png",
         image_content: include_bytes!("vendored/26113.webp"),
     },
     26129_u16 => Vehicle {
@@ -5112,7 +4602,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-Nashorn_BP.png",
         image_content: include_bytes!("vendored/26129.webp"),
     },
     26145_u16 => Vehicle {
@@ -5122,7 +4611,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A05_M4_105BD.png",
         image_content: include_bytes!("vendored/26145.webp"),
     },
     26401_u16 => Vehicle {
@@ -5132,7 +4620,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M36_BP.png",
         image_content: include_bytes!("vendored/26401.webp"),
     },
     26657_u16 => Vehicle {
@@ -5142,7 +4629,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A140_ASTRON_REX_105.png",
         image_content: include_bytes!("vendored/26657.webp"),
     },
     26913_u16 => Vehicle {
@@ -5152,7 +4638,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M24_Chaffee_BP.png",
         image_content: include_bytes!("vendored/26913.webp"),
     },
     27169_u16 => Vehicle {
@@ -5162,7 +4647,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6E2V2_BP.png",
         image_content: include_bytes!("vendored/27169.webp"),
     },
     27425_u16 => Vehicle {
@@ -5172,7 +4656,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-A146_TL_7_120.png",
         image_content: include_bytes!("vendored/27425.webp"),
     },
     27681_u16 => Vehicle {
@@ -5182,7 +4665,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-A142_Pawlack_Tank.png",
         image_content: include_bytes!("vendored/27681.webp"),
     },
     27937_u16 => Vehicle {
@@ -5192,7 +4674,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T49_Fearless.png",
         image_content: include_bytes!("vendored/27937.webp"),
     },
     28193_u16 => Vehicle {
@@ -5202,7 +4683,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-A151_TS_60.png",
         image_content: include_bytes!("vendored/28193.webp"),
     },
     28449_u16 => Vehicle {
@@ -5212,7 +4692,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-A136_T42.png",
         image_content: include_bytes!("vendored/28449.webp"),
     },
     51201_u16 => Vehicle {
@@ -5222,7 +4701,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-220.png",
         image_content: include_bytes!("vendored/51201.webp"),
     },
     51457_u16 => Vehicle {
@@ -5232,7 +4710,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Matilda_II_LL.png",
         image_content: include_bytes!("vendored/51457.webp"),
     },
     51473_u16 => Vehicle {
@@ -5242,7 +4719,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzV_PzIV.png",
         image_content: include_bytes!("vendored/51473.webp"),
     },
     51489_u16 => Vehicle {
@@ -5252,7 +4728,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T2_lt.png",
         image_content: include_bytes!("vendored/51489.webp"),
     },
     51713_u16 => Vehicle {
@@ -5262,7 +4737,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Churchill_LL.png",
         image_content: include_bytes!("vendored/51713.webp"),
     },
     51729_u16 => Vehicle {
@@ -5272,7 +4746,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzII_J.png",
         image_content: include_bytes!("vendored/51729.webp"),
     },
     51745_u16 => Vehicle {
@@ -5282,7 +4755,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ram-II.png",
         image_content: include_bytes!("vendored/51745.webp"),
     },
     51809_u16 => Vehicle {
@@ -5292,7 +4764,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ke_Ni_B.png",
         image_content: include_bytes!("vendored/51809.webp"),
     },
     51985_u16 => Vehicle {
@@ -5302,7 +4773,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S35_captured.png",
         image_content: include_bytes!("vendored/51985.webp"),
     },
     52065_u16 => Vehicle {
@@ -5312,7 +4782,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G09_Hetzer_GuP.png",
         image_content: include_bytes!("vendored/52065.webp"),
     },
     52225_u16 => Vehicle {
@@ -5322,7 +4791,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/BT-SV.png",
         image_content: include_bytes!("vendored/52225.webp"),
     },
     52241_u16 => Vehicle {
@@ -5332,7 +4800,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/B-1bis_captured.png",
         image_content: include_bytes!("vendored/52241.webp"),
     },
     52257_u16 => Vehicle {
@@ -5342,7 +4809,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M4A2E4.png",
         image_content: include_bytes!("vendored/52257.webp"),
     },
     52481_u16 => Vehicle {
@@ -5352,7 +4818,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Valentine_LL.png",
         image_content: include_bytes!("vendored/52481.webp"),
     },
     52497_u16 => Vehicle {
@@ -5362,7 +4827,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/H39_captured.png",
         image_content: include_bytes!("vendored/52497.webp"),
     },
     52513_u16 => Vehicle {
@@ -5372,7 +4836,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6A2E1.png",
         image_content: include_bytes!("vendored/52513.webp"),
     },
     52561_u16 => Vehicle {
@@ -5382,7 +4845,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB32_Tortoise.png",
         image_content: include_bytes!("vendored/52561.webp"),
     },
     52737_u16 => Vehicle {
@@ -5392,7 +4854,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M3_Stuart_LL.png",
         image_content: include_bytes!("vendored/52737.webp"),
     },
     52769_u16 => Vehicle {
@@ -5402,7 +4863,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M22_Locust.png",
         image_content: include_bytes!("vendored/52769.webp"),
     },
     52993_u16 => Vehicle {
@@ -5412,7 +4872,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A-32.png",
         image_content: include_bytes!("vendored/52993.webp"),
     },
     53025_u16 => Vehicle {
@@ -5422,7 +4881,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/M6A2E1_exp.png",
         image_content: include_bytes!("vendored/53025.webp"),
     },
     53249_u16 => Vehicle {
@@ -5432,7 +4890,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/KV-5.png",
         image_content: include_bytes!("vendored/53249.webp"),
     },
     53505_u16 => Vehicle {
@@ -5442,7 +4899,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-127.png",
         image_content: include_bytes!("vendored/53505.webp"),
     },
     53537_u16 => Vehicle {
@@ -5452,7 +4908,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T1_E6.png",
         image_content: include_bytes!("vendored/53537.webp"),
     },
     53585_u16 => Vehicle {
@@ -5462,7 +4917,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB68_Matilda_Black_Prince.png",
         image_content: include_bytes!("vendored/53585.webp"),
     },
     53761_u16 => Vehicle {
@@ -5472,7 +4926,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU_85I.png",
         image_content: include_bytes!("vendored/53761.webp"),
     },
     53841_u16 => Vehicle {
@@ -5482,7 +4935,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB63_TOG_II.png",
         image_content: include_bytes!("vendored/53841.webp"),
     },
     54097_u16 => Vehicle {
@@ -5492,7 +4944,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB71_AT_15A.png",
         image_content: include_bytes!("vendored/54097.webp"),
     },
     54273_u16 => Vehicle {
@@ -5502,7 +4953,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU76I.png",
         image_content: include_bytes!("vendored/54273.webp"),
     },
     54289_u16 => Vehicle {
@@ -5512,7 +4962,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Lowe.png",
         image_content: include_bytes!("vendored/54289.webp"),
     },
     54353_u16 => Vehicle {
@@ -5522,7 +4971,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB51_Excelsior.png",
         image_content: include_bytes!("vendored/54353.webp"),
     },
     54529_u16 => Vehicle {
@@ -5532,7 +4980,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Tetrarch_LL.png",
         image_content: include_bytes!("vendored/54529.webp"),
     },
     54545_u16 => Vehicle {
@@ -5542,7 +4989,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-25.png",
         image_content: include_bytes!("vendored/54545.webp"),
     },
     54785_u16 => Vehicle {
@@ -5552,7 +4998,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU100Y.png",
         image_content: include_bytes!("vendored/54785.webp"),
     },
     54801_u16 => Vehicle {
@@ -5562,7 +5007,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-15.png",
         image_content: include_bytes!("vendored/54801.webp"),
     },
     54865_u16 => Vehicle {
@@ -5572,7 +5016,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB76_Mk_VIC.png",
         image_content: include_bytes!("vendored/54865.webp"),
     },
     55057_u16 => Vehicle {
@@ -5582,7 +5025,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIV_Hydro.png",
         image_content: include_bytes!("vendored/55057.webp"),
     },
     55073_u16 => Vehicle {
@@ -5592,7 +5034,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T7_Combat_Car.png",
         image_content: include_bytes!("vendored/55073.webp"),
     },
     55297_u16 => Vehicle {
@@ -5602,7 +5043,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/SU122_44.png",
         image_content: include_bytes!("vendored/55297.webp"),
     },
     55313_u16 => Vehicle {
@@ -5612,7 +5052,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdTiger_SdKfz_185.png",
         image_content: include_bytes!("vendored/55313.webp"),
     },
     55889_u16 => Vehicle {
@@ -5622,7 +5061,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB85_Cromwell_Berlin.png",
         image_content: include_bytes!("vendored/55889.webp"),
     },
     56097_u16 => Vehicle {
@@ -5632,7 +5070,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A104_M4A3E8A.png",
         image_content: include_bytes!("vendored/56097.webp"),
     },
     56577_u16 => Vehicle {
@@ -5642,7 +5079,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/LTP.png",
         image_content: include_bytes!("vendored/56577.webp"),
     },
     56609_u16 => Vehicle {
@@ -5652,7 +5088,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/A102_T28_concept.png",
         image_content: include_bytes!("vendored/56609.webp"),
     },
     57105_u16 => Vehicle {
@@ -5662,7 +5097,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/DickerMax.png",
         image_content: include_bytes!("vendored/57105.webp"),
     },
     57361_u16 => Vehicle {
@@ -5672,7 +5106,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzIV_schmalturm.png",
         image_content: include_bytes!("vendored/57361.webp"),
     },
     57617_u16 => Vehicle {
@@ -5682,7 +5115,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Panther_M10.png",
         image_content: include_bytes!("vendored/57617.webp"),
     },
     58641_u16 => Vehicle {
@@ -5692,7 +5124,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/VK7201.png",
         image_content: include_bytes!("vendored/58641.webp"),
     },
     58881_u16 => Vehicle {
@@ -5702,7 +5133,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R113_Object_730.png",
         image_content: include_bytes!("vendored/58881.webp"),
     },
     59137_u16 => Vehicle {
@@ -5712,7 +5142,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R71_IS_2B.png",
         image_content: include_bytes!("vendored/59137.webp"),
     },
     59649_u16 => Vehicle {
@@ -5722,7 +5151,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R116_ISU122C_Berlin.png",
         image_content: include_bytes!("vendored/59649.webp"),
     },
     59665_u16 => Vehicle {
@@ -5732,7 +5160,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G100_Gtraktor_Krupp.png",
         image_content: include_bytes!("vendored/59665.webp"),
     },
     59905_u16 => Vehicle {
@@ -5742,7 +5169,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R112_T54_45.png",
         image_content: include_bytes!("vendored/59905.webp"),
     },
     60161_u16 => Vehicle {
@@ -5752,7 +5178,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/IS-2Sh.png",
         image_content: include_bytes!("vendored/60161.webp"),
     },
     60177_u16 => Vehicle {
@@ -5762,7 +5187,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G106_PzKpfwPanther_AusfF.png",
         image_content: include_bytes!("vendored/60177.webp"),
     },
     60417_u16 => Vehicle {
@@ -5772,7 +5196,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R115_IS-3_auto.png",
         image_content: include_bytes!("vendored/60417.webp"),
     },
     60929_u16 => Vehicle {
@@ -5782,7 +5205,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R105_BT_7A.png",
         image_content: include_bytes!("vendored/60929.webp"),
     },
     62737_u16 => Vehicle {
@@ -5792,7 +5214,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G120_M41_90.png",
         image_content: include_bytes!("vendored/62737.webp"),
     },
     62977_u16 => Vehicle {
@@ -5802,7 +5223,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/R127_T44_100_P.png",
         image_content: include_bytes!("vendored/62977.webp"),
     },
     62993_u16 => Vehicle {
@@ -5812,7 +5232,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/G118_VK4503.png",
         image_content: include_bytes!("vendored/62993.webp"),
     },
     63553_u16 => Vehicle {
@@ -5822,7 +5241,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/F68_AMX_Chasseur_de_char_46.png",
         image_content: include_bytes!("vendored/63553.webp"),
     },
     63585_u16 => Vehicle {
@@ -5832,7 +5250,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/PzVI_GuP.png",
         image_content: include_bytes!("vendored/63585.webp"),
     },
     63601_u16 => Vehicle {
@@ -5842,7 +5259,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/AMX_dracula.png",
         image_content: include_bytes!("vendored/63601.webp"),
     },
     63841_u16 => Vehicle {
@@ -5852,7 +5268,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Pz_IV_AusfH.png",
         image_content: include_bytes!("vendored/63841.webp"),
     },
     64001_u16 => Vehicle {
@@ -5862,7 +5277,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-34-85_Rudy.png",
         image_content: include_bytes!("vendored/64001.webp"),
     },
     64017_u16 => Vehicle {
@@ -5872,7 +5286,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/S01_Frankentank.png",
         image_content: include_bytes!("vendored/64017.webp"),
     },
     64065_u16 => Vehicle {
@@ -5882,7 +5295,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/FCM_50t.png",
         image_content: include_bytes!("vendored/64065.webp"),
     },
     64081_u16 => Vehicle {
@@ -5892,7 +5304,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB_Mark_I.png",
         image_content: include_bytes!("vendored/64081.webp"),
     },
     64257_u16 => Vehicle {
@@ -5902,7 +5313,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T-34-85_Victory.png",
         image_content: include_bytes!("vendored/64257.webp"),
     },
     64273_u16 => Vehicle {
@@ -5912,7 +5322,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/JagdTiger_SdKfz_185_Snowstorm.png",
         image_content: include_bytes!("vendored/64273.webp"),
     },
     64337_u16 => Vehicle {
@@ -5922,7 +5331,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB35_Sentinel_AC_IV.png",
         image_content: include_bytes!("vendored/64337.webp"),
     },
     64529_u16 => Vehicle {
@@ -5932,7 +5340,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/E-25.png",
         image_content: include_bytes!("vendored/64529.webp"),
     },
     64561_u16 => Vehicle {
@@ -5942,7 +5349,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch23_112.png",
         image_content: include_bytes!("vendored/64561.webp"),
     },
     64593_u16 => Vehicle {
@@ -5952,7 +5358,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::AntiTank,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/GB44_Archer_Custom.png",
         image_content: include_bytes!("vendored/64593.webp"),
     },
     64769_u16 => Vehicle {
@@ -5962,7 +5367,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Object252_Fearless.png",
         image_content: include_bytes!("vendored/64769.webp"),
     },
     64785_u16 => Vehicle {
@@ -5972,7 +5376,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-PzII_tutorial_bot.png",
         image_content: include_bytes!("vendored/64785.webp"),
     },
     64801_u16 => Vehicle {
@@ -5982,7 +5385,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Heavy,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/T34_hvy_Freedom.png",
         image_content: include_bytes!("vendored/64801.webp"),
     },
     64849_u16 => Vehicle {
@@ -5992,7 +5394,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: true,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Sentinel_AC1.png",
         image_content: include_bytes!("vendored/64849.webp"),
     },
     65025_u16 => Vehicle {
@@ -6002,7 +5403,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-MS-1_tutorial_bot.png",
         image_content: include_bytes!("vendored/65025.webp"),
     },
     65041_u16 => Vehicle {
@@ -6012,7 +5412,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-Ltraktor_tutorial_bot.png",
         image_content: include_bytes!("vendored/65041.webp"),
     },
     65057_u16 => Vehicle {
@@ -6022,7 +5421,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-T1_Cunningham_tutorial_bot.png",
         image_content: include_bytes!("vendored/65057.webp"),
     },
     65105_u16 => Vehicle {
@@ -6032,7 +5430,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB01_Medium_Mark_I_tutorial_bot.png",
         image_content: include_bytes!("vendored/65105.webp"),
     },
     65281_u16 => Vehicle {
@@ -6042,7 +5439,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/ussr-MS-1_tutorial_bot2.png",
         image_content: include_bytes!("vendored/65281.webp"),
     },
     65297_u16 => Vehicle {
@@ -6052,7 +5448,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/germany-Ltraktor_tutorial_bot2.png",
         image_content: include_bytes!("vendored/65297.webp"),
     },
     65313_u16 => Vehicle {
@@ -6062,7 +5457,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/usa-T1_Cunningham_tutorial_bot2.png",
         image_content: include_bytes!("vendored/65313.webp"),
     },
     65329_u16 => Vehicle {
@@ -6072,7 +5466,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Light,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Ch02_Type62.png",
         image_content: include_bytes!("vendored/65329.webp"),
     },
     65361_u16 => Vehicle {
@@ -6082,7 +5475,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: false,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/vehicle/uk-GB01_Medium_Mark_I_tutorial_bot2.png",
         image_content: include_bytes!("vendored/65361.webp"),
     },
     65377_u16 => Vehicle {
@@ -6092,7 +5484,6 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         type_: VehicleType::Medium,
         is_premium: true,
         is_collectible: false,
-        image_url: "https://glossary-eu-static.gcdn.co/icons/wotb/10.0.0.366/uploaded/vehicles/hd/Chi_Nu_Kai.png",
         image_content: include_bytes!("vendored/65377.webp"),
     },
 };

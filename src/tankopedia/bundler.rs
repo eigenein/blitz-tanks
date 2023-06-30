@@ -80,7 +80,6 @@ impl BundleTankopedia {
             writeln!(&mut module, "        type_: VehicleType::{:?},", details.type_)?;
             writeln!(&mut module, "        is_premium: {:?},", details.is_premium)?;
             writeln!(&mut module, "        is_collectible: {:?},", details.is_collectible)?;
-            writeln!(&mut module, "        image_url: {:?},", details.image_url)?;
             writeln!(
                 &mut module,
                 r#"        image_content: include_bytes!("vendored/{}.webp"),"#,
