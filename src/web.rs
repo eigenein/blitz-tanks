@@ -38,13 +38,9 @@ pub struct Web {
     )]
     bind_endpoint: SocketAddr,
 
-    /// Wargaming.net application ID for the front-end app.
-    #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_FRONTEND_APPLICATION_ID")]
-    frontend_application_id: String,
-
-    /// Wargaming.net application ID for the back-end app.
-    #[clap(long = "backend-app-id", env = "BLITZ_TANKS_BACKEND_APPLICATION_ID")]
-    backend_application_id: String,
+    /// Wargaming.net application ID.
+    #[clap(long = "frontend-app-id", env = "BLITZ_TANKS_APPLICATION_ID")]
+    application_id: String,
 
     /// Public address used in the hyperlinks.
     #[clap(
@@ -70,10 +66,9 @@ impl Web {
     /// Run the web application.
     pub async fn run(self) -> Result {
         let db = self.db.open().await?;
-        let wg = Wg::new(&self.backend_application_id)?;
+        let wg = Wg::new(&self.application_id)?;
 
-        let state =
-            AppState::new(&db, &self.frontend_application_id, wg, &self.public_address).await?;
+        let state = AppState::new(&db, &self.application_id, wg, &self.public_address).await?;
         let reloader = Self::run_model_reloader(
             state.model.clone(),
             db.models().await?,

@@ -63,17 +63,20 @@ impl Wg {
         account_id: u32,
         access_token: Option<&str>,
     ) -> Result<Vec<VehicleStats>> {
+        let mut url = url::Url::parse_with_params(
+            "https://api.wotblitz.eu/wotb/tanks/stats/",
+            &[
+                ("application_id", self.application_id.as_str()),
+                ("account_id", account_id.to_string().as_str()),
+                ("fields", "tank_id,last_battle_time,all.battles"),
+            ],
+        )?;
+        if let Some(access_token) = access_token {
+            url.query_pairs_mut().append_pair("access_token", access_token);
+        }
         let result = self
             .client
-            .get(url::Url::parse_with_params(
-                "https://api.wotblitz.eu/wotb/tanks/stats/",
-                &[
-                    ("application_id", self.application_id.as_str()),
-                    ("account_id", account_id.to_string().as_str()),
-                    ("fields", "tank_id,last_battle_time,all.battles"),
-                    ("access_token", access_token.unwrap_or("")),
-                ],
-            )?)
+            .get(url)
             .send()
             .await
             .with_context(|| format!("failed to retrieve player {account_id}'s vehicles stats"))?
