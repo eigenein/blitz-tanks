@@ -14,16 +14,11 @@ pub struct Wg {
 }
 
 // TODO: probably, I need to extract `407/INVALID_ACCESS_TOKEN`.
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, thiserror::Error)]
+#[error("Wargaming.net API error {code}/{message}")]
 pub struct WgError {
     pub code: u16,
     pub message: String,
-}
-
-impl From<WgError> for Error {
-    fn from(error: WgError) -> Self {
-        anyhow!("Wargaming.net API error {}/{}", error.code, error.message)
-    }
 }
 
 /// Wargaming.net API result.
