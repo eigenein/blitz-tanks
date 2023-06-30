@@ -1,5 +1,12 @@
+//! Tankopedia bundler.
+//!
+//! Compiles the vehicle details from the online tankopedia and game client to
+//! build a consistent tankopedia with all the data included.
+//!
+//! Now, the game client is just a set of kludges, so… all hope abandon ye who enter here.
+
 use std::{
-    collections::BTreeMap,
+    collections::{BTreeMap, HashMap},
     fs::{create_dir_all, File},
     io::{Cursor, Write},
     path::{Path, PathBuf},
@@ -13,9 +20,9 @@ use image::{DynamicImage, ImageFormat};
 use img_parts::webp::WebP;
 use reqwest::{Client, StatusCode};
 use serde::Deserialize;
-use tokio::{fs::read, task::spawn_blocking};
+use tokio::task::spawn_blocking;
 
-use crate::{prelude::*, tankopedia::dvpl::unpack_dvpl};
+use crate::{prelude::*, tankopedia::dvpl::Dvpl};
 
 #[derive(Args)]
 pub struct BundleTankopedia {
@@ -26,9 +33,6 @@ pub struct BundleTankopedia {
     )]
     data_path: PathBuf,
 
-    #[clap(long, default_value = "1")]
-    n_buffered_vehicles: usize,
-
     /// Bundle the first vehicle from each nation (for testing and debugging).
     #[clap(long)]
     take_one: bool,
@@ -36,10 +40,13 @@ pub struct BundleTankopedia {
 
 impl BundleTankopedia {
     /// Build the tankopedia from the game client and bundle it into the source code.
-    ///
-    /// Now, the game client is just a set of kludges, so… all hope abandon ye who enter here.
     pub async fn run(self) -> Result {
         let client = Client::new();
+
+        let translations: HashMap<String, String> = {
+            let path = self.data_path.join("Strings").join("en.yaml.dvpl");
+            serde_yaml::from_reader(Dvpl::read(path).await?.into_reader().await?)?
+        };
 
         static NATIONS: [&str; 9] = [
             "germany", "usa", "china", "france", "uk", "japan", "other", "european", "ussr",
@@ -54,7 +61,9 @@ impl BundleTankopedia {
             .try_flatten()
             .try_collect()
             .await?;
-        vehicles.sort_unstable_by_key(|(vehicle, _)| vehicle.tank_id);
+
+        // Sort the vehicles for pretty Git diffs when new vehicles are added.
+        vehicles.sort_unstable_by_key(|(_, vehicle, _)| vehicle.tank_id);
 
         let mut module = File::options()
             .write(true)
@@ -74,23 +83,29 @@ impl BundleTankopedia {
         writeln!(&mut module, "use crate::models::{{Vehicle, VehicleType}};")?;
         writeln!(&mut module)?;
         writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
-        for (details, image) in vehicles {
-            info!(details.tank_id, details.user_string, "📦 Saving…");
-            writeln!(&mut module, "    {}_u16 => Vehicle {{", details.tank_id)?;
-            writeln!(&mut module, "        tank_id: {:?},", details.tank_id)?;
-            writeln!(&mut module, "        name: {:?},", details.user_string)?;
-            writeln!(&mut module, "        tier: {:?},", details.tier)?;
-            writeln!(&mut module, "        type_: VehicleType::{:?},", details.type_)?;
-            writeln!(&mut module, "        is_premium: {:?},", details.is_premium)?;
-            writeln!(&mut module, "        is_collectible: {:?},", details.is_collectible)?;
+        for (xml_details, json_details, image) in vehicles {
+            info!(json_details.tank_id, json_details.user_string, "📦 Saving…");
+            let name = translations
+                // Take the short name from the client.
+                .get(&xml_details.short_user_string())
+                // Fall back to the long name from the API.
+                .unwrap_or(&json_details.user_string);
+
+            writeln!(&mut module, "    {}_u16 => Vehicle {{", json_details.tank_id)?;
+            writeln!(&mut module, "        tank_id: {:?},", json_details.tank_id)?;
+            writeln!(&mut module, "        name: {:?},", name)?;
+            writeln!(&mut module, "        tier: {:?},", json_details.tier)?;
+            writeln!(&mut module, "        type_: VehicleType::{:?},", json_details.type_)?;
+            writeln!(&mut module, "        is_premium: {:?},", json_details.is_premium)?;
+            writeln!(&mut module, "        is_collectible: {:?},", json_details.is_collectible)?;
             writeln!(
                 &mut module,
                 r#"        image_content: include_bytes!("vendored/{}.webp"),"#,
-                details.tank_id
+                json_details.tank_id
             )?;
             writeln!(&mut module, r#"    }},"#)?;
 
-            let path = vendored_path.join(details.tank_id.to_string()).with_extension("webp");
+            let path = vendored_path.join(json_details.tank_id.to_string()).with_extension("webp");
             spawn_blocking(move || image.save(path)).await??;
         }
         writeln!(&mut module, "}};")?;
@@ -98,25 +113,32 @@ impl BundleTankopedia {
         Ok(())
     }
 
+    /// Load all vehicles of the specified nation.
     async fn load_nation<'a>(
         &'a self,
         vehicles_path: PathBuf,
         parameters_path: PathBuf,
         client: &'a Client,
-    ) -> Result<impl Stream<Item = Result<(VehicleDetails, DynamicImage)>> + 'a> {
+    ) -> Result<
+        impl Stream<Item = Result<(VehicleXmlDetails, VehicleJsonDetails, DynamicImage)>> + 'a,
+    > {
         let path = vehicles_path.join("list.xml.dvpl");
         info!(?path, "📝 Unpacking…");
-        let xml = unpack_dvpl(read(&path).await?).await?;
-        let mut vehicles: BTreeMap<String, ()> = quick_xml::de::from_reader(xml.as_slice())?;
+        let xml = Dvpl::read(&path).await?.into_vec().await?;
+        let mut vehicles: BTreeMap<String, VehicleXmlDetails> =
+            quick_xml::de::from_reader(xml.as_slice())?;
         if self.take_one {
             warn!("🐛 Stopping after the first vehicle");
             vehicles = vehicles.into_iter().take(1).collect();
         }
-        let stream = stream::iter(vehicles)
-            .map(move |(vehicle_tag, _)| {
-                self.load_vehicle(client, parameters_path.clone(), vehicle_tag)
-            })
-            .buffer_unordered(self.n_buffered_vehicles);
+        let stream = stream::iter(vehicles).then(move |(vehicle_tag, xml_details)| {
+            let parameters_path = parameters_path.clone();
+            async {
+                let (json_details, image) =
+                    self.load_vehicle(client, parameters_path, vehicle_tag).await?;
+                Ok((xml_details, json_details, image))
+            }
+        });
         Ok(stream)
     }
 
@@ -126,9 +148,9 @@ impl BundleTankopedia {
         client: &Client,
         parameters_path: PathBuf,
         vehicle_tag: String,
-    ) -> Result<(VehicleDetails, DynamicImage)> {
+    ) -> Result<(VehicleJsonDetails, DynamicImage)> {
         info!("📤 Retrieving…");
-        let details: VehicleDetails = client
+        let details: VehicleJsonDetails = client
             .get(format!("https://eu.wotblitz.com/en/api/tankopedia/vehicle/{vehicle_tag}/"))
             .send()
             .await
@@ -137,20 +159,24 @@ impl BundleTankopedia {
             .await
             .with_context(|| format!("failed to deserialize vehicle `{vehicle_tag}`"))?;
         let image = {
+            // First, try to request the image from the API.
             let response = client.get(&details.image_url).send().await?;
             if response.status() == StatusCode::OK {
                 let raw = response.bytes().await?;
                 Some(image::io::Reader::new(Cursor::new(raw)).with_guessed_format()?.decode()?)
             } else {
+                // Yeah, sometimes they return non-existing URLs. Crazy, huh?
                 warn!("⚠️ Falling back to the client icon");
                 let dvpl =
-                    read(parameters_path.join(&vehicle_tag).with_extension("yaml.dvpl")).await?;
+                    Dvpl::read(parameters_path.join(&vehicle_tag).with_extension("yaml.dvpl"))
+                        .await?;
                 let parameters: VehicleParameters =
-                    serde_yaml::from_slice(&unpack_dvpl(dvpl).await?)?;
+                    serde_yaml::from_reader(dvpl.into_reader().await?)?;
                 self.extract_vehicle_icon(&parameters.resources_path.big_icon_path).await?
             }
         };
         let Some(image) = image else {
+            // This SHOULD never happen. But if it happens, it would need additional investigation.
             bail!("image is not found for `{vehicle_tag}`");
         };
         Ok((details, image))
@@ -172,7 +198,7 @@ impl BundleTankopedia {
         if !big_icon_path.exists() {
             return Ok(None);
         }
-        let webp = unpack_dvpl(read(&big_icon_path).await?).await?;
+        let webp = Dvpl::read(&big_icon_path).await?.into_vec().await?;
         let (position_x, position_y, width, height) = Self::extract_dimensions(&webp)?;
         let image = image::io::Reader::with_format(Cursor::new(webp), ImageFormat::WebP)
             .decode()
@@ -237,9 +263,10 @@ impl BundleTankopedia {
     }
 }
 
+/// Vehicle details received from `https://eu.wotblitz.com/en/api/tankopedia/vehicle/*/`.
 #[must_use]
 #[derive(Deserialize)]
-struct VehicleDetails {
+struct VehicleJsonDetails {
     #[serde(rename = "id")]
     tank_id: u16,
 
@@ -280,6 +307,25 @@ struct VehicleParameters {
 
 #[derive(Deserialize)]
 struct ResourcesPath {
+    /// Path to the icon resource, for example: `~res:/Gfx/UI/BigTankIcons/ussr-KV_1s_BP`.
     #[serde(rename = "bigIconPath")]
     big_icon_path: String,
+}
+
+/// Vehicle details obtained from `list.xml.dvpl`.
+#[must_use]
+#[derive(Deserialize)]
+struct VehicleXmlDetails {
+    /// Example: `#ussr_vehicles:T-34`.
+    #[serde(rename = "userString")]
+    user_string: String,
+}
+
+impl VehicleXmlDetails {
+    /// Get the translation key for the shortened vehicle name.
+    /// This name is what you see in the vehicle ribbon in the game client.
+    #[inline]
+    pub fn short_user_string(&self) -> String {
+        format!("{}_short", self.user_string)
+    }
 }

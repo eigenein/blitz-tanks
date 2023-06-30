@@ -16,7 +16,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     17_u16 => Vehicle {
         tank_id: 17,
-        name: "Pz.Kpfw. IV Ausf. G",
+        name: "Pz. IV G",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -43,7 +43,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     81_u16 => Vehicle {
         tank_id: 81,
-        name: "Vickers Medium Mk. I",
+        name: "Medium I",
         tier: 1,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -52,7 +52,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     113_u16 => Vehicle {
         tank_id: 113,
-        name: "Vindicator Ultramarines",
+        name: "Vindicator UM",
         tier: 7,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -88,7 +88,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     337_u16 => Vehicle {
         tank_id: 337,
-        name: "Vickers Medium Mk. II",
+        name: "Medium II",
         tier: 2,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -106,7 +106,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     385_u16 => Vehicle {
         tank_id: 385,
-        name: "Progetto M40 mod. 65",
+        name: "Progetto 65",
         tier: 10,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -133,7 +133,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     545_u16 => Vehicle {
         tank_id: 545,
-        name: "T1 Cunningham",
+        name: "T1",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -142,7 +142,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     577_u16 => Vehicle {
         tank_id: 577,
-        name: "Renault FT",
+        name: "FT",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -160,7 +160,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     609_u16 => Vehicle {
         tank_id: 609,
-        name: "Renault Otsu",
+        name: "R. Otsu",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -169,7 +169,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     625_u16 => Vehicle {
         tank_id: 625,
-        name: "Stridsvagn 74A2",
+        name: "Strv 74A2",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -178,7 +178,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     641_u16 => Vehicle {
         tank_id: 641,
-        name: "Prototipo Standard B",
+        name: "Standard B",
         tier: 9,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -196,7 +196,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     785_u16 => Vehicle {
         tank_id: 785,
-        name: "Pz.Kpfw. 35 (t)",
+        name: "Pz. 35 (t)",
         tier: 2,
         type_: VehicleType::Light,
         is_premium: false,
@@ -232,7 +232,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     865_u16 => Vehicle {
         tank_id: 865,
-        name: "Type 95 Ha-Go",
+        name: "Ha-Go",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -268,7 +268,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1041_u16 => Vehicle {
         tank_id: 1041,
-        name: "StuG III Ausf. G",
+        name: "StuG III G",
         tier: 5,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -313,7 +313,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1121_u16 => Vehicle {
         tank_id: 1121,
-        name: "Type 5 Chi-Ri",
+        name: "Chi-Ri",
         tier: 7,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -322,7 +322,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1137_u16 => Vehicle {
         tank_id: 1137,
-        name: "Predator Ultramarines",
+        name: "Predator UM",
         tier: 7,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -340,7 +340,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1297_u16 => Vehicle {
         tank_id: 1297,
-        name: "Panther I",
+        name: "Panther",
         tier: 7,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -349,7 +349,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1313_u16 => Vehicle {
         tank_id: 1313,
-        name: "M4A3E8 Sherman",
+        name: "M4A3E8",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -358,7 +358,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1329_u16 => Vehicle {
         tank_id: 1329,
-        name: "Renault NC-31",
+        name: "NC-31",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -376,7 +376,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1377_u16 => Vehicle {
         tank_id: 1377,
-        name: "Type 3 Chi-Nu",
+        name: "Chi-Nu",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -412,7 +412,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1553_u16 => Vehicle {
         tank_id: 1553,
-        name: "Jagdpanzer IV",
+        name: "Jg.Pz. IV",
         tier: 6,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -457,7 +457,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1633_u16 => Vehicle {
         tank_id: 1633,
-        name: "Type 1 Chi-He",
+        name: "Chi-He",
         tier: 4,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -493,7 +493,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1825_u16 => Vehicle {
         tank_id: 1825,
-        name: "M2 Light Tank",
+        name: "M2 Light",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -511,7 +511,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1857_u16 => Vehicle {
         tank_id: 1857,
-        name: "Bat.-Châtillon 25 t AP",
+        name: "B-C 25 t AP",
         tier: 9,
         type_: VehicleType::Light,
         is_premium: false,
@@ -520,7 +520,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     1889_u16 => Vehicle {
         tank_id: 1889,
-        name: "Type 4 Chi-To",
+        name: "Chi-To",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -556,7 +556,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2065_u16 => Vehicle {
         tank_id: 2065,
-        name: "Pz.Kpfw. II",
+        name: "Pz. II",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -565,7 +565,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2097_u16 => Vehicle {
         tank_id: 2097,
-        name: "WZ-111 model 1-4",
+        name: "WZ-111 1-4",
         tier: 9,
         type_: VehicleType::Heavy,
         is_premium: false,
@@ -583,7 +583,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2145_u16 => Vehicle {
         tank_id: 2145,
-        name: "Type 97 Chi-Ha",
+        name: "Chi-Ha",
         tier: 3,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -592,7 +592,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2161_u16 => Vehicle {
         tank_id: 2161,
-        name: "WZ 135G FT Blaze",
+        name: "WZ Blaze",
         tier: 7,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -619,7 +619,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2321_u16 => Vehicle {
         tank_id: 2321,
-        name: "VK 36.01 (H)",
+        name: "VK 36.01 H",
         tier: 6,
         type_: VehicleType::Heavy,
         is_premium: false,
@@ -628,7 +628,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2353_u16 => Vehicle {
         tank_id: 2353,
-        name: "Vickers Mk. E Type B",
+        name: "VAE Type B",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -637,7 +637,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2369_u16 => Vehicle {
         tank_id: 2369,
-        name: "FCM 36 Pak 40",
+        name: "FCM36Pak40",
         tier: 3,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -646,7 +646,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2385_u16 => Vehicle {
         tank_id: 2385,
-        name: "Vickers Medium Mk. III",
+        name: "Medium III",
         tier: 3,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -655,7 +655,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2401_u16 => Vehicle {
         tank_id: 2401,
-        name: "Type 98 Ke-Ni",
+        name: "Ke-Ni",
         tier: 3,
         type_: VehicleType::Light,
         is_premium: true,
@@ -682,7 +682,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2577_u16 => Vehicle {
         tank_id: 2577,
-        name: "VK 30.01 (H)",
+        name: "VK 30.01 H",
         tier: 5,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -781,7 +781,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2913_u16 => Vehicle {
         tank_id: 2913,
-        name: "Type 5 Ke-Ho",
+        name: "Ke-Ho",
         tier: 4,
         type_: VehicleType::Light,
         is_premium: true,
@@ -790,7 +790,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     2945_u16 => Vehicle {
         tank_id: 2945,
-        name: "Progetto M35 mod. 46",
+        name: "Progetto 46",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -808,7 +808,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     3089_u16 => Vehicle {
         tank_id: 3089,
-        name: "Leichttraktor",
+        name: "L.Tr.",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -871,7 +871,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     3345_u16 => Vehicle {
         tank_id: 3345,
-        name: "Pz.Kpfw. 38 (t)",
+        name: "Pz. 38 (t)",
         tier: 3,
         type_: VehicleType::Light,
         is_premium: true,
@@ -880,7 +880,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     3361_u16 => Vehicle {
         tank_id: 3361,
-        name: "T1 Heavy Tank",
+        name: "T1 Heavy",
         tier: 5,
         type_: VehicleType::Heavy,
         is_premium: false,
@@ -925,7 +925,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     3601_u16 => Vehicle {
         tank_id: 3601,
-        name: "Panzerjäger I",
+        name: "Pz.Jäg. I",
         tier: 2,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -943,7 +943,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     3649_u16 => Vehicle {
         tank_id: 3649,
-        name: "Bat.-Châtillon 25 t",
+        name: "B-C 25 t",
         tier: 10,
         type_: VehicleType::Light,
         is_premium: false,
@@ -979,7 +979,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     3857_u16 => Vehicle {
         tank_id: 3857,
-        name: "Jagdpanther",
+        name: "JPanther",
         tier: 7,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -1024,7 +1024,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     3937_u16 => Vehicle {
         tank_id: 3937,
-        name: "Ho-Ri Type III",
+        name: "Ho-Ri",
         tier: 10,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -1051,7 +1051,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4113_u16 => Vehicle {
         tank_id: 4113,
-        name: "VK 30.02 (D)",
+        name: "VK 30.02 D",
         tier: 7,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1069,7 +1069,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4193_u16 => Vehicle {
         tank_id: 4193,
-        name: "Ho-Ri Type II",
+        name: "Ho-Ri T.II",
         tier: 9,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -1105,7 +1105,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4369_u16 => Vehicle {
         tank_id: 4369,
-        name: "Pz.Kpfw. III",
+        name: "Pz. III",
         tier: 3,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1123,7 +1123,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4401_u16 => Vehicle {
         tank_id: 4401,
-        name: "Type 2597 Chi-Ha",
+        name: "Chi-Ha",
         tier: 3,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1177,7 +1177,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4609_u16 => Vehicle {
         tank_id: 4609,
-        name: "T-26",
+        name: "#ussr_vehicles:T-26_short",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -1231,7 +1231,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4881_u16 => Vehicle {
         tank_id: 4881,
-        name: "Pz.Kpfw. III Ausf. A",
+        name: "Pz. III A",
         tier: 3,
         type_: VehicleType::Light,
         is_premium: true,
@@ -1240,7 +1240,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4897_u16 => Vehicle {
         tank_id: 4897,
-        name: "M2 Medium Tank",
+        name: "M2 Medium",
         tier: 3,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -1276,7 +1276,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4961_u16 => Vehicle {
         tank_id: 4961,
-        name: "Ho-Ri Type I",
+        name: "Ho-Ri T.I",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -1294,7 +1294,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4993_u16 => Vehicle {
         tank_id: 4993,
-        name: "P.43/06 anniversario",
+        name: "P.43/06 ann.",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -1348,7 +1348,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     5201_u16 => Vehicle {
         tank_id: 5201,
-        name: "Cruiser Mk. I",
+        name: "Cruiser I",
         tier: 2,
         type_: VehicleType::Light,
         is_premium: true,
@@ -1393,7 +1393,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     5393_u16 => Vehicle {
         tank_id: 5393,
-        name: "VK 16.02 Leopard",
+        name: "Leopard",
         tier: 5,
         type_: VehicleType::Light,
         is_premium: false,
@@ -1420,7 +1420,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     5441_u16 => Vehicle {
         tank_id: 5441,
-        name: "AMX 30 1er prototype",
+        name: "AMX 30 1er prot.",
         tier: 9,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -1465,7 +1465,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     5665_u16 => Vehicle {
         tank_id: 5665,
-        name: "T2 Medium Tank",
+        name: "T2 Medium",
         tier: 2,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -1483,7 +1483,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     5713_u16 => Vehicle {
         tank_id: 5713,
-        name: "Centurion Mk. 7/1",
+        name: "Centurion 7/1",
         tier: 9,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1528,7 +1528,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     5921_u16 => Vehicle {
         tank_id: 5921,
-        name: "M26 Pershing",
+        name: "Pershing",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1555,7 +1555,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     5969_u16 => Vehicle {
         tank_id: 5969,
-        name: "Centurion Mk. I",
+        name: "Centurion I",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1582,7 +1582,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     6017_u16 => Vehicle {
         tank_id: 6017,
-        name: "TVP VTU Koncept",
+        name: "TVP VTU",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1600,7 +1600,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     6161_u16 => Vehicle {
         tank_id: 6161,
-        name: "Pz.Kpfw. II Luchs",
+        name: "Luchs",
         tier: 4,
         type_: VehicleType::Light,
         is_premium: true,
@@ -1663,7 +1663,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     6273_u16 => Vehicle {
         tank_id: 6273,
-        name: "Konštrukta T-34/100",
+        name: "T-34/100",
         tier: 7,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1681,7 +1681,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     6417_u16 => Vehicle {
         tank_id: 6417,
-        name: "Pz.Kpfw. III/IV",
+        name: "Pz. III/IV",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -1762,7 +1762,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     6689_u16 => Vehicle {
         tank_id: 6689,
-        name: "T49 ATM",
+        name: "T49 A",
         tier: 7,
         type_: VehicleType::Light,
         is_premium: true,
@@ -1825,7 +1825,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     6945_u16 => Vehicle {
         tank_id: 6945,
-        name: "M10 Wolverine",
+        name: "Wolverine",
         tier: 5,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -1843,7 +1843,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     6977_u16 => Vehicle {
         tank_id: 6977,
-        name: "AMX M4 mle. 45",
+        name: "AMX M4 45",
         tier: 7,
         type_: VehicleType::Heavy,
         is_premium: false,
@@ -1852,7 +1852,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     6993_u16 => Vehicle {
         tank_id: 6993,
-        name: "Cruiser Mk. II",
+        name: "Cruiser II",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -1897,7 +1897,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     7185_u16 => Vehicle {
         tank_id: 7185,
-        name: "VK 30.01 (P)",
+        name: "VK 30.01 P",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -1906,7 +1906,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     7201_u16 => Vehicle {
         tank_id: 7201,
-        name: "M36 Jackson",
+        name: "Jackson",
         tier: 6,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -1969,7 +1969,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     7441_u16 => Vehicle {
         tank_id: 7441,
-        name: "VK 45.02 (P) Ausf. B",
+        name: "VK 45.02 B",
         tier: 9,
         type_: VehicleType::Heavy,
         is_premium: false,
@@ -1987,7 +1987,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     7505_u16 => Vehicle {
         tank_id: 7505,
-        name: "Cruiser Mk. IV",
+        name: "Cruiser IV",
         tier: 3,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -2041,7 +2041,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     7745_u16 => Vehicle {
         tank_id: 7745,
-        name: "Renault FT AC",
+        name: "FT AC",
         tier: 2,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -2050,7 +2050,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     7761_u16 => Vehicle {
         tank_id: 7761,
-        name: "Cruiser Mk. III",
+        name: "Cruiser III",
         tier: 2,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -2140,7 +2140,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     8193_u16 => Vehicle {
         tank_id: 8193,
-        name: "Object 704",
+        name: "Obj. 704",
         tier: 9,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2149,7 +2149,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     8209_u16 => Vehicle {
         tank_id: 8209,
-        name: "Pz.Kpfw. 38 (t) n.A.",
+        name: "Pz. 38 nA",
         tier: 4,
         type_: VehicleType::Light,
         is_premium: true,
@@ -2176,7 +2176,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     8257_u16 => Vehicle {
         tank_id: 8257,
-        name: "Renault UE 57",
+        name: "UE 57",
         tier: 3,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -2185,7 +2185,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     8273_u16 => Vehicle {
         tank_id: 8273,
-        name: "Universal Carrier 2-pdr",
+        name: "UC 2-pdr",
         tier: 2,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -2221,7 +2221,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     8497_u16 => Vehicle {
         tank_id: 8497,
-        name: "WZ-111 model 5A",
+        name: "WZ-111 5A",
         tier: 10,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -2392,7 +2392,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     9297_u16 => Vehicle {
         tank_id: 9297,
-        name: "FV215b (183)",
+        name: "FV215b 183",
         tier: 10,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2473,7 +2473,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     9761_u16 => Vehicle {
         tank_id: 9761,
-        name: "M24 Chaffee",
+        name: "Chaffee",
         tier: 6,
         type_: VehicleType::Light,
         is_premium: false,
@@ -2491,7 +2491,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     9793_u16 => Vehicle {
         tank_id: 9793,
-        name: "Somua SAu 40",
+        name: "SAu 40",
         tier: 4,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2500,7 +2500,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     9809_u16 => Vehicle {
         tank_id: 9809,
-        name: "Churchill Gun Carrier",
+        name: "Churchill GC",
         tier: 6,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -2545,7 +2545,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     10017_u16 => Vehicle {
         tank_id: 10017,
-        name: "M4A3E2 Sherman Jumbo",
+        name: "M4A3E2",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -2590,7 +2590,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     10113_u16 => Vehicle {
         tank_id: 10113,
-        name: "Carro da Combattimento 45t",
+        name: "Carro 45t",
         tier: 10,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -2644,7 +2644,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     10369_u16 => Vehicle {
         tank_id: 10369,
-        name: "Controcarro 3 Minotauro",
+        name: "Minotauro",
         tier: 10,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2662,7 +2662,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     10513_u16 => Vehicle {
         tank_id: 10513,
-        name: "VK 45.02 (P) Ausf. A",
+        name: "VK 45.02 A",
         tier: 8,
         type_: VehicleType::Heavy,
         is_premium: false,
@@ -2698,7 +2698,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     10625_u16 => Vehicle {
         tank_id: 10625,
-        name: "Controcarro 1 Mk. 2",
+        name: "CC 1 Mk. 2",
         tier: 9,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2743,7 +2743,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     10817_u16 => Vehicle {
         tank_id: 10817,
-        name: "AMX AC mle. 46",
+        name: "AMX AC 46",
         tier: 7,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2761,7 +2761,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     10881_u16 => Vehicle {
         tank_id: 10881,
-        name: "Semovente Controcarro mod. 1964",
+        name: "SMV CC-64",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2779,7 +2779,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     11025_u16 => Vehicle {
         tank_id: 11025,
-        name: "Sturer Emil",
+        name: "St. Emil",
         tier: 7,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2806,7 +2806,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     11073_u16 => Vehicle {
         tank_id: 11073,
-        name: "AMX 50 Foch",
+        name: "Foch",
         tier: 9,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2824,7 +2824,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     11137_u16 => Vehicle {
         tank_id: 11137,
-        name: "Semovente Controcarro mod. 1956",
+        name: "SMV CC-56",
         tier: 7,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2842,7 +2842,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     11281_u16 => Vehicle {
         tank_id: 11281,
-        name: "Kampfpanzer 70",
+        name: "Kpz 70",
         tier: 9,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -2851,7 +2851,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     11297_u16 => Vehicle {
         tank_id: 11297,
-        name: "T28 Prototype",
+        name: "T28 Prot.",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2860,7 +2860,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     11393_u16 => Vehicle {
         tank_id: 11393,
-        name: "Semovente M43 Bassotto",
+        name: "Bassotto",
         tier: 6,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2878,7 +2878,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     11537_u16 => Vehicle {
         tank_id: 11537,
-        name: "Jagdpanther II",
+        name: "JPanther II",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2887,7 +2887,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     11553_u16 => Vehicle {
         tank_id: 11553,
-        name: "M18 Hellcat",
+        name: "Hellcat",
         tier: 6,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2959,7 +2959,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     12049_u16 => Vehicle {
         tank_id: 12049,
-        name: "Jagdpanzer E 100",
+        name: "Jg.Pz. E 100",
         tier: 10,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2977,7 +2977,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     12097_u16 => Vehicle {
         tank_id: 12097,
-        name: "AMX AC mle. 48",
+        name: "AMX AC 48",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -2995,7 +2995,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     12305_u16 => Vehicle {
         tank_id: 12305,
-        name: "E 50 Ausf. M",
+        name: "E 50 M",
         tier: 10,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -3031,7 +3031,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     12673_u16 => Vehicle {
         tank_id: 12673,
-        name: "Bofors Tornvagn",
+        name: "Tornvagn",
         tier: 8,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -3049,7 +3049,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     13073_u16 => Vehicle {
         tank_id: 13073,
-        name: "Pz.Kpfw. II Ausf. G",
+        name: "Pz. II G",
         tier: 3,
         type_: VehicleType::Light,
         is_premium: true,
@@ -3076,7 +3076,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     13329_u16 => Vehicle {
         tank_id: 13329,
-        name: "Durchbruchswagen 2",
+        name: "D.W. 2",
         tier: 4,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -3085,7 +3085,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     13345_u16 => Vehicle {
         tank_id: 13345,
-        name: "T26E4 SuperPershing",
+        name: "T26E4",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3103,7 +3103,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     13569_u16 => Vehicle {
         tank_id: 13569,
-        name: "Object 268",
+        name: "Obj. 268",
         tier: 10,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -3130,7 +3130,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     13841_u16 => Vehicle {
         tank_id: 13841,
-        name: "Indien-Panzer",
+        name: "Indien-Pz.",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -3148,7 +3148,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     13889_u16 => Vehicle {
         tank_id: 13889,
-        name: "AMX 50 Foch (155)",
+        name: "Foch 155",
         tier: 10,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -3166,7 +3166,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     14097_u16 => Vehicle {
         tank_id: 14097,
-        name: "VK 30.01 (D)",
+        name: "VK 30.01 D",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -3202,7 +3202,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     14337_u16 => Vehicle {
         tank_id: 14337,
-        name: "Object 263",
+        name: "Obj. 263",
         tier: 10,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -3238,7 +3238,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     14865_u16 => Vehicle {
         tank_id: 14865,
-        name: "Leopard Prototyp A",
+        name: "Leopard PT A",
         tier: 9,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -3247,7 +3247,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     14881_u16 => Vehicle {
         tank_id: 14881,
-        name: "T57 Heavy Tank",
+        name: "T57 Heavy",
         tier: 10,
         type_: VehicleType::Heavy,
         is_premium: false,
@@ -3274,7 +3274,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     15441_u16 => Vehicle {
         tank_id: 15441,
-        name: "Chieftain/T95",
+        name: "Chieftain",
         tier: 8,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -3283,7 +3283,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     15617_u16 => Vehicle {
         tank_id: 15617,
-        name: "Object 907",
+        name: "Obj. 907",
         tier: 10,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3310,7 +3310,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     15889_u16 => Vehicle {
         tank_id: 15889,
-        name: "VK 30.02 (M)",
+        name: "VK 30.02 M",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3328,7 +3328,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     15937_u16 => Vehicle {
         tank_id: 15937,
-        name: "Renault R35",
+        name: "R35",
         tier: 1,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -3355,7 +3355,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     16193_u16 => Vehicle {
         tank_id: 16193,
-        name: "M4A1 Revalorisé",
+        name: "M4A1 Rev.",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3364,7 +3364,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     16209_u16 => Vehicle {
         tank_id: 16209,
-        name: "Cruiser Mk. I",
+        name: "Cruiser I",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3373,7 +3373,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     16401_u16 => Vehicle {
         tank_id: 16401,
-        name: "Waffenträger auf Pz. IV",
+        name: "WT auf Pz. IV",
         tier: 9,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -3391,7 +3391,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     16465_u16 => Vehicle {
         tank_id: 16465,
-        name: "Cruiser Mk. I",
+        name: "Cruiser I",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3409,7 +3409,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     16657_u16 => Vehicle {
         tank_id: 16657,
-        name: "Rhm.-Borsig Waffenträger",
+        name: "Rhm.-B. WT",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -3427,7 +3427,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     16705_u16 => Vehicle {
         tank_id: 16705,
-        name: "AMX M4 mle. 49",
+        name: "AMX M4 49",
         tier: 8,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -3436,7 +3436,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     16897_u16 => Vehicle {
         tank_id: 16897,
-        name: "Object 140",
+        name: "Obj. 140",
         tier: 10,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -3445,7 +3445,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     17169_u16 => Vehicle {
         tank_id: 17169,
-        name: "Pz.Kpfw. IV Ausf. A",
+        name: "Pz. IV A",
         tier: 3,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3463,7 +3463,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     17233_u16 => Vehicle {
         tank_id: 17233,
-        name: "FV4004 Conway",
+        name: "Conway",
         tier: 9,
         type_: VehicleType::AntiTank,
         is_premium: false,
@@ -3472,7 +3472,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     17425_u16 => Vehicle {
         tank_id: 17425,
-        name: "Pz.Kpfw. IV Ausf. D",
+        name: "Pz. IV D",
         tier: 4,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -3517,7 +3517,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     17953_u16 => Vehicle {
         tank_id: 17953,
-        name: "M41 Walker Bulldog",
+        name: "M41 Bulldog",
         tier: 7,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3562,7 +3562,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     18241_u16 => Vehicle {
         tank_id: 18241,
-        name: "Bat.-Châtillon Bourrasque",
+        name: "B-C Bourrasque",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3598,7 +3598,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     18465_u16 => Vehicle {
         tank_id: 18465,
-        name: "M2 Light Tank",
+        name: "M2 Light",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3607,7 +3607,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     18497_u16 => Vehicle {
         tank_id: 18497,
-        name: "Lorraine 40 t Fearless",
+        name: "Lorraine Fearless",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3634,7 +3634,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     18721_u16 => Vehicle {
         tank_id: 18721,
-        name: "M2 Light Tank",
+        name: "M2 Light",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3643,7 +3643,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     18753_u16 => Vehicle {
         tank_id: 18753,
-        name: "AMX Canon d'assaut 105",
+        name: "AMX CDA 105",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -3652,7 +3652,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     18769_u16 => Vehicle {
         tank_id: 18769,
-        name: "Caernarvon Action X",
+        name: "Action X",
         tier: 8,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -3670,7 +3670,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     18961_u16 => Vehicle {
         tank_id: 18961,
-        name: "Spähpanzer SP I C",
+        name: "SP I C",
         tier: 7,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3706,7 +3706,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     19201_u16 => Vehicle {
         tank_id: 19201,
-        name: "T-26",
+        name: "#ussr_vehicles:T-26_short",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3751,7 +3751,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     19457_u16 => Vehicle {
         tank_id: 19457,
-        name: "T-26",
+        name: "#ussr_vehicles:T-26_short",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3787,7 +3787,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     19537_u16 => Vehicle {
         tank_id: 19537,
-        name: "Vickers Light 105",
+        name: "Vickers Light",
         tier: 10,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3796,7 +3796,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     19713_u16 => Vehicle {
         tank_id: 19713,
-        name: "Loza's M4-A2 Sherman",
+        name: "Loza's Sherman",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3823,7 +3823,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     19777_u16 => Vehicle {
         tank_id: 19777,
-        name: "AltProto AMX 30",
+        name: "A.P. AMX 30",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -3832,7 +3832,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     19793_u16 => Vehicle {
         tank_id: 19793,
-        name: "Vickers Cruiser",
+        name: "Vickers CR",
         tier: 9,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3886,7 +3886,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     20241_u16 => Vehicle {
         tank_id: 20241,
-        name: "Pz.Kpfw. II",
+        name: "Pz. II",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3895,7 +3895,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     20257_u16 => Vehicle {
         tank_id: 20257,
-        name: "XM551 Sheridan",
+        name: "Sheridan",
         tier: 10,
         type_: VehicleType::Light,
         is_premium: false,
@@ -3922,7 +3922,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     20481_u16 => Vehicle {
         tank_id: 20481,
-        name: "Object 252U",
+        name: "Obj. 252U",
         tier: 8,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -3985,7 +3985,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     20769_u16 => Vehicle {
         tank_id: 20769,
-        name: "T25 Pilot Number 1",
+        name: "T25 Pilot 1",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -4129,7 +4129,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     21793_u16 => Vehicle {
         tank_id: 21793,
-        name: "XM551 Sheridan Missile",
+        name: "Sheridan Missile",
         tier: 10,
         type_: VehicleType::Light,
         is_premium: true,
@@ -4183,7 +4183,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     22273_u16 => Vehicle {
         tank_id: 22273,
-        name: "Object 260",
+        name: "Obj. 260",
         tier: 10,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -4228,7 +4228,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     22545_u16 => Vehicle {
         tank_id: 22545,
-        name: "Kanonenjagdpanzer 105",
+        name: "Kanonenjagdpanzer",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -4336,7 +4336,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     23313_u16 => Vehicle {
         tank_id: 23313,
-        name: "Kampfpanzer 50 t",
+        name: "Kpz 50 t",
         tier: 10,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -4390,7 +4390,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     23825_u16 => Vehicle {
         tank_id: 23825,
-        name: "Krupp-Steyr Waffenträger",
+        name: "Steyr WT",
         tier: 7,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -4453,7 +4453,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     24577_u16 => Vehicle {
         tank_id: 24577,
-        name: "Object 268 Version 4",
+        name: "Object 268/4",
         tier: 10,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -4570,7 +4570,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     25857_u16 => Vehicle {
         tank_id: 25857,
-        name: "Object 777 Version II",
+        name: "Obj. 777 II",
         tier: 10,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -4624,7 +4624,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     26657_u16 => Vehicle {
         tank_id: 26657,
-        name: "ASTRON Rex 105 mm",
+        name: "ASTRON Rex",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -4696,7 +4696,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     51201_u16 => Vehicle {
         tank_id: 51201,
-        name: "KV-220 Beta-Test",
+        name: "KV-220 T",
         tier: 5,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -4714,7 +4714,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     51473_u16 => Vehicle {
         tank_id: 51473,
-        name: "Pz.Kpfw. V/IV",
+        name: "Pz. V/IV",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -4723,7 +4723,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     51489_u16 => Vehicle {
         tank_id: 51489,
-        name: "T2 Light Tank",
+        name: "T2 Light",
         tier: 2,
         type_: VehicleType::Light,
         is_premium: true,
@@ -4741,7 +4741,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     51729_u16 => Vehicle {
         tank_id: 51729,
-        name: "Pz.Kpfw. II Ausf. J",
+        name: "Pz. II J",
         tier: 3,
         type_: VehicleType::Light,
         is_premium: true,
@@ -4759,7 +4759,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     51809_u16 => Vehicle {
         tank_id: 51809,
-        name: "Type 98 Ke-Ni Otsu",
+        name: "Ke-Ni Otsu",
         tier: 3,
         type_: VehicleType::Light,
         is_premium: true,
@@ -4768,7 +4768,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     51985_u16 => Vehicle {
         tank_id: 51985,
-        name: "Pz.Kpfw. S35 739 (f)",
+        name: "Pz. S35",
         tier: 3,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -4795,7 +4795,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     52241_u16 => Vehicle {
         tank_id: 52241,
-        name: "Pz.Kpfw. B2 740 (f)",
+        name: "Pz. B2",
         tier: 4,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -4804,7 +4804,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     52257_u16 => Vehicle {
         tank_id: 52257,
-        name: "M4A2E4 Sherman",
+        name: "M4A2E4",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -4822,7 +4822,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     52497_u16 => Vehicle {
         tank_id: 52497,
-        name: "Pz.Kpfw. 38H 735 (f)",
+        name: "Pz. 38H",
         tier: 2,
         type_: VehicleType::Light,
         is_premium: true,
@@ -4858,7 +4858,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     52769_u16 => Vehicle {
         tank_id: 52769,
-        name: "M22 Locust",
+        name: "Locust",
         tier: 3,
         type_: VehicleType::Light,
         is_premium: true,
@@ -4912,7 +4912,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     53585_u16 => Vehicle {
         tank_id: 53585,
-        name: "Matilda Black Prince",
+        name: "Matilda BP",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5011,7 +5011,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     54865_u16 => Vehicle {
         tank_id: 54865,
-        name: "Light Mk. VIC",
+        name: "Light VIC",
         tier: 2,
         type_: VehicleType::Light,
         is_premium: true,
@@ -5020,7 +5020,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     55057_u16 => Vehicle {
         tank_id: 55057,
-        name: "Pz.Kpfw. IV hydrostat.",
+        name: "Pz. IV hydr.",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5029,7 +5029,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     55073_u16 => Vehicle {
         tank_id: 55073,
-        name: "T7 Combat Car",
+        name: "T7 Car",
         tier: 2,
         type_: VehicleType::Light,
         is_premium: true,
@@ -5047,7 +5047,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     55313_u16 => Vehicle {
         tank_id: 55313,
-        name: "8,8 cm Pak 43 Jagdtiger",
+        name: "JgTig.8,8 cm",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -5065,7 +5065,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     56097_u16 => Vehicle {
         tank_id: 56097,
-        name: "M4A3E8 Fury",
+        name: "Fury",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5083,7 +5083,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     56609_u16 => Vehicle {
         tank_id: 56609,
-        name: "T28 Concept",
+        name: "T28 HTC",
         tier: 7,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -5101,7 +5101,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     57361_u16 => Vehicle {
         tank_id: 57361,
-        name: "Pz.Kpfw. IV Schmalturm",
+        name: "Pz. IV S.",
         tier: 6,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5119,7 +5119,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     58641_u16 => Vehicle {
         tank_id: 58641,
-        name: "VK 72.01 (K)",
+        name: "VK 72.01 K",
         tier: 10,
         type_: VehicleType::Heavy,
         is_premium: false,
@@ -5128,7 +5128,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     58881_u16 => Vehicle {
         tank_id: 58881,
-        name: "IS-5 (Object 730)",
+        name: "IS-5",
         tier: 8,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -5155,7 +5155,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     59665_u16 => Vehicle {
         tank_id: 59665,
-        name: "Großtraktor - Krupp",
+        name: "Großtraktor",
         tier: 3,
         type_: VehicleType::Heavy,
         is_premium: true,
@@ -5164,7 +5164,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     59905_u16 => Vehicle {
         tank_id: 59905,
-        name: "T-54 first prototype",
+        name: "T-54 mod. 1",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5182,7 +5182,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     60177_u16 => Vehicle {
         tank_id: 60177,
-        name: "Panther mit 8,8 cm L/71",
+        name: "Panther 8,8",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5200,7 +5200,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     60929_u16 => Vehicle {
         tank_id: 60929,
-        name: "BT-7 artillery",
+        name: "BT-7 art.",
         tier: 3,
         type_: VehicleType::Light,
         is_premium: true,
@@ -5236,7 +5236,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     63553_u16 => Vehicle {
         tank_id: 63553,
-        name: "AMX Chasseur de chars",
+        name: "AMX CDC",
         tier: 8,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5263,7 +5263,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     63841_u16 => Vehicle {
         tank_id: 63841,
-        name: "Panzer IV Ankou Special",
+        name: "Pz. IV Ankou SP",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5317,7 +5317,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     64273_u16 => Vehicle {
         tank_id: 64273,
-        name: "Snowstorm Jagdtiger 8.8",
+        name: "JgTig.8,8 cm (2015)",
         tier: 8,
         type_: VehicleType::AntiTank,
         is_premium: true,
@@ -5371,7 +5371,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     64785_u16 => Vehicle {
         tank_id: 64785,
-        name: "Pz.Kpfw. II",
+        name: "Pz. II",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -5389,7 +5389,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     64849_u16 => Vehicle {
         tank_id: 64849,
-        name: "Sentinel\u{a0}AC I",
+        name: "AC 1 Sentinel",
         tier: 4,
         type_: VehicleType::Medium,
         is_premium: true,
@@ -5407,7 +5407,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     65041_u16 => Vehicle {
         tank_id: 65041,
-        name: "Leichttraktor",
+        name: "L.Tr.",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -5416,7 +5416,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     65057_u16 => Vehicle {
         tank_id: 65057,
-        name: "T1 Cunningham",
+        name: "T1",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -5425,7 +5425,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     65105_u16 => Vehicle {
         tank_id: 65105,
-        name: "Vickers Medium Mk. I",
+        name: "Medium I",
         tier: 1,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -5443,7 +5443,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     65297_u16 => Vehicle {
         tank_id: 65297,
-        name: "Leichttraktor",
+        name: "L.Tr.",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -5452,7 +5452,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     65313_u16 => Vehicle {
         tank_id: 65313,
-        name: "T1 Cunningham",
+        name: "T1",
         tier: 1,
         type_: VehicleType::Light,
         is_premium: false,
@@ -5470,7 +5470,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     65361_u16 => Vehicle {
         tank_id: 65361,
-        name: "Vickers Medium Mk. I",
+        name: "Medium I",
         tier: 1,
         type_: VehicleType::Medium,
         is_premium: false,
@@ -5479,7 +5479,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     65377_u16 => Vehicle {
         tank_id: 65377,
-        name: "Type 3 Chi-Nu Kai Shinobi",
+        name: "Chi-Nu Kai",
         tier: 5,
         type_: VehicleType::Medium,
         is_premium: true,

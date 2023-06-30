@@ -1,10 +1,10 @@
 use std::path::PathBuf;
 
 use clap::Args;
-use tokio::fs::{read, write};
+use tokio::fs::write;
 use walkdir::WalkDir;
 
-use crate::{prelude::*, tankopedia::dvpl::unpack_dvpl};
+use crate::{prelude::*, tankopedia::dvpl::Dvpl};
 
 #[derive(Args)]
 pub struct UnpackData {
@@ -26,7 +26,7 @@ impl UnpackData {
                 .is_some_and(|extension| extension == "dvpl")
             {
                 info!(?path, "📤 Unpacking…");
-                let raw = unpack_dvpl(read(path).await?).await?;
+                let raw = Dvpl::read(path).await?.into_vec().await?;
                 let path = path.with_extension("");
                 info!(?path, "📥 Writing…");
                 write(path, raw).await?;
