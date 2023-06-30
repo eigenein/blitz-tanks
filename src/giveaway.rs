@@ -10,6 +10,10 @@ pub struct Giveaway {
     #[clap(flatten)]
     db: DbArgs,
 
+    /// Account IDs to include, comma-separated. Ignored, if empty.
+    #[clap(long, value_parser, num_args = 0.., value_delimiter = ',')]
+    include_ids: Vec<u32>,
+
     /// Account IDs to exclude, comma-separated.
     #[clap(long, value_parser, num_args = 0.., value_delimiter = ',')]
     exclude_ids: Vec<u32>,
@@ -32,8 +36,13 @@ impl Giveaway {
             .map_ok(|vote| vote.account_id)
             .try_collect::<HashSet<u32>>()
             .await?;
+        info!(n_accounts = account_ids.len(), "✅ Accounts collected");
 
-        info!(n_accounts = account_ids.len(), "✅ Votes processed");
+        if !self.include_ids.is_empty() {
+            let include_ids = self.include_ids.into_iter().collect();
+            account_ids = account_ids.intersection(&include_ids).copied().collect();
+            info!(n_accounts = account_ids.len(), "🚦 Filtered by included IDs");
+        }
 
         for account_id in self.exclude_ids {
             info!(account_id, "🗑️ Removing excluded account");
