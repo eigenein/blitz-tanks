@@ -119,7 +119,7 @@ impl Render for VehicleCard {
                 div.card-image {
                     figure.image."is-3by2" {
                         img.has-object-fit-contain
-                            src=(format!("/static/vehicle/{}", self.vehicle.tank_id))
+                            src=(format!("/static/vehicle/{}?v2", self.vehicle.tank_id))
                             loading="lazy";
                     }
                 }

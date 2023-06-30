@@ -11,7 +11,7 @@ use clap::Args;
 use futures::{stream, Stream, StreamExt, TryStreamExt};
 use image::{DynamicImage, ImageFormat};
 use img_parts::webp::WebP;
-use reqwest::Client;
+use reqwest::{Client, StatusCode};
 use serde::Deserialize;
 use tokio::{fs::read, task::spawn_blocking};
 
@@ -25,6 +25,9 @@ pub struct BundleTankopedia {
         default_value = "/Applications/World of Tanks Blitz.app/Contents/Resources/Data"
     )]
     data_path: PathBuf,
+
+    #[clap(long, default_value = "1")]
+    n_buffered_vehicles: usize,
 
     /// Bundle the first vehicle from each nation (for testing and debugging).
     #[clap(long)]
@@ -87,14 +90,6 @@ impl BundleTankopedia {
             )?;
             writeln!(&mut module, r#"    }},"#)?;
 
-            let image = match image {
-                Some(image) => image,
-                None => {
-                    // Fall back to the API.
-                    let raw = client.get(details.image_url).send().await?.bytes().await?;
-                    image::io::Reader::new(Cursor::new(raw)).with_guessed_format()?.decode()?
-                }
-            };
             let path = vendored_path.join(details.tank_id.to_string()).with_extension("webp");
             spawn_blocking(move || image.save(path)).await??;
         }
@@ -108,7 +103,7 @@ impl BundleTankopedia {
         vehicles_path: PathBuf,
         parameters_path: PathBuf,
         client: &'a Client,
-    ) -> Result<impl Stream<Item = Result<(VehicleDetails, Option<DynamicImage>)>> + 'a> {
+    ) -> Result<impl Stream<Item = Result<(VehicleDetails, DynamicImage)>> + 'a> {
         let path = vehicles_path.join("list.xml.dvpl");
         info!(?path, "📝 Unpacking…");
         let xml = unpack_dvpl(read(&path).await?).await?;
@@ -117,9 +112,11 @@ impl BundleTankopedia {
             warn!("🐛 Stopping after the first vehicle");
             vehicles = vehicles.into_iter().take(1).collect();
         }
-        let stream = stream::iter(vehicles).then(move |(vehicle_tag, _)| {
-            self.load_vehicle(client, parameters_path.clone(), vehicle_tag)
-        });
+        let stream = stream::iter(vehicles)
+            .map(move |(vehicle_tag, _)| {
+                self.load_vehicle(client, parameters_path.clone(), vehicle_tag)
+            })
+            .buffer_unordered(self.n_buffered_vehicles);
         Ok(stream)
     }
 
@@ -129,9 +126,9 @@ impl BundleTankopedia {
         client: &Client,
         parameters_path: PathBuf,
         vehicle_tag: String,
-    ) -> Result<(VehicleDetails, Option<DynamicImage>)> {
+    ) -> Result<(VehicleDetails, DynamicImage)> {
         info!("📤 Retrieving…");
-        let vehicle = client
+        let details: VehicleDetails = client
             .get(format!("https://eu.wotblitz.com/en/api/tankopedia/vehicle/{vehicle_tag}/"))
             .send()
             .await
@@ -140,11 +137,23 @@ impl BundleTankopedia {
             .await
             .with_context(|| format!("failed to deserialize vehicle `{vehicle_tag}`"))?;
         let image = {
-            let dvpl = read(parameters_path.join(&vehicle_tag).with_extension("yaml.dvpl")).await?;
-            let parameters: VehicleParameters = serde_yaml::from_slice(&unpack_dvpl(dvpl).await?)?;
-            self.extract_vehicle_icon(&parameters.resources_path.big_icon_path).await?
+            let response = client.get(&details.image_url).send().await?;
+            if response.status() == StatusCode::OK {
+                let raw = response.bytes().await?;
+                Some(image::io::Reader::new(Cursor::new(raw)).with_guessed_format()?.decode()?)
+            } else {
+                warn!("⚠️ Falling back to the client icon");
+                let dvpl =
+                    read(parameters_path.join(&vehicle_tag).with_extension("yaml.dvpl")).await?;
+                let parameters: VehicleParameters =
+                    serde_yaml::from_slice(&unpack_dvpl(dvpl).await?)?;
+                self.extract_vehicle_icon(&parameters.resources_path.big_icon_path).await?
+            }
         };
-        Ok((vehicle, image))
+        let Some(image) = image else {
+            bail!("image is not found for `{vehicle_tag}`");
+        };
+        Ok((details, image))
     }
 
     /// Extract the vehicle icon from the game client.
