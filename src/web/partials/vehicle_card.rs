@@ -119,9 +119,8 @@ impl Render for VehicleCard {
                 div.card-image {
                     figure.image."is-3by2" {
                         img.has-object-fit-contain
-                            src=(self.vehicle.image_url)
-                            loading="lazy"
-                            onerror="this.onerror=null;this.src='https://dummyimage.com/1080x720'";
+                            src=(format!("/static/vehicle/{}", self.vehicle.tank_id))
+                            loading="lazy";
                     }
                 }
 

@@ -5,7 +5,6 @@ pub struct Vehicle {
     pub type_: VehicleType,
     pub is_premium: bool,
     pub is_collectible: bool,
-    pub image_url: &'static str,
     pub image_content: &'static [u8],
 }
 

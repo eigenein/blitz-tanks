@@ -116,6 +116,7 @@ impl Web {
             .route("/static/icon-512.png", get(r#static::get_icon_512))
             .route("/static/home.png", get(r#static::get_home_icon))
             .route("/static/bulma-patches.css/:version", get(r#static::get_bulma_patches))
+            .route("/static/vehicle/:tank_id", get(r#static::get_vehicle_icon))
             .layer(tracing_layer)
             .with_state(state)
     }

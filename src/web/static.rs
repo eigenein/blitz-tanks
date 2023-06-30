@@ -15,17 +15,26 @@
 //! ```
 
 use axum::{
+    extract::Path,
     headers::HeaderName,
     http::header::{CACHE_CONTROL, CONTENT_TYPE},
     response::IntoResponse,
 };
 use indoc::indoc;
 
+use crate::{
+    prelude::instrument,
+    tankopedia::vendored::TANKOPEDIA,
+    web::{error::WebError, result::WebResult},
+};
+
 const CACHE_PUBLIC_WEEK: (HeaderName, &str) = (CACHE_CONTROL, "max-age=604800, public");
+const CACHE_PUBLIC_YEAR: (HeaderName, &str) = (CACHE_CONTROL, "max-age=31536000, public");
 
 const CONTENT_TYPE_CSS: (HeaderName, &str) = (CONTENT_TYPE, "text/css");
 const CONTENT_TYPE_MICROSOFT_ICON: (HeaderName, &str) = (CONTENT_TYPE, "image/vnd.microsoft.icon");
 const CONTENT_TYPE_PNG: (HeaderName, &str) = (CONTENT_TYPE, "image/png");
+const CONTENT_TYPE_WEBP: (HeaderName, &str) = (CONTENT_TYPE, "image/webp");
 
 #[inline]
 pub async fn get_favicon() -> impl IntoResponse {
@@ -81,4 +90,12 @@ pub async fn get_bulma_patches() -> impl IntoResponse {
         }
     "#};
     ([CONTENT_TYPE_CSS, CACHE_PUBLIC_WEEK], CSS)
+}
+
+#[instrument(skip_all, fields(tank_id = tank_id))]
+pub async fn get_vehicle_icon(Path(tank_id): Path<u16>) -> WebResult<impl IntoResponse> {
+    let Some(vehicle) = &TANKOPEDIA.get(&tank_id) else {
+        return Err(WebError::ImATeapot);
+    };
+    Ok(([CONTENT_TYPE_WEBP, CACHE_PUBLIC_YEAR], vehicle.image_content))
 }
