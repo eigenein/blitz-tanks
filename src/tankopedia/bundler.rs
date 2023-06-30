@@ -13,7 +13,7 @@ use image::{DynamicImage, ImageFormat};
 use img_parts::webp::WebP;
 use reqwest::Client;
 use serde::Deserialize;
-use tokio::fs::read;
+use tokio::{fs::read, task::spawn_blocking};
 
 use crate::{prelude::*, tankopedia::dvpl::unpack_dvpl};
 
@@ -44,7 +44,7 @@ impl BundleTankopedia {
 
         let vehicles_path = self.data_path.join("XML").join("item_defs").join("vehicles");
         let parameters_path = self.data_path.join("3d").join("Tanks").join("Parameters");
-        let mut vehicles: Vec<(VehicleDetails, VehicleParameters)> = stream::iter(NATIONS)
+        let mut vehicles: Vec<_> = stream::iter(NATIONS)
             .then(|nation| {
                 self.load_nation(vehicles_path.join(nation), parameters_path.join(nation), &client)
             })
@@ -71,15 +71,7 @@ impl BundleTankopedia {
         writeln!(&mut module, "use crate::models::{{Vehicle, VehicleType}};")?;
         writeln!(&mut module)?;
         writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
-        for (details, parameters) in vehicles {
-            let has_icon = self
-                .copy_icon(
-                    details.tank_id,
-                    &parameters.resources_path.big_icon_path,
-                    &vendored_path,
-                )
-                .await?;
-
+        for (details, image) in vehicles {
             writeln!(&mut module, "    {}_u16 => Vehicle {{", details.tank_id)?;
             writeln!(&mut module, "        tank_id: {:?},", details.tank_id)?;
             writeln!(&mut module, "        name: {:?},", details.user_string)?;
@@ -88,7 +80,9 @@ impl BundleTankopedia {
             writeln!(&mut module, "        is_premium: {:?},", details.is_premium)?;
             writeln!(&mut module, "        is_collectible: {:?},", details.is_collectible)?;
             writeln!(&mut module, "        image_url: {:?},", details.image_url)?;
-            if has_icon {
+            if let Some(image) = image {
+                let path = vendored_path.join(details.tank_id.to_string()).with_extension("webp");
+                spawn_blocking(move || image.save(path)).await??;
                 writeln!(
                     &mut module,
                     r#"        image_content: Some(include_bytes!("vendored/{}.webp")),"#,
@@ -109,7 +103,7 @@ impl BundleTankopedia {
         vehicles_path: PathBuf,
         parameters_path: PathBuf,
         client: &'a Client,
-    ) -> Result<impl Stream<Item = Result<(VehicleDetails, VehicleParameters)>> + 'a> {
+    ) -> Result<impl Stream<Item = Result<(VehicleDetails, Option<DynamicImage>)>> + 'a> {
         let path = vehicles_path.join("list.xml.dvpl");
         info!(?path, "📝 Unpacking…");
         let xml = unpack_dvpl(read(&path).await?).await?;
@@ -119,17 +113,18 @@ impl BundleTankopedia {
             vehicles = vehicles.into_iter().take(1).collect();
         }
         let stream = stream::iter(vehicles).then(move |(vehicle_tag, _)| {
-            Self::load_vehicle(client, parameters_path.clone(), vehicle_tag)
+            self.load_vehicle(client, parameters_path.clone(), vehicle_tag)
         });
         Ok(stream)
     }
 
     #[instrument(skip_all, fields(vehicle_tag = vehicle_tag))]
     async fn load_vehicle(
+        &self,
         client: &Client,
         parameters_path: PathBuf,
         vehicle_tag: String,
-    ) -> Result<(VehicleDetails, VehicleParameters)> {
+    ) -> Result<(VehicleDetails, Option<DynamicImage>)> {
         info!("📤 Retrieving…");
         let vehicle = client
             .get(format!("https://eu.wotblitz.com/en/api/tankopedia/vehicle/{vehicle_tag}/"))
@@ -139,30 +134,12 @@ impl BundleTankopedia {
             .json()
             .await
             .with_context(|| format!("failed to deserialize vehicle `{vehicle_tag}`"))?;
-        let parameters: VehicleParameters = {
+        let image = {
             let dvpl = read(parameters_path.join(&vehicle_tag).with_extension("yaml.dvpl")).await?;
-            serde_yaml::from_slice(&unpack_dvpl(dvpl).await?)?
+            let parameters: VehicleParameters = serde_yaml::from_slice(&unpack_dvpl(dvpl).await?)?;
+            self.extract_vehicle_icon(&parameters.resources_path.big_icon_path).await?
         };
-        Ok((vehicle, parameters))
-    }
-
-    /// Copy the icon from the game client to the [`self::vendored`] directory.
-    #[instrument(skip_all)]
-    async fn copy_icon(
-        &self,
-        tank_id: u16,
-        big_icon_path: &str,
-        vendored_path: &Path,
-    ) -> Result<bool> {
-        match self.extract_vehicle_icon(big_icon_path).await? {
-            Some(image) => {
-                image
-                    .save(vendored_path.join(tank_id.to_string()).with_extension("webp"))
-                    .with_context(|| format!("failed to save `{big_icon_path:?}`"))?;
-                Ok(true)
-            }
-            None => Ok(false),
-        }
+        Ok((vehicle, image))
     }
 
     /// Extract the vehicle icon from the game client.
