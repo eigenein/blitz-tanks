@@ -81,18 +81,23 @@ impl BundleTankopedia {
             writeln!(&mut module, "        is_premium: {:?},", details.is_premium)?;
             writeln!(&mut module, "        is_collectible: {:?},", details.is_collectible)?;
             writeln!(&mut module, "        image_url: {:?},", details.image_url)?;
-            if let Some(image) = image {
-                let path = vendored_path.join(details.tank_id.to_string()).with_extension("webp");
-                spawn_blocking(move || image.save(path)).await??;
-                writeln!(
-                    &mut module,
-                    r#"        image_content: Some(include_bytes!("vendored/{}.webp")),"#,
-                    details.tank_id
-                )?;
-            } else {
-                writeln!(&mut module, "        image_content: None,")?;
-            }
+            writeln!(
+                &mut module,
+                r#"        image_content: include_bytes!("vendored/{}.webp"),"#,
+                details.tank_id
+            )?;
             writeln!(&mut module, r#"    }},"#)?;
+
+            let image = match image {
+                Some(image) => image,
+                None => {
+                    // Fall back to the API.
+                    let raw = client.get(details.image_url).send().await?.bytes().await?;
+                    image::io::Reader::new(Cursor::new(raw)).with_guessed_format()?.decode()?
+                }
+            };
+            let path = vendored_path.join(details.tank_id.to_string()).with_extension("webp");
+            spawn_blocking(move || image.save(path)).await??;
         }
         writeln!(&mut module, "}};")?;
 
