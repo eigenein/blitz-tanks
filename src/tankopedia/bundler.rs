@@ -36,6 +36,11 @@ pub struct BundleTankopedia {
     /// Bundle the first vehicle from each nation (for testing and debugging).
     #[clap(long)]
     take_one: bool,
+
+    /// Skip saving the images, when only detail correction is needed.
+    /// At the moment, it does not skip reading the images (TODO).
+    #[clap(long)]
+    skip_images: bool,
 }
 
 impl BundleTankopedia {
@@ -88,9 +93,12 @@ impl BundleTankopedia {
         writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
         for (xml_details, json_details, image) in vehicles {
             info!(json_details.tank_id, json_details.user_string, "📦 Saving…");
+            let short_user_string_key = xml_details.short_user_string_key();
             let name = translations
                 // Take the short name from the client.
-                .get(&xml_details.short_user_string())
+                .get(&short_user_string_key)
+                // Ehm… sometimes the translation is the key itself, which doesn't make any sense.
+                .filter(|translation| translation != &&short_user_string_key)
                 // Fall back to the long name from the API.
                 .unwrap_or(&json_details.user_string);
 
@@ -111,8 +119,11 @@ impl BundleTankopedia {
             )?;
             writeln!(&mut module, r#"    }},"#)?;
 
-            let path = vendored_path.join(json_details.tank_id.to_string()).with_extension("webp");
-            spawn_blocking(move || image.save(path)).await??;
+            if !self.skip_images {
+                let path =
+                    vendored_path.join(json_details.tank_id.to_string()).with_extension("webp");
+                spawn_blocking(move || image.save(path)).await??;
+            }
         }
         writeln!(&mut module, "}};")?;
 
@@ -282,7 +293,9 @@ struct VehicleJsonDetails {
     #[serde(rename = "type_slug")]
     type_: VehicleType,
 
+    /// This is a display name, not a translation key.
     user_string: String,
+
     image_url: String,
     is_premium: bool,
     is_collectible: bool,
@@ -338,14 +351,14 @@ struct ResourcesPath {
 struct VehicleXmlDetails {
     /// Example: `#ussr_vehicles:T-34`.
     #[serde(rename = "userString")]
-    user_string: String,
+    user_string_key: String,
 }
 
 impl VehicleXmlDetails {
     /// Get the translation key for the shortened vehicle name.
     /// This name is what you see in the vehicle ribbon in the game client.
     #[inline]
-    pub fn short_user_string(&self) -> String {
-        format!("{}_short", self.user_string)
+    pub fn short_user_string_key(&self) -> String {
+        format!("{}_short", self.user_string_key)
     }
 }

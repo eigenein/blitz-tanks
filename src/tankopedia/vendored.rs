@@ -1047,7 +1047,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     4609_u16 => Vehicle {
         tank_id: 4609,
-        name: "#ussr_vehicles:T-26_short",
+        name: "T-26",
         tier: 1,
         type_: Light,
         availability: Researchable,
@@ -3295,7 +3295,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     19201_u16 => Vehicle {
         tank_id: 19201,
-        name: "#ussr_vehicles:T-26_short",
+        name: "T-26",
         tier: 1,
         type_: Light,
         availability: Researchable,
@@ -3335,7 +3335,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     },
     19457_u16 => Vehicle {
         tank_id: 19457,
-        name: "#ussr_vehicles:T-26_short",
+        name: "T-26",
         tier: 1,
         type_: Light,
         availability: Researchable,
