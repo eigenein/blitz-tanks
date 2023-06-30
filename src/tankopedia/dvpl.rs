@@ -1,6 +1,7 @@
 use anyhow::bail;
 use byteorder::{LittleEndian, ReadBytesExt};
 use lz4_flex::decompress;
+use tokio::task::spawn_blocking;
 
 use crate::prelude::*;
 
@@ -10,7 +11,9 @@ pub async fn unpack_dvpl(mut dvpl: Vec<u8>) -> Result<Vec<u8>> {
     match footer.compression_type {
         CompressionType::None => Ok(dvpl),
         CompressionType::Lz4 | CompressionType::Lz4Hc => {
-            decompress(&dvpl, footer.uncompressed_size).context("failed to decompress LZ4")
+            spawn_blocking(move || decompress(&dvpl, footer.uncompressed_size))
+                .await?
+                .context("failed to decompress LZ4")
         }
         CompressionType::Rfc1951 => unimplemented!("RFC1951 is not implemented"),
     }
