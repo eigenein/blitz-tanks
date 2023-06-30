@@ -116,11 +116,12 @@ mod tests {
         let request = Request::builder()
             .uri("/welcome?status=ok&access_token=fake&expires_at=1686693094&nickname=test&account_id=1")
             .body(Body::empty())?;
-        let response = app.oneshot(request).await?;
-        assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
+        let mut response = app.oneshot(request).await?;
+        assert_eq!(response.status(), StatusCode::OK);
         let headers = response.headers();
-        assert_eq!(headers.get("Location").unwrap(), "/profile/1");
         assert!(headers.get(SET_COOKIE).unwrap().to_str()?.contains(User::SESSION_COOKIE_NAME));
+        let body = String::from_utf8(response.body_mut().data().await.unwrap()?.to_vec())?;
+        assert!(body.contains(r#"content="0; url='/profile/1'""#));
         Ok(())
     }
 

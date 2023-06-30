@@ -15,7 +15,7 @@ pub fn navbar_burger() -> Markup {
 pub fn home_navbar_item() -> Markup {
     html! {
         a.navbar-item href="/" {
-            img src="/home.png" width="28" height="28" alt="Main page";
+            img src="/static/home.png" width="28" height="28" alt="Main page";
         }
     }
 }
