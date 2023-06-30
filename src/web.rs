@@ -111,6 +111,7 @@ impl Web {
             )
             .route("/discover", get(views::discover::get))
             .route("/favicon.ico", get(r#static::get_favicon))
+            .route("/robots.txt", get(r#static::get_robots_txt))
             .route("/static/apple-touch-icon.png", get(r#static::get_apple_touch_icon))
             .route("/static/icon-192.png", get(r#static::get_icon_192))
             .route("/static/icon-512.png", get(r#static::get_icon_512))

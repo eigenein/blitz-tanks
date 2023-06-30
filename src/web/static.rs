@@ -34,6 +34,7 @@ const CACHE_PUBLIC_YEAR: (HeaderName, &str) = (CACHE_CONTROL, "max-age=31536000,
 const CONTENT_TYPE_CSS: (HeaderName, &str) = (CONTENT_TYPE, "text/css");
 const CONTENT_TYPE_MICROSOFT_ICON: (HeaderName, &str) = (CONTENT_TYPE, "image/vnd.microsoft.icon");
 const CONTENT_TYPE_PNG: (HeaderName, &str) = (CONTENT_TYPE, "image/png");
+const CONTENT_TYPE_TEXT: (HeaderName, &str) = (CONTENT_TYPE, "text/plain");
 const CONTENT_TYPE_WEBP: (HeaderName, &str) = (CONTENT_TYPE, "image/webp");
 
 #[inline]
@@ -98,4 +99,15 @@ pub async fn get_vehicle_icon(Path(tank_id): Path<u16>) -> WebResult<impl IntoRe
         return Err(WebError::ImATeapot);
     };
     Ok(([CONTENT_TYPE_WEBP, CACHE_PUBLIC_YEAR], vehicle.image_content))
+}
+
+#[inline]
+pub async fn get_robots_txt() -> impl IntoResponse {
+    /// Disallow all but the index page: <https://stackoverflow.com/a/21794569/359730>.
+    const ROBOTS_TXT: &str = indoc! {"
+        User-agent: *
+        Allow: /$
+        Disallow: /
+    "};
+    ([CONTENT_TYPE_TEXT, CACHE_PUBLIC_WEEK], ROBOTS_TXT)
 }
