@@ -47,24 +47,24 @@ pub async fn get_favicon() -> impl IntoResponse {
 #[inline]
 pub async fn get_apple_touch_icon() -> impl IntoResponse {
     (
-        [CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK],
+        [CONTENT_TYPE_PNG, CACHE_PUBLIC_YEAR],
         include_bytes!("static/apple-touch-icon.png"),
     )
 }
 
 #[inline]
 pub async fn get_icon_192() -> impl IntoResponse {
-    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/icon-192.png"))
+    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_YEAR], include_bytes!("static/icon-192.png"))
 }
 
 #[inline]
 pub async fn get_icon_512() -> impl IntoResponse {
-    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/icon-512.png"))
+    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_YEAR], include_bytes!("static/icon-512.png"))
 }
 
 #[inline]
 pub async fn get_home_icon() -> impl IntoResponse {
-    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_WEEK], include_bytes!("static/home.png"))
+    ([CONTENT_TYPE_PNG, CACHE_PUBLIC_YEAR], include_bytes!("static/home.png"))
 }
 
 /// Get the patches for [Bulma][1].
@@ -89,7 +89,7 @@ pub async fn get_bulma_patches() -> impl IntoResponse {
             .has-background-info-light { background-color: hsl(204, 71%, 14%) !important; }
         }
     "#};
-    ([CONTENT_TYPE_CSS, CACHE_PUBLIC_WEEK], CSS)
+    ([CONTENT_TYPE_CSS, CACHE_PUBLIC_YEAR], CSS)
 }
 
 #[instrument(skip_all, fields(tank_id = tank_id))]
