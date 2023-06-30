@@ -1,6 +1,6 @@
 use std::{
     collections::BTreeMap,
-    fs::{create_dir_all, read, File},
+    fs::{create_dir_all, File},
     io::{Cursor, Write},
     path::{Path, PathBuf},
 };
@@ -13,6 +13,7 @@ use image::{DynamicImage, ImageFormat};
 use img_parts::webp::WebP;
 use reqwest::Client;
 use serde::Deserialize;
+use tokio::fs::read;
 
 use crate::{prelude::*, tankopedia::dvpl::unpack_dvpl};
 
@@ -111,7 +112,7 @@ impl BundleTankopedia {
     ) -> Result<impl Stream<Item = Result<(VehicleDetails, VehicleParameters)>> + 'a> {
         let path = vehicles_path.join("list.xml.dvpl");
         info!(?path, "📝 Unpacking…");
-        let xml = unpack_dvpl(read(&path)?)?;
+        let xml = unpack_dvpl(read(&path).await?).await?;
         let mut vehicles: BTreeMap<String, ()> = quick_xml::de::from_reader(xml.as_slice())?;
         if self.take_one {
             warn!("🐛 Stopping after the first vehicle");
@@ -139,8 +140,8 @@ impl BundleTankopedia {
             .await
             .with_context(|| format!("failed to deserialize vehicle `{vehicle_tag}`"))?;
         let parameters: VehicleParameters = {
-            let dvpl = read(parameters_path.join(&vehicle_tag).with_extension("yaml.dvpl"))?;
-            serde_yaml::from_slice(&unpack_dvpl(dvpl)?)?
+            let dvpl = read(parameters_path.join(&vehicle_tag).with_extension("yaml.dvpl")).await?;
+            serde_yaml::from_slice(&unpack_dvpl(dvpl).await?)?
         };
         Ok((vehicle, parameters))
     }
@@ -179,7 +180,7 @@ impl BundleTankopedia {
         if !big_icon_path.exists() {
             return Ok(None);
         }
-        let webp = unpack_dvpl(read(&big_icon_path)?)?;
+        let webp = unpack_dvpl(read(&big_icon_path).await?).await?;
         let (position_x, position_y, width, height) = Self::extract_dimensions(&webp)?;
         let image = image::io::Reader::with_format(Cursor::new(webp), ImageFormat::WebP)
             .decode()

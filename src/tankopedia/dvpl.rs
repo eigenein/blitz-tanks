@@ -4,7 +4,7 @@ use lz4_flex::decompress;
 
 use crate::prelude::*;
 
-pub fn unpack_dvpl(mut dvpl: Vec<u8>) -> Result<Vec<u8>> {
+pub async fn unpack_dvpl(mut dvpl: Vec<u8>) -> Result<Vec<u8>> {
     let footer = Footer::try_from(dvpl.as_slice())?;
     dvpl.truncate(footer.compressed_size);
     match footer.compression_type {
@@ -73,10 +73,10 @@ mod tests {
 
     use super::*;
 
-    #[test]
-    fn unpack_list_ok() -> Result {
+    #[tokio::test]
+    async fn unpack_list_ok() -> Result {
         let dvpl = read(Path::new("src").join("tankopedia").join("tests").join("list.xml.dvpl"))?;
-        unpack_dvpl(dvpl)?;
+        unpack_dvpl(dvpl).await?;
         Ok(())
     }
 }

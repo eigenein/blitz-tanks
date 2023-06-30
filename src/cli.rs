@@ -52,7 +52,7 @@ impl Command {
             Self::BundleTankopedia(bundle_tankopedia) => bundle_tankopedia.run().await,
             Self::Giveaway(giveaway) => giveaway.run().await,
             Self::Trainer(trainer) => trainer.run().await,
-            Self::UnpackData(unpack_data) => unpack_data.run(),
+            Self::UnpackData(unpack_data) => unpack_data.run().await,
             Self::Web(web) => web.run().await,
         }
     }
