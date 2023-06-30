@@ -72,6 +72,7 @@ impl BundleTankopedia {
         writeln!(&mut module)?;
         writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
         for (details, image) in vehicles {
+            info!(details.tank_id, details.user_string, "📦 Saving…");
             writeln!(&mut module, "    {}_u16 => Vehicle {{", details.tank_id)?;
             writeln!(&mut module, "        tank_id: {:?},", details.tank_id)?;
             writeln!(&mut module, "        name: {:?},", details.user_string)?;
