@@ -13,7 +13,7 @@ pub struct Wg {
     application_id: Arc<String>,
 }
 
-// TODO: probably, I need to extract `407/INVALID_ACCESS_TOKEN`.
+// TODO: perhaps, I need to extract `407/INVALID_ACCESS_TOKEN`.
 #[derive(Deserialize, Debug, thiserror::Error)]
 #[error("Wargaming.net API error {code}/{message}")]
 pub struct WgError {
@@ -21,10 +21,10 @@ pub struct WgError {
     pub message: String,
 }
 
-/// Wargaming.net API result.
+/// Generic Wargaming.net API response.
 #[derive(Deserialize)]
 #[serde(tag = "status")]
-pub enum WgResult<D> {
+pub enum WgResponse<D> {
     #[serde(rename = "ok")]
     Ok { data: D },
 
@@ -75,12 +75,12 @@ impl Wg {
             .send()
             .await
             .with_context(|| format!("failed to retrieve player {account_id}'s vehicles stats"))?
-            .json::<WgResult<HashMap<String, Vec<VehicleStats>>>>()
+            .json::<WgResponse<HashMap<String, Vec<VehicleStats>>>>()
             .await
             .with_context(|| format!("failed to parse player {account_id}'s vehicles stats"))?;
         match result {
-            WgResult::Ok { data } => Ok(data.into_values().next().unwrap_or_default()),
-            WgResult::Err { error } => Err(error.into()),
+            WgResponse::Ok { data } => Ok(data.into_values().next().unwrap_or_default()),
+            WgResponse::Err { error } => Err(error.into()),
         }
     }
 
@@ -118,12 +118,12 @@ impl Wg {
             .send()
             .await
             .context("failed to log out")?
-            .json::<WgResult<()>>()
+            .json::<WgResponse<()>>()
             .await
             .context("failed to parse the log-out response")?;
         match result {
-            WgResult::Ok { .. } => Ok(()),
-            WgResult::Err { error } => Err(error.into()),
+            WgResponse::Ok { .. } => Ok(()),
+            WgResponse::Err { error } => Err(error.into()),
         }
     }
 }
@@ -159,7 +159,7 @@ mod tests {
 
     #[test]
     fn vehicles_stats_ok() -> Result {
-        serde_json::from_str::<WgResult<HashMap<String, Vec<VehicleStats>>>>(
+        serde_json::from_str::<WgResponse<HashMap<String, Vec<VehicleStats>>>>(
             // language=json
             r#"{"status":"ok","meta":{"count":1},"data":{"594778041":[{"all":{"battles":248},"last_battle_time":1681146251,"tank_id":18769}]}}"#,
         )?;
