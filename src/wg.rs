@@ -34,7 +34,7 @@ pub enum WgError {
     },
 
     #[error("Wargaming.net API error `{code}/{message}`")]
-    Other { code: u16, message: String },
+    Api { code: u16, message: String },
 }
 
 impl Wg {
@@ -223,7 +223,7 @@ mod tests {
         // language=json
         let error: WgError = serde_json::from_str(r#"{"code": 418, "message": "I_AM_A_TEAPOT"}"#)?;
         match error {
-            WgError::Other { code: 418, .. } => Ok(()),
+            WgError::Api { code: 418, .. } => Ok(()),
             _ => bail!(error),
         }
     }
