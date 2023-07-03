@@ -32,6 +32,19 @@ pub enum WgResponse<D> {
     Err { error: WgError },
 }
 
+#[derive(Deserialize, Debug, thiserror::Error)]
+#[serde(untagged)]
+pub enum NewWgError {
+    #[error("invalid token")]
+    InvalidToken {
+        code: monostate::MustBe!(407),
+        message: monostate::MustBe!("INVALID_ACCESS_TOKEN"),
+    },
+
+    #[error("Wargaming.net API error `{code}/{message}`")]
+    Other { code: u16, message: String },
+}
+
 impl Wg {
     pub fn new(application_id: &str) -> Result<Self> {
         let client = ClientBuilder::new()
@@ -164,5 +177,27 @@ mod tests {
             r#"{"status":"ok","meta":{"count":1},"data":{"594778041":[{"all":{"battles":248},"last_battle_time":1681146251,"tank_id":18769}]}}"#,
         )?;
         Ok(())
+    }
+
+    #[test]
+    fn parse_invalid_token_error_ok() -> Result {
+        // language=json
+        let error: NewWgError =
+            serde_json::from_str(r#"{"code": 407, "message": "INVALID_ACCESS_TOKEN"}"#)?;
+        match error {
+            NewWgError::InvalidToken { .. } => Ok(()),
+            _ => bail!(error),
+        }
+    }
+
+    #[test]
+    fn parse_other_error_ok() -> Result {
+        // language=json
+        let error: NewWgError =
+            serde_json::from_str(r#"{"code": 418, "message": "I_AM_A_TEAPOT"}"#)?;
+        match error {
+            NewWgError::Other { code: 418, .. } => Ok(()),
+            _ => bail!(error),
+        }
     }
 }
