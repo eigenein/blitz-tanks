@@ -15,7 +15,9 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     // TODO: anonymous account should see the «most liked» section and a banner.
-    let Either::Left(user) = user else { return Err(WebError::Unauthorized) };
+    let Either::Left(user) = user else {
+        return Err(WebError::Unauthorized)
+    };
 
     let biases = &state.model.load().biases;
     let predictions = state.get_predictions(user.account_id).await?;

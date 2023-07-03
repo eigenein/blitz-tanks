@@ -12,7 +12,11 @@ use uuid::Uuid;
 use crate::{
     models::User,
     prelude::*,
-    web::{error::WebError, result::WebResult, state::AppState},
+    web::{
+        error::{ForbiddenReason, WebError},
+        result::WebResult,
+        state::AppState,
+    },
 };
 
 /// Wargaming.net [authentication redirect][1] query parameters.
@@ -79,11 +83,13 @@ pub async fn get(
 ) -> WebResult<impl IntoResponse> {
     let user = Result::<User, WebError>::from(result)?;
 
-    // Verify the sign-in arguments and pre-cache the vehicles.
-    // TODO: return something more friendly, if this fails.
-    state
-        .get_vehicles_stats(user.account_id, Some(user.access_token.as_str()))
-        .await?;
+    // Verify the sign-in.
+    let Some(account_info) = state.wg.get_account_info(user.account_id, &user.access_token).await? else {
+        return Err(WebError::Forbidden(ForbiddenReason::NonExistentAccount));
+    };
+    if account_info.private.is_null() {
+        return Err(WebError::Forbidden(ForbiddenReason::NoPrivateAccess));
+    }
 
     info!(user.nickname, %user.session_id, "👋 Welcome");
     state.session_manager.insert(&user).await?;

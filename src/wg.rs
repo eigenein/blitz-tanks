@@ -61,36 +61,31 @@ impl Wg {
         })
     }
 
-    /// Get the accounts' vehicles' basic [statistics][1].
-    ///
-    /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
     #[cfg(not(test))]
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get_vehicles_stats(
+    pub async fn get_account_info(
         &self,
         account_id: u32,
-        access_token: Option<&str>,
-    ) -> Result<Vec<VehicleStats>> {
-        let mut url = url::Url::parse_with_params(
-            "https://api.wotblitz.eu/wotb/tanks/stats/",
+        access_token: &str,
+    ) -> Result<Option<AccountInfo>> {
+        let url = url::Url::parse_with_params(
+            "https://api.wotblitz.eu/wotb/account/info/",
             &[
                 ("application_id", self.application_id.as_str()),
                 ("account_id", account_id.to_string().as_str()),
-                ("fields", "tank_id,last_battle_time,all.battles"),
+                ("access_token", access_token),
+                ("fields", "private"),
             ],
         )?;
-        if let Some(access_token) = access_token {
-            url.query_pairs_mut().append_pair("access_token", access_token);
-        }
         let result = self
             .client
             .get(url)
             .send()
             .await
-            .with_context(|| format!("failed to retrieve player {account_id}'s vehicles stats"))?
-            .json::<WgResponse<HashMap<String, Vec<VehicleStats>>>>()
+            .with_context(|| format!("failed to retrieve player {account_id}'s info"))?
+            .json::<WgResponse<HashMap<String, Option<AccountInfo>>>>()
             .await
-            .with_context(|| format!("failed to parse player {account_id}'s vehicles stats"))?;
+            .with_context(|| format!("failed to parse player {account_id}'s info"))?;
         match result {
             WgResponse::Ok { data } => Ok(data.into_values().next().unwrap_or_default()),
             WgResponse::Err { error } => Err(error.into()),
@@ -98,11 +93,47 @@ impl Wg {
     }
 
     #[cfg(test)]
-    pub async fn get_vehicles_stats(
+    pub async fn get_account_info(
         &self,
         _account_id: u32,
-        _access_token: Option<&str>,
-    ) -> Result<Vec<VehicleStats>> {
+        _access_token: &str,
+    ) -> Result<Option<AccountInfo>> {
+        Ok(Some(AccountInfo {
+            private: serde_json::Value::Object(Default::default()),
+        }))
+    }
+
+    /// Get the accounts' vehicles' basic [statistics][1].
+    ///
+    /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
+    #[cfg(not(test))]
+    #[instrument(skip_all, fields(account_id = account_id))]
+    pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>> {
+        let url = url::Url::parse_with_params(
+            "https://api.wotblitz.eu/wotb/tanks/stats/",
+            &[
+                ("application_id", self.application_id.as_str()),
+                ("account_id", account_id.to_string().as_str()),
+                ("fields", "tank_id,last_battle_time,all.battles"),
+            ],
+        )?;
+        let result = self
+            .client
+            .get(url)
+            .send()
+            .await
+            .with_context(|| format!("failed to retrieve player {account_id}'s vehicles stats"))?
+            .json::<WgResponse<HashMap<String, Option<Vec<VehicleStats>>>>>()
+            .await
+            .with_context(|| format!("failed to parse player {account_id}'s vehicles stats"))?;
+        match result {
+            WgResponse::Ok { data } => Ok(data.into_values().next().flatten().unwrap_or_default()),
+            WgResponse::Err { error } => Err(error.into()),
+        }
+    }
+
+    #[cfg(test)]
+    pub async fn get_vehicles_stats(&self, _account_id: u32) -> Result<Vec<VehicleStats>> {
         let fake_non_played = VehicleStats {
             tank_id: 2,
             last_battle_time: Utc.timestamp_opt(0, 0).unwrap(),
@@ -139,6 +170,11 @@ impl Wg {
             WgResponse::Err { error } => Err(error.into()),
         }
     }
+}
+
+#[derive(Deserialize)]
+pub struct AccountInfo {
+    pub private: serde_json::Value,
 }
 
 /// Partial user's vehicle statistics.

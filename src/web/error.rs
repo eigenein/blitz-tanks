@@ -26,14 +26,21 @@ pub enum WebError {
     #[error("unauthorized")]
     Unauthorized,
 
-    #[error("forbidden")]
-    Forbidden,
+    #[error("forbidden: {0:?}")]
+    Forbidden(ForbiddenReason),
 
     #[error("not found")]
     ImATeapot,
 
     #[error("service unavailable")]
     ServiceUnavailable(#[source] Error),
+}
+
+#[derive(Debug)]
+pub enum ForbiddenReason {
+    NonExistentAccount,
+    NoPrivateAccess,
+    NonOwner,
 }
 
 impl From<Infallible> for WebError {
@@ -58,8 +65,8 @@ impl IntoResponse for WebError {
                 StatusCode::BAD_REQUEST
             }
 
-            Self::Forbidden => {
-                error!("❌ Forbidden");
+            Self::Forbidden(reason) => {
+                error!("❌ Forbidden: {reason:?}");
                 StatusCode::FORBIDDEN
             }
 

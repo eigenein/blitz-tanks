@@ -72,13 +72,12 @@ impl AppState {
     pub async fn get_vehicles_stats(
         &self,
         account_id: u32,
-        access_token: Option<&str>,
     ) -> Result<Arc<IndexMap<u16, VehicleStats>>> {
         self.stats_cache
             .try_get_with(account_id, async {
                 let map = self
                     .wg
-                    .get_vehicles_stats(account_id, access_token)
+                    .get_vehicles_stats(account_id)
                     .await?
                     .into_iter()
                     .filter(VehicleStats::is_played)
@@ -96,7 +95,7 @@ impl AppState {
     #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
     pub async fn owns_vehicle(&self, account_id: u32, tank_id: u16) -> Result<bool> {
         Ok(self
-            .get_vehicles_stats(account_id, None)
+            .get_vehicles_stats(account_id)
             .await?
             .get(&tank_id)
             .is_some_and(VehicleStats::is_played))
@@ -105,7 +104,7 @@ impl AppState {
     #[instrument(skip_all, fields(account_id = account_id))]
     pub async fn get_predictions(&self, account_id: u32) -> Result<Arc<Vec<RatedTankId>>> {
         let model = self.model.clone();
-        let stats = self.get_vehicles_stats(account_id, None).await?;
+        let stats = self.get_vehicles_stats(account_id).await?;
 
         self.predictions_cache
             .try_get_with(account_id, async {

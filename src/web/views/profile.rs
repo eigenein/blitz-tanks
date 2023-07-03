@@ -13,7 +13,13 @@ use crate::{
     models::{Anonymous, Rating, User, Vote},
     prelude::*,
     tankopedia::vendored::TANKOPEDIA,
-    web::{error::WebError, partials::*, prelude::*, result::WebResult, state::AppState},
+    web::{
+        error::{ForbiddenReason, WebError},
+        partials::*,
+        prelude::*,
+        result::WebResult,
+        state::AppState,
+    },
 };
 
 #[derive(Deserialize)]
@@ -31,11 +37,11 @@ pub async fn get(
         return Err(WebError::Unauthorized)
     };
     if params.account_id != user.account_id {
-        return Err(WebError::Forbidden);
+        return Err(WebError::Forbidden(ForbiddenReason::NonOwner));
     }
 
     let vehicles_stats = state
-        .get_vehicles_stats(user.account_id, None)
+        .get_vehicles_stats(user.account_id)
         .await
         .map_err(WebError::ServiceUnavailable)?;
     let votes: HashMap<u16, Rating> = state
@@ -119,7 +125,7 @@ async fn rate_vehicle(
         return Err(WebError::Unauthorized)
     };
     if params.account_id != user.account_id {
-        return Err(WebError::Forbidden);
+        return Err(WebError::Forbidden(ForbiddenReason::NonOwner));
     }
     if !state.owns_vehicle(user.account_id, params.tank_id).await? {
         return Err(WebError::ImATeapot);
