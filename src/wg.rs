@@ -13,14 +13,6 @@ pub struct Wg {
     application_id: Arc<String>,
 }
 
-// TODO: perhaps, I need to extract `407/INVALID_ACCESS_TOKEN`.
-#[derive(Deserialize, Debug, thiserror::Error)]
-#[error("Wargaming.net API error {code}/{message}")]
-pub struct WgError {
-    pub code: u16,
-    pub message: String,
-}
-
 /// Generic Wargaming.net API response.
 #[derive(Deserialize)]
 #[serde(tag = "status")]
@@ -34,7 +26,7 @@ pub enum WgResponse<D> {
 
 #[derive(Deserialize, Debug, thiserror::Error)]
 #[serde(untagged)]
-pub enum NewWgError {
+pub enum WgError {
     #[error("invalid token")]
     InvalidToken {
         code: monostate::MustBe!(407),
@@ -218,10 +210,10 @@ mod tests {
     #[test]
     fn parse_invalid_token_error_ok() -> Result {
         // language=json
-        let error: NewWgError =
+        let error: WgError =
             serde_json::from_str(r#"{"code": 407, "message": "INVALID_ACCESS_TOKEN"}"#)?;
         match error {
-            NewWgError::InvalidToken { .. } => Ok(()),
+            WgError::InvalidToken { .. } => Ok(()),
             _ => bail!(error),
         }
     }
@@ -229,10 +221,9 @@ mod tests {
     #[test]
     fn parse_other_error_ok() -> Result {
         // language=json
-        let error: NewWgError =
-            serde_json::from_str(r#"{"code": 418, "message": "I_AM_A_TEAPOT"}"#)?;
+        let error: WgError = serde_json::from_str(r#"{"code": 418, "message": "I_AM_A_TEAPOT"}"#)?;
         match error {
-            NewWgError::Other { code: 418, .. } => Ok(()),
+            WgError::Other { code: 418, .. } => Ok(()),
             _ => bail!(error),
         }
     }
