@@ -72,7 +72,8 @@ impl Wg {
                 ("access_token", access_token),
                 ("fields", "private"),
             ],
-        )?;
+        )
+        .context("failed to construct the URL")?;
         let result = self
             .client
             .get(url)
@@ -112,7 +113,8 @@ impl Wg {
                 ("account_id", account_id.to_string().as_str()),
                 ("fields", "tank_id,last_battle_time,all.battles"),
             ],
-        )?;
+        )
+        .context("failed to construct the URL")?;
         let result = self
             .client
             .get(url)
