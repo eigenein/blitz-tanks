@@ -1,3 +1,5 @@
+use std::{env, env::VarError};
+
 use clap::{Args, Parser, Subcommand};
 
 use crate::{
@@ -8,6 +10,15 @@ use crate::{
     trainer::Trainer,
     web::Web,
 };
+
+#[inline]
+pub fn is_flag_set(name: &str) -> Result<bool> {
+    match env::var(name) {
+        Ok(value) => Ok(!value.is_empty()),
+        Err(VarError::NotPresent) => Ok(false),
+        Err(error) => Err(error).with_context(|| format!("failed to read flag `{name}`")),
+    }
+}
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
