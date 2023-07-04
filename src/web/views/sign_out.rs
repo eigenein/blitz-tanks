@@ -5,7 +5,7 @@ use axum::{
 };
 use cookie::time::Duration;
 use either::Either;
-use sentry::integrations::anyhow::capture_anyhow;
+use sentry::capture_error;
 use tracing::{error, info, instrument};
 
 use crate::{
@@ -26,7 +26,7 @@ pub async fn get(
             }
             Err(error) => {
                 error!(user.access_token, "⚠️ Failed to log out: {:#}", error);
-                capture_anyhow(&error);
+                capture_error(&error);
             }
         }
     }

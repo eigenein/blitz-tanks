@@ -8,7 +8,7 @@ use axum::{
 use sentry::capture_error;
 use tracing::{error, warn};
 
-use crate::prelude::*;
+use crate::{prelude::*, wg::WgError};
 
 /// Custom error enumeration, which can be used in the web handlers.
 ///
@@ -41,17 +41,33 @@ pub enum ForbiddenReason {
     NonExistentAccount,
     NoPrivateAccess,
     NonOwner,
+    InvalidToken,
 }
 
 impl From<Infallible> for WebError {
+    #[inline]
     fn from(_: Infallible) -> Self {
         unreachable!("infallible error")
     }
 }
 
 impl From<PathRejection> for WebError {
+    #[inline]
     fn from(error: PathRejection) -> Self {
         Self::BadRequest(anyhow!("path rejected: {:#}", error))
+    }
+}
+
+impl From<WgError> for WebError {
+    #[inline]
+    fn from(error: WgError) -> Self {
+        match error {
+            WgError::InvalidToken { .. } => Self::Forbidden(ForbiddenReason::InvalidToken),
+            WgError::Api { code, message } => Self::ServiceUnavailable(anyhow!(
+                "Wargaming.net API is not available: {code}/{message}"
+            )),
+            WgError::Request(error) => Self::InternalServerError(error),
+        }
     }
 }
 
