@@ -32,7 +32,7 @@ lz4_flex = { version = "0.11.1", default-features = false, features = ["std", "s
 maud = { version = "0.25.0", features = ["axum"] }
 moka = { version = "0.11.2", default-features = false, features = ["future", "atomic64"] }
 mongodb = { version = "2.6.0", features = ["tracing", "bson-uuid-1", "bson-chrono-0_4"] }
-monostate = "0.1.6"
+monostate = "0.1.7"
 phf = { version = "0.11.2", features = ["macros"] }
 quick-xml = { version = "0.29.0", features = ["serialize"] }
 rayon = "1.7.0"
