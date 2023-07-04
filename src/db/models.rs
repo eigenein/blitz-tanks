@@ -1,7 +1,9 @@
+use std::time::Duration;
+
 use clap::crate_version;
 use mongodb::{
     bson::{doc, Bson},
-    options::FindOneOptions,
+    options::{FindOneOptions, IndexOptions},
     Collection, IndexModel,
 };
 
@@ -13,8 +15,20 @@ pub struct Models(Collection<Model>);
 
 impl Models {
     pub async fn new(collection: Collection<Model>) -> Result<Self> {
-        let index = IndexModel::builder().keys(doc! { "version": 1, "created_at": -1 }).build();
-        collection.create_index(index, None).await?;
+        {
+            let index = IndexModel::builder().keys(doc! { "version": 1, "created_at": -1 }).build();
+            collection.create_index(index, None).await?;
+        }
+        {
+            let expire_after = Duration::from_secs(7 * 24 * 60 * 60);
+            let options = IndexOptions::builder().expire_after(expire_after).build();
+            let index =
+                IndexModel::builder().keys(doc! { "created_at": -1 }).options(options).build();
+            collection
+                .create_index(index, None)
+                .await
+                .context("failed to create the TTL index on models")?;
+        }
         Ok(Self(collection))
     }
 
