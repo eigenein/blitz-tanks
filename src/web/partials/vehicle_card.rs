@@ -133,7 +133,8 @@ impl Render for VehicleCard {
                                         .has-text-warning-dark[self.vehicle.availability == VehicleAvailability::Premium]
                                         .has-text-info-dark[self.vehicle.availability == VehicleAvailability::Collectible]
                                     {
-                                        (self.vehicle.name)
+                                        span."mr-3" { (tier(self.vehicle.tier)) }
+                                        span { (self.vehicle.name) }
                                     }
                                 }
                             }
@@ -168,5 +169,22 @@ impl Render for VehicleCard {
                 }
             }
         }
+    }
+}
+
+#[inline]
+const fn tier(tier: u8) -> &'static str {
+    match tier {
+        1 => "Ⅰ",
+        2 => "Ⅱ",
+        3 => "Ⅲ",
+        4 => "Ⅳ",
+        5 => "Ⅴ",
+        6 => "Ⅵ",
+        7 => "Ⅶ",
+        8 => "Ⅷ",
+        9 => "Ⅸ",
+        10 => "Ⅹ",
+        _ => "",
     }
 }
