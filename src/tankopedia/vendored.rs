@@ -2893,6 +2893,14 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         availability: Researchable,
         image_content: include_bytes!("vendored/14881.webp"),
     },
+    14977_u16 => Vehicle {
+        tank_id: 14977,
+        name: "CS-63",
+        tier: 10,
+        type_: Medium,
+        availability: Researchable,
+        image_content: include_bytes!("vendored/14977.webp"),
+    },
     15137_u16 => Vehicle {
         tank_id: 15137,
         name: "T21",

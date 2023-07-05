@@ -148,14 +148,20 @@ impl BundleTankopedia {
             warn!("🐛 Stopping after the first vehicle");
             vehicles = vehicles.into_iter().take(1).collect();
         }
-        let stream = stream::iter(vehicles).then(move |(vehicle_tag, xml_details)| {
-            let parameters_path = parameters_path.clone();
-            async {
-                let (json_details, image) =
-                    self.load_vehicle(client, parameters_path, vehicle_tag).await?;
-                Ok((xml_details, json_details, image))
-            }
-        });
+        let stream =
+            stream::iter(vehicles)
+                .map(Ok)
+                .try_filter_map(move |(vehicle_tag, xml_details)| {
+                    let parameters_path = parameters_path.clone();
+                    async {
+                        match self.load_vehicle(client, parameters_path, vehicle_tag).await? {
+                            Some((json_details, image)) => {
+                                Ok(Some((xml_details, json_details, image)))
+                            }
+                            None => Ok(None),
+                        }
+                    }
+                });
         Ok(stream)
     }
 
@@ -165,13 +171,18 @@ impl BundleTankopedia {
         client: &Client,
         parameters_path: PathBuf,
         vehicle_tag: String,
-    ) -> Result<(VehicleJsonDetails, DynamicImage)> {
+    ) -> Result<Option<(VehicleJsonDetails, DynamicImage)>> {
         info!("📤 Retrieving…");
-        let details: VehicleJsonDetails = client
+        let response = client
             .get(format!("https://eu.wotblitz.com/en/api/tankopedia/vehicle/{vehicle_tag}/"))
             .send()
             .await
-            .with_context(|| format!("failed to request vehicle `{vehicle_tag}`"))?
+            .with_context(|| format!("failed to request vehicle `{vehicle_tag}`"))?;
+        if response.status() == StatusCode::NOT_FOUND {
+            warn!("⚠️ Vehicle JSON is not available");
+            return Ok(None);
+        }
+        let details: VehicleJsonDetails = response
             .json()
             .await
             .with_context(|| format!("failed to deserialize vehicle `{vehicle_tag}`"))?;
@@ -196,7 +207,7 @@ impl BundleTankopedia {
             // This SHOULD never happen. But if it happens, it would need additional investigation.
             bail!("image is not found for `{vehicle_tag}`");
         };
-        Ok((details, image))
+        Ok(Some((details, image)))
     }
 
     /// Extract the vehicle icon from the game client.
