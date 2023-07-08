@@ -24,7 +24,6 @@ jobs:
         with:
           toolchain: nightly
           profile: minimal
-          target: aarch64-unknown-linux-gnu
           override: true
 
       - name: 📥 Checkout
@@ -35,9 +34,12 @@ jobs:
         with:
           cache-on-failure: true
 
+      - name: ✨ Install udeps
+        uses: actions-rs/cargo@v1
+        with:
+          command: install cargo-udeps
+
       - name: ❓ Udeps
         uses: actions-rs/cargo@v1
         with:
-          use-cross: true
           command: udeps
-          args: --target=aarch64-unknown-linux-gnu
