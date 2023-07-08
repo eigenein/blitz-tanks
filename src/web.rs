@@ -18,7 +18,10 @@ use axum::{
 };
 use clap::{crate_version, Args};
 use futures::future::try_join;
-use sentry::integrations::tower::{NewSentryLayer, SentryHttpLayer};
+use sentry::integrations::{
+    anyhow::capture_anyhow,
+    tower::{NewSentryLayer, SentryHttpLayer},
+};
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::info;
@@ -135,9 +138,17 @@ impl Web {
         info!(?interval, "🚀 Running the model updater…");
         loop {
             tokio::time::sleep(interval).await;
+
             info!("⏰ Reloading the model…");
-            let new_model = models.get_latest().await?;
-            model.store(Arc::new(new_model));
+            match models.get_latest().await {
+                Ok(new_model) => {
+                    model.store(Arc::new(new_model));
+                }
+                Err(error) => {
+                    error!("❌ Failed to reload the model: {:#}", error);
+                    capture_anyhow(&error);
+                }
+            }
         }
     }
 }
