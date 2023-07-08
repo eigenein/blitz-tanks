@@ -37,7 +37,8 @@ jobs:
       - name: ✨ Install udeps
         uses: actions-rs/cargo@v1
         with:
-          command: install cargo-udeps
+          command: install
+          args: cargo-udeps
 
       - name: ❓ Udeps
         uses: actions-rs/cargo@v1
