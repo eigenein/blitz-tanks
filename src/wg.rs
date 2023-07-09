@@ -1,7 +1,7 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
 use reqwest::{Client, ClientBuilder};
-use serde::Deserialize;
+use serde::{Deserialize, Deserializer};
 use tracing::instrument;
 
 use crate::prelude::*;
@@ -37,7 +37,7 @@ pub enum WgError {
     Api { code: u16, message: String },
 
     #[serde(skip_deserializing)]
-    #[error("request error")]
+    #[error("request error: {0:#}")]
     Request(#[from] Error),
 }
 
@@ -134,12 +134,12 @@ impl Wg {
     pub async fn get_vehicles_stats(&self, _account_id: u32) -> Result<Vec<VehicleStats>, WgError> {
         let fake_non_played = VehicleStats {
             tank_id: 2,
-            last_battle_time: Utc.timestamp_opt(0, 0).unwrap(),
+            last_battle_time: Utc.timestamp_opt(0, 0).single(),
             inner: InnerVehicleStats { n_battles: 0 },
         };
         let fake_played = VehicleStats {
             tank_id: 1,
-            last_battle_time: Utc.timestamp_opt(0, 0).unwrap(),
+            last_battle_time: Utc.timestamp_opt(0, 0).single(),
             inner: InnerVehicleStats { n_battles: 1 },
         };
         Ok(vec![fake_played, fake_non_played])
@@ -176,13 +176,12 @@ pub struct AccountInfo {
 }
 
 /// Partial user's vehicle statistics.
-#[serde_with::serde_as]
 #[derive(Deserialize)]
 pub struct VehicleStats {
     pub tank_id: u16,
 
-    #[serde_as(as = "serde_with::TimestampSeconds<i64>")]
-    pub last_battle_time: DateTime,
+    #[serde(deserialize_with = "VehicleStats::deserialize_last_battle_time")]
+    pub last_battle_time: Option<DateTime>,
 
     #[serde(rename = "all")]
     pub inner: InnerVehicleStats,
@@ -191,6 +190,21 @@ pub struct VehicleStats {
 impl VehicleStats {
     pub const fn is_played(&self) -> bool {
         self.inner.n_battles != 0
+    }
+
+    /// Deserialize last battle time and take care of missing timestamps in the response.
+    #[inline]
+    fn deserialize_last_battle_time<'de, D: Deserializer<'de>>(
+        deserializer: D,
+    ) -> Result<Option<DateTime>, D::Error> {
+        let timestamp = i64::deserialize(deserializer)?;
+        if timestamp == 0 {
+            return Ok(None);
+        }
+        let Some(last_battle_time) = Utc.timestamp_opt(timestamp, 0).latest() else {
+            return Ok(None);
+        };
+        Ok(Some(last_battle_time))
     }
 }
 
