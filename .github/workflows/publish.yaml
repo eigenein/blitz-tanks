@@ -92,6 +92,7 @@ jobs:
           oauth-client-id: ${{ secrets.TAILSCALE_CLIENT_ID }}
           oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
           tags: tag:ci
+          args: --ssh
 
       - name: 🔑 Install SSH key
         uses: shimataro/ssh-key-action@v2
@@ -106,10 +107,8 @@ jobs:
 
       - name: ♻️ Rsync
         run: |
-          IP=$(dig +short mars.fluffy-shark.ts.net)
-          echo "IP=$IP"
           chmod +x blitz-tanks.aarch64-unknown-linux-gnu
-          rsync --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu "pi@$IP:/home/pi/bin/blitz-tanks"
+          rsync --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu "pi@mars.fluffy-shark.ts.net:/home/pi/bin/blitz-tanks"
 
       - name: 💪 Refit the model
         run: tailscale ssh pi@mars "BLITZ_TANKS_ENVFILE=.blitz-tanks/.env bin/blitz-tanks trainer fit"
