@@ -16,7 +16,7 @@ pub struct Sessions(Collection<User>);
 impl Sessions {
     pub async fn new(collection: Collection<User>) -> Result<Self> {
         let options = IndexOptions::builder().expire_after(Duration::default()).build();
-        let index = IndexModel::builder().keys(doc! { "expires_at": 1 }).options(options).build();
+        let index = IndexModel::builder().keys(doc! { "ttl": 1 }).options(options).build();
         collection
             .create_index(index, None)
             .await

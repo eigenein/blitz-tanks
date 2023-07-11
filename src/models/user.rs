@@ -19,13 +19,20 @@ pub struct User {
     #[serde(rename = "_id", with = "serde_helpers::uuid_1_as_binary")]
     pub session_id: Uuid,
 
+    #[serde(rename = "aid", alias = "account_id")]
     pub account_id: u32,
 
+    #[serde(rename = "nn", alias = "nickname")]
     pub nickname: String,
 
+    #[serde(rename = "t", alias = "access_token")]
     pub access_token: String,
 
-    #[serde(with = "serde_helpers::chrono_datetime_as_bson_datetime")]
+    #[serde(
+        with = "serde_helpers::chrono_datetime_as_bson_datetime",
+        rename = "ttl",
+        alias = "expires_at"
+    )]
     pub expires_at: DateTime,
 }
 
