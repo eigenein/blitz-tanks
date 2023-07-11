@@ -14,12 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Temp
-        run: |
-          IP=$(dig +short mars.fluffy-shark.ts.net)
-          echo "IP=$IP"
-          ssh "pi@IP" true
-
       - name: ✨ Set up the toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -112,7 +106,7 @@ jobs:
 
       - name: ♻️ Rsync
         run: |
-          IP=$(dig +short mars.fluffy-shark.ts.net)
+          IP=$(dig +short mars)
           echo "IP=$IP"
           chmod +x blitz-tanks.aarch64-unknown-linux-gnu
           rsync --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu "pi@$IP:/home/pi/bin/blitz-tanks"
