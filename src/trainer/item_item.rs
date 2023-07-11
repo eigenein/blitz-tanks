@@ -26,7 +26,7 @@ pub struct Params {
 
 impl Params {
     pub fn fit(self, votes: &[Vote]) -> Model {
-        let mut votes = votes.iter().into_group_map_by(|vote| vote.tank_id);
+        let mut votes = votes.iter().into_group_map_by(|vote| vote.id.tank_id);
         Self::sort_votes(&mut votes);
         let biases = Self::calculate_biases(&votes);
         let similarities = Self::calculate_similarities(&votes, &biases);
@@ -42,7 +42,7 @@ impl Params {
     /// Sort each vehicle's entries by account ID, to prepare for `merge_join_by()`.
     fn sort_votes(votes: &mut HashMap<u16, Vec<&Vote>>) {
         for votes in votes.values_mut() {
-            votes.sort_by_key(|vote| vote.account_id);
+            votes.sort_by_key(|vote| vote.id.account_id);
         }
     }
 
@@ -106,7 +106,8 @@ impl Params {
         let mut norm2_i = 0.0;
         let mut norm2_j = 0.0;
 
-        for either in merge_join_by(votes_i, votes_j, |i, j| i.account_id.cmp(&j.account_id)) {
+        for either in merge_join_by(votes_i, votes_j, |i, j| i.id.account_id.cmp(&j.id.account_id))
+        {
             match either {
                 EitherOrBoth::Left(vote_i) => {
                     norm2_i += (vote_i.rating - bias_i).powi(2);

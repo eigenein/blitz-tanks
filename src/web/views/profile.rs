@@ -48,7 +48,7 @@ pub async fn get(
         .vote_manager
         .iter_by_account_id(user.account_id)
         .await?
-        .map_ok(|vote| (vote.tank_id, vote.rating))
+        .map_ok(|vote| (vote.id.tank_id, vote.rating))
         .map_err(|error| WebError::InternalServerError(anyhow!(error)))
         .try_collect()
         .await?;

@@ -11,6 +11,7 @@ use crate::{
     web::Web,
 };
 
+/// TODO: just use `clap`.
 #[inline]
 pub fn is_flag_set(name: &str) -> Result<bool> {
     match env::var(name) {

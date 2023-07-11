@@ -14,7 +14,7 @@ pub struct VoteId {
 }
 
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
-pub struct Vote2 {
+pub struct Vote {
     #[serde(rename = "_id")]
     pub id: VoteId,
 
@@ -32,41 +32,10 @@ pub struct Vote2 {
     pub rating: Rating,
 }
 
-impl From<&Vote> for Vote2 {
-    fn from(vote: &Vote) -> Self {
-        Self {
-            id: VoteId {
-                account_id: vote.account_id,
-                tank_id: vote.tank_id,
-            },
-            rating: vote.rating,
-            timestamp: vote.timestamp,
-        }
-    }
-}
-
-#[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
-pub struct Vote {
-    pub account_id: u32,
-
-    pub tank_id: u16,
-
-    #[serde(alias = "ts", with = "serde_helpers::chrono_datetime_as_bson_datetime")]
-    pub timestamp: DateTime,
-
-    #[serde(
-        alias = "r",
-        serialize_with = "Rating::serialize",
-        deserialize_with = "Rating::deserialize"
-    )]
-    pub rating: Rating,
-}
-
 impl Vote {
     pub fn new(account_id: u32, tank_id: u16, rating: Rating) -> Self {
         Self {
-            account_id,
-            tank_id,
+            id: VoteId { account_id, tank_id },
             rating,
             timestamp: Utc::now(),
         }

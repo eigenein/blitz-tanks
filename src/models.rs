@@ -9,5 +9,5 @@ pub use self::{
     rating::Rating,
     user::{Anonymous, User},
     vehicle::{Vehicle, VehicleAvailability, VehicleType},
-    vote::{Vote, Vote2, VoteId},
+    vote::{Vote, VoteId},
 };

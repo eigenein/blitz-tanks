@@ -69,19 +69,19 @@ pub fn fit_and_validate(train_set: &[Vote], test_set: &[Vote], params: Params) -
 
     let train_ratings: HashMap<u32, HashMap<u16, Rating>> = train_set
         .iter()
-        .into_group_map_by(|vote| vote.account_id)
+        .into_group_map_by(|vote| vote.id.account_id)
         .into_iter()
         .map(|(account_id, train_votes)| {
             (
                 account_id,
-                train_votes.into_iter().map(|vote| (vote.tank_id, vote.rating)).collect(),
+                train_votes.into_iter().map(|vote| (vote.id.tank_id, vote.rating)).collect(),
             )
         })
         .collect();
 
     test_set
         .iter()
-        .into_group_map_by(|vote| vote.account_id)
+        .into_group_map_by(|vote| vote.id.account_id)
         .into_iter()
         .filter_map(|(account_id, test_votes)| {
             let Some(train_ratings) = train_ratings.get(&account_id) else {
@@ -89,7 +89,7 @@ pub fn fit_and_validate(train_set: &[Vote], test_set: &[Vote], params: Params) -
                 return None
             };
             let predictions = model
-                .predict_many(test_votes.iter().map(|vote| vote.tank_id), train_ratings)
+                .predict_many(test_votes.iter().map(|vote| vote.id.tank_id), train_ratings)
                 .zip(test_votes.iter())
                 .collect_vec();
             let n_predictions = predictions.len();

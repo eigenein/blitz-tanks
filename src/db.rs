@@ -31,7 +31,7 @@ impl Db {
 
     #[inline]
     pub async fn votes(&self) -> Result<Votes> {
-        Votes::new(self.0.collection("votes"), self.0.collection("votes2")).await
+        Votes::new(self.0.collection("votes2")).await
     }
 
     #[inline]

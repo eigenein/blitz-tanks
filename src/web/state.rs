@@ -112,7 +112,7 @@ impl AppState {
                     .vote_manager
                     .iter_by_account_id(account_id)
                     .await?
-                    .map_ok(|vote| (vote.tank_id, vote.rating))
+                    .map_ok(|vote| (vote.id.tank_id, vote.rating))
                     .try_collect()
                     .await?;
                 let target_ids: Vec<u16> = TANKOPEDIA

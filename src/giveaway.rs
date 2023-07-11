@@ -33,7 +33,7 @@ impl Giveaway {
             .await?
             .iter_all()
             .await?
-            .map_ok(|vote| vote.account_id)
+            .map_ok(|vote| vote.id.account_id)
             .try_collect::<HashSet<u32>>()
             .await?;
         info!(n_accounts = account_ids.len(), "✅ Accounts collected");
