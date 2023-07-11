@@ -89,29 +89,17 @@ jobs:
       - name: 🕸 Set up Tailscale
         uses: tailscale/github-action@v2
         with:
-          version: "1.44.0"
           oauth-client-id: ${{ secrets.TAILSCALE_CLIENT_ID }}
           oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
           tags: tag:ci
 
-      - name: 🔑 Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        if: false
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          known_hosts: unnecessary
-          config: |
-            Host mars
-              User pi
-              StrictHostKeyChecking no
-
       - name: ♻️ Rsync
         run: |
           chmod +x blitz-tanks.aarch64-unknown-linux-gnu
-          rsync --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu "pi@mars.fluffy-shark.ts.net:/home/pi/bin/blitz-tanks"
+          rsync --rsh="ssh -o StrictHostKeyChecking=no" --compress --executability --stats --times --verbose blitz-tanks.aarch64-unknown-linux-gnu "pi@mars:/home/pi/bin/blitz-tanks"
 
       - name: 💪 Refit the model
-        run: tailscale ssh pi@mars "BLITZ_TANKS_ENVFILE=.blitz-tanks/.env bin/blitz-tanks trainer fit"
+        run: ssh -o StrictHostKeyChecking=no pi@mars "BLITZ_TANKS_ENVFILE=.blitz-tanks/.env bin/blitz-tanks trainer fit"
 
       - name: 🏁 Restart
-        run: tailscale ssh pi@mars "sudo systemctl restart blitz-tanks; systemctl status --lines=0 blitz-tanks"
+        run: ssh -o StrictHostKeyChecking=no pi@mars "sudo systemctl restart blitz-tanks; systemctl status --lines=0 blitz-tanks"
