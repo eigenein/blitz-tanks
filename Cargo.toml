@@ -12,7 +12,7 @@ axum = { version = "0.6.18", default-features = false, features = ["tokio", "htt
 bytes = "1.4.0"
 chrono = { version = "0.4.26", default-features = false, features = ["std", "clock", "serde"] }
 chrono-humanize = "0.2.2"
-clap = { version = "4.3.8", features = ["derive", "env", "cargo"] }
+clap = { version = "4.3.11", features = ["derive", "env", "cargo"] }
 cookie = "0.17.0"
 crc32fast = "1.3.2"
 derive_more = { version = "0.99.17", default-features = false, features = ["from"] }
@@ -32,28 +32,28 @@ lz4_flex = { version = "0.11.1", default-features = false, features = ["std", "s
 maud = { version = "0.25.0", features = ["axum"] }
 moka = { version = "0.11.2", default-features = false, features = ["future", "atomic64"] }
 mongodb = { version = "2.6.0", features = ["tracing", "bson-uuid-1", "bson-chrono-0_4"] }
-monostate = "0.1.7"
+monostate = "0.1.8"
 phf = { version = "0.11.2", features = ["macros"] }
 quick-xml = { version = "0.29.0", features = ["serialize"] }
 rayon = "1.7.0"
 reqwest = { version = "0.11.18", default-features = false, features = ["gzip", "json", "rustls-tls"] }
-sentry = { version = "0.31.3", default-features = false, features = ["anyhow", "backtrace", "contexts", "panic", "tracing", "reqwest", "rustls", "profiling", "tower", "tower-http"] }
-serde = "1.0.168"
-serde_json = "1.0.99"
+sentry = { version = "0.31.5", default-features = false, features = ["anyhow", "backtrace", "contexts", "panic", "tracing", "reqwest", "rustls", "profiling", "tower", "tower-http"] }
+serde = "1.0.171"
+serde_json = "1.0.100"
 serde_with = { version = "3.0.0", features = ["chrono", "indexmap"] }
 serde_yaml = "0.9.22"
-thiserror = "1.0.40"
+thiserror = "1.0.43"
 tokio = { version = "1.29.1", default-features = false, features = ["fs", "macros", "rt-multi-thread"] }
 tower = { version = "0.4.13", default-features = false }
-tower-http = { version = "0.4.0", features = ["trace"] }
+tower-http = { version = "0.4.1", features = ["trace"] }
 tracing = { version = "0.1.37" }
 tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
 url = "2.4.0"
-uuid = { version = "1.3.4", features = ["v4"] }
+uuid = { version = "1.4.0", features = ["v4"] }
 walkdir = "2.3.3"
 
 [dev-dependencies]
-serde_json = "1.0.99"
+serde_json = "1.0.100"
 
 [profile.release]
 lto = "fat"
