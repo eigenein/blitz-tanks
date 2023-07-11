@@ -12,3 +12,4 @@ updates:
       all:
         patterns:
           - "*"
+    open-pull-requests-limit: 0
