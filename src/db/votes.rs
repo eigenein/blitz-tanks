@@ -20,15 +20,20 @@ impl Votes {
         collection: Collection<Vote>,
         new_collection: Collection<Vote2>,
     ) -> Result<Self> {
-        let options = IndexOptions::builder().unique(true).build();
-        let index = IndexModel::builder()
-            .keys(doc! { "account_id": 1, "tank_id": 1 })
-            .options(options.clone())
-            .build();
-        collection
-            .create_index(index, None)
-            .await
-            .context("failed to create the account-tank index on votes")?;
+        {
+            let index = IndexModel::builder()
+                .keys(doc! { "account_id": 1, "tank_id": 1 })
+                .options(IndexOptions::builder().unique(true).build())
+                .build();
+            collection
+                .create_index(index, None)
+                .await
+                .context("failed to create the account-tank index on votes")?;
+        }
+        {
+            let index = IndexModel::builder().keys(doc! { "_id.aid": 1 }).build();
+            new_collection.create_index(index, None).await?;
+        }
         Ok(Self(collection, new_collection))
     }
 
