@@ -3,5 +3,6 @@
   "extends": [
     "group:allNonMajor"
   ],
-  "commitMessagePrefix": "⬆️"
+  "commitMessagePrefix": "⬆️",
+  "reviewersFromCodeOwners": true
 }
