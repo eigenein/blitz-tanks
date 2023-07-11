@@ -4,5 +4,12 @@
     "group:allNonMajor"
   ],
   "commitMessagePrefix": "⬆️",
-  "reviewersFromCodeOwners": true
+  "reviewersFromCodeOwners": true,
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["mongo"],
+      "enabled": false
+    }
+  ]
 }
