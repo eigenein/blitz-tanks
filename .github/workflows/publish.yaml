@@ -87,9 +87,11 @@ jobs:
           target: blitz-tanks.aarch64-unknown-linux-gnu
 
       - name: 🕸 Set up Tailscale
-        uses: tailscale/github-action@v1
+        uses: tailscale/github-action@v2
         with:
-          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+          oauth-client-id: ${{ secrets.TAILSCALE_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
+          tags: tag:ci
 
       - name: 🔑 Install SSH key
         uses: shimataro/ssh-key-action@v2
