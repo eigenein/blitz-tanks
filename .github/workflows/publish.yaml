@@ -14,6 +14,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Temp
+        run: |
+          IP=$(dig +short mars)
+          echo "IP=$IP"
+          ssh "pi@IP" true
+
       - name: ✨ Set up the toolchain
         uses: actions-rs/toolchain@v1
         with:
