@@ -6,13 +6,20 @@ use mongodb::{
     Collection, Cursor, IndexModel,
 };
 
-use crate::{models::Vote, prelude::*, tankopedia::vendored::TANKOPEDIA};
+use crate::{
+    models::{Vote, Vote2, VoteId},
+    prelude::*,
+    tankopedia::vendored::TANKOPEDIA,
+};
 
 #[derive(Clone)]
-pub struct Votes(Collection<Vote>);
+pub struct Votes(Collection<Vote>, Collection<Vote2>);
 
 impl Votes {
-    pub async fn new(collection: Collection<Vote>) -> Result<Self> {
+    pub async fn new(
+        collection: Collection<Vote>,
+        new_collection: Collection<Vote2>,
+    ) -> Result<Self> {
         let options = IndexOptions::builder().unique(true).build();
         let index = IndexModel::builder()
             .keys(doc! { "account_id": 1, "tank_id": 1 })
@@ -22,7 +29,7 @@ impl Votes {
             .create_index(index, None)
             .await
             .context("failed to create the account-tank index on votes")?;
-        Ok(Self(collection))
+        Ok(Self(collection, new_collection))
     }
 
     #[instrument(skip_all, fields(account_id = vote.account_id, tank_id = vote.tank_id))]
@@ -30,11 +37,21 @@ impl Votes {
         let query = doc! { "account_id": vote.account_id, "tank_id": vote.tank_id as i32 };
         let options = UpdateOptions::builder().upsert(true).build();
         self.0
-            .update_one(query, doc! { "$set": to_document(vote)? }, options)
+            .update_one(query, doc! { "$set": to_document(vote)? }, options.clone())
             .await
             .with_context(|| {
                 format!("failed to upsert #{}'s vote for #{}", vote.account_id, vote.tank_id)
             })?;
+
+        let vote2 = Vote2::from(vote);
+        self.1
+            .update_one(
+                doc! { "_id": to_document(&vote2.id)? },
+                doc! { "$set": to_document(&vote2)? },
+                options,
+            )
+            .await?;
+
         Ok(())
     }
 
@@ -44,6 +61,9 @@ impl Votes {
             .delete_one(doc! { "account_id": account_id, "tank_id": tank_id as i32 }, None)
             .await
             .with_context(|| format!("failed to remove #{account_id}'s vote for #{tank_id}"))?;
+        self.1
+            .delete_one(doc! { "_id": to_document(&VoteId { account_id, tank_id })? }, None)
+            .await?;
         Ok(())
     }
 
