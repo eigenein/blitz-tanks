@@ -11,5 +11,7 @@
       "matchPackageNames": ["mongo"],
       "enabled": false
     }
-  ]
+  ],
+  "timezone": "Europe/Amsterdam",
+  "schedule": ["after 11am every friday"]
 }
