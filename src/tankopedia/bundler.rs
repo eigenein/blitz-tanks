@@ -172,7 +172,7 @@ impl BundleTankopedia {
         parameters_path: PathBuf,
         vehicle_tag: String,
     ) -> Result<Option<(VehicleJsonDetails, DynamicImage)>> {
-        info!("📤 Retrieving…");
+        info!("📤 Retrieving details…");
         let response = client
             .get(format!("https://eu.wotblitz.com/en/api/tankopedia/vehicle/{vehicle_tag}/"))
             .send()
@@ -183,18 +183,25 @@ impl BundleTankopedia {
             return Ok(None);
         }
         let details: VehicleJsonDetails = response
+            .error_for_status()?
             .json()
             .await
             .with_context(|| format!("failed to deserialize vehicle `{vehicle_tag}`"))?;
         let image = {
             // First, try to request the image from the API.
-            let response = client.get(&details.image_url).send().await?;
-            if response.status() == StatusCode::OK {
-                let raw = response.bytes().await?;
-                Some(image::io::Reader::new(Cursor::new(raw)).with_guessed_format()?.decode()?)
+            if let Ok(image) = Self::fetch_image(client, &details.image_url).await {
+                Some(image)
+            } else if let Ok(image) = {
+                // Yeah, sometimes they return non-existing URLs. Crazy, huh? Try some guess-work.
+                let guessed_url = format!(
+                    "https://glossary-eu-static.gcdn.co/icons/wotb/latest/uploaded/vehicles/hd/{vehicle_tag}.png"
+                );
+                Self::fetch_image(client, &guessed_url).await
+            } {
+                warn!(failed_url = details.image_url, "⚠️ Succeeded with the guessed URL");
+                Some(image)
             } else {
-                // Yeah, sometimes they return non-existing URLs. Crazy, huh?
-                warn!("⚠️ Falling back to the client icon");
+                warn!(details.image_url, "⚠️ Falling back to the client icon");
                 let dvpl =
                     Dvpl::read(parameters_path.join(&vehicle_tag).with_extension("yaml.dvpl"))
                         .await?;
@@ -208,6 +215,17 @@ impl BundleTankopedia {
             bail!("image is not found for `{vehicle_tag}`");
         };
         Ok(Some((details, image)))
+    }
+
+    #[instrument(skip_all, fields(url = url))]
+    async fn fetch_image(client: &Client, url: &str) -> Result<DynamicImage> {
+        let response = client.get(url).send().await?;
+        if response.status() == StatusCode::OK {
+            let raw = response.bytes().await?;
+            Ok(image::io::Reader::new(Cursor::new(raw)).with_guessed_format()?.decode()?)
+        } else {
+            bail!("failed to fetch the image from {url} ({})", response.status());
+        }
     }
 
     /// Extract the vehicle icon from the game client.
