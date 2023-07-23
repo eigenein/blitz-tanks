@@ -53,7 +53,7 @@ uuid = { version = "1.4.1", features = ["v4"] }
 walkdir = "2.3.3"
 
 [profile.release]
-lto = "fat"
+lto = "thin"
 codegen-units = 1
 
 [profile.dev]
