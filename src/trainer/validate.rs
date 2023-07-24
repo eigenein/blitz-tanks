@@ -4,7 +4,7 @@ use indicatif::{ProgressIterator, ProgressStyle};
 use itertools::Itertools;
 
 use crate::{
-    models::{Rating, Vote},
+    models::{AccountId, Rating, Vote},
     prelude::*,
     trainer::{
         item_item::Params,
@@ -67,7 +67,7 @@ pub fn fit_and_cross_validate(
 pub fn fit_and_validate(train_set: &[Vote], test_set: &[Vote], params: Params) -> ReciprocalRank {
     let model = params.fit(train_set);
 
-    let train_ratings: HashMap<u32, HashMap<u16, Rating>> = train_set
+    let train_ratings: HashMap<AccountId, HashMap<u16, Rating>> = train_set
         .iter()
         .into_group_map_by(|vote| vote.id.account_id)
         .into_iter()
@@ -86,7 +86,7 @@ pub fn fit_and_validate(train_set: &[Vote], test_set: &[Vote], params: Params) -
         .filter_map(|(account_id, test_votes)| {
             let Some(train_ratings) = train_ratings.get(&account_id) else {
                 // No train ratings for this account, can't calculate the metrics.
-                return None
+                return None;
             };
             let predictions = model
                 .predict_many(test_votes.iter().map(|vote| vote.id.tank_id), train_ratings)
@@ -94,7 +94,7 @@ pub fn fit_and_validate(train_set: &[Vote], test_set: &[Vote], params: Params) -
                 .collect_vec();
             let n_predictions = predictions.len();
             debug!(
-                account_id,
+                %account_id,
                 n_train_ratings = train_ratings.len(),
                 n_test_votes = test_votes.len(),
                 n_predictions,

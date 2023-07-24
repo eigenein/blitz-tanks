@@ -3,7 +3,7 @@ use std::collections::HashSet;
 use clap::Args;
 use futures::TryStreamExt;
 
-use crate::{cli::DbArgs, prelude::*};
+use crate::{cli::DbArgs, models::AccountId, prelude::*};
 
 #[derive(Args)]
 pub struct Giveaway {
@@ -12,11 +12,11 @@ pub struct Giveaway {
 
     /// Account IDs to include, comma-separated. Ignored, if empty.
     #[clap(long, value_parser, num_args = 0.., value_delimiter = ',')]
-    include_ids: Vec<u32>,
+    include_ids: Vec<AccountId>,
 
     /// Account IDs to exclude, comma-separated.
     #[clap(long, value_parser, num_args = 0.., value_delimiter = ',')]
-    exclude_ids: Vec<u32>,
+    exclude_ids: Vec<AccountId>,
 
     /// Trace all candidate IDs.
     #[clap(long)]
@@ -34,7 +34,7 @@ impl Giveaway {
             .iter_all()
             .await?
             .map_ok(|vote| vote.id.account_id)
-            .try_collect::<HashSet<u32>>()
+            .try_collect::<HashSet<AccountId>>()
             .await?;
         info!(n_accounts = account_ids.len(), "✅ Accounts collected");
 
@@ -45,14 +45,14 @@ impl Giveaway {
         }
 
         for account_id in self.exclude_ids {
-            info!(account_id, "🗑️ Removing excluded account");
+            info!(%account_id, "🗑️ Removing excluded account");
             account_ids.remove(&account_id);
         }
         info!(n_accounts = account_ids.len(), "✅ Ready to pick");
 
         if self.trace_candidates {
             for account_id in &account_ids {
-                info!(account_id, "🤞 Candidate");
+                info!(%account_id, "🤞 Candidate");
             }
         }
 

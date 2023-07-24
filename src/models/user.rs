@@ -3,7 +3,7 @@ use mongodb::bson::serde_helpers;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::prelude::*;
+use crate::{models::AccountId, prelude::*};
 
 /// Anonymous user.
 pub struct Anonymous;
@@ -20,7 +20,7 @@ pub struct User {
     pub session_id: Uuid,
 
     #[serde(rename = "aid", alias = "account_id")]
-    pub account_id: u32,
+    pub account_id: AccountId,
 
     #[serde(rename = "nn", alias = "nickname")]
     pub nickname: String,

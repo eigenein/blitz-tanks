@@ -9,7 +9,7 @@ use tokio::task::spawn_blocking;
 
 use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
-    models::RatedTankId,
+    models::{AccountId, RatedTankId},
     prelude::*,
     tankopedia::vendored::TANKOPEDIA,
     trainer::item_item::Model,
@@ -26,10 +26,10 @@ pub struct AppState {
     pub session_manager: Sessions,
     pub vote_manager: Votes,
 
-    stats_cache: Cache<u32, Arc<IndexMap<u16, VehicleStats>>>,
+    stats_cache: Cache<AccountId, Arc<IndexMap<u16, VehicleStats>>>,
 
     #[allow(clippy::type_complexity)]
-    predictions_cache: Cache<u32, Arc<Vec<RatedTankId>>>,
+    predictions_cache: Cache<AccountId, Arc<Vec<RatedTankId>>>,
 }
 
 impl AppState {
@@ -68,10 +68,10 @@ impl AppState {
     }
 
     /// Retrieve the account's vehicle's statistics and cache it.
-    #[instrument(skip_all, fields(account_id = account_id))]
+    #[instrument(skip_all, fields(account_id = %account_id))]
     pub async fn get_vehicles_stats(
         &self,
-        account_id: u32,
+        account_id: AccountId,
     ) -> Result<Arc<IndexMap<u16, VehicleStats>>> {
         self.stats_cache
             .try_get_with(account_id, async {
@@ -92,8 +92,8 @@ impl AppState {
             .with_context(|| format!("failed to retrieve account {account_id}'s vehicles stats"))
     }
 
-    #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub async fn owns_vehicle(&self, account_id: u32, tank_id: u16) -> Result<bool> {
+    #[instrument(skip_all, fields(account_id = %account_id, tank_id = tank_id))]
+    pub async fn owns_vehicle(&self, account_id: AccountId, tank_id: u16) -> Result<bool> {
         Ok(self
             .get_vehicles_stats(account_id)
             .await?
@@ -101,8 +101,8 @@ impl AppState {
             .is_some_and(VehicleStats::is_played))
     }
 
-    #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get_predictions(&self, account_id: u32) -> Result<Arc<Vec<RatedTankId>>> {
+    #[instrument(skip_all, fields(account_id = %account_id))]
+    pub async fn get_predictions(&self, account_id: AccountId) -> Result<Arc<Vec<RatedTankId>>> {
         let model = self.model.clone();
         let stats = self.get_vehicles_stats(account_id).await?;
 
@@ -135,8 +135,8 @@ impl AppState {
     }
 
     /// Remove predictions for the account from the cache, if any.
-    #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn purge_predictions(&self, account_id: u32) {
+    #[instrument(skip_all, fields(account_id = %account_id))]
+    pub async fn purge_predictions(&self, account_id: AccountId) {
         self.predictions_cache.remove(&account_id).await;
     }
 }

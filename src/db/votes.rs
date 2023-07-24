@@ -7,7 +7,7 @@ use mongodb::{
 };
 
 use crate::{
-    models::{Vote, VoteId},
+    models::{AccountId, Vote, VoteId},
     prelude::*,
     tankopedia::vendored::TANKOPEDIA,
 };
@@ -22,7 +22,7 @@ impl Votes {
         Ok(Self(collection))
     }
 
-    #[instrument(skip_all, fields(account_id = vote.id.account_id, tank_id = vote.id.tank_id))]
+    #[instrument(skip_all, fields(account_id = %vote.id.account_id, tank_id = vote.id.tank_id))]
     pub async fn insert(&self, vote: &Vote) -> Result {
         let options = UpdateOptions::builder().upsert(true).build();
         self.0
@@ -38,8 +38,8 @@ impl Votes {
         Ok(())
     }
 
-    #[instrument(skip_all, fields(account_id = account_id, tank_id = tank_id))]
-    pub async fn delete(&self, account_id: u32, tank_id: u16) -> Result {
+    #[instrument(skip_all, fields(account_id = %account_id, tank_id = tank_id))]
+    pub async fn delete(&self, account_id: AccountId, tank_id: u16) -> Result {
         let vote_id = VoteId { account_id, tank_id };
         self.0
             .delete_one(doc! { "_id": to_document(&vote_id)? }, None)
@@ -49,8 +49,8 @@ impl Votes {
     }
 
     /// Retrieve all votes of the user.
-    #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn iter_by_account_id(&self, account_id: u32) -> Result<Cursor<Vote>> {
+    #[instrument(skip_all, fields(account_id = %account_id))]
+    pub async fn iter_by_account_id(&self, account_id: AccountId) -> Result<Cursor<Vote>> {
         self.0
             .find(doc! { "_id.aid": account_id }, None)
             .await
@@ -85,9 +85,30 @@ mod tests {
         vote.timestamp = vote.timestamp.duration_round(Duration::seconds(1))?;
         manager.insert(&vote).await?;
 
-        assert_eq!(manager.iter_by_account_id(0).await?.try_collect::<Vec<Vote>>().await?, []);
-        assert_eq!(manager.iter_by_account_id(1).await?.try_collect::<Vec<Vote>>().await?, [vote]);
-        assert_eq!(manager.iter_by_account_id(2).await?.try_collect::<Vec<Vote>>().await?, []);
+        assert_eq!(
+            manager
+                .iter_by_account_id(AccountId::from(0))
+                .await?
+                .try_collect::<Vec<Vote>>()
+                .await?,
+            []
+        );
+        assert_eq!(
+            manager
+                .iter_by_account_id(vote.id.account_id)
+                .await?
+                .try_collect::<Vec<Vote>>()
+                .await?,
+            [vote]
+        );
+        assert_eq!(
+            manager
+                .iter_by_account_id(AccountId::from(2))
+                .await?
+                .try_collect::<Vec<Vote>>()
+                .await?,
+            []
+        );
 
         Ok(())
     }
@@ -98,10 +119,10 @@ mod tests {
         let manager = Db::open_unittests().await?.votes().await?;
         let vote = Vote::new(1, 42, Rating::Like);
         manager.insert(&vote).await?;
-        manager.delete(1, 42).await?;
+        manager.delete(vote.id.account_id, 42).await?;
         assert!(
             manager
-                .iter_by_account_id(1)
+                .iter_by_account_id(vote.id.account_id)
                 .await?
                 .try_collect::<Vec<Vote>>()
                 .await?

@@ -10,7 +10,7 @@ use serde::Deserialize;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{Anonymous, Rating, User, Vote},
+    models::{AccountId, Anonymous, Rating, User, Vote},
     prelude::*,
     tankopedia::vendored::TANKOPEDIA,
     web::{
@@ -24,17 +24,17 @@ use crate::{
 
 #[derive(Deserialize)]
 pub struct GetParams {
-    pub account_id: u32,
+    pub account_id: AccountId,
 }
 
-#[instrument(skip_all, fields(account_id = params.account_id))]
+#[instrument(skip_all, fields(account_id = %params.account_id))]
 pub async fn get(
     Path(params): Path<GetParams>,
     user: Either<User, Anonymous>,
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     let Either::Left(user) = user else {
-        return Err(WebError::Unauthorized)
+        return Err(WebError::Unauthorized);
     };
     if params.account_id != user.account_id {
         return Err(WebError::Forbidden(ForbiddenReason::NonOwner));
@@ -83,7 +83,7 @@ pub async fn get(
 
 #[derive(Deserialize)]
 pub struct PostParams {
-    pub account_id: u32,
+    pub account_id: AccountId,
     pub tank_id: u16,
 }
 
@@ -114,7 +114,7 @@ pub async fn unrate_vehicle(
     rate_vehicle(state, user, params, None).await
 }
 
-#[instrument(skip_all, fields(account_id = params.account_id, tank_id = params.tank_id))]
+#[instrument(skip_all, fields(account_id = %params.account_id, tank_id = params.tank_id))]
 async fn rate_vehicle(
     State(state): State<AppState>,
     user: Either<User, Anonymous>,
@@ -122,7 +122,7 @@ async fn rate_vehicle(
     rating: Option<Rating>,
 ) -> WebResult<impl IntoResponse> {
     let Either::Left(user) = user else {
-        return Err(WebError::Unauthorized)
+        return Err(WebError::Unauthorized);
     };
     if params.account_id != user.account_id {
         return Err(WebError::Forbidden(ForbiddenReason::NonOwner));

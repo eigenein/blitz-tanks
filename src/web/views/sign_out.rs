@@ -19,10 +19,10 @@ pub async fn get(
     State(state): State<AppState>,
 ) -> WebResult<impl IntoResponse> {
     if let Either::Left(user) = user {
-        info!(user.account_id, user.nickname, "😿 Bye!");
+        info!(%user.account_id, user.nickname, "😿 Bye!");
         match state.wg.log_out(&user.access_token).await {
             Ok(_) => {
-                info!(user.account_id, "✅ The access token has been successfully revoked");
+                info!(%user.account_id, "✅ The access token has been successfully revoked");
             }
             Err(error) => {
                 error!(user.access_token, "⚠️ Failed to log out: {:#}", error);

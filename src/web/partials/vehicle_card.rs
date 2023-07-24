@@ -2,7 +2,7 @@ use chrono_humanize::HumanTime;
 use maud::{html, Markup, Render};
 
 use crate::{
-    models::{Rating, Vehicle, VehicleAvailability},
+    models::{AccountId, Rating, Vehicle, VehicleAvailability},
     prelude::*,
 };
 
@@ -11,7 +11,7 @@ pub struct VehicleCard {
     vehicle: &'static Vehicle,
     last_battle_time: Option<DateTime>,
     title_style: &'static str,
-    rating: Option<(u32, Option<Rating>)>,
+    rating: Option<(AccountId, Option<Rating>)>,
     predicted_rating: Option<f64>,
 }
 
@@ -36,7 +36,7 @@ impl VehicleCard {
         self
     }
 
-    pub fn rating(&mut self, account_id: u32, rating: Option<Rating>) -> &mut Self {
+    pub fn rating(&mut self, account_id: AccountId, rating: Option<Rating>) -> &mut Self {
         self.rating = Some((account_id, rating));
         self
     }
@@ -47,7 +47,7 @@ impl VehicleCard {
     }
 
     pub fn vehicle_rate_buttons(
-        account_id: u32,
+        account_id: AccountId,
         tank_id: u16,
         current_rating: Option<Rating>,
     ) -> Markup {

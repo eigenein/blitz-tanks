@@ -2,12 +2,15 @@ use chrono::Utc;
 use mongodb::bson::serde_helpers;
 use serde::{Deserialize, Serialize};
 
-use crate::{models::rating::Rating, prelude::*};
+use crate::{
+    models::{rating::Rating, AccountId},
+    prelude::*,
+};
 
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
 pub struct VoteId {
     #[serde(rename = "aid")]
-    pub account_id: u32,
+    pub account_id: AccountId,
 
     #[serde(rename = "tid")]
     pub tank_id: u16,
@@ -33,9 +36,12 @@ pub struct Vote {
 }
 
 impl Vote {
-    pub fn new(account_id: u32, tank_id: u16, rating: Rating) -> Self {
+    pub fn new(account_id: impl Into<AccountId>, tank_id: u16, rating: Rating) -> Self {
         Self {
-            id: VoteId { account_id, tank_id },
+            id: VoteId {
+                account_id: account_id.into(),
+                tank_id,
+            },
             rating,
             timestamp: Utc::now(),
         }

@@ -10,7 +10,7 @@ use tracing::{info, instrument};
 use uuid::Uuid;
 
 use crate::{
-    models::User,
+    models::{AccountId, User},
     prelude::*,
     web::{
         error::{ForbiddenReason, WebError},
@@ -34,7 +34,7 @@ pub enum AuthenticationResult {
         expires_at: i64,
 
         #[serde_as(as = "serde_with::DisplayFromStr")]
-        account_id: u32,
+        account_id: AccountId,
 
         nickname: String,
     },
@@ -84,7 +84,8 @@ pub async fn get(
     let user = Result::<User, WebError>::from(result)?;
 
     // Verify the sign-in.
-    let Some(account_info) = state.wg.get_account_info(user.account_id, &user.access_token).await? else {
+    let Some(account_info) = state.wg.get_account_info(user.account_id, &user.access_token).await?
+    else {
         return Err(WebError::Forbidden(ForbiddenReason::NonExistentAccount));
     };
     if account_info.private.is_null() {

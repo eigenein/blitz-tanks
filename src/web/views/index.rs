@@ -16,7 +16,7 @@ pub async fn get(
     session: Either<User, Anonymous>,
 ) -> OptionalRedirect {
     if let Either::Left(User { account_id, .. }) = session {
-        info!(account_id, "👋 Welcome");
+        info!(%account_id, "👋 Welcome");
         return OptionalRedirect::Redirect(Redirect::temporary(&format!("/profile/{account_id}")));
     }
 

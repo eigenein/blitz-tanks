@@ -7,7 +7,10 @@ use mongodb::{
 };
 use uuid::Uuid;
 
-use crate::{models::User, prelude::*};
+use crate::{
+    models::{AccountId, User},
+    prelude::*,
+};
 
 /// Wrapper around the tree to manage client-side sessions.
 #[derive(Clone)]
@@ -45,7 +48,7 @@ impl Sessions {
             session_id,
             access_token: "test".to_string(),
             expires_at: Utc::now() + Duration::seconds(10),
-            account_id: 0,
+            account_id: AccountId::from(0),
             nickname: "test".to_string(),
         })
         .await?;
@@ -100,7 +103,7 @@ mod tests {
                 session_id,
                 access_token: "test".to_string(),
                 expires_at: Utc::now() - Duration::seconds(10),
-                account_id: 0,
+                account_id: AccountId::from(0),
                 nickname: "test".to_string(),
             })
             .await?;

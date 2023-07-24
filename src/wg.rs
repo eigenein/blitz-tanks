@@ -4,7 +4,7 @@ use reqwest::{Client, ClientBuilder};
 use serde::{Deserialize, Deserializer};
 use tracing::instrument;
 
-use crate::prelude::*;
+use crate::{models::AccountId, prelude::*};
 
 /// Wargaming.net API client.
 #[derive(Clone)]
@@ -61,7 +61,7 @@ impl Wg {
     #[instrument(skip_all, fields(account_id = account_id))]
     pub async fn get_account_info(
         &self,
-        account_id: u32,
+        account_id: AccountId,
         access_token: &str,
     ) -> Result<Option<AccountInfo>, WgError> {
         let url = url::Url::parse_with_params(
@@ -92,7 +92,7 @@ impl Wg {
     #[cfg(test)]
     pub async fn get_account_info(
         &self,
-        _account_id: u32,
+        _account_id: AccountId,
         _access_token: &str,
     ) -> Result<Option<AccountInfo>, WgError> {
         Ok(Some(AccountInfo {
@@ -105,7 +105,10 @@ impl Wg {
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
     #[cfg(not(test))]
     #[instrument(skip_all, fields(account_id = account_id))]
-    pub async fn get_vehicles_stats(&self, account_id: u32) -> Result<Vec<VehicleStats>, WgError> {
+    pub async fn get_vehicles_stats(
+        &self,
+        account_id: AccountId,
+    ) -> Result<Vec<VehicleStats>, WgError> {
         let url = url::Url::parse_with_params(
             "https://api.wotblitz.eu/wotb/tanks/stats/",
             &[
@@ -131,7 +134,10 @@ impl Wg {
     }
 
     #[cfg(test)]
-    pub async fn get_vehicles_stats(&self, _account_id: u32) -> Result<Vec<VehicleStats>, WgError> {
+    pub async fn get_vehicles_stats(
+        &self,
+        _account_id: AccountId,
+    ) -> Result<Vec<VehicleStats>, WgError> {
         let fake_non_played = VehicleStats {
             tank_id: 2,
             last_battle_time: Utc.timestamp_opt(0, 0).single(),
