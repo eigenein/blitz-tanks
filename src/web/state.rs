@@ -11,7 +11,7 @@ use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
     models::{AccountId, RatedTankId, TankId},
     prelude::*,
-    tankopedia::vendored::TANKOPEDIA,
+    tankopedia::vendored::{is_known_tank_id, ALL_TANK_IDS},
     trainer::item_item::Model,
     wg::{VehicleStats, Wg},
 };
@@ -81,7 +81,7 @@ impl AppState {
                     .await?
                     .into_iter()
                     .filter(VehicleStats::is_played)
-                    .filter(|stats| TANKOPEDIA.contains_key(&u16::from(stats.tank_id)))
+                    .filter(|stats| is_known_tank_id(stats.tank_id))
                     .sorted_unstable_by(|lhs, rhs| rhs.last_battle_time.cmp(&lhs.last_battle_time))
                     .map(|stats| (stats.tank_id, stats))
                     .collect();
@@ -115,10 +115,9 @@ impl AppState {
                     .map_ok(|vote| (vote.id.tank_id, vote.rating))
                     .try_collect()
                     .await?;
-                let target_ids: Vec<TankId> = TANKOPEDIA
-                    .keys()
+                let target_ids: Vec<TankId> = ALL_TANK_IDS
+                    .iter()
                     .copied()
-                    .map(TankId::from)
                     .filter(move |tank_id| !stats.contains_key(tank_id))
                     .collect();
                 let predict = move || {

@@ -1,5 +1,4 @@
 use futures::TryStreamExt;
-use itertools::Itertools;
 use mongodb::{
     bson::{doc, to_document},
     options::UpdateOptions,
@@ -9,7 +8,7 @@ use mongodb::{
 use crate::{
     models::{AccountId, TankId, Vote, VoteId},
     prelude::*,
-    tankopedia::vendored::TANKOPEDIA,
+    tankopedia::vendored::ALL_TANK_IDS,
 };
 
 #[derive(Clone)]
@@ -59,7 +58,7 @@ impl Votes {
 
     /// Iterate over **all** the votes. Only the **tankopedia vehicles** are taken into account.
     pub async fn iter_all(&self) -> Result<Cursor<Vote>> {
-        let filter = doc! { "_id.tid": { "$in": TANKOPEDIA.keys().map(|tank_id| *tank_id as u32).collect_vec() } };
+        let filter = doc! { "_id.tid": { "$in": ALL_TANK_IDS.as_slice() } };
         self.0.find(filter, None).await.context("failed to query all votes")
     }
 

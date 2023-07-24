@@ -20,7 +20,6 @@ use image::{DynamicImage, ImageFormat};
 use img_parts::webp::WebP;
 use reqwest::{Client, StatusCode};
 use serde::Deserialize;
-use tokio::task::spawn_blocking;
 
 use crate::{models::VehicleAvailability, prelude::*, tankopedia::dvpl::Dvpl};
 
@@ -48,17 +47,12 @@ impl BundleTankopedia {
     pub async fn run(self) -> Result {
         let client = Client::new();
 
-        let translations: HashMap<String, String> = {
-            let path = self.data_path.join("Strings").join("en.yaml.dvpl");
-            serde_yaml::from_reader(Dvpl::read(path).await?.into_reader().await?)?
-        };
+        let vehicles_path = self.data_path.join("XML").join("item_defs").join("vehicles");
+        let parameters_path = self.data_path.join("3d").join("Tanks").join("Parameters");
 
         static NATIONS: [&str; 9] = [
             "germany", "usa", "china", "france", "uk", "japan", "other", "european", "ussr",
         ];
-
-        let vehicles_path = self.data_path.join("XML").join("item_defs").join("vehicles");
-        let parameters_path = self.data_path.join("3d").join("Tanks").join("Parameters");
         let mut vehicles: Vec<_> = stream::iter(NATIONS)
             .then(|nation| {
                 self.load_nation(vehicles_path.join(nation), parameters_path.join(nation), &client)
@@ -70,6 +64,11 @@ impl BundleTankopedia {
         // Sort the vehicles for pretty Git diffs when new vehicles are added.
         vehicles.sort_unstable_by_key(|(_, vehicle, _)| vehicle.tank_id);
 
+        let translations: HashMap<String, String> = {
+            let path = self.data_path.join("Strings").join("en.yaml.dvpl");
+            serde_yaml::from_reader(Dvpl::read(path).await?.into_reader().await?)?
+        };
+
         let mut module = File::options()
             .write(true)
             .create(true)
@@ -78,21 +77,88 @@ impl BundleTankopedia {
         let vendored_path = Path::new("src").join("tankopedia").join("vendored");
         create_dir_all(&vendored_path)?;
 
+        if !self.skip_images {
+            Self::save_images(&vendored_path, &vehicles)?;
+        }
+
         writeln!(
             &mut module,
             "//! Auto-generated tankopedia, to update run `blitz-tanks bundle-tankopedia`.",
         )?;
-        writeln!(&mut module)?;
-        writeln!(&mut module, "use phf::{{phf_map, Map}};")?;
         writeln!(&mut module)?;
         writeln!(
             &mut module,
             "use crate::models::{{TankId, Vehicle, VehicleAvailability::*, VehicleType::*}};"
         )?;
         writeln!(&mut module)?;
-        writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
+        Self::write_all_tank_ids(&mut module, &vehicles)?;
+        writeln!(&mut module)?;
+        Self::write_is_known_tank_id_function(&mut module, &vehicles)?;
+        writeln!(&mut module)?;
+        Self::write_get_vehicle_function(&mut module, &vehicles, &translations)?;
+
+        Ok(())
+    }
+
+    #[instrument(skip_all)]
+    fn save_images(
+        vendored_path: &Path,
+        vehicles: &[(VehicleXmlDetails, VehicleJsonDetails, DynamicImage)],
+    ) -> Result {
+        info!("📦 Saving images…");
         for (xml_details, json_details, image) in vehicles {
-            info!(json_details.tank_id, json_details.user_string, "📦 Saving…");
+            info!(json_details.tank_id, xml_details.user_string_key);
+            let path = vendored_path.join(json_details.tank_id.to_string()).with_extension("webp");
+            image.save(path)?;
+        }
+        Ok(())
+    }
+
+    #[instrument(skip_all)]
+    fn write_all_tank_ids(
+        mut writer: impl Write,
+        vehicles: &[(VehicleXmlDetails, VehicleJsonDetails, DynamicImage)],
+    ) -> Result {
+        info!("📦 Writing tank IDs…");
+        writeln!(writer, "pub static ALL_TANK_IDS: [TankId; {}] = [", vehicles.len())?;
+        for (_, json_details, _) in vehicles {
+            writeln!(writer, "    TankId({}),", json_details.tank_id)?;
+        }
+        writeln!(writer, "];")?;
+        Ok(())
+    }
+
+    #[instrument(skip_all)]
+    fn write_is_known_tank_id_function(
+        mut writer: impl Write,
+        vehicles: &[(VehicleXmlDetails, VehicleJsonDetails, DynamicImage)],
+    ) -> Result {
+        info!("📦 Writing `is_known_tank_id()`…");
+        writeln!(writer, "pub const fn is_known_tank_id(tank_id: TankId) -> bool {{")?;
+        writeln!(writer, "    matches!(")?;
+        writeln!(writer, "        tank_id,")?;
+        for (i, (_, json_details, _)) in vehicles.iter().enumerate() {
+            if i != 0 {
+                writeln!(writer, "            | TankId({})", json_details.tank_id)?;
+            } else {
+                writeln!(writer, "        TankId({})", json_details.tank_id)?;
+            }
+        }
+        writeln!(writer, "    )")?;
+        writeln!(writer, "}}")?;
+        Ok(())
+    }
+
+    #[instrument(skip_all)]
+    fn write_get_vehicle_function(
+        mut writer: impl Write,
+        vehicles: &[(VehicleXmlDetails, VehicleJsonDetails, DynamicImage)],
+        translations: &HashMap<String, String>,
+    ) -> Result {
+        info!("📦 Writing `get_vehicle()`…");
+        writeln!(writer, "pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {{")?;
+        writeln!(writer, "    match tank_id {{")?;
+        for (xml_details, json_details, _) in vehicles {
             let short_user_string_key = xml_details.short_user_string_key();
             let name = translations
                 // Take the short name from the client.
@@ -102,31 +168,26 @@ impl BundleTankopedia {
                 // Fall back to the long name from the API.
                 .unwrap_or(&json_details.user_string);
 
-            writeln!(&mut module, "    {}_u16 => Vehicle {{", json_details.tank_id)?;
-            writeln!(&mut module, "        tank_id: TankId({:?}),", json_details.tank_id)?;
-            writeln!(&mut module, "        name: {:?},", name)?;
-            writeln!(&mut module, "        tier: {:?},", json_details.tier)?;
-            writeln!(&mut module, "        type_: {:?},", json_details.type_)?;
+            writeln!(writer, "        TankId({}) => Some(Vehicle {{", json_details.tank_id)?;
+            writeln!(writer, "            tank_id: TankId({:?}),", json_details.tank_id)?;
+            writeln!(writer, "            name: {:?},", name)?;
+            writeln!(writer, "            tier: {:?},", json_details.tier)?;
+            writeln!(writer, "            type_: {:?},", json_details.type_)?;
             writeln!(
-                &mut module,
-                "        availability: {:?},",
-                VehicleAvailability::from(&json_details),
+                writer,
+                "            availability: {:?},",
+                VehicleAvailability::from(json_details),
             )?;
             writeln!(
-                &mut module,
-                r#"        image_content: include_bytes!("vendored/{}.webp"),"#,
+                writer,
+                r#"            image_content: include_bytes!("vendored/{}.webp"),"#,
                 json_details.tank_id
             )?;
-            writeln!(&mut module, r#"    }},"#)?;
-
-            if !self.skip_images {
-                let path =
-                    vendored_path.join(json_details.tank_id.to_string()).with_extension("webp");
-                spawn_blocking(move || image.save(path)).await??;
-            }
+            writeln!(writer, r#"        }}),"#)?;
         }
-        writeln!(&mut module, "}};")?;
-
+        writeln!(writer, "        _ => None,")?;
+        writeln!(writer, "    }}")?;
+        writeln!(writer, "}}")?;
         Ok(())
     }
 
@@ -207,7 +268,7 @@ impl BundleTankopedia {
                         .await?;
                 let parameters: VehicleParameters =
                     serde_yaml::from_reader(dvpl.into_reader().await?)?;
-                self.extract_vehicle_icon(&parameters.resources_path.big_icon_path).await?
+                self.extract_vehicle_icon(&parameters.resource_paths.big_icon_path).await?
             }
         };
         let Some(image) = image else {
@@ -364,11 +425,11 @@ enum VehicleType {
 #[derive(Deserialize)]
 struct VehicleParameters {
     #[serde(rename = "resourcesPath")]
-    resources_path: ResourcesPath,
+    resource_paths: ResourcePaths,
 }
 
 #[derive(Deserialize)]
-struct ResourcesPath {
+struct ResourcePaths {
     /// Path to the icon resource, for example: `~res:/Gfx/UI/BigTankIcons/ussr-KV_1s_BP`.
     #[serde(rename = "bigIconPath")]
     big_icon_path: String,

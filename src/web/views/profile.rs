@@ -12,7 +12,7 @@ use tracing::{info, instrument};
 use crate::{
     models::{AccountId, Anonymous, Rating, TankId, User, Vote},
     prelude::*,
-    tankopedia::vendored::TANKOPEDIA,
+    tankopedia::vendored::get_vehicle,
     web::{
         error::{ForbiddenReason, WebError},
         partials::*,
@@ -64,7 +64,7 @@ pub async fn get(
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
                                 (
-                                    VehicleCard::new(&TANKOPEDIA[&stats.tank_id.0])
+                                    VehicleCard::new(get_vehicle(stats.tank_id).unwrap())
                                         .last_battle_time(stats.last_battle_time)
                                         .rating(user.account_id, votes.get(&stats.tank_id).copied())
                                 )

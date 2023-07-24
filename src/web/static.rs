@@ -23,8 +23,9 @@ use axum::{
 use indoc::indoc;
 
 use crate::{
+    models::TankId,
     prelude::instrument,
-    tankopedia::vendored::TANKOPEDIA,
+    tankopedia::vendored::get_vehicle,
     web::{error::WebError, result::WebResult},
 };
 
@@ -93,9 +94,9 @@ pub async fn get_bulma_patches() -> impl IntoResponse {
     ([CONTENT_TYPE_CSS, CACHE_PUBLIC_YEAR], CSS)
 }
 
-#[instrument(skip_all, fields(tank_id = tank_id))]
-pub async fn get_vehicle_icon(Path(tank_id): Path<u16>) -> WebResult<impl IntoResponse> {
-    let Some(vehicle) = &TANKOPEDIA.get(&tank_id) else {
+#[instrument(skip_all, fields(tank_id = %tank_id))]
+pub async fn get_vehicle_icon(Path(tank_id): Path<TankId>) -> WebResult<impl IntoResponse> {
+    let Some(vehicle) = get_vehicle(tank_id) else {
         return Err(WebError::ImATeapot);
     };
     Ok(([CONTENT_TYPE_WEBP, CACHE_PUBLIC_YEAR], vehicle.image_content))

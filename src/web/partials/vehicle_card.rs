@@ -8,7 +8,7 @@ use crate::{
 
 #[must_use]
 pub struct VehicleCard {
-    vehicle: &'static Vehicle,
+    vehicle: Vehicle,
     last_battle_time: Option<DateTime>,
     title_style: &'static str,
     rating: Option<(AccountId, Option<Rating>)>,
@@ -16,7 +16,7 @@ pub struct VehicleCard {
 }
 
 impl VehicleCard {
-    pub const fn new(vehicle: &'static Vehicle) -> Self {
+    pub const fn new(vehicle: Vehicle) -> Self {
         Self {
             vehicle,
             last_battle_time: None,
