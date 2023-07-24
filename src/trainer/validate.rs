@@ -4,7 +4,7 @@ use indicatif::{ProgressIterator, ProgressStyle};
 use itertools::Itertools;
 
 use crate::{
-    models::{AccountId, Rating, Vote},
+    models::{AccountId, Rating, TankId, Vote},
     prelude::*,
     trainer::{
         item_item::Params,
@@ -67,7 +67,7 @@ pub fn fit_and_cross_validate(
 pub fn fit_and_validate(train_set: &[Vote], test_set: &[Vote], params: Params) -> ReciprocalRank {
     let model = params.fit(train_set);
 
-    let train_ratings: HashMap<AccountId, HashMap<u16, Rating>> = train_set
+    let train_ratings: HashMap<AccountId, HashMap<TankId, Rating>> = train_set
         .iter()
         .into_group_map_by(|vote| vote.id.account_id)
         .into_iter()

@@ -4,7 +4,10 @@ use reqwest::{Client, ClientBuilder};
 use serde::{Deserialize, Deserializer};
 use tracing::instrument;
 
-use crate::{models::AccountId, prelude::*};
+use crate::{
+    models::{AccountId, TankId},
+    prelude::*,
+};
 
 /// Wargaming.net API client.
 #[derive(Clone)]
@@ -58,7 +61,7 @@ impl Wg {
     }
 
     #[cfg(not(test))]
-    #[instrument(skip_all, fields(account_id = account_id))]
+    #[instrument(skip_all, fields(account_id = %account_id))]
     pub async fn get_account_info(
         &self,
         account_id: AccountId,
@@ -104,7 +107,7 @@ impl Wg {
     ///
     /// [1]: https://developers.wargaming.net/reference/all/wotb/tanks/stats/
     #[cfg(not(test))]
-    #[instrument(skip_all, fields(account_id = account_id))]
+    #[instrument(skip_all, fields(account_id = %account_id))]
     pub async fn get_vehicles_stats(
         &self,
         account_id: AccountId,
@@ -139,12 +142,12 @@ impl Wg {
         _account_id: AccountId,
     ) -> Result<Vec<VehicleStats>, WgError> {
         let fake_non_played = VehicleStats {
-            tank_id: 2,
+            tank_id: TankId::from(2),
             last_battle_time: Utc.timestamp_opt(0, 0).single(),
             inner: InnerVehicleStats { n_battles: 0 },
         };
         let fake_played = VehicleStats {
-            tank_id: 1,
+            tank_id: TankId::from(1),
             last_battle_time: Utc.timestamp_opt(0, 0).single(),
             inner: InnerVehicleStats { n_battles: 1 },
         };
@@ -184,7 +187,7 @@ pub struct AccountInfo {
 /// Partial user's vehicle statistics.
 #[derive(Deserialize)]
 pub struct VehicleStats {
-    pub tank_id: u16,
+    pub tank_id: TankId,
 
     #[serde(deserialize_with = "VehicleStats::deserialize_last_battle_time")]
     pub last_battle_time: Option<DateTime>,

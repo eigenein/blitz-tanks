@@ -87,7 +87,7 @@ impl BundleTankopedia {
         writeln!(&mut module)?;
         writeln!(
             &mut module,
-            "use crate::models::{{Vehicle, VehicleAvailability::*, VehicleType::*}};"
+            "use crate::models::{{TankId, Vehicle, VehicleAvailability::*, VehicleType::*}};"
         )?;
         writeln!(&mut module)?;
         writeln!(&mut module, "pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {{")?;
@@ -103,7 +103,7 @@ impl BundleTankopedia {
                 .unwrap_or(&json_details.user_string);
 
             writeln!(&mut module, "    {}_u16 => Vehicle {{", json_details.tank_id)?;
-            writeln!(&mut module, "        tank_id: {:?},", json_details.tank_id)?;
+            writeln!(&mut module, "        tank_id: TankId({:?}),", json_details.tank_id)?;
             writeln!(&mut module, "        name: {:?},", name)?;
             writeln!(&mut module, "        tier: {:?},", json_details.tier)?;
             writeln!(&mut module, "        type_: {:?},", json_details.type_)?;

@@ -8,7 +8,7 @@ use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    models::{RatedTankId, Rating, Vote},
+    models::{RatedTankId, Rating, TankId, Vote},
     prelude::*,
 };
 
@@ -40,7 +40,7 @@ impl Params {
     }
 
     /// Sort each vehicle's entries by account ID, to prepare for `merge_join_by()`.
-    fn sort_votes(votes: &mut HashMap<u16, Vec<&Vote>>) {
+    fn sort_votes(votes: &mut HashMap<TankId, Vec<&Vote>>) {
         for votes in votes.values_mut() {
             votes.sort_by_key(|vote| vote.id.account_id);
         }
@@ -52,7 +52,7 @@ impl Params {
     ///
     /// Mapping from tank ID to its mean rating.
     #[must_use]
-    fn calculate_biases<'a>(votes: &'a HashMap<u16, Vec<&'a Vote>>) -> IndexMap<u16, f64> {
+    fn calculate_biases<'a>(votes: &'a HashMap<TankId, Vec<&'a Vote>>) -> IndexMap<TankId, f64> {
         let mut biases: IndexMap<_, _> = votes
             .par_iter()
             .map(|(tank_id, votes)| {
@@ -73,9 +73,9 @@ impl Params {
     /// by decreasing similarity in respect to the former.
     #[must_use]
     fn calculate_similarities(
-        votes: &HashMap<u16, Vec<&Vote>>,
-        biases: &IndexMap<u16, f64>,
-    ) -> HashMap<u16, Box<[RatedTankId]>> {
+        votes: &HashMap<TankId, Vec<&Vote>>,
+        biases: &IndexMap<TankId, f64>,
+    ) -> HashMap<TankId, Box<[RatedTankId]>> {
         let mut similarities: HashMap<_, _> = biases
             .par_iter()
             .map(|(i, bias_i)| {
@@ -151,11 +151,11 @@ pub struct Model {
     ///
     /// This is also used to display the top liked vehicles.
     #[serde_as(as = "Vec<(_, _)>")]
-    pub biases: IndexMap<u16, f64>,
+    pub biases: IndexMap<TankId, f64>,
 
     /// Mapping from vehicle's tank ID to other vehicles' similarities.
     #[serde_as(as = "Vec<(_, _)>")]
-    similarities: HashMap<u16, Box<[RatedTankId]>>,
+    similarities: HashMap<TankId, Box<[RatedTankId]>>,
 }
 
 impl Model {
@@ -174,8 +174,12 @@ impl Model {
     }
 
     #[must_use]
-    #[instrument(skip_all, fields(target_id = target_id))]
-    pub fn predict(&self, target_id: u16, source_ratings: &HashMap<u16, Rating>) -> Option<f64> {
+    #[instrument(skip_all, fields(target_id = %target_id))]
+    pub fn predict(
+        &self,
+        target_id: TankId,
+        source_ratings: &HashMap<TankId, Rating>,
+    ) -> Option<f64> {
         let (sum, weight) = self
             .similarities
             .get(&target_id)?
@@ -201,8 +205,8 @@ impl Model {
     #[instrument(skip_all)]
     pub fn predict_many<'a>(
         &'a self,
-        target_ids: impl IntoIterator<Item = u16> + 'a,
-        source_ratings: &'a HashMap<u16, Rating>,
+        target_ids: impl IntoIterator<Item = TankId> + 'a,
+        source_ratings: &'a HashMap<TankId, Rating>,
     ) -> impl Iterator<Item = RatedTankId> + 'a {
         target_ids.into_iter().filter_map(|target_id| {
             self.predict(target_id, source_ratings)

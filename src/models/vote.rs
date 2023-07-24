@@ -3,7 +3,7 @@ use mongodb::bson::serde_helpers;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    models::{rating::Rating, AccountId},
+    models::{rating::Rating, AccountId, TankId},
     prelude::*,
 };
 
@@ -13,7 +13,7 @@ pub struct VoteId {
     pub account_id: AccountId,
 
     #[serde(rename = "tid")]
-    pub tank_id: u16,
+    pub tank_id: TankId,
 }
 
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
@@ -36,7 +36,7 @@ pub struct Vote {
 }
 
 impl Vote {
-    pub fn new(account_id: impl Into<AccountId>, tank_id: u16, rating: Rating) -> Self {
+    pub fn new(account_id: impl Into<AccountId>, tank_id: TankId, rating: Rating) -> Self {
         Self {
             id: VoteId {
                 account_id: account_id.into(),

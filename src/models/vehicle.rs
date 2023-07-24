@@ -1,5 +1,7 @@
+use crate::models::TankId;
+
 pub struct Vehicle {
-    pub tank_id: u16,
+    pub tank_id: TankId,
     pub name: &'static str,
     pub tier: u8,
     pub type_: VehicleType,

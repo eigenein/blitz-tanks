@@ -2,11 +2,11 @@
 
 use phf::{phf_map, Map};
 
-use crate::models::{Vehicle, VehicleAvailability::*, VehicleType::*};
+use crate::models::{TankId, Vehicle, VehicleAvailability::*, VehicleType::*};
 
 pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
     1_u16 => Vehicle {
-        tank_id: 1,
+        tank_id: TankId(1),
         name: "T-34",
         tier: 5,
         type_: Medium,
@@ -14,7 +14,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1.webp"),
     },
     17_u16 => Vehicle {
-        tank_id: 17,
+        tank_id: TankId(17),
         name: "Pz. IV G",
         tier: 5,
         type_: Medium,
@@ -22,7 +22,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17.webp"),
     },
     33_u16 => Vehicle {
-        tank_id: 33,
+        tank_id: TankId(33),
         name: "T14",
         tier: 5,
         type_: Heavy,
@@ -30,7 +30,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/33.webp"),
     },
     49_u16 => Vehicle {
-        tank_id: 49,
+        tank_id: TankId(49),
         name: "Type 59",
         tier: 8,
         type_: Medium,
@@ -38,7 +38,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/49.webp"),
     },
     81_u16 => Vehicle {
-        tank_id: 81,
+        tank_id: TankId(81),
         name: "Medium I",
         tier: 1,
         type_: Medium,
@@ -46,7 +46,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/81.webp"),
     },
     113_u16 => Vehicle {
-        tank_id: 113,
+        tank_id: TankId(113),
         name: "Vindicator UM",
         tier: 7,
         type_: AntiTank,
@@ -54,7 +54,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/113.webp"),
     },
     257_u16 => Vehicle {
-        tank_id: 257,
+        tank_id: TankId(257),
         name: "SU-85",
         tier: 5,
         type_: AntiTank,
@@ -62,7 +62,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/257.webp"),
     },
     289_u16 => Vehicle {
-        tank_id: 289,
+        tank_id: TankId(289),
         name: "M3 Stuart",
         tier: 2,
         type_: Light,
@@ -70,7 +70,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/289.webp"),
     },
     321_u16 => Vehicle {
-        tank_id: 321,
+        tank_id: TankId(321),
         name: "D2",
         tier: 3,
         type_: Heavy,
@@ -78,7 +78,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/321.webp"),
     },
     337_u16 => Vehicle {
-        tank_id: 337,
+        tank_id: TankId(337),
         name: "Medium II",
         tier: 2,
         type_: Medium,
@@ -86,7 +86,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/337.webp"),
     },
     353_u16 => Vehicle {
-        tank_id: 353,
+        tank_id: TankId(353),
         name: "Chi-Ni",
         tier: 2,
         type_: Medium,
@@ -94,7 +94,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/353.webp"),
     },
     385_u16 => Vehicle {
-        tank_id: 385,
+        tank_id: TankId(385),
         name: "Progetto 65",
         tier: 10,
         type_: Medium,
@@ -102,7 +102,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/385.webp"),
     },
     513_u16 => Vehicle {
-        tank_id: 513,
+        tank_id: TankId(513),
         name: "IS",
         tier: 7,
         type_: Heavy,
@@ -110,7 +110,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/513.webp"),
     },
     529_u16 => Vehicle {
-        tank_id: 529,
+        tank_id: TankId(529),
         name: "Tiger I",
         tier: 7,
         type_: Heavy,
@@ -118,7 +118,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/529.webp"),
     },
     545_u16 => Vehicle {
-        tank_id: 545,
+        tank_id: TankId(545),
         name: "T1",
         tier: 1,
         type_: Light,
@@ -126,7 +126,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/545.webp"),
     },
     577_u16 => Vehicle {
-        tank_id: 577,
+        tank_id: TankId(577),
         name: "FT",
         tier: 1,
         type_: Light,
@@ -134,7 +134,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/577.webp"),
     },
     593_u16 => Vehicle {
-        tank_id: 593,
+        tank_id: TankId(593),
         name: "Sherman Firefly",
         tier: 6,
         type_: Medium,
@@ -142,7 +142,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/593.webp"),
     },
     609_u16 => Vehicle {
-        tank_id: 609,
+        tank_id: TankId(609),
         name: "R. Otsu",
         tier: 1,
         type_: Light,
@@ -150,7 +150,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/609.webp"),
     },
     625_u16 => Vehicle {
-        tank_id: 625,
+        tank_id: TankId(625),
         name: "Strv 74A2",
         tier: 6,
         type_: Medium,
@@ -158,7 +158,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/625.webp"),
     },
     641_u16 => Vehicle {
-        tank_id: 641,
+        tank_id: TankId(641),
         name: "Standard B",
         tier: 9,
         type_: Medium,
@@ -166,7 +166,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/641.webp"),
     },
     769_u16 => Vehicle {
-        tank_id: 769,
+        tank_id: TankId(769),
         name: "BT-7",
         tier: 3,
         type_: Light,
@@ -174,7 +174,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/769.webp"),
     },
     785_u16 => Vehicle {
-        tank_id: 785,
+        tank_id: TankId(785),
         name: "Pz. 35 (t)",
         tier: 2,
         type_: Light,
@@ -182,7 +182,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/785.webp"),
     },
     801_u16 => Vehicle {
-        tank_id: 801,
+        tank_id: TankId(801),
         name: "M6",
         tier: 6,
         type_: Heavy,
@@ -190,7 +190,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/801.webp"),
     },
     817_u16 => Vehicle {
-        tank_id: 817,
+        tank_id: TankId(817),
         name: "WZ-111",
         tier: 8,
         type_: Heavy,
@@ -198,7 +198,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/817.webp"),
     },
     849_u16 => Vehicle {
-        tank_id: 849,
+        tank_id: TankId(849),
         name: "Matilda",
         tier: 4,
         type_: Heavy,
@@ -206,7 +206,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/849.webp"),
     },
     865_u16 => Vehicle {
-        tank_id: 865,
+        tank_id: TankId(865),
         name: "Ha-Go",
         tier: 1,
         type_: Light,
@@ -214,7 +214,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/865.webp"),
     },
     881_u16 => Vehicle {
-        tank_id: 881,
+        tank_id: TankId(881),
         name: "Edelweiss",
         tier: 7,
         type_: Medium,
@@ -222,7 +222,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/881.webp"),
     },
     897_u16 => Vehicle {
-        tank_id: 897,
+        tank_id: TankId(897),
         name: "P.44 Pantera",
         tier: 8,
         type_: Medium,
@@ -230,7 +230,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/897.webp"),
     },
     1025_u16 => Vehicle {
-        tank_id: 1025,
+        tank_id: TankId(1025),
         name: "BT-2",
         tier: 2,
         type_: Light,
@@ -238,7 +238,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1025.webp"),
     },
     1041_u16 => Vehicle {
-        tank_id: 1041,
+        tank_id: TankId(1041),
         name: "StuG III G",
         tier: 5,
         type_: AntiTank,
@@ -246,7 +246,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1041.webp"),
     },
     1057_u16 => Vehicle {
-        tank_id: 1057,
+        tank_id: TankId(1057),
         name: "M4 Sherman",
         tier: 5,
         type_: Medium,
@@ -254,7 +254,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1057.webp"),
     },
     1073_u16 => Vehicle {
-        tank_id: 1073,
+        tank_id: TankId(1073),
         name: "T-34-1",
         tier: 7,
         type_: Medium,
@@ -262,7 +262,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1073.webp"),
     },
     1089_u16 => Vehicle {
-        tank_id: 1089,
+        tank_id: TankId(1089),
         name: "B1",
         tier: 4,
         type_: Heavy,
@@ -270,7 +270,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1089.webp"),
     },
     1105_u16 => Vehicle {
-        tank_id: 1105,
+        tank_id: TankId(1105),
         name: "Cromwell",
         tier: 6,
         type_: Medium,
@@ -278,7 +278,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1105.webp"),
     },
     1121_u16 => Vehicle {
-        tank_id: 1121,
+        tank_id: TankId(1121),
         name: "Chi-Ri",
         tier: 7,
         type_: Medium,
@@ -286,7 +286,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1121.webp"),
     },
     1137_u16 => Vehicle {
-        tank_id: 1137,
+        tank_id: TankId(1137),
         name: "Predator UM",
         tier: 7,
         type_: Heavy,
@@ -294,7 +294,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1137.webp"),
     },
     1153_u16 => Vehicle {
-        tank_id: 1153,
+        tank_id: TankId(1153),
         name: "P.43 ter",
         tier: 7,
         type_: Medium,
@@ -302,7 +302,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1153.webp"),
     },
     1297_u16 => Vehicle {
-        tank_id: 1297,
+        tank_id: TankId(1297),
         name: "Panther",
         tier: 7,
         type_: Medium,
@@ -310,7 +310,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1297.webp"),
     },
     1313_u16 => Vehicle {
-        tank_id: 1313,
+        tank_id: TankId(1313),
         name: "M4A3E8",
         tier: 6,
         type_: Medium,
@@ -318,7 +318,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1313.webp"),
     },
     1329_u16 => Vehicle {
-        tank_id: 1329,
+        tank_id: TankId(1329),
         name: "NC-31",
         tier: 1,
         type_: Light,
@@ -326,7 +326,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1329.webp"),
     },
     1361_u16 => Vehicle {
-        tank_id: 1361,
+        tank_id: TankId(1361),
         name: "Churchill Mk. VI",
         tier: 6,
         type_: Heavy,
@@ -334,7 +334,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1361.webp"),
     },
     1377_u16 => Vehicle {
-        tank_id: 1377,
+        tank_id: TankId(1377),
         name: "Chi-Nu",
         tier: 5,
         type_: Medium,
@@ -342,7 +342,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1377.webp"),
     },
     1393_u16 => Vehicle {
-        tank_id: 1393,
+        tank_id: TankId(1393),
         name: "Nameless",
         tier: 7,
         type_: Heavy,
@@ -350,7 +350,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1393.webp"),
     },
     1409_u16 => Vehicle {
-        tank_id: 1409,
+        tank_id: TankId(1409),
         name: "P.43 bis",
         tier: 6,
         type_: Medium,
@@ -358,7 +358,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1409.webp"),
     },
     1537_u16 => Vehicle {
-        tank_id: 1537,
+        tank_id: TankId(1537),
         name: "T-28 mod. 1940",
         tier: 4,
         type_: Medium,
@@ -366,7 +366,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1537.webp"),
     },
     1553_u16 => Vehicle {
-        tank_id: 1553,
+        tank_id: TankId(1553),
         name: "Jg.Pz. IV",
         tier: 6,
         type_: AntiTank,
@@ -374,7 +374,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1553.webp"),
     },
     1569_u16 => Vehicle {
-        tank_id: 1569,
+        tank_id: TankId(1569),
         name: "T20",
         tier: 7,
         type_: Medium,
@@ -382,7 +382,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1569.webp"),
     },
     1585_u16 => Vehicle {
-        tank_id: 1585,
+        tank_id: TankId(1585),
         name: "T-34-2",
         tier: 8,
         type_: Medium,
@@ -390,7 +390,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1585.webp"),
     },
     1601_u16 => Vehicle {
-        tank_id: 1601,
+        tank_id: TankId(1601),
         name: "D1",
         tier: 2,
         type_: Light,
@@ -398,7 +398,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1601.webp"),
     },
     1617_u16 => Vehicle {
-        tank_id: 1617,
+        tank_id: TankId(1617),
         name: "Sherman V",
         tier: 5,
         type_: Medium,
@@ -406,7 +406,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1617.webp"),
     },
     1633_u16 => Vehicle {
-        tank_id: 1633,
+        tank_id: TankId(1633),
         name: "Chi-He",
         tier: 4,
         type_: Medium,
@@ -414,7 +414,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1633.webp"),
     },
     1649_u16 => Vehicle {
-        tank_id: 1649,
+        tank_id: TankId(1649),
         name: "Helsing",
         tier: 7,
         type_: AntiTank,
@@ -422,7 +422,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1649.webp"),
     },
     1665_u16 => Vehicle {
-        tank_id: 1665,
+        tank_id: TankId(1665),
         name: "Lago",
         tier: 4,
         type_: Medium,
@@ -430,7 +430,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1665.webp"),
     },
     1809_u16 => Vehicle {
-        tank_id: 1809,
+        tank_id: TankId(1809),
         name: "Hetzer",
         tier: 4,
         type_: AntiTank,
@@ -438,7 +438,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1809.webp"),
     },
     1825_u16 => Vehicle {
-        tank_id: 1825,
+        tank_id: TankId(1825),
         name: "M2 Light",
         tier: 1,
         type_: Light,
@@ -446,7 +446,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1825.webp"),
     },
     1841_u16 => Vehicle {
-        tank_id: 1841,
+        tank_id: TankId(1841),
         name: "WZ-120",
         tier: 9,
         type_: Medium,
@@ -454,7 +454,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1841.webp"),
     },
     1857_u16 => Vehicle {
-        tank_id: 1857,
+        tank_id: TankId(1857),
         name: "B-C 25 t AP",
         tier: 9,
         type_: Light,
@@ -462,7 +462,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1857.webp"),
     },
     1889_u16 => Vehicle {
-        tank_id: 1889,
+        tank_id: TankId(1889),
         name: "Chi-To",
         tier: 6,
         type_: Medium,
@@ -470,7 +470,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1889.webp"),
     },
     1905_u16 => Vehicle {
-        tank_id: 1905,
+        tank_id: TankId(1905),
         name: "O-47",
         tier: 8,
         type_: Medium,
@@ -478,7 +478,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1905.webp"),
     },
     1921_u16 => Vehicle {
-        tank_id: 1921,
+        tank_id: TankId(1921),
         name: "Strv m/42",
         tier: 5,
         type_: Medium,
@@ -486,7 +486,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/1921.webp"),
     },
     2049_u16 => Vehicle {
-        tank_id: 2049,
+        tank_id: TankId(2049),
         name: "A-20",
         tier: 4,
         type_: Light,
@@ -494,7 +494,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2049.webp"),
     },
     2065_u16 => Vehicle {
-        tank_id: 2065,
+        tank_id: TankId(2065),
         name: "Pz. II",
         tier: 1,
         type_: Light,
@@ -502,7 +502,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2065.webp"),
     },
     2097_u16 => Vehicle {
-        tank_id: 2097,
+        tank_id: TankId(2097),
         name: "WZ-111 1-4",
         tier: 9,
         type_: Heavy,
@@ -510,7 +510,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2097.webp"),
     },
     2129_u16 => Vehicle {
-        tank_id: 2129,
+        tank_id: TankId(2129),
         name: "Crusader",
         tier: 5,
         type_: Light,
@@ -518,7 +518,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2129.webp"),
     },
     2145_u16 => Vehicle {
-        tank_id: 2145,
+        tank_id: TankId(2145),
         name: "Chi-Ha",
         tier: 3,
         type_: Medium,
@@ -526,7 +526,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2145.webp"),
     },
     2161_u16 => Vehicle {
-        tank_id: 2161,
+        tank_id: TankId(2161),
         name: "WZ Blaze",
         tier: 7,
         type_: AntiTank,
@@ -534,7 +534,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2161.webp"),
     },
     2177_u16 => Vehicle {
-        tank_id: 2177,
+        tank_id: TankId(2177),
         name: "14TP",
         tier: 3,
         type_: Light,
@@ -542,7 +542,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2177.webp"),
     },
     2305_u16 => Vehicle {
-        tank_id: 2305,
+        tank_id: TankId(2305),
         name: "SU-152",
         tier: 7,
         type_: AntiTank,
@@ -550,7 +550,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2305.webp"),
     },
     2321_u16 => Vehicle {
-        tank_id: 2321,
+        tank_id: TankId(2321),
         name: "VK 36.01 H",
         tier: 6,
         type_: Heavy,
@@ -558,7 +558,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2321.webp"),
     },
     2353_u16 => Vehicle {
-        tank_id: 2353,
+        tank_id: TankId(2353),
         name: "VAE Type B",
         tier: 1,
         type_: Light,
@@ -566,7 +566,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2353.webp"),
     },
     2369_u16 => Vehicle {
-        tank_id: 2369,
+        tank_id: TankId(2369),
         name: "FCM36Pak40",
         tier: 3,
         type_: AntiTank,
@@ -574,7 +574,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2369.webp"),
     },
     2385_u16 => Vehicle {
-        tank_id: 2385,
+        tank_id: TankId(2385),
         name: "Medium III",
         tier: 3,
         type_: Medium,
@@ -582,7 +582,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2385.webp"),
     },
     2401_u16 => Vehicle {
-        tank_id: 2401,
+        tank_id: TankId(2401),
         name: "Ke-Ni",
         tier: 3,
         type_: Light,
@@ -590,7 +590,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2401.webp"),
     },
     2433_u16 => Vehicle {
-        tank_id: 2433,
+        tank_id: TankId(2433),
         name: "10TP",
         tier: 2,
         type_: Light,
@@ -598,7 +598,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2433.webp"),
     },
     2561_u16 => Vehicle {
-        tank_id: 2561,
+        tank_id: TankId(2561),
         name: "T-34-85",
         tier: 6,
         type_: Medium,
@@ -606,7 +606,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2561.webp"),
     },
     2577_u16 => Vehicle {
-        tank_id: 2577,
+        tank_id: TankId(2577),
         name: "VK 30.01 H",
         tier: 5,
         type_: Heavy,
@@ -614,7 +614,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2577.webp"),
     },
     2593_u16 => Vehicle {
-        tank_id: 2593,
+        tank_id: TankId(2593),
         name: "T30",
         tier: 9,
         type_: AntiTank,
@@ -622,7 +622,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2593.webp"),
     },
     2609_u16 => Vehicle {
-        tank_id: 2609,
+        tank_id: TankId(2609),
         name: "Type 64",
         tier: 6,
         type_: Light,
@@ -630,7 +630,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2609.webp"),
     },
     2625_u16 => Vehicle {
-        tank_id: 2625,
+        tank_id: TankId(2625),
         name: "ARL 44",
         tier: 6,
         type_: Heavy,
@@ -638,7 +638,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2625.webp"),
     },
     2657_u16 => Vehicle {
-        tank_id: 2657,
+        tank_id: TankId(2657),
         name: "STA-1",
         tier: 8,
         type_: Medium,
@@ -646,7 +646,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2657.webp"),
     },
     2689_u16 => Vehicle {
-        tank_id: 2689,
+        tank_id: TankId(2689),
         name: "Vickers Mk. F",
         tier: 1,
         type_: Light,
@@ -654,7 +654,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2689.webp"),
     },
     2817_u16 => Vehicle {
-        tank_id: 2817,
+        tank_id: TankId(2817),
         name: "KV-1S",
         tier: 6,
         type_: Heavy,
@@ -662,7 +662,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2817.webp"),
     },
     2849_u16 => Vehicle {
-        tank_id: 2849,
+        tank_id: TankId(2849),
         name: "T34",
         tier: 8,
         type_: Heavy,
@@ -670,7 +670,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2849.webp"),
     },
     2865_u16 => Vehicle {
-        tank_id: 2865,
+        tank_id: TankId(2865),
         name: "WZ-110",
         tier: 8,
         type_: Heavy,
@@ -678,7 +678,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2865.webp"),
     },
     2881_u16 => Vehicle {
-        tank_id: 2881,
+        tank_id: TankId(2881),
         name: "AMX 40",
         tier: 4,
         type_: Medium,
@@ -686,7 +686,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2881.webp"),
     },
     2897_u16 => Vehicle {
-        tank_id: 2897,
+        tank_id: TankId(2897),
         name: "Churchill I",
         tier: 5,
         type_: Heavy,
@@ -694,7 +694,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2897.webp"),
     },
     2913_u16 => Vehicle {
-        tank_id: 2913,
+        tank_id: TankId(2913),
         name: "Ke-Ho",
         tier: 4,
         type_: Light,
@@ -702,7 +702,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2913.webp"),
     },
     2945_u16 => Vehicle {
-        tank_id: 2945,
+        tank_id: TankId(2945),
         name: "Progetto 46",
         tier: 8,
         type_: Medium,
@@ -710,7 +710,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/2945.webp"),
     },
     3073_u16 => Vehicle {
-        tank_id: 3073,
+        tank_id: TankId(3073),
         name: "T-46",
         tier: 3,
         type_: Light,
@@ -718,7 +718,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3073.webp"),
     },
     3089_u16 => Vehicle {
-        tank_id: 3089,
+        tank_id: TankId(3089),
         name: "L.Tr.",
         tier: 1,
         type_: Light,
@@ -726,7 +726,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3089.webp"),
     },
     3105_u16 => Vehicle {
-        tank_id: 3105,
+        tank_id: TankId(3105),
         name: "M3 Lee",
         tier: 4,
         type_: Medium,
@@ -734,7 +734,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3105.webp"),
     },
     3121_u16 => Vehicle {
-        tank_id: 3121,
+        tank_id: TankId(3121),
         name: "M5A1 Stuart",
         tier: 4,
         type_: Light,
@@ -742,7 +742,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3121.webp"),
     },
     3137_u16 => Vehicle {
-        tank_id: 3137,
+        tank_id: TankId(3137),
         name: "AMX 50 100",
         tier: 8,
         type_: Heavy,
@@ -750,7 +750,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3137.webp"),
     },
     3153_u16 => Vehicle {
-        tank_id: 3153,
+        tank_id: TankId(3153),
         name: "Black Prince",
         tier: 7,
         type_: Heavy,
@@ -758,7 +758,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3153.webp"),
     },
     3201_u16 => Vehicle {
-        tank_id: 3201,
+        tank_id: TankId(3201),
         name: "50TP prototyp",
         tier: 9,
         type_: Heavy,
@@ -766,7 +766,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3201.webp"),
     },
     3329_u16 => Vehicle {
-        tank_id: 3329,
+        tank_id: TankId(3329),
         name: "MS-1 mod. 1",
         tier: 1,
         type_: Light,
@@ -774,7 +774,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3329.webp"),
     },
     3345_u16 => Vehicle {
-        tank_id: 3345,
+        tank_id: TankId(3345),
         name: "Pz. 38 (t)",
         tier: 3,
         type_: Light,
@@ -782,7 +782,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3345.webp"),
     },
     3361_u16 => Vehicle {
-        tank_id: 3361,
+        tank_id: TankId(3361),
         name: "T1 Heavy",
         tier: 5,
         type_: Heavy,
@@ -790,7 +790,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3361.webp"),
     },
     3377_u16 => Vehicle {
-        tank_id: 3377,
+        tank_id: TankId(3377),
         name: "WZ-131",
         tier: 7,
         type_: Light,
@@ -798,7 +798,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3377.webp"),
     },
     3425_u16 => Vehicle {
-        tank_id: 3425,
+        tank_id: TankId(3425),
         name: "Type 61",
         tier: 9,
         type_: Medium,
@@ -806,7 +806,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3425.webp"),
     },
     3457_u16 => Vehicle {
-        tank_id: 3457,
+        tank_id: TankId(3457),
         name: "Emil I",
         tier: 8,
         type_: Heavy,
@@ -814,7 +814,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3457.webp"),
     },
     3585_u16 => Vehicle {
-        tank_id: 3585,
+        tank_id: TankId(3585),
         name: "SU-100",
         tier: 6,
         type_: AntiTank,
@@ -822,7 +822,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3585.webp"),
     },
     3601_u16 => Vehicle {
-        tank_id: 3601,
+        tank_id: TankId(3601),
         name: "Pz.Jäg. I",
         tier: 2,
         type_: AntiTank,
@@ -830,7 +830,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3601.webp"),
     },
     3633_u16 => Vehicle {
-        tank_id: 3633,
+        tank_id: TankId(3633),
         name: "IS-2",
         tier: 7,
         type_: Heavy,
@@ -838,7 +838,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3633.webp"),
     },
     3649_u16 => Vehicle {
-        tank_id: 3649,
+        tank_id: TankId(3649),
         name: "B-C 25 t",
         tier: 10,
         type_: Light,
@@ -846,7 +846,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3649.webp"),
     },
     3681_u16 => Vehicle {
-        tank_id: 3681,
+        tank_id: TankId(3681),
         name: "STB-1",
         tier: 10,
         type_: Medium,
@@ -854,7 +854,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3681.webp"),
     },
     3697_u16 => Vehicle {
-        tank_id: 3697,
+        tank_id: TankId(3697),
         name: "Lupus",
         tier: 7,
         type_: Heavy,
@@ -862,7 +862,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3697.webp"),
     },
     3713_u16 => Vehicle {
-        tank_id: 3713,
+        tank_id: TankId(3713),
         name: "Strv 74",
         tier: 6,
         type_: Medium,
@@ -870,7 +870,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3713.webp"),
     },
     3857_u16 => Vehicle {
-        tank_id: 3857,
+        tank_id: TankId(3857),
         name: "JPanther",
         tier: 7,
         type_: AntiTank,
@@ -878,7 +878,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3857.webp"),
     },
     3873_u16 => Vehicle {
-        tank_id: 3873,
+        tank_id: TankId(3873),
         name: "T29",
         tier: 7,
         type_: Heavy,
@@ -886,7 +886,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3873.webp"),
     },
     3889_u16 => Vehicle {
-        tank_id: 3889,
+        tank_id: TankId(3889),
         name: "WZ-132",
         tier: 8,
         type_: Light,
@@ -894,7 +894,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3889.webp"),
     },
     3905_u16 => Vehicle {
-        tank_id: 3905,
+        tank_id: TankId(3905),
         name: "AMX 50 120",
         tier: 9,
         type_: Heavy,
@@ -902,7 +902,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3905.webp"),
     },
     3921_u16 => Vehicle {
-        tank_id: 3921,
+        tank_id: TankId(3921),
         name: "Caernarvon",
         tier: 8,
         type_: Heavy,
@@ -910,7 +910,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3921.webp"),
     },
     3937_u16 => Vehicle {
-        tank_id: 3937,
+        tank_id: TankId(3937),
         name: "Ho-Ri",
         tier: 10,
         type_: AntiTank,
@@ -918,7 +918,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3937.webp"),
     },
     3953_u16 => Vehicle {
-        tank_id: 3953,
+        tank_id: TankId(3953),
         name: "T 55A",
         tier: 9,
         type_: Medium,
@@ -926,7 +926,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3953.webp"),
     },
     3969_u16 => Vehicle {
-        tank_id: 3969,
+        tank_id: TankId(3969),
         name: "Leo",
         tier: 7,
         type_: Medium,
@@ -934,7 +934,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/3969.webp"),
     },
     4113_u16 => Vehicle {
-        tank_id: 4113,
+        tank_id: TankId(4113),
         name: "VK 30.02 D",
         tier: 7,
         type_: Medium,
@@ -942,7 +942,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4113.webp"),
     },
     4145_u16 => Vehicle {
-        tank_id: 4145,
+        tank_id: TankId(4145),
         name: "WZ-121",
         tier: 10,
         type_: Medium,
@@ -950,7 +950,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4145.webp"),
     },
     4193_u16 => Vehicle {
-        tank_id: 4193,
+        tank_id: TankId(4193),
         name: "Ho-Ri T.II",
         tier: 9,
         type_: AntiTank,
@@ -958,7 +958,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4193.webp"),
     },
     4209_u16 => Vehicle {
-        tank_id: 4209,
+        tank_id: TankId(4209),
         name: "WarDuck",
         tier: 1,
         type_: Medium,
@@ -966,7 +966,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4209.webp"),
     },
     4225_u16 => Vehicle {
-        tank_id: 4225,
+        tank_id: TankId(4225),
         name: "Emil II",
         tier: 9,
         type_: Heavy,
@@ -974,7 +974,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4225.webp"),
     },
     4353_u16 => Vehicle {
-        tank_id: 4353,
+        tank_id: TankId(4353),
         name: "T-44",
         tier: 8,
         type_: Medium,
@@ -982,7 +982,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4353.webp"),
     },
     4369_u16 => Vehicle {
-        tank_id: 4369,
+        tank_id: TankId(4369),
         name: "Pz. III",
         tier: 3,
         type_: Medium,
@@ -990,7 +990,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4369.webp"),
     },
     4385_u16 => Vehicle {
-        tank_id: 4385,
+        tank_id: TankId(4385),
         name: "T32",
         tier: 8,
         type_: Heavy,
@@ -998,7 +998,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4385.webp"),
     },
     4401_u16 => Vehicle {
-        tank_id: 4401,
+        tank_id: TankId(4401),
         name: "Chi-Ha",
         tier: 3,
         type_: Medium,
@@ -1006,7 +1006,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4401.webp"),
     },
     4417_u16 => Vehicle {
-        tank_id: 4417,
+        tank_id: TankId(4417),
         name: "AMX M4 mle. 54",
         tier: 10,
         type_: Heavy,
@@ -1014,7 +1014,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4417.webp"),
     },
     4433_u16 => Vehicle {
-        tank_id: 4433,
+        tank_id: TankId(4433),
         name: "Conqueror",
         tier: 9,
         type_: Heavy,
@@ -1022,7 +1022,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4433.webp"),
     },
     4449_u16 => Vehicle {
-        tank_id: 4449,
+        tank_id: TankId(4449),
         name: "IS-2 Pravda SP",
         tier: 7,
         type_: Heavy,
@@ -1030,7 +1030,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4449.webp"),
     },
     4465_u16 => Vehicle {
-        tank_id: 4465,
+        tank_id: TankId(4465),
         name: "Hafen",
         tier: 7,
         type_: Medium,
@@ -1038,7 +1038,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4465.webp"),
     },
     4481_u16 => Vehicle {
-        tank_id: 4481,
+        tank_id: TankId(4481),
         name: "Kranvagn",
         tier: 10,
         type_: Heavy,
@@ -1046,7 +1046,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4481.webp"),
     },
     4609_u16 => Vehicle {
-        tank_id: 4609,
+        tank_id: TankId(4609),
         name: "T-26",
         tier: 1,
         type_: Light,
@@ -1054,7 +1054,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4609.webp"),
     },
     4657_u16 => Vehicle {
-        tank_id: 4657,
+        tank_id: TankId(4657),
         name: "Type T-34",
         tier: 5,
         type_: Medium,
@@ -1062,7 +1062,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4657.webp"),
     },
     4689_u16 => Vehicle {
-        tank_id: 4689,
+        tank_id: TankId(4689),
         name: "Churchill VII",
         tier: 6,
         type_: Heavy,
@@ -1070,7 +1070,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4689.webp"),
     },
     4705_u16 => Vehicle {
-        tank_id: 4705,
+        tank_id: TankId(4705),
         name: "Firefly Saunders SP",
         tier: 6,
         type_: Medium,
@@ -1078,7 +1078,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4705.webp"),
     },
     4721_u16 => Vehicle {
-        tank_id: 4721,
+        tank_id: TankId(4721),
         name: "Gravedigger",
         tier: 7,
         type_: Heavy,
@@ -1086,7 +1086,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4721.webp"),
     },
     4737_u16 => Vehicle {
-        tank_id: 4737,
+        tank_id: TankId(4737),
         name: "EMIL 1951",
         tier: 8,
         type_: Heavy,
@@ -1094,7 +1094,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4737.webp"),
     },
     4881_u16 => Vehicle {
-        tank_id: 4881,
+        tank_id: TankId(4881),
         name: "Pz. III A",
         tier: 3,
         type_: Light,
@@ -1102,7 +1102,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4881.webp"),
     },
     4897_u16 => Vehicle {
-        tank_id: 4897,
+        tank_id: TankId(4897),
         name: "M2 Medium",
         tier: 3,
         type_: Medium,
@@ -1110,7 +1110,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4897.webp"),
     },
     4913_u16 => Vehicle {
-        tank_id: 4913,
+        tank_id: TankId(4913),
         name: "59-16",
         tier: 6,
         type_: Light,
@@ -1118,7 +1118,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4913.webp"),
     },
     4929_u16 => Vehicle {
-        tank_id: 4929,
+        tank_id: TankId(4929),
         name: "AMX 13 90",
         tier: 8,
         type_: Light,
@@ -1126,7 +1126,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4929.webp"),
     },
     4945_u16 => Vehicle {
-        tank_id: 4945,
+        tank_id: TankId(4945),
         name: "Valentine Mk. IX",
         tier: 4,
         type_: Light,
@@ -1134,7 +1134,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4945.webp"),
     },
     4961_u16 => Vehicle {
-        tank_id: 4961,
+        tank_id: TankId(4961),
         name: "Ho-Ri T.I",
         tier: 8,
         type_: AntiTank,
@@ -1142,7 +1142,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4961.webp"),
     },
     4977_u16 => Vehicle {
-        tank_id: 4977,
+        tank_id: TankId(4977),
         name: "Scavenger",
         tier: 5,
         type_: Medium,
@@ -1150,7 +1150,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4977.webp"),
     },
     4993_u16 => Vehicle {
-        tank_id: 4993,
+        tank_id: TankId(4993),
         name: "P.43/06 ann.",
         tier: 6,
         type_: Medium,
@@ -1158,7 +1158,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/4993.webp"),
     },
     5121_u16 => Vehicle {
-        tank_id: 5121,
+        tank_id: TankId(5121),
         name: "AT-1",
         tier: 2,
         type_: AntiTank,
@@ -1166,7 +1166,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5121.webp"),
     },
     5137_u16 => Vehicle {
-        tank_id: 5137,
+        tank_id: TankId(5137),
         name: "Tiger II",
         tier: 8,
         type_: Heavy,
@@ -1174,7 +1174,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5137.webp"),
     },
     5153_u16 => Vehicle {
-        tank_id: 5153,
+        tank_id: TankId(5153),
         name: "M5 Stuart",
         tier: 3,
         type_: Light,
@@ -1182,7 +1182,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5153.webp"),
     },
     5169_u16 => Vehicle {
-        tank_id: 5169,
+        tank_id: TankId(5169),
         name: "Type 58",
         tier: 6,
         type_: Medium,
@@ -1190,7 +1190,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5169.webp"),
     },
     5185_u16 => Vehicle {
-        tank_id: 5185,
+        tank_id: TankId(5185),
         name: "AMX 13 75",
         tier: 7,
         type_: Light,
@@ -1198,7 +1198,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5185.webp"),
     },
     5201_u16 => Vehicle {
-        tank_id: 5201,
+        tank_id: TankId(5201),
         name: "Cruiser I",
         tier: 2,
         type_: Light,
@@ -1206,7 +1206,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5201.webp"),
     },
     5217_u16 => Vehicle {
-        tank_id: 5217,
+        tank_id: TankId(5217),
         name: "Chi-To SPG",
         tier: 7,
         type_: AntiTank,
@@ -1214,7 +1214,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5217.webp"),
     },
     5233_u16 => Vehicle {
-        tank_id: 5233,
+        tank_id: TankId(5233),
         name: "Smasher",
         tier: 7,
         type_: Heavy,
@@ -1222,7 +1222,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5233.webp"),
     },
     5249_u16 => Vehicle {
-        tank_id: 5249,
+        tank_id: TankId(5249),
         name: "Pudel",
         tier: 6,
         type_: Medium,
@@ -1230,7 +1230,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5249.webp"),
     },
     5377_u16 => Vehicle {
-        tank_id: 5377,
+        tank_id: TankId(5377),
         name: "IS-3",
         tier: 8,
         type_: Heavy,
@@ -1238,7 +1238,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5377.webp"),
     },
     5393_u16 => Vehicle {
-        tank_id: 5393,
+        tank_id: TankId(5393),
         name: "Leopard",
         tier: 5,
         type_: Light,
@@ -1246,7 +1246,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5393.webp"),
     },
     5409_u16 => Vehicle {
-        tank_id: 5409,
+        tank_id: TankId(5409),
         name: "M7",
         tier: 4,
         type_: Medium,
@@ -1254,7 +1254,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5409.webp"),
     },
     5425_u16 => Vehicle {
-        tank_id: 5425,
+        tank_id: TankId(5425),
         name: "WZ-113",
         tier: 10,
         type_: Heavy,
@@ -1262,7 +1262,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5425.webp"),
     },
     5441_u16 => Vehicle {
-        tank_id: 5441,
+        tank_id: TankId(5441),
         name: "AMX 30 1er prot.",
         tier: 9,
         type_: Medium,
@@ -1270,7 +1270,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5441.webp"),
     },
     5457_u16 => Vehicle {
-        tank_id: 5457,
+        tank_id: TankId(5457),
         name: "Comet",
         tier: 7,
         type_: Medium,
@@ -1278,7 +1278,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5457.webp"),
     },
     5473_u16 => Vehicle {
-        tank_id: 5473,
+        tank_id: TankId(5473),
         name: "Mitsu 108",
         tier: 5,
         type_: Heavy,
@@ -1286,7 +1286,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5473.webp"),
     },
     5489_u16 => Vehicle {
-        tank_id: 5489,
+        tank_id: TankId(5489),
         name: "Y5 T-34",
         tier: 5,
         type_: Medium,
@@ -1294,7 +1294,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5489.webp"),
     },
     5505_u16 => Vehicle {
-        tank_id: 5505,
+        tank_id: TankId(5505),
         name: "TVP T 50/51",
         tier: 10,
         type_: Medium,
@@ -1302,7 +1302,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5505.webp"),
     },
     5665_u16 => Vehicle {
-        tank_id: 5665,
+        tank_id: TankId(5665),
         name: "T2 Medium",
         tier: 2,
         type_: Medium,
@@ -1310,7 +1310,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5665.webp"),
     },
     5681_u16 => Vehicle {
-        tank_id: 5681,
+        tank_id: TankId(5681),
         name: "121B",
         tier: 10,
         type_: Medium,
@@ -1318,7 +1318,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5681.webp"),
     },
     5713_u16 => Vehicle {
-        tank_id: 5713,
+        tank_id: TankId(5713),
         name: "Centurion 7/1",
         tier: 9,
         type_: Medium,
@@ -1326,7 +1326,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5713.webp"),
     },
     5729_u16 => Vehicle {
-        tank_id: 5729,
+        tank_id: TankId(5729),
         name: "Ju-Nu",
         tier: 6,
         type_: Heavy,
@@ -1334,7 +1334,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5729.webp"),
     },
     5745_u16 => Vehicle {
-        tank_id: 5745,
+        tank_id: TankId(5745),
         name: "Y5 Firefly",
         tier: 6,
         type_: Medium,
@@ -1342,7 +1342,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5745.webp"),
     },
     5761_u16 => Vehicle {
-        tank_id: 5761,
+        tank_id: TankId(5761),
         name: "Škoda T 50",
         tier: 9,
         type_: Medium,
@@ -1350,7 +1350,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5761.webp"),
     },
     5889_u16 => Vehicle {
-        tank_id: 5889,
+        tank_id: TankId(5889),
         name: "KV-3",
         tier: 7,
         type_: Heavy,
@@ -1358,7 +1358,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5889.webp"),
     },
     5921_u16 => Vehicle {
-        tank_id: 5921,
+        tank_id: TankId(5921),
         name: "Pershing",
         tier: 8,
         type_: Medium,
@@ -1366,7 +1366,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5921.webp"),
     },
     5937_u16 => Vehicle {
-        tank_id: 5937,
+        tank_id: TankId(5937),
         name: "59-Patton",
         tier: 8,
         type_: Medium,
@@ -1374,7 +1374,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5937.webp"),
     },
     5953_u16 => Vehicle {
-        tank_id: 5953,
+        tank_id: TankId(5953),
         name: "AMX 38",
         tier: 2,
         type_: Medium,
@@ -1382,7 +1382,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5953.webp"),
     },
     5969_u16 => Vehicle {
-        tank_id: 5969,
+        tank_id: TankId(5969),
         name: "Centurion I",
         tier: 8,
         type_: Medium,
@@ -1390,7 +1390,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5969.webp"),
     },
     5985_u16 => Vehicle {
-        tank_id: 5985,
+        tank_id: TankId(5985),
         name: "Ju-To",
         tier: 7,
         type_: Heavy,
@@ -1398,7 +1398,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/5985.webp"),
     },
     6001_u16 => Vehicle {
-        tank_id: 6001,
+        tank_id: TankId(6001),
         name: "Y5 ELC bis",
         tier: 7,
         type_: Medium,
@@ -1406,7 +1406,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6001.webp"),
     },
     6017_u16 => Vehicle {
-        tank_id: 6017,
+        tank_id: TankId(6017),
         name: "TVP VTU",
         tier: 8,
         type_: Medium,
@@ -1414,7 +1414,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6017.webp"),
     },
     6145_u16 => Vehicle {
-        tank_id: 6145,
+        tank_id: TankId(6145),
         name: "IS-4",
         tier: 10,
         type_: Heavy,
@@ -1422,7 +1422,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6145.webp"),
     },
     6161_u16 => Vehicle {
-        tank_id: 6161,
+        tank_id: TankId(6161),
         name: "Luchs",
         tier: 4,
         type_: Light,
@@ -1430,7 +1430,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6161.webp"),
     },
     6177_u16 => Vehicle {
-        tank_id: 6177,
+        tank_id: TankId(6177),
         name: "T18",
         tier: 2,
         type_: AntiTank,
@@ -1438,7 +1438,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6177.webp"),
     },
     6193_u16 => Vehicle {
-        tank_id: 6193,
+        tank_id: TankId(6193),
         name: "T-34-3",
         tier: 8,
         type_: Medium,
@@ -1446,7 +1446,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6193.webp"),
     },
     6209_u16 => Vehicle {
-        tank_id: 6209,
+        tank_id: TankId(6209),
         name: "AMX 50 B",
         tier: 10,
         type_: Heavy,
@@ -1454,7 +1454,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6209.webp"),
     },
     6225_u16 => Vehicle {
-        tank_id: 6225,
+        tank_id: TankId(6225),
         name: "FV215b",
         tier: 10,
         type_: Heavy,
@@ -1462,7 +1462,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6225.webp"),
     },
     6241_u16 => Vehicle {
-        tank_id: 6241,
+        tank_id: TankId(6241),
         name: "Chi-Se",
         tier: 8,
         type_: Heavy,
@@ -1470,7 +1470,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6241.webp"),
     },
     6257_u16 => Vehicle {
-        tank_id: 6257,
+        tank_id: TankId(6257),
         name: "M4/FL10",
         tier: 7,
         type_: Medium,
@@ -1478,7 +1478,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6257.webp"),
     },
     6273_u16 => Vehicle {
-        tank_id: 6273,
+        tank_id: TankId(6273),
         name: "T-34/100",
         tier: 7,
         type_: Medium,
@@ -1486,7 +1486,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6273.webp"),
     },
     6401_u16 => Vehicle {
-        tank_id: 6401,
+        tank_id: TankId(6401),
         name: "SU-76",
         tier: 3,
         type_: AntiTank,
@@ -1494,7 +1494,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6401.webp"),
     },
     6417_u16 => Vehicle {
-        tank_id: 6417,
+        tank_id: TankId(6417),
         name: "Pz. III/IV",
         tier: 5,
         type_: Medium,
@@ -1502,7 +1502,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6417.webp"),
     },
     6433_u16 => Vehicle {
-        tank_id: 6433,
+        tank_id: TankId(6433),
         name: "T82",
         tier: 3,
         type_: AntiTank,
@@ -1510,7 +1510,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6433.webp"),
     },
     6449_u16 => Vehicle {
-        tank_id: 6449,
+        tank_id: TankId(6449),
         name: "WZ-113G FT",
         tier: 10,
         type_: AntiTank,
@@ -1518,7 +1518,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6449.webp"),
     },
     6465_u16 => Vehicle {
-        tank_id: 6465,
+        tank_id: TankId(6465),
         name: "AMX 12 t",
         tier: 6,
         type_: Light,
@@ -1526,7 +1526,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6465.webp"),
     },
     6481_u16 => Vehicle {
-        tank_id: 6481,
+        tank_id: TankId(6481),
         name: "Covenanter",
         tier: 4,
         type_: Light,
@@ -1534,7 +1534,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6481.webp"),
     },
     6497_u16 => Vehicle {
-        tank_id: 6497,
+        tank_id: TankId(6497),
         name: "Type 68",
         tier: 9,
         type_: Heavy,
@@ -1542,7 +1542,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6497.webp"),
     },
     6529_u16 => Vehicle {
-        tank_id: 6529,
+        tank_id: TankId(6529),
         name: "Škoda T 25",
         tier: 6,
         type_: Medium,
@@ -1550,7 +1550,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6529.webp"),
     },
     6657_u16 => Vehicle {
-        tank_id: 6657,
+        tank_id: TankId(6657),
         name: "T-43",
         tier: 7,
         type_: Medium,
@@ -1558,7 +1558,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6657.webp"),
     },
     6673_u16 => Vehicle {
-        tank_id: 6673,
+        tank_id: TankId(6673),
         name: "Marder II",
         tier: 3,
         type_: AntiTank,
@@ -1566,7 +1566,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6673.webp"),
     },
     6689_u16 => Vehicle {
-        tank_id: 6689,
+        tank_id: TankId(6689),
         name: "T49 A",
         tier: 7,
         type_: Light,
@@ -1574,7 +1574,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6689.webp"),
     },
     6705_u16 => Vehicle {
-        tank_id: 6705,
+        tank_id: TankId(6705),
         name: "LT vz. 38",
         tier: 2,
         type_: Light,
@@ -1582,7 +1582,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6705.webp"),
     },
     6721_u16 => Vehicle {
-        tank_id: 6721,
+        tank_id: TankId(6721),
         name: "BDR G1 B",
         tier: 5,
         type_: Heavy,
@@ -1590,7 +1590,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6721.webp"),
     },
     6753_u16 => Vehicle {
-        tank_id: 6753,
+        tank_id: TankId(6753),
         name: "Type 71",
         tier: 10,
         type_: Heavy,
@@ -1598,7 +1598,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6753.webp"),
     },
     6785_u16 => Vehicle {
-        tank_id: 6785,
+        tank_id: TankId(6785),
         name: "Škoda T 27",
         tier: 8,
         type_: Medium,
@@ -1606,7 +1606,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6785.webp"),
     },
     6913_u16 => Vehicle {
-        tank_id: 6913,
+        tank_id: TankId(6913),
         name: "SU-85B",
         tier: 4,
         type_: AntiTank,
@@ -1614,7 +1614,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6913.webp"),
     },
     6929_u16 => Vehicle {
-        tank_id: 6929,
+        tank_id: TankId(6929),
         name: "Maus",
         tier: 10,
         type_: Heavy,
@@ -1622,7 +1622,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6929.webp"),
     },
     6945_u16 => Vehicle {
-        tank_id: 6945,
+        tank_id: TankId(6945),
         name: "Wolverine",
         tier: 5,
         type_: AntiTank,
@@ -1630,7 +1630,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6945.webp"),
     },
     6961_u16 => Vehicle {
-        tank_id: 6961,
+        tank_id: TankId(6961),
         name: "WZ-120-1G FT",
         tier: 8,
         type_: AntiTank,
@@ -1638,7 +1638,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6961.webp"),
     },
     6977_u16 => Vehicle {
-        tank_id: 6977,
+        tank_id: TankId(6977),
         name: "AMX M4 45",
         tier: 7,
         type_: Heavy,
@@ -1646,7 +1646,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6977.webp"),
     },
     6993_u16 => Vehicle {
-        tank_id: 6993,
+        tank_id: TankId(6993),
         name: "Cruiser II",
         tier: 1,
         type_: Light,
@@ -1654,7 +1654,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/6993.webp"),
     },
     7009_u16 => Vehicle {
-        tank_id: 7009,
+        tank_id: TankId(7009),
         name: "Type 57",
         tier: 8,
         type_: Heavy,
@@ -1662,7 +1662,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7009.webp"),
     },
     7025_u16 => Vehicle {
-        tank_id: 7025,
+        tank_id: TankId(7025),
         name: "Vulcan",
         tier: 7,
         type_: Heavy,
@@ -1670,7 +1670,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7025.webp"),
     },
     7041_u16 => Vehicle {
-        tank_id: 7041,
+        tank_id: TankId(7041),
         name: "Turbo",
         tier: 6,
         type_: Medium,
@@ -1678,7 +1678,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7041.webp"),
     },
     7169_u16 => Vehicle {
-        tank_id: 7169,
+        tank_id: TankId(7169),
         name: "IS-7",
         tier: 10,
         type_: Heavy,
@@ -1686,7 +1686,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7169.webp"),
     },
     7185_u16 => Vehicle {
-        tank_id: 7185,
+        tank_id: TankId(7185),
         name: "VK 30.01 P",
         tier: 6,
         type_: Medium,
@@ -1694,7 +1694,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7185.webp"),
     },
     7201_u16 => Vehicle {
-        tank_id: 7201,
+        tank_id: TankId(7201),
         name: "Jackson",
         tier: 6,
         type_: AntiTank,
@@ -1702,7 +1702,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7201.webp"),
     },
     7217_u16 => Vehicle {
-        tank_id: 7217,
+        tank_id: TankId(7217),
         name: "WZ-112-2",
         tier: 8,
         type_: Heavy,
@@ -1710,7 +1710,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7217.webp"),
     },
     7249_u16 => Vehicle {
-        tank_id: 7249,
+        tank_id: TankId(7249),
         name: "FV4202",
         tier: 10,
         type_: Medium,
@@ -1718,7 +1718,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7249.webp"),
     },
     7265_u16 => Vehicle {
-        tank_id: 7265,
+        tank_id: TankId(7265),
         name: "Ferrum",
         tier: 6,
         type_: Heavy,
@@ -1726,7 +1726,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7265.webp"),
     },
     7281_u16 => Vehicle {
-        tank_id: 7281,
+        tank_id: TankId(7281),
         name: "Lycan",
         tier: 7,
         type_: Heavy,
@@ -1734,7 +1734,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7281.webp"),
     },
     7297_u16 => Vehicle {
-        tank_id: 7297,
+        tank_id: TankId(7297),
         name: "60TP Lewandowskiego",
         tier: 10,
         type_: Heavy,
@@ -1742,7 +1742,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7297.webp"),
     },
     7425_u16 => Vehicle {
-        tank_id: 7425,
+        tank_id: TankId(7425),
         name: "ISU-152",
         tier: 8,
         type_: AntiTank,
@@ -1750,7 +1750,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7425.webp"),
     },
     7441_u16 => Vehicle {
-        tank_id: 7441,
+        tank_id: TankId(7441),
         name: "VK 45.02 B",
         tier: 9,
         type_: Heavy,
@@ -1758,7 +1758,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7441.webp"),
     },
     7473_u16 => Vehicle {
-        tank_id: 7473,
+        tank_id: TankId(7473),
         name: "T-34-2G FT",
         tier: 7,
         type_: AntiTank,
@@ -1766,7 +1766,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7473.webp"),
     },
     7505_u16 => Vehicle {
-        tank_id: 7505,
+        tank_id: TankId(7505),
         name: "Cruiser IV",
         tier: 3,
         type_: Medium,
@@ -1774,7 +1774,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7505.webp"),
     },
     7537_u16 => Vehicle {
-        tank_id: 7537,
+        tank_id: TankId(7537),
         name: "Nightmare",
         tier: 5,
         type_: AntiTank,
@@ -1782,7 +1782,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7537.webp"),
     },
     7553_u16 => Vehicle {
-        tank_id: 7553,
+        tank_id: TankId(7553),
         name: "50TP Tyszkiewicza",
         tier: 9,
         type_: Heavy,
@@ -1790,7 +1790,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7553.webp"),
     },
     7697_u16 => Vehicle {
-        tank_id: 7697,
+        tank_id: TankId(7697),
         name: "Ferdinand",
         tier: 8,
         type_: AntiTank,
@@ -1798,7 +1798,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7697.webp"),
     },
     7713_u16 => Vehicle {
-        tank_id: 7713,
+        tank_id: TankId(7713),
         name: "T40",
         tier: 4,
         type_: AntiTank,
@@ -1806,7 +1806,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7713.webp"),
     },
     7729_u16 => Vehicle {
-        tank_id: 7729,
+        tank_id: TankId(7729),
         name: "WZ-131G FT",
         tier: 6,
         type_: AntiTank,
@@ -1814,7 +1814,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7729.webp"),
     },
     7745_u16 => Vehicle {
-        tank_id: 7745,
+        tank_id: TankId(7745),
         name: "FT AC",
         tier: 2,
         type_: AntiTank,
@@ -1822,7 +1822,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7745.webp"),
     },
     7761_u16 => Vehicle {
-        tank_id: 7761,
+        tank_id: TankId(7761),
         name: "Cruiser III",
         tier: 2,
         type_: Medium,
@@ -1830,7 +1830,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7761.webp"),
     },
     7793_u16 => Vehicle {
-        tank_id: 7793,
+        tank_id: TankId(7793),
         name: "Annihilator",
         tier: 7,
         type_: Heavy,
@@ -1838,7 +1838,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7793.webp"),
     },
     7809_u16 => Vehicle {
-        tank_id: 7809,
+        tank_id: TankId(7809),
         name: "53TP Markowskiego",
         tier: 8,
         type_: Heavy,
@@ -1846,7 +1846,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7809.webp"),
     },
     7937_u16 => Vehicle {
-        tank_id: 7937,
+        tank_id: TankId(7937),
         name: "T-54",
         tier: 9,
         type_: Medium,
@@ -1854,7 +1854,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7937.webp"),
     },
     7953_u16 => Vehicle {
-        tank_id: 7953,
+        tank_id: TankId(7953),
         name: "Jagdtiger",
         tier: 9,
         type_: AntiTank,
@@ -1862,7 +1862,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7953.webp"),
     },
     7985_u16 => Vehicle {
-        tank_id: 7985,
+        tank_id: TankId(7985),
         name: "WZ-111-1G FT",
         tier: 8,
         type_: AntiTank,
@@ -1870,7 +1870,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/7985.webp"),
     },
     8001_u16 => Vehicle {
-        tank_id: 8001,
+        tank_id: TankId(8001),
         name: "Lorraine 40 t",
         tier: 8,
         type_: Medium,
@@ -1878,7 +1878,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8001.webp"),
     },
     8017_u16 => Vehicle {
-        tank_id: 8017,
+        tank_id: TankId(8017),
         name: "Valentine AT",
         tier: 3,
         type_: AntiTank,
@@ -1886,7 +1886,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8017.webp"),
     },
     8049_u16 => Vehicle {
-        tank_id: 8049,
+        tank_id: TankId(8049),
         name: "Spike",
         tier: 5,
         type_: Medium,
@@ -1894,7 +1894,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8049.webp"),
     },
     8065_u16 => Vehicle {
-        tank_id: 8065,
+        tank_id: TankId(8065),
         name: "40TP Habicha",
         tier: 6,
         type_: Heavy,
@@ -1902,7 +1902,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8065.webp"),
     },
     8193_u16 => Vehicle {
-        tank_id: 8193,
+        tank_id: TankId(8193),
         name: "Obj. 704",
         tier: 9,
         type_: AntiTank,
@@ -1910,7 +1910,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8193.webp"),
     },
     8209_u16 => Vehicle {
-        tank_id: 8209,
+        tank_id: TankId(8209),
         name: "Pz. 38 nA",
         tier: 4,
         type_: Light,
@@ -1918,7 +1918,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8209.webp"),
     },
     8225_u16 => Vehicle {
-        tank_id: 8225,
+        tank_id: TankId(8225),
         name: "T28",
         tier: 8,
         type_: AntiTank,
@@ -1926,7 +1926,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8225.webp"),
     },
     8241_u16 => Vehicle {
-        tank_id: 8241,
+        tank_id: TankId(8241),
         name: "WZ-111G FT",
         tier: 9,
         type_: AntiTank,
@@ -1934,7 +1934,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8241.webp"),
     },
     8257_u16 => Vehicle {
-        tank_id: 8257,
+        tank_id: TankId(8257),
         name: "UE 57",
         tier: 3,
         type_: AntiTank,
@@ -1942,7 +1942,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8257.webp"),
     },
     8273_u16 => Vehicle {
-        tank_id: 8273,
+        tank_id: TankId(8273),
         name: "UC 2-pdr",
         tier: 2,
         type_: AntiTank,
@@ -1950,7 +1950,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8273.webp"),
     },
     8305_u16 => Vehicle {
-        tank_id: 8305,
+        tank_id: TankId(8305),
         name: "Titan H-Nd",
         tier: 7,
         type_: Heavy,
@@ -1958,7 +1958,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8305.webp"),
     },
     8321_u16 => Vehicle {
-        tank_id: 8321,
+        tank_id: TankId(8321),
         name: "45TP Habicha",
         tier: 7,
         type_: Heavy,
@@ -1966,7 +1966,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8321.webp"),
     },
     8465_u16 => Vehicle {
-        tank_id: 8465,
+        tank_id: TankId(8465),
         name: "Panther II",
         tier: 8,
         type_: Medium,
@@ -1974,7 +1974,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8465.webp"),
     },
     8497_u16 => Vehicle {
-        tank_id: 8497,
+        tank_id: TankId(8497),
         name: "WZ-111 5A",
         tier: 10,
         type_: Heavy,
@@ -1982,7 +1982,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8497.webp"),
     },
     8513_u16 => Vehicle {
-        tank_id: 8513,
+        tank_id: TankId(8513),
         name: "AMX 30 B",
         tier: 10,
         type_: Medium,
@@ -1990,7 +1990,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8513.webp"),
     },
     8529_u16 => Vehicle {
-        tank_id: 8529,
+        tank_id: TankId(8529),
         name: "AT 15",
         tier: 8,
         type_: AntiTank,
@@ -1998,7 +1998,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8529.webp"),
     },
     8561_u16 => Vehicle {
-        tank_id: 8561,
+        tank_id: TankId(8561),
         name: "Titan T24 57",
         tier: 6,
         type_: Light,
@@ -2006,7 +2006,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8561.webp"),
     },
     8577_u16 => Vehicle {
-        tank_id: 8577,
+        tank_id: TankId(8577),
         name: "Lansen C",
         tier: 8,
         type_: Medium,
@@ -2014,7 +2014,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8577.webp"),
     },
     8737_u16 => Vehicle {
-        tank_id: 8737,
+        tank_id: TankId(8737),
         name: "T95",
         tier: 9,
         type_: AntiTank,
@@ -2022,7 +2022,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8737.webp"),
     },
     8753_u16 => Vehicle {
-        tank_id: 8753,
+        tank_id: TankId(8753),
         name: "M41D",
         tier: 7,
         type_: Light,
@@ -2030,7 +2030,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8753.webp"),
     },
     8785_u16 => Vehicle {
-        tank_id: 8785,
+        tank_id: TankId(8785),
         name: "AT 2",
         tier: 5,
         type_: AntiTank,
@@ -2038,7 +2038,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8785.webp"),
     },
     8817_u16 => Vehicle {
-        tank_id: 8817,
+        tank_id: TankId(8817),
         name: "Titan Mk. I",
         tier: 5,
         type_: Light,
@@ -2046,7 +2046,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8817.webp"),
     },
     8833_u16 => Vehicle {
-        tank_id: 8833,
+        tank_id: TankId(8833),
         name: "Spark",
         tier: 6,
         type_: Medium,
@@ -2054,7 +2054,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8833.webp"),
     },
     8961_u16 => Vehicle {
-        tank_id: 8961,
+        tank_id: TankId(8961),
         name: "KV-13",
         tier: 7,
         type_: Medium,
@@ -2062,7 +2062,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8961.webp"),
     },
     8993_u16 => Vehicle {
-        tank_id: 8993,
+        tank_id: TankId(8993),
         name: "M46 Patton",
         tier: 9,
         type_: Medium,
@@ -2070,7 +2070,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/8993.webp"),
     },
     9009_u16 => Vehicle {
-        tank_id: 9009,
+        tank_id: TankId(9009),
         name: "Ox",
         tier: 6,
         type_: Medium,
@@ -2078,7 +2078,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9009.webp"),
     },
     9041_u16 => Vehicle {
-        tank_id: 9041,
+        tank_id: TankId(9041),
         name: "Alecto",
         tier: 4,
         type_: AntiTank,
@@ -2086,7 +2086,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9041.webp"),
     },
     9073_u16 => Vehicle {
-        tank_id: 9073,
+        tank_id: TankId(9073),
         name: "Titan-54d",
         tier: 8,
         type_: Medium,
@@ -2094,7 +2094,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9073.webp"),
     },
     9089_u16 => Vehicle {
-        tank_id: 9089,
+        tank_id: TankId(9089),
         name: "Škoda T 56",
         tier: 8,
         type_: Heavy,
@@ -2102,7 +2102,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9089.webp"),
     },
     9217_u16 => Vehicle {
-        tank_id: 9217,
+        tank_id: TankId(9217),
         name: "IS-6",
         tier: 8,
         type_: Heavy,
@@ -2110,7 +2110,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9217.webp"),
     },
     9249_u16 => Vehicle {
-        tank_id: 9249,
+        tank_id: TankId(9249),
         name: "T25 AT",
         tier: 7,
         type_: AntiTank,
@@ -2118,7 +2118,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9249.webp"),
     },
     9265_u16 => Vehicle {
-        tank_id: 9265,
+        tank_id: TankId(9265),
         name: "Type 58",
         tier: 6,
         type_: Medium,
@@ -2126,7 +2126,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9265.webp"),
     },
     9297_u16 => Vehicle {
-        tank_id: 9297,
+        tank_id: TankId(9297),
         name: "FV215b 183",
         tier: 10,
         type_: AntiTank,
@@ -2134,7 +2134,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9297.webp"),
     },
     9329_u16 => Vehicle {
-        tank_id: 9329,
+        tank_id: TankId(9329),
         name: "Titan-150",
         tier: 6,
         type_: Heavy,
@@ -2142,7 +2142,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9329.webp"),
     },
     9345_u16 => Vehicle {
-        tank_id: 9345,
+        tank_id: TankId(9345),
         name: "Svear",
         tier: 7,
         type_: Medium,
@@ -2150,7 +2150,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9345.webp"),
     },
     9489_u16 => Vehicle {
-        tank_id: 9489,
+        tank_id: TankId(9489),
         name: "E 100",
         tier: 10,
         type_: Heavy,
@@ -2158,7 +2158,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9489.webp"),
     },
     9505_u16 => Vehicle {
-        tank_id: 9505,
+        tank_id: TankId(9505),
         name: "M103",
         tier: 9,
         type_: Heavy,
@@ -2166,7 +2166,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9505.webp"),
     },
     9521_u16 => Vehicle {
-        tank_id: 9521,
+        tank_id: TankId(9521),
         name: "WZ-122 TM",
         tier: 8,
         type_: Medium,
@@ -2174,7 +2174,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9521.webp"),
     },
     9553_u16 => Vehicle {
-        tank_id: 9553,
+        tank_id: TankId(9553),
         name: "AT 8",
         tier: 6,
         type_: AntiTank,
@@ -2182,7 +2182,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9553.webp"),
     },
     9601_u16 => Vehicle {
-        tank_id: 9601,
+        tank_id: TankId(9601),
         name: "CS-52 LIS",
         tier: 7,
         type_: Medium,
@@ -2190,7 +2190,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9601.webp"),
     },
     9745_u16 => Vehicle {
-        tank_id: 9745,
+        tank_id: TankId(9745),
         name: "E 75",
         tier: 9,
         type_: Heavy,
@@ -2198,7 +2198,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9745.webp"),
     },
     9761_u16 => Vehicle {
-        tank_id: 9761,
+        tank_id: TankId(9761),
         name: "Chaffee",
         tier: 6,
         type_: Light,
@@ -2206,7 +2206,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9761.webp"),
     },
     9777_u16 => Vehicle {
-        tank_id: 9777,
+        tank_id: TankId(9777),
         name: "WZ-114",
         tier: 9,
         type_: Heavy,
@@ -2214,7 +2214,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9777.webp"),
     },
     9793_u16 => Vehicle {
-        tank_id: 9793,
+        tank_id: TankId(9793),
         name: "SAu 40",
         tier: 4,
         type_: AntiTank,
@@ -2222,7 +2222,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9793.webp"),
     },
     9809_u16 => Vehicle {
-        tank_id: 9809,
+        tank_id: TankId(9809),
         name: "Churchill GC",
         tier: 6,
         type_: AntiTank,
@@ -2230,7 +2230,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9809.webp"),
     },
     9841_u16 => Vehicle {
-        tank_id: 9841,
+        tank_id: TankId(9841),
         name: "Rover",
         tier: 6,
         type_: Light,
@@ -2238,7 +2238,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9841.webp"),
     },
     9857_u16 => Vehicle {
-        tank_id: 9857,
+        tank_id: TankId(9857),
         name: "Škoda T 45",
         tier: 7,
         type_: Heavy,
@@ -2246,7 +2246,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9857.webp"),
     },
     9985_u16 => Vehicle {
-        tank_id: 9985,
+        tank_id: TankId(9985),
         name: "SU-101",
         tier: 8,
         type_: AntiTank,
@@ -2254,7 +2254,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/9985.webp"),
     },
     10001_u16 => Vehicle {
-        tank_id: 10001,
+        tank_id: TankId(10001),
         name: "VK 28.01",
         tier: 6,
         type_: Light,
@@ -2262,7 +2262,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10001.webp"),
     },
     10017_u16 => Vehicle {
-        tank_id: 10017,
+        tank_id: TankId(10017),
         name: "M4A3E2",
         tier: 6,
         type_: Medium,
@@ -2270,7 +2270,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10017.webp"),
     },
     10033_u16 => Vehicle {
-        tank_id: 10033,
+        tank_id: TankId(10033),
         name: "WZ-132A",
         tier: 9,
         type_: Light,
@@ -2278,7 +2278,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10033.webp"),
     },
     10049_u16 => Vehicle {
-        tank_id: 10049,
+        tank_id: TankId(10049),
         name: "S35 CA",
         tier: 5,
         type_: AntiTank,
@@ -2286,7 +2286,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10049.webp"),
     },
     10065_u16 => Vehicle {
-        tank_id: 10065,
+        tank_id: TankId(10065),
         name: "AT 7",
         tier: 7,
         type_: AntiTank,
@@ -2294,7 +2294,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10065.webp"),
     },
     10097_u16 => Vehicle {
-        tank_id: 10097,
+        tank_id: TankId(10097),
         name: "Medjay",
         tier: 5,
         type_: Heavy,
@@ -2302,7 +2302,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10097.webp"),
     },
     10113_u16 => Vehicle {
-        tank_id: 10113,
+        tank_id: TankId(10113),
         name: "Carro 45t",
         tier: 10,
         type_: Medium,
@@ -2310,7 +2310,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10113.webp"),
     },
     10241_u16 => Vehicle {
-        tank_id: 10241,
+        tank_id: TankId(10241),
         name: "SU-100M1",
         tier: 7,
         type_: AntiTank,
@@ -2318,7 +2318,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10241.webp"),
     },
     10257_u16 => Vehicle {
-        tank_id: 10257,
+        tank_id: TankId(10257),
         name: "E 50",
         tier: 9,
         type_: Medium,
@@ -2326,7 +2326,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10257.webp"),
     },
     10273_u16 => Vehicle {
-        tank_id: 10273,
+        tank_id: TankId(10273),
         name: "M8A1",
         tier: 4,
         type_: AntiTank,
@@ -2334,7 +2334,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10273.webp"),
     },
     10289_u16 => Vehicle {
-        tank_id: 10289,
+        tank_id: TankId(10289),
         name: "WZ-132-1",
         tier: 10,
         type_: Light,
@@ -2342,7 +2342,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10289.webp"),
     },
     10353_u16 => Vehicle {
-        tank_id: 10353,
+        tank_id: TankId(10353),
         name: "Pharaoh",
         tier: 7,
         type_: Heavy,
@@ -2350,7 +2350,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10353.webp"),
     },
     10369_u16 => Vehicle {
-        tank_id: 10369,
+        tank_id: TankId(10369),
         name: "Minotauro",
         tier: 10,
         type_: AntiTank,
@@ -2358,7 +2358,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10369.webp"),
     },
     10497_u16 => Vehicle {
-        tank_id: 10497,
+        tank_id: TankId(10497),
         name: "KV-2",
         tier: 6,
         type_: Heavy,
@@ -2366,7 +2366,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10497.webp"),
     },
     10513_u16 => Vehicle {
-        tank_id: 10513,
+        tank_id: TankId(10513),
         name: "VK 45.02 A",
         tier: 8,
         type_: Heavy,
@@ -2374,7 +2374,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10513.webp"),
     },
     10529_u16 => Vehicle {
-        tank_id: 10529,
+        tank_id: TankId(10529),
         name: "T67",
         tier: 5,
         type_: AntiTank,
@@ -2382,7 +2382,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10529.webp"),
     },
     10545_u16 => Vehicle {
-        tank_id: 10545,
+        tank_id: TankId(10545),
         name: "Wind",
         tier: 6,
         type_: Light,
@@ -2390,7 +2390,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10545.webp"),
     },
     10609_u16 => Vehicle {
-        tank_id: 10609,
+        tank_id: TankId(10609),
         name: "Magnate",
         tier: 7,
         type_: Medium,
@@ -2398,7 +2398,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10609.webp"),
     },
     10625_u16 => Vehicle {
-        tank_id: 10625,
+        tank_id: TankId(10625),
         name: "CC 1 Mk. 2",
         tier: 9,
         type_: AntiTank,
@@ -2406,7 +2406,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10625.webp"),
     },
     10753_u16 => Vehicle {
-        tank_id: 10753,
+        tank_id: TankId(10753),
         name: "ST-I",
         tier: 9,
         type_: Heavy,
@@ -2414,7 +2414,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10753.webp"),
     },
     10769_u16 => Vehicle {
-        tank_id: 10769,
+        tank_id: TankId(10769),
         name: "Tiger (P)",
         tier: 7,
         type_: Heavy,
@@ -2422,7 +2422,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10769.webp"),
     },
     10785_u16 => Vehicle {
-        tank_id: 10785,
+        tank_id: TankId(10785),
         name: "T110E5",
         tier: 10,
         type_: Heavy,
@@ -2430,7 +2430,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10785.webp"),
     },
     10801_u16 => Vehicle {
-        tank_id: 10801,
+        tank_id: TankId(10801),
         name: "Panlong",
         tier: 6,
         type_: AntiTank,
@@ -2438,7 +2438,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10801.webp"),
     },
     10817_u16 => Vehicle {
-        tank_id: 10817,
+        tank_id: TankId(10817),
         name: "AMX AC 46",
         tier: 7,
         type_: AntiTank,
@@ -2446,7 +2446,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10817.webp"),
     },
     10865_u16 => Vehicle {
-        tank_id: 10865,
+        tank_id: TankId(10865),
         name: "Fixer",
         tier: 8,
         type_: Medium,
@@ -2454,7 +2454,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10865.webp"),
     },
     10881_u16 => Vehicle {
-        tank_id: 10881,
+        tank_id: TankId(10881),
         name: "SMV CC-64",
         tier: 8,
         type_: AntiTank,
@@ -2462,7 +2462,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/10881.webp"),
     },
     11009_u16 => Vehicle {
-        tank_id: 11009,
+        tank_id: TankId(11009),
         name: "KV-4",
         tier: 8,
         type_: Heavy,
@@ -2470,7 +2470,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11009.webp"),
     },
     11025_u16 => Vehicle {
-        tank_id: 11025,
+        tank_id: TankId(11025),
         name: "St. Emil",
         tier: 7,
         type_: AntiTank,
@@ -2478,7 +2478,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11025.webp"),
     },
     11041_u16 => Vehicle {
-        tank_id: 11041,
+        tank_id: TankId(11041),
         name: "T25/2",
         tier: 7,
         type_: AntiTank,
@@ -2486,7 +2486,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11041.webp"),
     },
     11057_u16 => Vehicle {
-        tank_id: 11057,
+        tank_id: TankId(11057),
         name: "114 SP2",
         tier: 10,
         type_: Heavy,
@@ -2494,7 +2494,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11057.webp"),
     },
     11073_u16 => Vehicle {
-        tank_id: 11073,
+        tank_id: TankId(11073),
         name: "Foch",
         tier: 9,
         type_: AntiTank,
@@ -2502,7 +2502,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11073.webp"),
     },
     11121_u16 => Vehicle {
-        tank_id: 11121,
+        tank_id: TankId(11121),
         name: "Regressor",
         tier: 9,
         type_: Heavy,
@@ -2510,7 +2510,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11121.webp"),
     },
     11137_u16 => Vehicle {
-        tank_id: 11137,
+        tank_id: TankId(11137),
         name: "SMV CC-56",
         tier: 7,
         type_: AntiTank,
@@ -2518,7 +2518,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11137.webp"),
     },
     11265_u16 => Vehicle {
-        tank_id: 11265,
+        tank_id: TankId(11265),
         name: "T-150",
         tier: 6,
         type_: Heavy,
@@ -2526,7 +2526,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11265.webp"),
     },
     11281_u16 => Vehicle {
-        tank_id: 11281,
+        tank_id: TankId(11281),
         name: "Kpz 70",
         tier: 9,
         type_: Heavy,
@@ -2534,7 +2534,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11281.webp"),
     },
     11297_u16 => Vehicle {
-        tank_id: 11297,
+        tank_id: TankId(11297),
         name: "T28 Prot.",
         tier: 8,
         type_: AntiTank,
@@ -2542,7 +2542,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11297.webp"),
     },
     11393_u16 => Vehicle {
-        tank_id: 11393,
+        tank_id: TankId(11393),
         name: "Bassotto",
         tier: 6,
         type_: AntiTank,
@@ -2550,7 +2550,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11393.webp"),
     },
     11521_u16 => Vehicle {
-        tank_id: 11521,
+        tank_id: TankId(11521),
         name: "IS-8",
         tier: 9,
         type_: Heavy,
@@ -2558,7 +2558,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11521.webp"),
     },
     11537_u16 => Vehicle {
-        tank_id: 11537,
+        tank_id: TankId(11537),
         name: "JPanther II",
         tier: 8,
         type_: AntiTank,
@@ -2566,7 +2566,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11537.webp"),
     },
     11553_u16 => Vehicle {
-        tank_id: 11553,
+        tank_id: TankId(11553),
         name: "Hellcat",
         tier: 6,
         type_: AntiTank,
@@ -2574,7 +2574,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11553.webp"),
     },
     11585_u16 => Vehicle {
-        tank_id: 11585,
+        tank_id: TankId(11585),
         name: "ARL V39",
         tier: 6,
         type_: AntiTank,
@@ -2582,7 +2582,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11585.webp"),
     },
     11649_u16 => Vehicle {
-        tank_id: 11649,
+        tank_id: TankId(11649),
         name: "Semovente M41",
         tier: 5,
         type_: AntiTank,
@@ -2590,7 +2590,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11649.webp"),
     },
     11777_u16 => Vehicle {
-        tank_id: 11777,
+        tank_id: TankId(11777),
         name: "KV-1",
         tier: 5,
         type_: Heavy,
@@ -2598,7 +2598,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11777.webp"),
     },
     11793_u16 => Vehicle {
-        tank_id: 11793,
+        tank_id: TankId(11793),
         name: "Nashorn",
         tier: 6,
         type_: AntiTank,
@@ -2606,7 +2606,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11793.webp"),
     },
     11809_u16 => Vehicle {
-        tank_id: 11809,
+        tank_id: TankId(11809),
         name: "T23E3",
         tier: 7,
         type_: Medium,
@@ -2614,7 +2614,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11809.webp"),
     },
     11905_u16 => Vehicle {
-        tank_id: 11905,
+        tank_id: TankId(11905),
         name: "Shadowhunter",
         tier: 6,
         type_: Medium,
@@ -2622,7 +2622,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/11905.webp"),
     },
     12033_u16 => Vehicle {
-        tank_id: 12033,
+        tank_id: TankId(12033),
         name: "SU-122-54",
         tier: 9,
         type_: AntiTank,
@@ -2630,7 +2630,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12033.webp"),
     },
     12049_u16 => Vehicle {
-        tank_id: 12049,
+        tank_id: TankId(12049),
         name: "Jg.Pz. E 100",
         tier: 10,
         type_: AntiTank,
@@ -2638,7 +2638,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12049.webp"),
     },
     12065_u16 => Vehicle {
-        tank_id: 12065,
+        tank_id: TankId(12065),
         name: "T95E2",
         tier: 8,
         type_: Medium,
@@ -2646,7 +2646,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12065.webp"),
     },
     12097_u16 => Vehicle {
-        tank_id: 12097,
+        tank_id: TankId(12097),
         name: "AMX AC 48",
         tier: 8,
         type_: AntiTank,
@@ -2654,7 +2654,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12097.webp"),
     },
     12161_u16 => Vehicle {
-        tank_id: 12161,
+        tank_id: TankId(12161),
         name: "Strv K",
         tier: 10,
         type_: Heavy,
@@ -2662,7 +2662,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12161.webp"),
     },
     12305_u16 => Vehicle {
-        tank_id: 12305,
+        tank_id: TankId(12305),
         name: "E 50 M",
         tier: 10,
         type_: Medium,
@@ -2670,7 +2670,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12305.webp"),
     },
     12321_u16 => Vehicle {
-        tank_id: 12321,
+        tank_id: TankId(12321),
         name: "T6E1 Grizzly",
         tier: 4,
         type_: Medium,
@@ -2678,7 +2678,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12321.webp"),
     },
     12417_u16 => Vehicle {
-        tank_id: 12417,
+        tank_id: TankId(12417),
         name: "Bisonte C45",
         tier: 8,
         type_: Heavy,
@@ -2686,7 +2686,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12417.webp"),
     },
     12545_u16 => Vehicle {
-        tank_id: 12545,
+        tank_id: TankId(12545),
         name: "K-91",
         tier: 9,
         type_: Heavy,
@@ -2694,7 +2694,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12545.webp"),
     },
     12673_u16 => Vehicle {
-        tank_id: 12673,
+        tank_id: TankId(12673),
         name: "Tornvagn",
         tier: 8,
         type_: Heavy,
@@ -2702,7 +2702,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12673.webp"),
     },
     12929_u16 => Vehicle {
-        tank_id: 12929,
+        tank_id: TankId(12929),
         name: "TNH T Vz. 51",
         tier: 9,
         type_: Heavy,
@@ -2710,7 +2710,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/12929.webp"),
     },
     13073_u16 => Vehicle {
-        tank_id: 13073,
+        tank_id: TankId(13073),
         name: "Pz. II G",
         tier: 3,
         type_: Light,
@@ -2718,7 +2718,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13073.webp"),
     },
     13089_u16 => Vehicle {
-        tank_id: 13089,
+        tank_id: TankId(13089),
         name: "T110E4",
         tier: 10,
         type_: AntiTank,
@@ -2726,7 +2726,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13089.webp"),
     },
     13185_u16 => Vehicle {
-        tank_id: 13185,
+        tank_id: TankId(13185),
         name: "Vz. 55",
         tier: 10,
         type_: Heavy,
@@ -2734,7 +2734,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13185.webp"),
     },
     13329_u16 => Vehicle {
-        tank_id: 13329,
+        tank_id: TankId(13329),
         name: "D.W. 2",
         tier: 4,
         type_: Heavy,
@@ -2742,7 +2742,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13329.webp"),
     },
     13345_u16 => Vehicle {
-        tank_id: 13345,
+        tank_id: TankId(13345),
         name: "T26E4",
         tier: 8,
         type_: Medium,
@@ -2750,7 +2750,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13345.webp"),
     },
     13441_u16 => Vehicle {
-        tank_id: 13441,
+        tank_id: TankId(13441),
         name: "Aeonix",
         tier: 6,
         type_: Medium,
@@ -2758,7 +2758,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13441.webp"),
     },
     13569_u16 => Vehicle {
-        tank_id: 13569,
+        tank_id: TankId(13569),
         name: "Obj. 268",
         tier: 10,
         type_: AntiTank,
@@ -2766,7 +2766,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13569.webp"),
     },
     13697_u16 => Vehicle {
-        tank_id: 13697,
+        tank_id: TankId(13697),
         name: "TNH 105/1000",
         tier: 8,
         type_: Heavy,
@@ -2774,7 +2774,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13697.webp"),
     },
     13825_u16 => Vehicle {
-        tank_id: 13825,
+        tank_id: TankId(13825),
         name: "T-62A",
         tier: 10,
         type_: Medium,
@@ -2782,7 +2782,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13825.webp"),
     },
     13841_u16 => Vehicle {
-        tank_id: 13841,
+        tank_id: TankId(13841),
         name: "Indien-Pz.",
         tier: 8,
         type_: Medium,
@@ -2790,7 +2790,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13841.webp"),
     },
     13857_u16 => Vehicle {
-        tank_id: 13857,
+        tank_id: TankId(13857),
         name: "T110E3",
         tier: 10,
         type_: AntiTank,
@@ -2798,7 +2798,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13857.webp"),
     },
     13889_u16 => Vehicle {
-        tank_id: 13889,
+        tank_id: TankId(13889),
         name: "Foch 155",
         tier: 10,
         type_: AntiTank,
@@ -2806,7 +2806,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13889.webp"),
     },
     13953_u16 => Vehicle {
-        tank_id: 13953,
+        tank_id: TankId(13953),
         name: "Vz. 44-1",
         tier: 7,
         type_: Heavy,
@@ -2814,7 +2814,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/13953.webp"),
     },
     14097_u16 => Vehicle {
-        tank_id: 14097,
+        tank_id: TankId(14097),
         name: "VK 30.01 D",
         tier: 6,
         type_: Medium,
@@ -2822,7 +2822,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14097.webp"),
     },
     14113_u16 => Vehicle {
-        tank_id: 14113,
+        tank_id: TankId(14113),
         name: "M48 Patton",
         tier: 10,
         type_: Medium,
@@ -2830,7 +2830,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14113.webp"),
     },
     14145_u16 => Vehicle {
-        tank_id: 14145,
+        tank_id: TankId(14145),
         name: "AMX ELC bis",
         tier: 5,
         type_: Light,
@@ -2838,7 +2838,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14145.webp"),
     },
     14209_u16 => Vehicle {
-        tank_id: 14209,
+        tank_id: TankId(14209),
         name: "Škoda P-JS",
         tier: 6,
         type_: Heavy,
@@ -2846,7 +2846,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14209.webp"),
     },
     14337_u16 => Vehicle {
-        tank_id: 14337,
+        tank_id: TankId(14337),
         name: "Obj. 263",
         tier: 10,
         type_: AntiTank,
@@ -2854,7 +2854,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14337.webp"),
     },
     14609_u16 => Vehicle {
-        tank_id: 14609,
+        tank_id: TankId(14609),
         name: "Leopard 1",
         tier: 10,
         type_: Medium,
@@ -2862,7 +2862,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14609.webp"),
     },
     14625_u16 => Vehicle {
-        tank_id: 14625,
+        tank_id: TankId(14625),
         name: "T69",
         tier: 8,
         type_: Medium,
@@ -2870,7 +2870,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14625.webp"),
     },
     14721_u16 => Vehicle {
-        tank_id: 14721,
+        tank_id: TankId(14721),
         name: "Strv 81",
         tier: 8,
         type_: Medium,
@@ -2878,7 +2878,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14721.webp"),
     },
     14865_u16 => Vehicle {
-        tank_id: 14865,
+        tank_id: TankId(14865),
         name: "Leopard PT A",
         tier: 9,
         type_: Medium,
@@ -2886,7 +2886,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14865.webp"),
     },
     14881_u16 => Vehicle {
-        tank_id: 14881,
+        tank_id: TankId(14881),
         name: "T57 Heavy",
         tier: 10,
         type_: Heavy,
@@ -2894,7 +2894,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14881.webp"),
     },
     14977_u16 => Vehicle {
-        tank_id: 14977,
+        tank_id: TankId(14977),
         name: "CS-63",
         tier: 10,
         type_: Medium,
@@ -2902,7 +2902,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/14977.webp"),
     },
     15137_u16 => Vehicle {
-        tank_id: 15137,
+        tank_id: TankId(15137),
         name: "T21",
         tier: 6,
         type_: Light,
@@ -2910,7 +2910,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15137.webp"),
     },
     15393_u16 => Vehicle {
-        tank_id: 15393,
+        tank_id: TankId(15393),
         name: "T54E1",
         tier: 9,
         type_: Medium,
@@ -2918,7 +2918,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15393.webp"),
     },
     15441_u16 => Vehicle {
-        tank_id: 15441,
+        tank_id: TankId(15441),
         name: "Chieftain",
         tier: 8,
         type_: Heavy,
@@ -2926,7 +2926,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15441.webp"),
     },
     15617_u16 => Vehicle {
-        tank_id: 15617,
+        tank_id: TankId(15617),
         name: "Obj. 907",
         tier: 10,
         type_: Medium,
@@ -2934,7 +2934,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15617.webp"),
     },
     15649_u16 => Vehicle {
-        tank_id: 15649,
+        tank_id: TankId(15649),
         name: "T71",
         tier: 7,
         type_: Light,
@@ -2942,7 +2942,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15649.webp"),
     },
     15697_u16 => Vehicle {
-        tank_id: 15697,
+        tank_id: TankId(15697),
         name: "Chieftain Mk. 6",
         tier: 10,
         type_: Heavy,
@@ -2950,7 +2950,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15697.webp"),
     },
     15889_u16 => Vehicle {
-        tank_id: 15889,
+        tank_id: TankId(15889),
         name: "VK 30.02 M",
         tier: 6,
         type_: Medium,
@@ -2958,7 +2958,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15889.webp"),
     },
     15905_u16 => Vehicle {
-        tank_id: 15905,
+        tank_id: TankId(15905),
         name: "M60",
         tier: 10,
         type_: Medium,
@@ -2966,7 +2966,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15905.webp"),
     },
     15937_u16 => Vehicle {
-        tank_id: 15937,
+        tank_id: TankId(15937),
         name: "R35",
         tier: 1,
         type_: Medium,
@@ -2974,7 +2974,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15937.webp"),
     },
     15953_u16 => Vehicle {
-        tank_id: 15953,
+        tank_id: TankId(15953),
         name: "FV201 (A45)",
         tier: 7,
         type_: Heavy,
@@ -2982,7 +2982,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/15953.webp"),
     },
     16145_u16 => Vehicle {
-        tank_id: 16145,
+        tank_id: TankId(16145),
         name: "Pz.Sfl. IVc",
         tier: 5,
         type_: AntiTank,
@@ -2990,7 +2990,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16145.webp"),
     },
     16193_u16 => Vehicle {
-        tank_id: 16193,
+        tank_id: TankId(16193),
         name: "M4A1 Rev.",
         tier: 8,
         type_: Medium,
@@ -2998,7 +2998,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16193.webp"),
     },
     16209_u16 => Vehicle {
-        tank_id: 16209,
+        tank_id: TankId(16209),
         name: "Cruiser I",
         tier: 1,
         type_: Light,
@@ -3006,7 +3006,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16209.webp"),
     },
     16401_u16 => Vehicle {
-        tank_id: 16401,
+        tank_id: TankId(16401),
         name: "WT auf Pz. IV",
         tier: 9,
         type_: AntiTank,
@@ -3014,7 +3014,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16401.webp"),
     },
     16449_u16 => Vehicle {
-        tank_id: 16449,
+        tank_id: TankId(16449),
         name: "AMX 13 57",
         tier: 7,
         type_: Light,
@@ -3022,7 +3022,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16449.webp"),
     },
     16465_u16 => Vehicle {
-        tank_id: 16465,
+        tank_id: TankId(16465),
         name: "Cruiser I",
         tier: 1,
         type_: Light,
@@ -3030,7 +3030,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16465.webp"),
     },
     16641_u16 => Vehicle {
-        tank_id: 16641,
+        tank_id: TankId(16641),
         name: "MT-25",
         tier: 6,
         type_: Light,
@@ -3038,7 +3038,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16641.webp"),
     },
     16657_u16 => Vehicle {
-        tank_id: 16657,
+        tank_id: TankId(16657),
         name: "Rhm.-B. WT",
         tier: 8,
         type_: AntiTank,
@@ -3046,7 +3046,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16657.webp"),
     },
     16673_u16 => Vehicle {
-        tank_id: 16673,
+        tank_id: TankId(16673),
         name: "T37",
         tier: 6,
         type_: Light,
@@ -3054,7 +3054,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16673.webp"),
     },
     16705_u16 => Vehicle {
-        tank_id: 16705,
+        tank_id: TankId(16705),
         name: "AMX M4 49",
         tier: 8,
         type_: Heavy,
@@ -3062,7 +3062,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16705.webp"),
     },
     16897_u16 => Vehicle {
-        tank_id: 16897,
+        tank_id: TankId(16897),
         name: "Obj. 140",
         tier: 10,
         type_: Medium,
@@ -3070,7 +3070,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/16897.webp"),
     },
     17169_u16 => Vehicle {
-        tank_id: 17169,
+        tank_id: TankId(17169),
         name: "Pz. IV A",
         tier: 3,
         type_: Medium,
@@ -3078,7 +3078,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17169.webp"),
     },
     17217_u16 => Vehicle {
-        tank_id: 17217,
+        tank_id: TankId(17217),
         name: "Eraser BP44",
         tier: 6,
         type_: Heavy,
@@ -3086,7 +3086,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17217.webp"),
     },
     17233_u16 => Vehicle {
-        tank_id: 17233,
+        tank_id: TankId(17233),
         name: "Conway",
         tier: 9,
         type_: AntiTank,
@@ -3094,7 +3094,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17233.webp"),
     },
     17425_u16 => Vehicle {
-        tank_id: 17425,
+        tank_id: TankId(17425),
         name: "Pz. IV D",
         tier: 4,
         type_: Medium,
@@ -3102,7 +3102,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17425.webp"),
     },
     17473_u16 => Vehicle {
-        tank_id: 17473,
+        tank_id: TankId(17473),
         name: "AMX Defender",
         tier: 8,
         type_: Light,
@@ -3110,7 +3110,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17473.webp"),
     },
     17489_u16 => Vehicle {
-        tank_id: 17489,
+        tank_id: TankId(17489),
         name: "Charioteer",
         tier: 8,
         type_: AntiTank,
@@ -3118,7 +3118,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17489.webp"),
     },
     17729_u16 => Vehicle {
-        tank_id: 17729,
+        tank_id: TankId(17729),
         name: "Somua SM",
         tier: 8,
         type_: Heavy,
@@ -3126,7 +3126,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17729.webp"),
     },
     17745_u16 => Vehicle {
-        tank_id: 17745,
+        tank_id: TankId(17745),
         name: "FV217 Badger",
         tier: 10,
         type_: AntiTank,
@@ -3134,7 +3134,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17745.webp"),
     },
     17953_u16 => Vehicle {
-        tank_id: 17953,
+        tank_id: TankId(17953),
         name: "M41 Bulldog",
         tier: 7,
         type_: Light,
@@ -3142,7 +3142,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17953.webp"),
     },
     17985_u16 => Vehicle {
-        tank_id: 17985,
+        tank_id: TankId(17985),
         name: "Bretagne Panther",
         tier: 6,
         type_: Medium,
@@ -3150,7 +3150,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/17985.webp"),
     },
     18001_u16 => Vehicle {
-        tank_id: 18001,
+        tank_id: TankId(18001),
         name: "FV4005",
         tier: 10,
         type_: AntiTank,
@@ -3158,7 +3158,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18001.webp"),
     },
     18177_u16 => Vehicle {
-        tank_id: 18177,
+        tank_id: TankId(18177),
         name: "T-54 ltwt.",
         tier: 8,
         type_: Light,
@@ -3166,7 +3166,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18177.webp"),
     },
     18209_u16 => Vehicle {
-        tank_id: 18209,
+        tank_id: TankId(18209),
         name: "T49",
         tier: 8,
         type_: Light,
@@ -3174,7 +3174,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18209.webp"),
     },
     18241_u16 => Vehicle {
-        tank_id: 18241,
+        tank_id: TankId(18241),
         name: "B-C Bourrasque",
         tier: 8,
         type_: Medium,
@@ -3182,7 +3182,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18241.webp"),
     },
     18257_u16 => Vehicle {
-        tank_id: 18257,
+        tank_id: TankId(18257),
         name: "Challenger",
         tier: 7,
         type_: AntiTank,
@@ -3190,7 +3190,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18257.webp"),
     },
     18433_u16 => Vehicle {
-        tank_id: 18433,
+        tank_id: TankId(18433),
         name: "LTTB",
         tier: 7,
         type_: Light,
@@ -3198,7 +3198,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18433.webp"),
     },
     18449_u16 => Vehicle {
-        tank_id: 18449,
+        tank_id: TankId(18449),
         name: "Ru 251",
         tier: 8,
         type_: Light,
@@ -3206,7 +3206,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18449.webp"),
     },
     18465_u16 => Vehicle {
-        tank_id: 18465,
+        tank_id: TankId(18465),
         name: "M2 Light",
         tier: 1,
         type_: Light,
@@ -3214,7 +3214,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18465.webp"),
     },
     18497_u16 => Vehicle {
-        tank_id: 18497,
+        tank_id: TankId(18497),
         name: "Lorraine Fearless",
         tier: 8,
         type_: Medium,
@@ -3222,7 +3222,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18497.webp"),
     },
     18513_u16 => Vehicle {
-        tank_id: 18513,
+        tank_id: TankId(18513),
         name: "Chimera",
         tier: 8,
         type_: Medium,
@@ -3230,7 +3230,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18513.webp"),
     },
     18689_u16 => Vehicle {
-        tank_id: 18689,
+        tank_id: TankId(18689),
         name: "T-70/57",
         tier: 3,
         type_: Light,
@@ -3238,7 +3238,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18689.webp"),
     },
     18721_u16 => Vehicle {
-        tank_id: 18721,
+        tank_id: TankId(18721),
         name: "M2 Light",
         tier: 1,
         type_: Light,
@@ -3246,7 +3246,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18721.webp"),
     },
     18753_u16 => Vehicle {
-        tank_id: 18753,
+        tank_id: TankId(18753),
         name: "AMX CDA 105",
         tier: 8,
         type_: AntiTank,
@@ -3254,7 +3254,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18753.webp"),
     },
     18769_u16 => Vehicle {
-        tank_id: 18769,
+        tank_id: TankId(18769),
         name: "Action X",
         tier: 8,
         type_: Heavy,
@@ -3262,7 +3262,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18769.webp"),
     },
     18945_u16 => Vehicle {
-        tank_id: 18945,
+        tank_id: TankId(18945),
         name: "ISU-130",
         tier: 8,
         type_: AntiTank,
@@ -3270,7 +3270,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18945.webp"),
     },
     18961_u16 => Vehicle {
-        tank_id: 18961,
+        tank_id: TankId(18961),
         name: "SP I C",
         tier: 7,
         type_: Light,
@@ -3278,7 +3278,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18961.webp"),
     },
     18977_u16 => Vehicle {
-        tank_id: 18977,
+        tank_id: TankId(18977),
         name: "T95E6",
         tier: 10,
         type_: Heavy,
@@ -3286,7 +3286,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/18977.webp"),
     },
     19009_u16 => Vehicle {
-        tank_id: 19009,
+        tank_id: TankId(19009),
         name: "AMXmas",
         tier: 6,
         type_: Light,
@@ -3294,7 +3294,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19009.webp"),
     },
     19025_u16 => Vehicle {
-        tank_id: 19025,
+        tank_id: TankId(19025),
         name: "Defender Mk. 1",
         tier: 8,
         type_: Medium,
@@ -3302,7 +3302,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19025.webp"),
     },
     19201_u16 => Vehicle {
-        tank_id: 19201,
+        tank_id: TankId(19201),
         name: "T-26",
         tier: 1,
         type_: Light,
@@ -3310,7 +3310,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19201.webp"),
     },
     19217_u16 => Vehicle {
-        tank_id: 19217,
+        tank_id: TankId(19217),
         name: "Grille 15",
         tier: 10,
         type_: AntiTank,
@@ -3318,7 +3318,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19217.webp"),
     },
     19233_u16 => Vehicle {
-        tank_id: 19233,
+        tank_id: TankId(19233),
         name: "Chrysler K",
         tier: 8,
         type_: Heavy,
@@ -3326,7 +3326,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19233.webp"),
     },
     19265_u16 => Vehicle {
-        tank_id: 19265,
+        tank_id: TankId(19265),
         name: "Charles",
         tier: 6,
         type_: AntiTank,
@@ -3334,7 +3334,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19265.webp"),
     },
     19281_u16 => Vehicle {
-        tank_id: 19281,
+        tank_id: TankId(19281),
         name: "Super Conqueror",
         tier: 10,
         type_: Heavy,
@@ -3342,7 +3342,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19281.webp"),
     },
     19457_u16 => Vehicle {
-        tank_id: 19457,
+        tank_id: TankId(19457),
         name: "T-26",
         tier: 1,
         type_: Light,
@@ -3350,7 +3350,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19457.webp"),
     },
     19473_u16 => Vehicle {
-        tank_id: 19473,
+        tank_id: TankId(19473),
         name: "Krupp-38(D)",
         tier: 5,
         type_: Medium,
@@ -3358,7 +3358,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19473.webp"),
     },
     19489_u16 => Vehicle {
-        tank_id: 19489,
+        tank_id: TankId(19489),
         name: "T28 Defender",
         tier: 8,
         type_: AntiTank,
@@ -3366,7 +3366,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19489.webp"),
     },
     19521_u16 => Vehicle {
-        tank_id: 19521,
+        tank_id: TankId(19521),
         name: "#france_vehicles:Bat-Chat-25CL",
         tier: 9,
         type_: Light,
@@ -3374,7 +3374,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19521.webp"),
     },
     19537_u16 => Vehicle {
-        tank_id: 19537,
+        tank_id: TankId(19537),
         name: "Vickers Light",
         tier: 10,
         type_: Light,
@@ -3382,7 +3382,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19537.webp"),
     },
     19713_u16 => Vehicle {
-        tank_id: 19713,
+        tank_id: TankId(19713),
         name: "Loza's Sherman",
         tier: 6,
         type_: Medium,
@@ -3390,7 +3390,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19713.webp"),
     },
     19729_u16 => Vehicle {
-        tank_id: 19729,
+        tank_id: TankId(19729),
         name: "Tiger 131",
         tier: 6,
         type_: Heavy,
@@ -3398,7 +3398,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19729.webp"),
     },
     19745_u16 => Vehicle {
-        tank_id: 19745,
+        tank_id: TankId(19745),
         name: "T26E5",
         tier: 8,
         type_: Heavy,
@@ -3406,7 +3406,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19745.webp"),
     },
     19777_u16 => Vehicle {
-        tank_id: 19777,
+        tank_id: TankId(19777),
         name: "A.P. AMX 30",
         tier: 8,
         type_: Medium,
@@ -3414,7 +3414,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19777.webp"),
     },
     19793_u16 => Vehicle {
-        tank_id: 19793,
+        tank_id: TankId(19793),
         name: "Vickers CR",
         tier: 9,
         type_: Light,
@@ -3422,7 +3422,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19793.webp"),
     },
     19969_u16 => Vehicle {
-        tank_id: 19969,
+        tank_id: TankId(19969),
         name: "T-22 medium",
         tier: 10,
         type_: Medium,
@@ -3430,7 +3430,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19969.webp"),
     },
     19985_u16 => Vehicle {
-        tank_id: 19985,
+        tank_id: TankId(19985),
         name: "Skorpion G",
         tier: 8,
         type_: AntiTank,
@@ -3438,7 +3438,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/19985.webp"),
     },
     20001_u16 => Vehicle {
-        tank_id: 20001,
+        tank_id: TankId(20001),
         name: "T92E1",
         tier: 9,
         type_: Light,
@@ -3446,7 +3446,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20001.webp"),
     },
     20033_u16 => Vehicle {
-        tank_id: 20033,
+        tank_id: TankId(20033),
         name: "Char Futur 4",
         tier: 9,
         type_: Medium,
@@ -3454,7 +3454,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20033.webp"),
     },
     20049_u16 => Vehicle {
-        tank_id: 20049,
+        tank_id: TankId(20049),
         name: "FV301",
         tier: 8,
         type_: Light,
@@ -3462,7 +3462,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20049.webp"),
     },
     20241_u16 => Vehicle {
-        tank_id: 20241,
+        tank_id: TankId(20241),
         name: "Pz. II",
         tier: 1,
         type_: Light,
@@ -3470,7 +3470,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20241.webp"),
     },
     20257_u16 => Vehicle {
-        tank_id: 20257,
+        tank_id: TankId(20257),
         name: "Sheridan",
         tier: 10,
         type_: Light,
@@ -3478,7 +3478,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20257.webp"),
     },
     20289_u16 => Vehicle {
-        tank_id: 20289,
+        tank_id: TankId(20289),
         name: "Pirate",
         tier: 6,
         type_: AntiTank,
@@ -3486,7 +3486,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20289.webp"),
     },
     20305_u16 => Vehicle {
-        tank_id: 20305,
+        tank_id: TankId(20305),
         name: "Centurion Mk. 5/1 RAAC",
         tier: 8,
         type_: Medium,
@@ -3494,7 +3494,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20305.webp"),
     },
     20481_u16 => Vehicle {
-        tank_id: 20481,
+        tank_id: TankId(20481),
         name: "Obj. 252U",
         tier: 8,
         type_: Heavy,
@@ -3502,7 +3502,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20481.webp"),
     },
     20497_u16 => Vehicle {
-        tank_id: 20497,
+        tank_id: TankId(20497),
         name: "VK 100.01 (P)",
         tier: 8,
         type_: Heavy,
@@ -3510,7 +3510,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20497.webp"),
     },
     20513_u16 => Vehicle {
-        tank_id: 20513,
+        tank_id: TankId(20513),
         name: "T54E2",
         tier: 8,
         type_: Heavy,
@@ -3518,7 +3518,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20513.webp"),
     },
     20545_u16 => Vehicle {
-        tank_id: 20545,
+        tank_id: TankId(20545),
         name: "Renault G1",
         tier: 5,
         type_: Heavy,
@@ -3526,7 +3526,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20545.webp"),
     },
     20561_u16 => Vehicle {
-        tank_id: 20561,
+        tank_id: TankId(20561),
         name: "Turtle Mk. I",
         tier: 8,
         type_: AntiTank,
@@ -3534,7 +3534,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20561.webp"),
     },
     20737_u16 => Vehicle {
-        tank_id: 20737,
+        tank_id: TankId(20737),
         name: "SU-130PM",
         tier: 8,
         type_: AntiTank,
@@ -3542,7 +3542,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20737.webp"),
     },
     20753_u16 => Vehicle {
-        tank_id: 20753,
+        tank_id: TankId(20753),
         name: "Mäuschen",
         tier: 9,
         type_: Heavy,
@@ -3550,7 +3550,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20753.webp"),
     },
     20769_u16 => Vehicle {
-        tank_id: 20769,
+        tank_id: TankId(20769),
         name: "T25 Pilot 1",
         tier: 8,
         type_: Medium,
@@ -3558,7 +3558,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20769.webp"),
     },
     20817_u16 => Vehicle {
-        tank_id: 20817,
+        tank_id: TankId(20817),
         name: "Explorer",
         tier: 6,
         type_: Medium,
@@ -3566,7 +3566,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20817.webp"),
     },
     20993_u16 => Vehicle {
-        tank_id: 20993,
+        tank_id: TankId(20993),
         name: "T-2020",
         tier: 8,
         type_: Heavy,
@@ -3574,7 +3574,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/20993.webp"),
     },
     21009_u16 => Vehicle {
-        tank_id: 21009,
+        tank_id: TankId(21009),
         name: "Panzer 58",
         tier: 8,
         type_: Medium,
@@ -3582,7 +3582,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21009.webp"),
     },
     21025_u16 => Vehicle {
-        tank_id: 21025,
+        tank_id: TankId(21025),
         name: "T26E3 Eagle 7",
         tier: 7,
         type_: Medium,
@@ -3590,7 +3590,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21025.webp"),
     },
     21073_u16 => Vehicle {
-        tank_id: 21073,
+        tank_id: TankId(21073),
         name: "Dreadnought",
         tier: 6,
         type_: AntiTank,
@@ -3598,7 +3598,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21073.webp"),
     },
     21249_u16 => Vehicle {
-        tank_id: 21249,
+        tank_id: TankId(21249),
         name: "Thunder",
         tier: 6,
         type_: Heavy,
@@ -3606,7 +3606,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21249.webp"),
     },
     21265_u16 => Vehicle {
-        tank_id: 21265,
+        tank_id: TankId(21265),
         name: "VK 168.01 (P)",
         tier: 8,
         type_: Heavy,
@@ -3614,7 +3614,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21265.webp"),
     },
     21281_u16 => Vehicle {
-        tank_id: 21281,
+        tank_id: TankId(21281),
         name: "Rudolph",
         tier: 6,
         type_: Medium,
@@ -3622,7 +3622,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21281.webp"),
     },
     21329_u16 => Vehicle {
-        tank_id: 21329,
+        tank_id: TankId(21329),
         name: "GSOR 1008",
         tier: 8,
         type_: AntiTank,
@@ -3630,7 +3630,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21329.webp"),
     },
     21505_u16 => Vehicle {
-        tank_id: 21505,
+        tank_id: TankId(21505),
         name: "T-44-85",
         tier: 7,
         type_: Medium,
@@ -3638,7 +3638,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21505.webp"),
     },
     21521_u16 => Vehicle {
-        tank_id: 21521,
+        tank_id: TankId(21521),
         name: "E 75 TS",
         tier: 8,
         type_: Heavy,
@@ -3646,7 +3646,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21521.webp"),
     },
     21537_u16 => Vehicle {
-        tank_id: 21537,
+        tank_id: TankId(21537),
         name: "Sherman Easy 8",
         tier: 6,
         type_: Medium,
@@ -3654,7 +3654,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21537.webp"),
     },
     21585_u16 => Vehicle {
-        tank_id: 21585,
+        tank_id: TankId(21585),
         name: "Blasteroid",
         tier: 6,
         type_: Heavy,
@@ -3662,7 +3662,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21585.webp"),
     },
     21761_u16 => Vehicle {
-        tank_id: 21761,
+        tank_id: TankId(21761),
         name: "STG",
         tier: 8,
         type_: Medium,
@@ -3670,7 +3670,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21761.webp"),
     },
     21777_u16 => Vehicle {
-        tank_id: 21777,
+        tank_id: TankId(21777),
         name: "VK 90.01 (P)",
         tier: 10,
         type_: Heavy,
@@ -3678,7 +3678,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21777.webp"),
     },
     21793_u16 => Vehicle {
-        tank_id: 21793,
+        tank_id: TankId(21793),
         name: "Sheridan Missile",
         tier: 10,
         type_: Light,
@@ -3686,7 +3686,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21793.webp"),
     },
     21841_u16 => Vehicle {
-        tank_id: 21841,
+        tank_id: TankId(21841),
         name: "Caliban",
         tier: 8,
         type_: Heavy,
@@ -3694,7 +3694,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/21841.webp"),
     },
     22017_u16 => Vehicle {
-        tank_id: 22017,
+        tank_id: TankId(22017),
         name: "T-34-85",
         tier: 6,
         type_: Medium,
@@ -3702,7 +3702,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22017.webp"),
     },
     22033_u16 => Vehicle {
-        tank_id: 22033,
+        tank_id: TankId(22033),
         name: "Agent",
         tier: 6,
         type_: Light,
@@ -3710,7 +3710,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22033.webp"),
     },
     22049_u16 => Vehicle {
-        tank_id: 22049,
+        tank_id: TankId(22049),
         name: "Magnus",
         tier: 6,
         type_: Heavy,
@@ -3718,7 +3718,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22049.webp"),
     },
     22097_u16 => Vehicle {
-        tank_id: 22097,
+        tank_id: TankId(22097),
         name: "Churchill VIII",
         tier: 6,
         type_: Heavy,
@@ -3726,7 +3726,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22097.webp"),
     },
     22273_u16 => Vehicle {
-        tank_id: 22273,
+        tank_id: TankId(22273),
         name: "Obj. 260",
         tier: 10,
         type_: Heavy,
@@ -3734,7 +3734,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22273.webp"),
     },
     22289_u16 => Vehicle {
-        tank_id: 22289,
+        tank_id: TankId(22289),
         name: "Tiger I",
         tier: 6,
         type_: Heavy,
@@ -3742,7 +3742,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22289.webp"),
     },
     22305_u16 => Vehicle {
-        tank_id: 22305,
+        tank_id: TankId(22305),
         name: "AE Phase I",
         tier: 9,
         type_: Heavy,
@@ -3750,7 +3750,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22305.webp"),
     },
     22353_u16 => Vehicle {
-        tank_id: 22353,
+        tank_id: TankId(22353),
         name: "Churchill W",
         tier: 6,
         type_: Heavy,
@@ -3758,7 +3758,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22353.webp"),
     },
     22529_u16 => Vehicle {
-        tank_id: 22529,
+        tank_id: TankId(22529),
         name: "LT-432",
         tier: 8,
         type_: Light,
@@ -3766,7 +3766,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22529.webp"),
     },
     22545_u16 => Vehicle {
-        tank_id: 22545,
+        tank_id: TankId(22545),
         name: "Kanonenjagdpanzer",
         tier: 8,
         type_: AntiTank,
@@ -3774,7 +3774,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22545.webp"),
     },
     22561_u16 => Vehicle {
-        tank_id: 22561,
+        tank_id: TankId(22561),
         name: "TS-5",
         tier: 8,
         type_: AntiTank,
@@ -3782,7 +3782,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22561.webp"),
     },
     22609_u16 => Vehicle {
-        tank_id: 22609,
+        tank_id: TankId(22609),
         name: "Caernarvon Defender",
         tier: 8,
         type_: Heavy,
@@ -3790,7 +3790,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22609.webp"),
     },
     22785_u16 => Vehicle {
-        tank_id: 22785,
+        tank_id: TankId(22785),
         name: "Triumphant",
         tier: 6,
         type_: Medium,
@@ -3798,7 +3798,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22785.webp"),
     },
     22801_u16 => Vehicle {
-        tank_id: 22801,
+        tank_id: TankId(22801),
         name: "Icebreaker",
         tier: 6,
         type_: Heavy,
@@ -3806,7 +3806,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22801.webp"),
     },
     22817_u16 => Vehicle {
-        tank_id: 22817,
+        tank_id: TankId(22817),
         name: "M-VI-Yoh",
         tier: 10,
         type_: Heavy,
@@ -3814,7 +3814,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22817.webp"),
     },
     22865_u16 => Vehicle {
-        tank_id: 22865,
+        tank_id: TankId(22865),
         name: "Charlemagne",
         tier: 8,
         type_: Heavy,
@@ -3822,7 +3822,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/22865.webp"),
     },
     23041_u16 => Vehicle {
-        tank_id: 23041,
+        tank_id: TankId(23041),
         name: "T-34 shielded",
         tier: 5,
         type_: Medium,
@@ -3830,7 +3830,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23041.webp"),
     },
     23057_u16 => Vehicle {
-        tank_id: 23057,
+        tank_id: TankId(23057),
         name: "Kunze Panzer",
         tier: 7,
         type_: Light,
@@ -3838,7 +3838,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23057.webp"),
     },
     23073_u16 => Vehicle {
-        tank_id: 23073,
+        tank_id: TankId(23073),
         name: "M-V-Yoh",
         tier: 9,
         type_: Heavy,
@@ -3846,7 +3846,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23073.webp"),
     },
     23121_u16 => Vehicle {
-        tank_id: 23121,
+        tank_id: TankId(23121),
         name: "Cobra",
         tier: 9,
         type_: Medium,
@@ -3854,7 +3854,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23121.webp"),
     },
     23297_u16 => Vehicle {
-        tank_id: 23297,
+        tank_id: TankId(23297),
         name: "Object 244",
         tier: 6,
         type_: Heavy,
@@ -3862,7 +3862,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23297.webp"),
     },
     23313_u16 => Vehicle {
-        tank_id: 23313,
+        tank_id: TankId(23313),
         name: "Kpz 50 t",
         tier: 10,
         type_: Medium,
@@ -3870,7 +3870,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23313.webp"),
     },
     23329_u16 => Vehicle {
-        tank_id: 23329,
+        tank_id: TankId(23329),
         name: "M-III-Yoh",
         tier: 8,
         type_: Heavy,
@@ -3878,7 +3878,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23329.webp"),
     },
     23553_u16 => Vehicle {
-        tank_id: 23553,
+        tank_id: TankId(23553),
         name: "MS-1",
         tier: 2,
         type_: Light,
@@ -3886,7 +3886,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23553.webp"),
     },
     23569_u16 => Vehicle {
-        tank_id: 23569,
+        tank_id: TankId(23569),
         name: "Pz. IV Gargoyle",
         tier: 5,
         type_: Medium,
@@ -3894,7 +3894,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23569.webp"),
     },
     23585_u16 => Vehicle {
-        tank_id: 23585,
+        tank_id: TankId(23585),
         name: "M-VII-Yoh",
         tier: 7,
         type_: Heavy,
@@ -3902,7 +3902,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23585.webp"),
     },
     23809_u16 => Vehicle {
-        tank_id: 23809,
+        tank_id: TankId(23809),
         name: "Object 84",
         tier: 9,
         type_: Light,
@@ -3910,7 +3910,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23809.webp"),
     },
     23825_u16 => Vehicle {
-        tank_id: 23825,
+        tank_id: TankId(23825),
         name: "Steyr WT",
         tier: 7,
         type_: AntiTank,
@@ -3918,7 +3918,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23825.webp"),
     },
     23841_u16 => Vehicle {
-        tank_id: 23841,
+        tank_id: TankId(23841),
         name: "Super Hellcat",
         tier: 7,
         type_: AntiTank,
@@ -3926,7 +3926,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/23841.webp"),
     },
     24065_u16 => Vehicle {
-        tank_id: 24065,
+        tank_id: TankId(24065),
         name: "LTG",
         tier: 7,
         type_: Light,
@@ -3934,7 +3934,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24065.webp"),
     },
     24081_u16 => Vehicle {
-        tank_id: 24081,
+        tank_id: TankId(24081),
         name: "U-Panzer",
         tier: 6,
         type_: Medium,
@@ -3942,7 +3942,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24081.webp"),
     },
     24097_u16 => Vehicle {
-        tank_id: 24097,
+        tank_id: TankId(24097),
         name: "BLTZ9000",
         tier: 6,
         type_: Medium,
@@ -3950,7 +3950,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24097.webp"),
     },
     24321_u16 => Vehicle {
-        tank_id: 24321,
+        tank_id: TankId(24321),
         name: "T-100 LT",
         tier: 10,
         type_: Light,
@@ -3958,7 +3958,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24321.webp"),
     },
     24337_u16 => Vehicle {
-        tank_id: 24337,
+        tank_id: TankId(24337),
         name: "M48A2 Räumpanzer",
         tier: 8,
         type_: Medium,
@@ -3966,7 +3966,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24337.webp"),
     },
     24577_u16 => Vehicle {
-        tank_id: 24577,
+        tank_id: TankId(24577),
         name: "Object 268/4",
         tier: 10,
         type_: AntiTank,
@@ -3974,7 +3974,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24577.webp"),
     },
     24593_u16 => Vehicle {
-        tank_id: 24593,
+        tank_id: TankId(24593),
         name: "Keiler",
         tier: 8,
         type_: Heavy,
@@ -3982,7 +3982,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24593.webp"),
     },
     24609_u16 => Vehicle {
-        tank_id: 24609,
+        tank_id: TankId(24609),
         name: "Concept 1B",
         tier: 10,
         type_: Heavy,
@@ -3990,7 +3990,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24609.webp"),
     },
     24849_u16 => Vehicle {
-        tank_id: 24849,
+        tank_id: TankId(24849),
         name: "Kryos",
         tier: 6,
         type_: AntiTank,
@@ -3998,7 +3998,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24849.webp"),
     },
     24865_u16 => Vehicle {
-        tank_id: 24865,
+        tank_id: TankId(24865),
         name: "Scepter",
         tier: 8,
         type_: Heavy,
@@ -4006,7 +4006,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/24865.webp"),
     },
     25089_u16 => Vehicle {
-        tank_id: 25089,
+        tank_id: TankId(25089),
         name: "Object 752",
         tier: 9,
         type_: Heavy,
@@ -4014,7 +4014,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25089.webp"),
     },
     25105_u16 => Vehicle {
-        tank_id: 25105,
+        tank_id: TankId(25105),
         name: "Barkhan",
         tier: 6,
         type_: Heavy,
@@ -4022,7 +4022,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25105.webp"),
     },
     25345_u16 => Vehicle {
-        tank_id: 25345,
+        tank_id: TankId(25345),
         name: "Object 274a",
         tier: 8,
         type_: Medium,
@@ -4030,7 +4030,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25345.webp"),
     },
     25361_u16 => Vehicle {
-        tank_id: 25361,
+        tank_id: TankId(25361),
         name: "Waffenträger Ritter",
         tier: 9,
         type_: AntiTank,
@@ -4038,7 +4038,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25361.webp"),
     },
     25377_u16 => Vehicle {
-        tank_id: 25377,
+        tank_id: TankId(25377),
         name: "T77",
         tier: 8,
         type_: Heavy,
@@ -4046,7 +4046,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25377.webp"),
     },
     25601_u16 => Vehicle {
-        tank_id: 25601,
+        tank_id: TankId(25601),
         name: "IS-2 shielded",
         tier: 7,
         type_: Heavy,
@@ -4054,7 +4054,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25601.webp"),
     },
     25617_u16 => Vehicle {
-        tank_id: 25617,
+        tank_id: TankId(25617),
         name: "HWK 30",
         tier: 8,
         type_: Light,
@@ -4062,7 +4062,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25617.webp"),
     },
     25633_u16 => Vehicle {
-        tank_id: 25633,
+        tank_id: TankId(25633),
         name: "M-IV-Y",
         tier: 8,
         type_: Heavy,
@@ -4070,7 +4070,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25633.webp"),
     },
     25857_u16 => Vehicle {
-        tank_id: 25857,
+        tank_id: TankId(25857),
         name: "Obj. 777 II",
         tier: 10,
         type_: Heavy,
@@ -4078,7 +4078,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25857.webp"),
     },
     25889_u16 => Vehicle {
-        tank_id: 25889,
+        tank_id: TankId(25889),
         name: "Ranger",
         tier: 6,
         type_: Light,
@@ -4086,7 +4086,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/25889.webp"),
     },
     26113_u16 => Vehicle {
-        tank_id: 26113,
+        tank_id: TankId(26113),
         name: "Object 452K",
         tier: 9,
         type_: Heavy,
@@ -4094,7 +4094,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/26113.webp"),
     },
     26129_u16 => Vehicle {
-        tank_id: 26129,
+        tank_id: TankId(26129),
         name: "Epsilon",
         tier: 6,
         type_: AntiTank,
@@ -4102,7 +4102,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/26129.webp"),
     },
     26145_u16 => Vehicle {
-        tank_id: 26145,
+        tank_id: TankId(26145),
         name: "High Score",
         tier: 5,
         type_: Medium,
@@ -4110,7 +4110,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/26145.webp"),
     },
     26401_u16 => Vehicle {
-        tank_id: 26401,
+        tank_id: TankId(26401),
         name: "Enforcer",
         tier: 6,
         type_: AntiTank,
@@ -4118,7 +4118,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/26401.webp"),
     },
     26657_u16 => Vehicle {
-        tank_id: 26657,
+        tank_id: TankId(26657),
         name: "ASTRON Rex",
         tier: 8,
         type_: Medium,
@@ -4126,7 +4126,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/26657.webp"),
     },
     26913_u16 => Vehicle {
-        tank_id: 26913,
+        tank_id: TankId(26913),
         name: "Frosty",
         tier: 6,
         type_: Light,
@@ -4134,7 +4134,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/26913.webp"),
     },
     27169_u16 => Vehicle {
-        tank_id: 27169,
+        tank_id: TankId(27169),
         name: "Cyborg",
         tier: 6,
         type_: Heavy,
@@ -4142,7 +4142,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/27169.webp"),
     },
     27425_u16 => Vehicle {
-        tank_id: 27425,
+        tank_id: TankId(27425),
         name: "TL-7-120",
         tier: 9,
         type_: Heavy,
@@ -4150,7 +4150,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/27425.webp"),
     },
     27681_u16 => Vehicle {
-        tank_id: 27681,
+        tank_id: TankId(27681),
         name: "Pawlack Tank",
         tier: 6,
         type_: Heavy,
@@ -4158,7 +4158,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/27681.webp"),
     },
     27937_u16 => Vehicle {
-        tank_id: 27937,
+        tank_id: TankId(27937),
         name: "T49 Fearless",
         tier: 8,
         type_: Light,
@@ -4166,7 +4166,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/27937.webp"),
     },
     28193_u16 => Vehicle {
-        tank_id: 28193,
+        tank_id: TankId(28193),
         name: "TS-60",
         tier: 8,
         type_: AntiTank,
@@ -4174,7 +4174,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/28193.webp"),
     },
     28449_u16 => Vehicle {
-        tank_id: 28449,
+        tank_id: TankId(28449),
         name: "T42",
         tier: 7,
         type_: Medium,
@@ -4182,7 +4182,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/28449.webp"),
     },
     51201_u16 => Vehicle {
-        tank_id: 51201,
+        tank_id: TankId(51201),
         name: "KV-220 T",
         tier: 5,
         type_: Heavy,
@@ -4190,7 +4190,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51201.webp"),
     },
     51457_u16 => Vehicle {
-        tank_id: 51457,
+        tank_id: TankId(51457),
         name: "Matilda IV",
         tier: 5,
         type_: Medium,
@@ -4198,7 +4198,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51457.webp"),
     },
     51473_u16 => Vehicle {
-        tank_id: 51473,
+        tank_id: TankId(51473),
         name: "Pz. V/IV",
         tier: 5,
         type_: Medium,
@@ -4206,7 +4206,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51473.webp"),
     },
     51489_u16 => Vehicle {
-        tank_id: 51489,
+        tank_id: TankId(51489),
         name: "T2 Light",
         tier: 2,
         type_: Light,
@@ -4214,7 +4214,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51489.webp"),
     },
     51713_u16 => Vehicle {
-        tank_id: 51713,
+        tank_id: TankId(51713),
         name: "Churchill III",
         tier: 5,
         type_: Heavy,
@@ -4222,7 +4222,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51713.webp"),
     },
     51729_u16 => Vehicle {
-        tank_id: 51729,
+        tank_id: TankId(51729),
         name: "Pz. II J",
         tier: 3,
         type_: Light,
@@ -4230,7 +4230,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51729.webp"),
     },
     51745_u16 => Vehicle {
-        tank_id: 51745,
+        tank_id: TankId(51745),
         name: "Ram II",
         tier: 5,
         type_: Medium,
@@ -4238,7 +4238,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51745.webp"),
     },
     51809_u16 => Vehicle {
-        tank_id: 51809,
+        tank_id: TankId(51809),
         name: "Ke-Ni Otsu",
         tier: 3,
         type_: Light,
@@ -4246,7 +4246,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51809.webp"),
     },
     51985_u16 => Vehicle {
-        tank_id: 51985,
+        tank_id: TankId(51985),
         name: "Pz. S35",
         tier: 3,
         type_: Medium,
@@ -4254,7 +4254,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/51985.webp"),
     },
     52065_u16 => Vehicle {
-        tank_id: 52065,
+        tank_id: TankId(52065),
         name: "Hetzer Kame SP",
         tier: 4,
         type_: AntiTank,
@@ -4262,7 +4262,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52065.webp"),
     },
     52225_u16 => Vehicle {
-        tank_id: 52225,
+        tank_id: TankId(52225),
         name: "BT-SV",
         tier: 3,
         type_: Light,
@@ -4270,7 +4270,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52225.webp"),
     },
     52241_u16 => Vehicle {
-        tank_id: 52241,
+        tank_id: TankId(52241),
         name: "Pz. B2",
         tier: 4,
         type_: Heavy,
@@ -4278,7 +4278,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52241.webp"),
     },
     52257_u16 => Vehicle {
-        tank_id: 52257,
+        tank_id: TankId(52257),
         name: "M4A2E4",
         tier: 5,
         type_: Medium,
@@ -4286,7 +4286,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52257.webp"),
     },
     52481_u16 => Vehicle {
-        tank_id: 52481,
+        tank_id: TankId(52481),
         name: "Valentine II",
         tier: 4,
         type_: Light,
@@ -4294,7 +4294,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52481.webp"),
     },
     52497_u16 => Vehicle {
-        tank_id: 52497,
+        tank_id: TankId(52497),
         name: "Pz. 38H",
         tier: 2,
         type_: Light,
@@ -4302,7 +4302,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52497.webp"),
     },
     52513_u16 => Vehicle {
-        tank_id: 52513,
+        tank_id: TankId(52513),
         name: "M6A2E1",
         tier: 7,
         type_: Heavy,
@@ -4310,7 +4310,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52513.webp"),
     },
     52561_u16 => Vehicle {
-        tank_id: 52561,
+        tank_id: TankId(52561),
         name: "Tortoise",
         tier: 9,
         type_: AntiTank,
@@ -4318,7 +4318,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52561.webp"),
     },
     52737_u16 => Vehicle {
-        tank_id: 52737,
+        tank_id: TankId(52737),
         name: "M3 Light",
         tier: 3,
         type_: Light,
@@ -4326,7 +4326,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52737.webp"),
     },
     52769_u16 => Vehicle {
-        tank_id: 52769,
+        tank_id: TankId(52769),
         name: "Locust",
         tier: 3,
         type_: Light,
@@ -4334,7 +4334,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52769.webp"),
     },
     52993_u16 => Vehicle {
-        tank_id: 52993,
+        tank_id: TankId(52993),
         name: "A-32",
         tier: 4,
         type_: Medium,
@@ -4342,7 +4342,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/52993.webp"),
     },
     53025_u16 => Vehicle {
-        tank_id: 53025,
+        tank_id: TankId(53025),
         name: "M6A2E1 EXP",
         tier: 8,
         type_: Heavy,
@@ -4350,7 +4350,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/53025.webp"),
     },
     53249_u16 => Vehicle {
-        tank_id: 53249,
+        tank_id: TankId(53249),
         name: "KV-5",
         tier: 8,
         type_: Heavy,
@@ -4358,7 +4358,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/53249.webp"),
     },
     53505_u16 => Vehicle {
-        tank_id: 53505,
+        tank_id: TankId(53505),
         name: "T-127",
         tier: 3,
         type_: Light,
@@ -4366,7 +4366,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/53505.webp"),
     },
     53537_u16 => Vehicle {
-        tank_id: 53537,
+        tank_id: TankId(53537),
         name: "T1E6",
         tier: 2,
         type_: Light,
@@ -4374,7 +4374,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/53537.webp"),
     },
     53585_u16 => Vehicle {
-        tank_id: 53585,
+        tank_id: TankId(53585),
         name: "Matilda BP",
         tier: 5,
         type_: Medium,
@@ -4382,7 +4382,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/53585.webp"),
     },
     53761_u16 => Vehicle {
-        tank_id: 53761,
+        tank_id: TankId(53761),
         name: "SU-85I",
         tier: 5,
         type_: AntiTank,
@@ -4390,7 +4390,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/53761.webp"),
     },
     53841_u16 => Vehicle {
-        tank_id: 53841,
+        tank_id: TankId(53841),
         name: "TOG II*",
         tier: 6,
         type_: Heavy,
@@ -4398,7 +4398,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/53841.webp"),
     },
     54097_u16 => Vehicle {
-        tank_id: 54097,
+        tank_id: TankId(54097),
         name: "AT 15A",
         tier: 7,
         type_: AntiTank,
@@ -4406,7 +4406,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54097.webp"),
     },
     54273_u16 => Vehicle {
-        tank_id: 54273,
+        tank_id: TankId(54273),
         name: "SU-76I",
         tier: 3,
         type_: AntiTank,
@@ -4414,7 +4414,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54273.webp"),
     },
     54289_u16 => Vehicle {
-        tank_id: 54289,
+        tank_id: TankId(54289),
         name: "Löwe",
         tier: 8,
         type_: Heavy,
@@ -4422,7 +4422,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54289.webp"),
     },
     54353_u16 => Vehicle {
-        tank_id: 54353,
+        tank_id: TankId(54353),
         name: "Excelsior",
         tier: 5,
         type_: Heavy,
@@ -4430,7 +4430,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54353.webp"),
     },
     54529_u16 => Vehicle {
-        tank_id: 54529,
+        tank_id: TankId(54529),
         name: "Tetrarch",
         tier: 2,
         type_: Light,
@@ -4438,7 +4438,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54529.webp"),
     },
     54545_u16 => Vehicle {
-        tank_id: 54545,
+        tank_id: TankId(54545),
         name: "T-25",
         tier: 5,
         type_: Medium,
@@ -4446,7 +4446,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54545.webp"),
     },
     54785_u16 => Vehicle {
-        tank_id: 54785,
+        tank_id: TankId(54785),
         name: "SU-100Y",
         tier: 6,
         type_: AntiTank,
@@ -4454,7 +4454,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54785.webp"),
     },
     54801_u16 => Vehicle {
-        tank_id: 54801,
+        tank_id: TankId(54801),
         name: "T-15",
         tier: 3,
         type_: Light,
@@ -4462,7 +4462,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54801.webp"),
     },
     54865_u16 => Vehicle {
-        tank_id: 54865,
+        tank_id: TankId(54865),
         name: "Light VIC",
         tier: 2,
         type_: Light,
@@ -4470,7 +4470,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/54865.webp"),
     },
     55057_u16 => Vehicle {
-        tank_id: 55057,
+        tank_id: TankId(55057),
         name: "Pz. IV hydr.",
         tier: 5,
         type_: Medium,
@@ -4478,7 +4478,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/55057.webp"),
     },
     55073_u16 => Vehicle {
-        tank_id: 55073,
+        tank_id: TankId(55073),
         name: "T7 Car",
         tier: 2,
         type_: Light,
@@ -4486,7 +4486,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/55073.webp"),
     },
     55297_u16 => Vehicle {
-        tank_id: 55297,
+        tank_id: TankId(55297),
         name: "SU-122-44",
         tier: 7,
         type_: AntiTank,
@@ -4494,7 +4494,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/55297.webp"),
     },
     55313_u16 => Vehicle {
-        tank_id: 55313,
+        tank_id: TankId(55313),
         name: "JgTig.8,8 cm",
         tier: 8,
         type_: AntiTank,
@@ -4502,7 +4502,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/55313.webp"),
     },
     55889_u16 => Vehicle {
-        tank_id: 55889,
+        tank_id: TankId(55889),
         name: "Cromwell B",
         tier: 6,
         type_: Medium,
@@ -4510,7 +4510,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/55889.webp"),
     },
     56097_u16 => Vehicle {
-        tank_id: 56097,
+        tank_id: TankId(56097),
         name: "Fury",
         tier: 6,
         type_: Medium,
@@ -4518,7 +4518,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/56097.webp"),
     },
     56577_u16 => Vehicle {
-        tank_id: 56577,
+        tank_id: TankId(56577),
         name: "LTP",
         tier: 3,
         type_: Light,
@@ -4526,7 +4526,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/56577.webp"),
     },
     56609_u16 => Vehicle {
-        tank_id: 56609,
+        tank_id: TankId(56609),
         name: "T28 HTC",
         tier: 7,
         type_: AntiTank,
@@ -4534,7 +4534,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/56609.webp"),
     },
     57105_u16 => Vehicle {
-        tank_id: 57105,
+        tank_id: TankId(57105),
         name: "Dicker Max",
         tier: 6,
         type_: AntiTank,
@@ -4542,7 +4542,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/57105.webp"),
     },
     57361_u16 => Vehicle {
-        tank_id: 57361,
+        tank_id: TankId(57361),
         name: "Pz. IV S.",
         tier: 6,
         type_: Medium,
@@ -4550,7 +4550,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/57361.webp"),
     },
     57617_u16 => Vehicle {
-        tank_id: 57617,
+        tank_id: TankId(57617),
         name: "Panther/M10",
         tier: 7,
         type_: Medium,
@@ -4558,7 +4558,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/57617.webp"),
     },
     58641_u16 => Vehicle {
-        tank_id: 58641,
+        tank_id: TankId(58641),
         name: "VK 72.01 K",
         tier: 10,
         type_: Heavy,
@@ -4566,7 +4566,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/58641.webp"),
     },
     58881_u16 => Vehicle {
-        tank_id: 58881,
+        tank_id: TankId(58881),
         name: "IS-5",
         tier: 8,
         type_: Heavy,
@@ -4574,7 +4574,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/58881.webp"),
     },
     59137_u16 => Vehicle {
-        tank_id: 59137,
+        tank_id: TankId(59137),
         name: "IS-2 (1945)",
         tier: 7,
         type_: Heavy,
@@ -4582,7 +4582,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/59137.webp"),
     },
     59649_u16 => Vehicle {
-        tank_id: 59649,
+        tank_id: TankId(59649),
         name: "ISU-122S",
         tier: 7,
         type_: AntiTank,
@@ -4590,7 +4590,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/59649.webp"),
     },
     59665_u16 => Vehicle {
-        tank_id: 59665,
+        tank_id: TankId(59665),
         name: "Großtraktor",
         tier: 3,
         type_: Heavy,
@@ -4598,7 +4598,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/59665.webp"),
     },
     59905_u16 => Vehicle {
-        tank_id: 59905,
+        tank_id: TankId(59905),
         name: "T-54 mod. 1",
         tier: 8,
         type_: Medium,
@@ -4606,7 +4606,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/59905.webp"),
     },
     60161_u16 => Vehicle {
-        tank_id: 60161,
+        tank_id: TankId(60161),
         name: "IS-2Sh",
         tier: 8,
         type_: Heavy,
@@ -4614,7 +4614,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/60161.webp"),
     },
     60177_u16 => Vehicle {
-        tank_id: 60177,
+        tank_id: TankId(60177),
         name: "Panther 8,8",
         tier: 8,
         type_: Medium,
@@ -4622,7 +4622,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/60177.webp"),
     },
     60417_u16 => Vehicle {
-        tank_id: 60417,
+        tank_id: TankId(60417),
         name: "IS-3 Defender",
         tier: 8,
         type_: Heavy,
@@ -4630,7 +4630,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/60417.webp"),
     },
     60929_u16 => Vehicle {
-        tank_id: 60929,
+        tank_id: TankId(60929),
         name: "BT-7 art.",
         tier: 3,
         type_: Light,
@@ -4638,7 +4638,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/60929.webp"),
     },
     62737_u16 => Vehicle {
-        tank_id: 62737,
+        tank_id: TankId(62737),
         name: "leKpz M 41 90 mm",
         tier: 8,
         type_: Light,
@@ -4646,7 +4646,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/62737.webp"),
     },
     62977_u16 => Vehicle {
-        tank_id: 62977,
+        tank_id: TankId(62977),
         name: "T-44-100",
         tier: 8,
         type_: Medium,
@@ -4654,7 +4654,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/62977.webp"),
     },
     62993_u16 => Vehicle {
-        tank_id: 62993,
+        tank_id: TankId(62993),
         name: "VK 45.03",
         tier: 7,
         type_: Heavy,
@@ -4662,7 +4662,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/62993.webp"),
     },
     63553_u16 => Vehicle {
-        tank_id: 63553,
+        tank_id: TankId(63553),
         name: "AMX CDC",
         tier: 8,
         type_: Medium,
@@ -4670,7 +4670,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/63553.webp"),
     },
     63585_u16 => Vehicle {
-        tank_id: 63585,
+        tank_id: TankId(63585),
         name: "Tiger Kuromorimine SP",
         tier: 6,
         type_: Heavy,
@@ -4678,7 +4678,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/63585.webp"),
     },
     63601_u16 => Vehicle {
-        tank_id: 63601,
+        tank_id: TankId(63601),
         name: "Dracula",
         tier: 7,
         type_: Medium,
@@ -4686,7 +4686,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/63601.webp"),
     },
     63841_u16 => Vehicle {
-        tank_id: 63841,
+        tank_id: TankId(63841),
         name: "Pz. IV Ankou SP",
         tier: 5,
         type_: Medium,
@@ -4694,7 +4694,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/63841.webp"),
     },
     64001_u16 => Vehicle {
-        tank_id: 64001,
+        tank_id: TankId(64001),
         name: "T-34-85 Rudy",
         tier: 7,
         type_: Medium,
@@ -4702,7 +4702,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64001.webp"),
     },
     64017_u16 => Vehicle {
-        tank_id: 64017,
+        tank_id: TankId(64017),
         name: "Tankenstein",
         tier: 7,
         type_: Heavy,
@@ -4710,7 +4710,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64017.webp"),
     },
     64065_u16 => Vehicle {
-        tank_id: 64065,
+        tank_id: TankId(64065),
         name: "FCM 50 t",
         tier: 8,
         type_: Medium,
@@ -4718,7 +4718,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64065.webp"),
     },
     64081_u16 => Vehicle {
-        tank_id: 64081,
+        tank_id: TankId(64081),
         name: "Mk I* Heavy Tank",
         tier: 1,
         type_: Heavy,
@@ -4726,7 +4726,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64081.webp"),
     },
     64257_u16 => Vehicle {
-        tank_id: 64257,
+        tank_id: TankId(64257),
         name: "T-34-85 Victory",
         tier: 6,
         type_: Medium,
@@ -4734,7 +4734,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64257.webp"),
     },
     64273_u16 => Vehicle {
-        tank_id: 64273,
+        tank_id: TankId(64273),
         name: "JgTig.8,8 cm (2015)",
         tier: 8,
         type_: AntiTank,
@@ -4742,7 +4742,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64273.webp"),
     },
     64337_u16 => Vehicle {
-        tank_id: 64337,
+        tank_id: TankId(64337),
         name: "AC IV Sentinel",
         tier: 6,
         type_: Medium,
@@ -4750,7 +4750,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64337.webp"),
     },
     64529_u16 => Vehicle {
-        tank_id: 64529,
+        tank_id: TankId(64529),
         name: "E 25",
         tier: 7,
         type_: AntiTank,
@@ -4758,7 +4758,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64529.webp"),
     },
     64561_u16 => Vehicle {
-        tank_id: 64561,
+        tank_id: TankId(64561),
         name: "112 Glacial",
         tier: 8,
         type_: Heavy,
@@ -4766,7 +4766,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64561.webp"),
     },
     64593_u16 => Vehicle {
-        tank_id: 64593,
+        tank_id: TankId(64593),
         name: "Angry Connor",
         tier: 5,
         type_: AntiTank,
@@ -4774,7 +4774,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64593.webp"),
     },
     64769_u16 => Vehicle {
-        tank_id: 64769,
+        tank_id: TankId(64769),
         name: "IS-6 Fearless",
         tier: 8,
         type_: Heavy,
@@ -4782,7 +4782,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64769.webp"),
     },
     64785_u16 => Vehicle {
-        tank_id: 64785,
+        tank_id: TankId(64785),
         name: "Pz. II",
         tier: 1,
         type_: Light,
@@ -4790,7 +4790,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64785.webp"),
     },
     64801_u16 => Vehicle {
-        tank_id: 64801,
+        tank_id: TankId(64801),
         name: "T34 (1776)",
         tier: 8,
         type_: Heavy,
@@ -4798,7 +4798,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64801.webp"),
     },
     64849_u16 => Vehicle {
-        tank_id: 64849,
+        tank_id: TankId(64849),
         name: "AC 1 Sentinel",
         tier: 4,
         type_: Medium,
@@ -4806,7 +4806,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/64849.webp"),
     },
     65025_u16 => Vehicle {
-        tank_id: 65025,
+        tank_id: TankId(65025),
         name: "MS-1 mod. 1",
         tier: 1,
         type_: Light,
@@ -4814,7 +4814,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65025.webp"),
     },
     65041_u16 => Vehicle {
-        tank_id: 65041,
+        tank_id: TankId(65041),
         name: "L.Tr.",
         tier: 1,
         type_: Light,
@@ -4822,7 +4822,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65041.webp"),
     },
     65057_u16 => Vehicle {
-        tank_id: 65057,
+        tank_id: TankId(65057),
         name: "T1",
         tier: 1,
         type_: Light,
@@ -4830,7 +4830,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65057.webp"),
     },
     65105_u16 => Vehicle {
-        tank_id: 65105,
+        tank_id: TankId(65105),
         name: "Medium I",
         tier: 1,
         type_: Medium,
@@ -4838,7 +4838,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65105.webp"),
     },
     65281_u16 => Vehicle {
-        tank_id: 65281,
+        tank_id: TankId(65281),
         name: "MS-1 mod. 1",
         tier: 1,
         type_: Light,
@@ -4846,7 +4846,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65281.webp"),
     },
     65297_u16 => Vehicle {
-        tank_id: 65297,
+        tank_id: TankId(65297),
         name: "L.Tr.",
         tier: 1,
         type_: Light,
@@ -4854,7 +4854,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65297.webp"),
     },
     65313_u16 => Vehicle {
-        tank_id: 65313,
+        tank_id: TankId(65313),
         name: "T1",
         tier: 1,
         type_: Light,
@@ -4862,7 +4862,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65313.webp"),
     },
     65329_u16 => Vehicle {
-        tank_id: 65329,
+        tank_id: TankId(65329),
         name: "Type 62",
         tier: 7,
         type_: Light,
@@ -4870,7 +4870,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65329.webp"),
     },
     65361_u16 => Vehicle {
-        tank_id: 65361,
+        tank_id: TankId(65361),
         name: "Medium I",
         tier: 1,
         type_: Medium,
@@ -4878,7 +4878,7 @@ pub static TANKOPEDIA: Map<u16, Vehicle> = phf_map! {
         image_content: include_bytes!("vendored/65361.webp"),
     },
     65377_u16 => Vehicle {
-        tank_id: 65377,
+        tank_id: TankId(65377),
         name: "Chi-Nu Kai",
         tier: 5,
         type_: Medium,

@@ -10,7 +10,7 @@ use serde::Deserialize;
 use tracing::{info, instrument};
 
 use crate::{
-    models::{AccountId, Anonymous, Rating, User, Vote},
+    models::{AccountId, Anonymous, Rating, TankId, User, Vote},
     prelude::*,
     tankopedia::vendored::TANKOPEDIA,
     web::{
@@ -44,7 +44,7 @@ pub async fn get(
         .get_vehicles_stats(user.account_id)
         .await
         .map_err(WebError::ServiceUnavailable)?;
-    let votes: HashMap<u16, Rating> = state
+    let votes: HashMap<TankId, Rating> = state
         .vote_manager
         .iter_by_account_id(user.account_id)
         .await?
@@ -64,7 +64,7 @@ pub async fn get(
                         @for stats in vehicles_stats.values() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen" {
                                 (
-                                    VehicleCard::new(&TANKOPEDIA[&stats.tank_id])
+                                    VehicleCard::new(&TANKOPEDIA[&stats.tank_id.0])
                                         .last_battle_time(stats.last_battle_time)
                                         .rating(user.account_id, votes.get(&stats.tank_id).copied())
                                 )
@@ -84,7 +84,7 @@ pub async fn get(
 #[derive(Deserialize)]
 pub struct PostParams {
     pub account_id: AccountId,
-    pub tank_id: u16,
+    pub tank_id: TankId,
 }
 
 #[inline]
@@ -114,7 +114,7 @@ pub async fn unrate_vehicle(
     rate_vehicle(state, user, params, None).await
 }
 
-#[instrument(skip_all, fields(account_id = %params.account_id, tank_id = params.tank_id))]
+#[instrument(skip_all, fields(account_id = %params.account_id, tank_id = %params.tank_id))]
 async fn rate_vehicle(
     State(state): State<AppState>,
     user: Either<User, Anonymous>,

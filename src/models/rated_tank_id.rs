@@ -2,6 +2,8 @@ use std::cmp::Ordering;
 
 use serde::{Deserialize, Serialize};
 
+use crate::models::TankId;
+
 /// Pair of tank ID and its rating.
 ///
 /// # Notes
@@ -9,7 +11,7 @@ use serde::{Deserialize, Serialize};
 /// - Natural sorting order is of decreasing rating.
 /// - I also use it for tank ID & similarity pair.
 #[derive(Serialize, Deserialize)]
-pub struct RatedTankId(pub u16, pub f64);
+pub struct RatedTankId(pub TankId, pub f64);
 
 impl Eq for RatedTankId {}
 

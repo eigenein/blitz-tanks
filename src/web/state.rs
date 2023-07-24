@@ -9,7 +9,7 @@ use tokio::task::spawn_blocking;
 
 use crate::{
     db::{sessions::Sessions, votes::Votes, Db},
-    models::{AccountId, RatedTankId},
+    models::{AccountId, RatedTankId, TankId},
     prelude::*,
     tankopedia::vendored::TANKOPEDIA,
     trainer::item_item::Model,
@@ -26,7 +26,7 @@ pub struct AppState {
     pub session_manager: Sessions,
     pub vote_manager: Votes,
 
-    stats_cache: Cache<AccountId, Arc<IndexMap<u16, VehicleStats>>>,
+    stats_cache: Cache<AccountId, Arc<IndexMap<TankId, VehicleStats>>>,
 
     #[allow(clippy::type_complexity)]
     predictions_cache: Cache<AccountId, Arc<Vec<RatedTankId>>>,
@@ -72,7 +72,7 @@ impl AppState {
     pub async fn get_vehicles_stats(
         &self,
         account_id: AccountId,
-    ) -> Result<Arc<IndexMap<u16, VehicleStats>>> {
+    ) -> Result<Arc<IndexMap<TankId, VehicleStats>>> {
         self.stats_cache
             .try_get_with(account_id, async {
                 let map = self
@@ -81,7 +81,7 @@ impl AppState {
                     .await?
                     .into_iter()
                     .filter(VehicleStats::is_played)
-                    .filter(|stats| TANKOPEDIA.contains_key(&stats.tank_id))
+                    .filter(|stats| TANKOPEDIA.contains_key(&u16::from(stats.tank_id)))
                     .sorted_unstable_by(|lhs, rhs| rhs.last_battle_time.cmp(&lhs.last_battle_time))
                     .map(|stats| (stats.tank_id, stats))
                     .collect();
@@ -92,8 +92,8 @@ impl AppState {
             .with_context(|| format!("failed to retrieve account {account_id}'s vehicles stats"))
     }
 
-    #[instrument(skip_all, fields(account_id = %account_id, tank_id = tank_id))]
-    pub async fn owns_vehicle(&self, account_id: AccountId, tank_id: u16) -> Result<bool> {
+    #[instrument(skip_all, fields(account_id = %account_id, tank_id = %tank_id))]
+    pub async fn owns_vehicle(&self, account_id: AccountId, tank_id: TankId) -> Result<bool> {
         Ok(self
             .get_vehicles_stats(account_id)
             .await?
@@ -115,10 +115,11 @@ impl AppState {
                     .map_ok(|vote| (vote.id.tank_id, vote.rating))
                     .try_collect()
                     .await?;
-                let target_ids: Vec<u16> = TANKOPEDIA
+                let target_ids: Vec<TankId> = TANKOPEDIA
                     .keys()
-                    .filter(move |tank_id| !stats.contains_key(*tank_id))
                     .copied()
+                    .map(TankId::from)
+                    .filter(move |tank_id| !stats.contains_key(tank_id))
                     .collect();
                 let predict = move || {
                     ArcSwap::load(&model)

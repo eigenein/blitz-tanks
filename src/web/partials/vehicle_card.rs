@@ -2,7 +2,7 @@ use chrono_humanize::HumanTime;
 use maud::{html, Markup, Render};
 
 use crate::{
-    models::{AccountId, Rating, Vehicle, VehicleAvailability},
+    models::{AccountId, Rating, TankId, Vehicle, VehicleAvailability},
     prelude::*,
 };
 
@@ -48,7 +48,7 @@ impl VehicleCard {
 
     pub fn vehicle_rate_buttons(
         account_id: AccountId,
-        tank_id: u16,
+        tank_id: TankId,
         current_rating: Option<Rating>,
     ) -> Markup {
         let is_liked = current_rating == Some(Rating::Like);

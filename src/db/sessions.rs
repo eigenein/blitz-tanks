@@ -7,10 +7,7 @@ use mongodb::{
 };
 use uuid::Uuid;
 
-use crate::{
-    models::{AccountId, User},
-    prelude::*,
-};
+use crate::{models::User, prelude::*};
 
 /// Wrapper around the tree to manage client-side sessions.
 #[derive(Clone)]
@@ -43,6 +40,8 @@ impl Sessions {
     pub async fn insert_test_session(&self) -> Result<Uuid> {
         use chrono::Duration;
 
+        use crate::models::AccountId;
+
         let session_id = Uuid::new_v4();
         self.insert(&User {
             session_id,
@@ -73,7 +72,7 @@ mod tests {
     use chrono::Duration;
 
     use super::*;
-    use crate::db::Db;
+    use crate::{db::Db, models::AccountId};
 
     #[tokio::test]
     #[ignore]

@@ -7,7 +7,7 @@ use mongodb::{
 };
 
 use crate::{
-    models::{AccountId, Vote, VoteId},
+    models::{AccountId, TankId, Vote, VoteId},
     prelude::*,
     tankopedia::vendored::TANKOPEDIA,
 };
@@ -22,7 +22,7 @@ impl Votes {
         Ok(Self(collection))
     }
 
-    #[instrument(skip_all, fields(account_id = %vote.id.account_id, tank_id = vote.id.tank_id))]
+    #[instrument(skip_all, fields(account_id = %vote.id.account_id, tank_id = %vote.id.tank_id))]
     pub async fn insert(&self, vote: &Vote) -> Result {
         let options = UpdateOptions::builder().upsert(true).build();
         self.0
@@ -38,8 +38,8 @@ impl Votes {
         Ok(())
     }
 
-    #[instrument(skip_all, fields(account_id = %account_id, tank_id = tank_id))]
-    pub async fn delete(&self, account_id: AccountId, tank_id: u16) -> Result {
+    #[instrument(skip_all, fields(account_id = %account_id, tank_id = %tank_id))]
+    pub async fn delete(&self, account_id: AccountId, tank_id: TankId) -> Result {
         let vote_id = VoteId { account_id, tank_id };
         self.0
             .delete_one(doc! { "_id": to_document(&vote_id)? }, None)
@@ -81,7 +81,7 @@ mod tests {
     #[ignore]
     async fn get_all_by_account_id_ok() -> Result {
         let manager = Db::open_unittests().await?.votes().await?;
-        let mut vote = Vote::new(1, 42, Rating::Like);
+        let mut vote = Vote::new(1, TankId(42), Rating::Like);
         vote.timestamp = vote.timestamp.duration_round(Duration::seconds(1))?;
         manager.insert(&vote).await?;
 
@@ -117,9 +117,9 @@ mod tests {
     #[ignore]
     async fn delete_vote_ok() -> Result {
         let manager = Db::open_unittests().await?.votes().await?;
-        let vote = Vote::new(1, 42, Rating::Like);
+        let vote = Vote::new(1, TankId(42), Rating::Like);
         manager.insert(&vote).await?;
-        manager.delete(vote.id.account_id, 42).await?;
+        manager.delete(vote.id.account_id, vote.id.tank_id).await?;
         assert!(
             manager
                 .iter_by_account_id(vote.id.account_id)

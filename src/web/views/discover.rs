@@ -17,7 +17,7 @@ pub async fn get(
 ) -> WebResult<impl IntoResponse> {
     // TODO: anonymous account should see the «most liked» section and a banner.
     let Either::Left(user) = user else {
-        return Err(WebError::Unauthorized)
+        return Err(WebError::Unauthorized);
     };
 
     let biases = &state.model.load().biases;
@@ -36,7 +36,7 @@ pub async fn get(
                         div.columns.is-multiline.is-tablet {
                             @for tank_id in biases.keys().take(6) {
                                 div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen"."is-2-fullhd" {
-                                    (VehicleCard::new(&TANKOPEDIA[tank_id]).title_style("is-6"))
+                                    (VehicleCard::new(&TANKOPEDIA[&u16::from(*tank_id)]).title_style("is-6"))
                                 }
                             }
                         }
@@ -51,7 +51,7 @@ pub async fn get(
                     div.columns.is-multiline.is-tablet {
                         @for RatedTankId(tank_id, rating) in predictions.iter() {
                             div.column."is-6-tablet"."is-4-desktop"."is-3-widescreen"."is-2-fullhd" {
-                                (VehicleCard::new(&TANKOPEDIA[tank_id]).title_style("is-6").predicted_rating(*rating))
+                                (VehicleCard::new(&TANKOPEDIA[&u16::from(*tank_id)]).title_style("is-6").predicted_rating(*rating))
                             }
                         }
                     }
