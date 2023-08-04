@@ -34,8 +34,8 @@ pub struct Vote {
     )]
     pub rating: Rating,
 
-    #[serde(rename = "nb")]
-    pub n_battles: u32,
+    #[serde(rename = "nb", default)]
+    pub n_battles: Option<u32>,
 }
 
 impl Vote {
@@ -50,7 +50,7 @@ impl Vote {
                 account_id: account_id.into(),
                 tank_id,
             },
-            n_battles,
+            n_battles: Some(n_battles),
             rating,
             timestamp: Utc::now(),
         }
