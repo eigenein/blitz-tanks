@@ -8,7 +8,7 @@ authors = ["Pavel Perestoronin <eigenein@gmail.com>"]
 [dependencies]
 anyhow = { version = "1.0.72", features = ["backtrace"] }
 arc-swap = "1.6.0"
-axum = { version = "0.6.19", default-features = false, features = ["tokio", "http1", "http2", "tracing", "headers", "query"] }
+axum = { version = "0.6.20", default-features = false, features = ["tokio", "http1", "http2", "tracing", "headers", "query"] }
 bytes = "1.4.0"
 chrono = { version = "0.4.26", default-features = false, features = ["std", "clock", "serde"] }
 chrono-humanize = "0.2.3"
@@ -23,7 +23,7 @@ futures = { version = "0.3.28", default-features = false, features = ["std"] }
 image = { git = "https://github.com/image-rs/image", rev = "7caf2fa", features = ["png", "webp", "webp-encoder"] }
 img-parts = "0.3.0"
 indexmap = { version = "1.9.3", features = ["rayon"] }
-indicatif = { version = "0.17.5" }
+indicatif = { version = "0.17.6" }
 indoc = "2.0.3"
 itertools = "0.11.0"
 jemalloc-ctl = "0.5.4"
@@ -37,7 +37,7 @@ quick-xml = { version = "0.30.0", features = ["serialize"] }
 rayon = "1.7.0"
 reqwest = { version = "0.11.18", default-features = false, features = ["gzip", "json", "rustls-tls"] }
 sentry = { version = "0.31.5", default-features = false, features = ["anyhow", "backtrace", "contexts", "panic", "tracing", "reqwest", "rustls", "profiling", "tower", "tower-http"] }
-serde = "1.0.177"
+serde = "1.0.181"
 serde_json = "1.0.104"
 serde_with = { version = "3.1.0", features = ["chrono", "indexmap"] }
 serde_yaml = "0.9.25"
