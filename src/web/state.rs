@@ -80,8 +80,7 @@ impl AppState {
                     .get_vehicles_stats(account_id)
                     .await?
                     .into_iter()
-                    .filter(VehicleStats::is_played)
-                    .filter(|stats| is_known_tank_id(stats.tank_id))
+                    .filter(|stats| stats.inner.n_battles != 0 && is_known_tank_id(stats.tank_id))
                     .sorted_unstable_by(|lhs, rhs| rhs.last_battle_time.cmp(&lhs.last_battle_time))
                     .map(|stats| (stats.tank_id, stats))
                     .collect();
@@ -93,12 +92,12 @@ impl AppState {
     }
 
     #[instrument(skip_all, fields(account_id = %account_id, tank_id = %tank_id))]
-    pub async fn owns_vehicle(&self, account_id: AccountId, tank_id: TankId) -> Result<bool> {
+    pub async fn get_battle_count(&self, account_id: AccountId, tank_id: TankId) -> Result<u32> {
         Ok(self
             .get_vehicles_stats(account_id)
             .await?
             .get(&tank_id)
-            .is_some_and(VehicleStats::is_played))
+            .map_or(0, |stats| stats.inner.n_battles))
     }
 
     #[instrument(skip_all, fields(account_id = %account_id))]

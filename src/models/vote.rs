@@ -33,15 +33,24 @@ pub struct Vote {
         deserialize_with = "Rating::deserialize"
     )]
     pub rating: Rating,
+
+    #[serde(rename = "nb")]
+    pub n_battles: u32,
 }
 
 impl Vote {
-    pub fn new(account_id: impl Into<AccountId>, tank_id: TankId, rating: Rating) -> Self {
+    pub fn new(
+        account_id: impl Into<AccountId>,
+        tank_id: TankId,
+        n_battles: u32,
+        rating: Rating,
+    ) -> Self {
         Self {
             id: VoteId {
                 account_id: account_id.into(),
                 tank_id,
             },
+            n_battles,
             rating,
             timestamp: Utc::now(),
         }

@@ -197,10 +197,6 @@ pub struct VehicleStats {
 }
 
 impl VehicleStats {
-    pub const fn is_played(&self) -> bool {
-        self.inner.n_battles != 0
-    }
-
     /// Deserialize last battle time and take care of missing timestamps in the response.
     #[inline]
     fn deserialize_last_battle_time<'de, D: Deserializer<'de>>(

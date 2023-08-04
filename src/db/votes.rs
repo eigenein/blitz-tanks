@@ -80,7 +80,7 @@ mod tests {
     #[ignore]
     async fn get_all_by_account_id_ok() -> Result {
         let manager = Db::open_unittests().await?.votes().await?;
-        let mut vote = Vote::new(1, TankId(42), Rating::Like);
+        let mut vote = Vote::new(1, TankId(42), 1, Rating::Like);
         vote.timestamp = vote.timestamp.duration_round(Duration::seconds(1))?;
         manager.insert(&vote).await?;
 
@@ -116,7 +116,7 @@ mod tests {
     #[ignore]
     async fn delete_vote_ok() -> Result {
         let manager = Db::open_unittests().await?.votes().await?;
-        let vote = Vote::new(1, TankId(42), Rating::Like);
+        let vote = Vote::new(1, TankId(42), 1, Rating::Like);
         manager.insert(&vote).await?;
         manager.delete(vote.id.account_id, vote.id.tank_id).await?;
         assert!(

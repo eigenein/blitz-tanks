@@ -127,15 +127,16 @@ async fn rate_vehicle(
     if params.account_id != user.account_id {
         return Err(WebError::Forbidden(ForbiddenReason::NonOwner));
     }
-    if !state.owns_vehicle(user.account_id, params.tank_id).await? {
+    if state.get_battle_count(user.account_id, params.tank_id).await? == 0 {
         return Err(WebError::ImATeapot);
     }
 
     info!(?rating);
     if let Some(rating) = rating {
+        let n_battles = state.get_battle_count(user.account_id, params.tank_id).await?;
         state
             .vote_manager
-            .insert(&Vote::new(user.account_id, params.tank_id, rating))
+            .insert(&Vote::new(user.account_id, params.tank_id, n_battles, rating))
             .await?;
     } else {
         state.vote_manager.delete(user.account_id, params.tank_id).await?;
