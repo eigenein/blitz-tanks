@@ -2,7 +2,7 @@
 
 use crate::models::{TankId, Vehicle, VehicleAvailability::*, VehicleType::*};
 
-pub static ALL_TANK_IDS: [TankId; 610] = [
+pub static ALL_TANK_IDS: [TankId; 612] = [
     TankId(1),
     TankId(17),
     TankId(33),
@@ -378,6 +378,7 @@ pub static ALL_TANK_IDS: [TankId; 610] = [
     TankId(16145),
     TankId(16193),
     TankId(16209),
+    TankId(16257),
     TankId(16401),
     TankId(16449),
     TankId(16465),
@@ -517,6 +518,7 @@ pub static ALL_TANK_IDS: [TankId; 610] = [
     TankId(26129),
     TankId(26145),
     TankId(26401),
+    TankId(26641),
     TankId(26657),
     TankId(26913),
     TankId(27169),
@@ -993,6 +995,7 @@ pub const fn is_known_tank_id(tank_id: TankId) -> bool {
             | TankId(16145)
             | TankId(16193)
             | TankId(16209)
+            | TankId(16257)
             | TankId(16401)
             | TankId(16449)
             | TankId(16465)
@@ -1132,6 +1135,7 @@ pub const fn is_known_tank_id(tank_id: TankId) -> bool {
             | TankId(26129)
             | TankId(26145)
             | TankId(26401)
+            | TankId(26641)
             | TankId(26657)
             | TankId(26913)
             | TankId(27169)
@@ -4126,7 +4130,7 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             name: "CS-63",
             tier: 10,
             type_: Medium,
-            availability: Researchable,
+            availability: Collectible,
             image_content: include_bytes!("vendored/14977.webp"),
         }),
         TankId(15137) => Some(Vehicle {
@@ -4232,6 +4236,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: Light,
             availability: Researchable,
             image_content: include_bytes!("vendored/16209.webp"),
+        }),
+        TankId(16257) => Some(Vehicle {
+            tank_id: TankId(16257),
+            name: "Outcast",
+            tier: 6,
+            type_: Heavy,
+            availability: Collectible,
+            image_content: include_bytes!("vendored/16257.webp"),
         }),
         TankId(16401) => Some(Vehicle {
             tank_id: TankId(16401),
@@ -5344,6 +5356,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: AntiTank,
             availability: Collectible,
             image_content: include_bytes!("vendored/26401.webp"),
+        }),
+        TankId(26641) => Some(Vehicle {
+            tank_id: TankId(26641),
+            name: "Kpz 07 RH",
+            tier: 8,
+            type_: Medium,
+            availability: Premium,
+            image_content: include_bytes!("vendored/26641.webp"),
         }),
         TankId(26657) => Some(Vehicle {
             tank_id: TankId(26657),
