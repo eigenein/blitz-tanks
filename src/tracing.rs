@@ -15,8 +15,6 @@ pub fn init(sentry_dsn: Option<String>, traces_sample_rate: f32) -> Result<Clien
     let sentry_options = ClientOptions {
         release: Some(Cow::Borrowed(crate_version!())),
         traces_sample_rate,
-        enable_profiling: false, // FIXME: causes the bug in `tracing`.
-        profiles_sample_rate: traces_sample_rate,
         attach_stacktrace: true,
         send_default_pii: true,
         in_app_include: vec!["blitz_tanks"],
