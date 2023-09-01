@@ -12,7 +12,7 @@ env:
 
 jobs:
   check:
-    name: ❓ Check
+    name: ❓ Unused dependencies
     runs-on: ubuntu-latest
 
     steps:
