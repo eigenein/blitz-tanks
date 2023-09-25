@@ -10,35 +10,35 @@ anyhow = { version = "1.0.75", features = ["backtrace"] }
 arc-swap = "1.6.0"
 axum = { version = "0.6.20", default-features = false, features = ["tokio", "http1", "http2", "tracing", "headers", "query"] }
 bytes = "1.5.0"
-chrono = { version = "0.4.30", default-features = false, features = ["std", "clock", "serde"] }
+chrono = { version = "0.4.31", default-features = false, features = ["std", "clock", "serde"] }
 chrono-humanize = "0.2.3"
-clap = { version = "4.4.2", features = ["derive", "env", "cargo"] }
+clap = { version = "4.4.5", features = ["derive", "env", "cargo"] }
 cookie = "0.17.0"
 crc32fast = "1.3.2"
 derive_more = { version = "0.99.17", default-features = false, features = ["from"] }
 dotenvy = "0.15.7"
 either = "1.9.0"
-fastrand = "2.0.0"
+fastrand = "2.0.1"
 futures = { version = "0.3.28", default-features = false, features = ["std"] }
 image = { git = "https://github.com/image-rs/image", rev = "7caf2fa", features = ["png", "webp", "webp-encoder"] }
 img-parts = "0.3.0"
 indexmap = { version = "1.9.3", features = ["rayon"] }
-indicatif = { version = "0.17.6" }
-indoc = "2.0.3"
+indicatif = { version = "0.17.7" }
+indoc = "2.0.4"
 itertools = "0.11.0"
 jemalloc-ctl = "0.5.4"
 jemallocator = "0.5.4"
 lz4_flex = { version = "0.11.1", default-features = false, features = ["std", "safe-decode"] }
 maud = { version = "0.25.0", features = ["axum"] }
-moka = { version = "0.11.3", default-features = false, features = ["future", "atomic64"] }
+moka = { version = "0.12.0", default-features = false, features = ["future", "atomic64"] }
 mongodb = { version = "2.6.1", features = ["tracing", "bson-uuid-1", "bson-chrono-0_4"] }
 monostate = "0.1.9"
 quick-xml = { version = "0.30.0", features = ["serialize"] }
-rayon = "1.7.0"
+rayon = "1.8.0"
 reqwest = { version = "0.11.20", default-features = false, features = ["gzip", "json", "rustls-tls"] }
-sentry = { version = "0.31.6", default-features = false, features = ["anyhow", "backtrace", "contexts", "panic", "tracing", "reqwest", "rustls", "tower", "tower-http"] }
+sentry = { version = "0.31.7", default-features = false, features = ["anyhow", "backtrace", "contexts", "panic", "tracing", "reqwest", "rustls", "tower", "tower-http"] }
 serde = "1.0.188"
-serde_json = "1.0.105"
+serde_json = "1.0.107"
 serde_with = { version = "3.3.0", features = ["chrono", "indexmap"] }
 serde_yaml = "0.9.25"
 thiserror = "1.0.48"
