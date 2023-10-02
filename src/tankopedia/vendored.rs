@@ -2,7 +2,7 @@
 
 use crate::models::{TankId, Vehicle, VehicleAvailability::*, VehicleType::*};
 
-pub static ALL_TANK_IDS: [TankId; 612] = [
+pub static ALL_TANK_IDS: [TankId; 625] = [
     TankId(1),
     TankId(17),
     TankId(33),
@@ -320,20 +320,24 @@ pub static ALL_TANK_IDS: [TankId; 612] = [
     TankId(11265),
     TankId(11281),
     TankId(11297),
+    TankId(11377),
     TankId(11393),
     TankId(11521),
     TankId(11537),
     TankId(11553),
     TankId(11585),
+    TankId(11633),
     TankId(11649),
     TankId(11777),
     TankId(11793),
     TankId(11809),
+    TankId(11889),
     TankId(11905),
     TankId(12033),
     TankId(12049),
     TankId(12065),
     TankId(12097),
+    TankId(12145),
     TankId(12161),
     TankId(12305),
     TankId(12321),
@@ -359,6 +363,7 @@ pub static ALL_TANK_IDS: [TankId; 612] = [
     TankId(14145),
     TankId(14209),
     TankId(14337),
+    TankId(14465),
     TankId(14609),
     TankId(14625),
     TankId(14721),
@@ -366,15 +371,19 @@ pub static ALL_TANK_IDS: [TankId; 612] = [
     TankId(14881),
     TankId(14977),
     TankId(15137),
+    TankId(15233),
     TankId(15393),
     TankId(15441),
+    TankId(15489),
     TankId(15617),
     TankId(15649),
     TankId(15697),
+    TankId(15745),
     TankId(15889),
     TankId(15905),
     TankId(15937),
     TankId(15953),
+    TankId(16001),
     TankId(16145),
     TankId(16193),
     TankId(16209),
@@ -488,6 +497,7 @@ pub static ALL_TANK_IDS: [TankId; 612] = [
     TankId(23297),
     TankId(23313),
     TankId(23329),
+    TankId(23377),
     TankId(23553),
     TankId(23569),
     TankId(23585),
@@ -517,9 +527,11 @@ pub static ALL_TANK_IDS: [TankId; 612] = [
     TankId(26113),
     TankId(26129),
     TankId(26145),
+    TankId(26369),
     TankId(26401),
     TankId(26641),
     TankId(26657),
+    TankId(26897),
     TankId(26913),
     TankId(27169),
     TankId(27425),
@@ -527,6 +539,7 @@ pub static ALL_TANK_IDS: [TankId; 612] = [
     TankId(27937),
     TankId(28193),
     TankId(28449),
+    TankId(28705),
     TankId(51201),
     TankId(51457),
     TankId(51473),
@@ -937,20 +950,24 @@ pub const fn is_known_tank_id(tank_id: TankId) -> bool {
             | TankId(11265)
             | TankId(11281)
             | TankId(11297)
+            | TankId(11377)
             | TankId(11393)
             | TankId(11521)
             | TankId(11537)
             | TankId(11553)
             | TankId(11585)
+            | TankId(11633)
             | TankId(11649)
             | TankId(11777)
             | TankId(11793)
             | TankId(11809)
+            | TankId(11889)
             | TankId(11905)
             | TankId(12033)
             | TankId(12049)
             | TankId(12065)
             | TankId(12097)
+            | TankId(12145)
             | TankId(12161)
             | TankId(12305)
             | TankId(12321)
@@ -976,6 +993,7 @@ pub const fn is_known_tank_id(tank_id: TankId) -> bool {
             | TankId(14145)
             | TankId(14209)
             | TankId(14337)
+            | TankId(14465)
             | TankId(14609)
             | TankId(14625)
             | TankId(14721)
@@ -983,15 +1001,19 @@ pub const fn is_known_tank_id(tank_id: TankId) -> bool {
             | TankId(14881)
             | TankId(14977)
             | TankId(15137)
+            | TankId(15233)
             | TankId(15393)
             | TankId(15441)
+            | TankId(15489)
             | TankId(15617)
             | TankId(15649)
             | TankId(15697)
+            | TankId(15745)
             | TankId(15889)
             | TankId(15905)
             | TankId(15937)
             | TankId(15953)
+            | TankId(16001)
             | TankId(16145)
             | TankId(16193)
             | TankId(16209)
@@ -1105,6 +1127,7 @@ pub const fn is_known_tank_id(tank_id: TankId) -> bool {
             | TankId(23297)
             | TankId(23313)
             | TankId(23329)
+            | TankId(23377)
             | TankId(23553)
             | TankId(23569)
             | TankId(23585)
@@ -1134,9 +1157,11 @@ pub const fn is_known_tank_id(tank_id: TankId) -> bool {
             | TankId(26113)
             | TankId(26129)
             | TankId(26145)
+            | TankId(26369)
             | TankId(26401)
             | TankId(26641)
             | TankId(26657)
+            | TankId(26897)
             | TankId(26913)
             | TankId(27169)
             | TankId(27425)
@@ -1144,6 +1169,7 @@ pub const fn is_known_tank_id(tank_id: TankId) -> bool {
             | TankId(27937)
             | TankId(28193)
             | TankId(28449)
+            | TankId(28705)
             | TankId(51201)
             | TankId(51457)
             | TankId(51473)
@@ -3773,6 +3799,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             availability: Researchable,
             image_content: include_bytes!("vendored/11297.webp"),
         }),
+        TankId(11377) => Some(Vehicle {
+            tank_id: TankId(11377),
+            name: "Basilisk",
+            tier: 7,
+            type_: Medium,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/11377.webp"),
+        }),
         TankId(11393) => Some(Vehicle {
             tank_id: TankId(11393),
             name: "Bassotto",
@@ -3813,6 +3847,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             availability: Researchable,
             image_content: include_bytes!("vendored/11585.webp"),
         }),
+        TankId(11633) => Some(Vehicle {
+            tank_id: TankId(11633),
+            name: "Forest Witch",
+            tier: 7,
+            type_: Heavy,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/11633.webp"),
+        }),
         TankId(11649) => Some(Vehicle {
             tank_id: TankId(11649),
             name: "Semovente M41",
@@ -3844,6 +3886,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: Medium,
             availability: Premium,
             image_content: include_bytes!("vendored/11809.webp"),
+        }),
+        TankId(11889) => Some(Vehicle {
+            tank_id: TankId(11889),
+            name: "Nebulon",
+            tier: 8,
+            type_: Medium,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/11889.webp"),
         }),
         TankId(11905) => Some(Vehicle {
             tank_id: TankId(11905),
@@ -3884,6 +3934,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: AntiTank,
             availability: Researchable,
             image_content: include_bytes!("vendored/12097.webp"),
+        }),
+        TankId(12145) => Some(Vehicle {
+            tank_id: TankId(12145),
+            name: "Glacier",
+            tier: 9,
+            type_: Medium,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/12145.webp"),
         }),
         TankId(12161) => Some(Vehicle {
             tank_id: TankId(12161),
@@ -4085,6 +4143,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             availability: Researchable,
             image_content: include_bytes!("vendored/14337.webp"),
         }),
+        TankId(14465) => Some(Vehicle {
+            tank_id: TankId(14465),
+            name: "DS PZInż",
+            tier: 5,
+            type_: Medium,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/14465.webp"),
+        }),
         TankId(14609) => Some(Vehicle {
             tank_id: TankId(14609),
             name: "Leopard 1",
@@ -4141,6 +4207,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             availability: Collectible,
             image_content: include_bytes!("vendored/15137.webp"),
         }),
+        TankId(15233) => Some(Vehicle {
+            tank_id: TankId(15233),
+            name: "CS-59",
+            tier: 9,
+            type_: Medium,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/15233.webp"),
+        }),
         TankId(15393) => Some(Vehicle {
             tank_id: TankId(15393),
             name: "T54E1",
@@ -4156,6 +4230,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: Heavy,
             availability: Premium,
             image_content: include_bytes!("vendored/15441.webp"),
+        }),
+        TankId(15489) => Some(Vehicle {
+            tank_id: TankId(15489),
+            name: "CS-53",
+            tier: 8,
+            type_: Medium,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/15489.webp"),
         }),
         TankId(15617) => Some(Vehicle {
             tank_id: TankId(15617),
@@ -4180,6 +4262,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: Heavy,
             availability: Premium,
             image_content: include_bytes!("vendored/15697.webp"),
+        }),
+        TankId(15745) => Some(Vehicle {
+            tank_id: TankId(15745),
+            name: "CS-44",
+            tier: 7,
+            type_: Medium,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/15745.webp"),
         }),
         TankId(15889) => Some(Vehicle {
             tank_id: TankId(15889),
@@ -4212,6 +4302,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: Heavy,
             availability: Premium,
             image_content: include_bytes!("vendored/15953.webp"),
+        }),
+        TankId(16001) => Some(Vehicle {
+            tank_id: TankId(16001),
+            name: "B.U.G.I.",
+            tier: 6,
+            type_: Medium,
+            availability: Researchable,
+            image_content: include_bytes!("vendored/16001.webp"),
         }),
         TankId(16145) => Some(Vehicle {
             tank_id: TankId(16145),
@@ -5117,6 +5215,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             availability: Researchable,
             image_content: include_bytes!("vendored/23329.webp"),
         }),
+        TankId(23377) => Some(Vehicle {
+            tank_id: TankId(23377),
+            name: "FV1066 Senlac",
+            tier: 8,
+            type_: Light,
+            availability: Premium,
+            image_content: include_bytes!("vendored/23377.webp"),
+        }),
         TankId(23553) => Some(Vehicle {
             tank_id: TankId(23553),
             name: "MS-1",
@@ -5349,6 +5455,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             availability: Collectible,
             image_content: include_bytes!("vendored/26145.webp"),
         }),
+        TankId(26369) => Some(Vehicle {
+            tank_id: TankId(26369),
+            name: "ST-62 Ver. 2",
+            tier: 8,
+            type_: Medium,
+            availability: Premium,
+            image_content: include_bytes!("vendored/26369.webp"),
+        }),
         TankId(26401) => Some(Vehicle {
             tank_id: TankId(26401),
             name: "Enforcer",
@@ -5372,6 +5486,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: Medium,
             availability: Premium,
             image_content: include_bytes!("vendored/26657.webp"),
+        }),
+        TankId(26897) => Some(Vehicle {
+            tank_id: TankId(26897),
+            name: "Kpz. Pr.68 (P)",
+            tier: 8,
+            type_: Medium,
+            availability: Premium,
+            image_content: include_bytes!("vendored/26897.webp"),
         }),
         TankId(26913) => Some(Vehicle {
             tank_id: TankId(26913),
@@ -5428,6 +5550,14 @@ pub const fn get_vehicle(tank_id: TankId) -> Option<Vehicle> {
             type_: Medium,
             availability: Premium,
             image_content: include_bytes!("vendored/28449.webp"),
+        }),
+        TankId(28705) => Some(Vehicle {
+            tank_id: TankId(28705),
+            name: "XM66F",
+            tier: 10,
+            type_: AntiTank,
+            availability: Collectible,
+            image_content: include_bytes!("vendored/28705.webp"),
         }),
         TankId(51201) => Some(Vehicle {
             tank_id: TankId(51201),
