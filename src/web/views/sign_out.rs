@@ -31,10 +31,10 @@ pub async fn get(
         }
     }
 
-    let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, "")
+    let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME)
         .http_only(true)
         .max_age(Duration::new(0, 0))
-        .finish();
+        .build();
 
     Ok(([(SET_COOKIE, cookie.to_string())], Redirect::temporary("/")))
 }

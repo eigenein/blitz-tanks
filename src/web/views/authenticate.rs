@@ -94,12 +94,12 @@ pub async fn get(
 
     info!(user.nickname, %user.session_id, "👋 Welcome");
     state.session_manager.insert(&user).await?;
-    let cookie = cookie::Cookie::build(User::SESSION_COOKIE_NAME, user.session_id.to_string())
+    let cookie = cookie::Cookie::build((User::SESSION_COOKIE_NAME, user.session_id.to_string()))
         .http_only(true)
         .expires(user.expires_at()?)
         .same_site(SameSite::Strict)
         .secure(true)
-        .finish();
+        .build();
 
     // Workaround for Chrome & Firefox not sending the cookie after the redirect.
     let markup = html! {
