@@ -233,9 +233,11 @@ impl BundleTankopedia {
         parameters_path: PathBuf,
         vehicle_tag: String,
     ) -> Result<Option<(VehicleJsonDetails, DynamicImage)>> {
-        info!("📤 Retrieving details…");
+        let details_url =
+            format!("https://eu.wotblitz.com/en/api/tankopedia/vehicle/{vehicle_tag}/");
+        info!(details_url, "📤 Retrieving details…");
         let response = client
-            .get(format!("https://eu.wotblitz.com/en/api/tankopedia/vehicle/{vehicle_tag}/"))
+            .get(&details_url)
             .send()
             .await
             .with_context(|| format!("failed to request vehicle `{vehicle_tag}`"))?;
@@ -253,7 +255,7 @@ impl BundleTankopedia {
             if let Ok(image) = Self::fetch_image(client, &details.image_url).await {
                 Some(image)
             } else if let Ok(image) = {
-                // Yeah, sometimes they return non-existing URLs. Crazy, huh? Try some guess-work.
+                // Yeah, sometimes they return non-existing URLs, because… Wargaming, you know. Try some guess-work.
                 let guessed_url = format!(
                     "https://glossary-eu-static.gcdn.co/icons/wotb/latest/uploaded/vehicles/hd/{vehicle_tag}.png"
                 );
@@ -272,7 +274,7 @@ impl BundleTankopedia {
             }
         };
         let Some(image) = image else {
-            // This SHOULD never happen. But if it happens, it would need additional investigation.
+            // This SHOULD NEVER happen. But this is Wargaming, so what would you expect?
             bail!("image is not found for `{vehicle_tag}`");
         };
         Ok(Some((details, image)))

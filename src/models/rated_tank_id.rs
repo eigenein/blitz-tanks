@@ -25,7 +25,7 @@ impl PartialEq<Self> for RatedTankId {
 impl PartialOrd<Self> for RatedTankId {
     #[inline]
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        other.1.partial_cmp(&self.1)
+        Some(self.cmp(other))
     }
 }
 
