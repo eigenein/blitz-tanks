@@ -22,7 +22,7 @@ fastrand = "2.0.1"
 futures = { version = "0.3.29", default-features = false, features = ["std"] }
 image = { version = "0.24.7", features = ["png", "webp", "webp-encoder"] }
 img-parts = "0.3.0"
-indexmap = { version = "1.9.3", features = ["rayon"] }
+indexmap = { version = "2.1.0", features = ["rayon"] }
 indicatif = { version = "0.17.7" }
 indoc = "2.0.4"
 itertools = "0.11.0"
